@@ -1,4 +1,5 @@
 import 'package:common/response/api_response.dart';
+import 'package:common/routes/routes.dart';
 import 'package:dependencies/get.dart';
 import 'package:fitur_lihat_stock_barang/domain/repository/i_stock_barang_repository.dart';
 
@@ -12,5 +13,9 @@ class LihatStockBarangController extends GetxController {
   void refreshStockBarang(){
     stockBarangApiResponse = _repository.getAllStockBarang();
     update();
+  }
+
+  Future<dynamic>? onTapFloatingActionButton(){
+    return Get.toNamed(Routes.fiturInputDataBarangRoute);
   }
 }

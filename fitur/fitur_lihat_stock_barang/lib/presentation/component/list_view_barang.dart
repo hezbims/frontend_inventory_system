@@ -12,12 +12,12 @@ class ListViewBarang extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-      padding: EdgeInsets.symmetric(horizontal: 24 , vertical: 36),
+      padding: const EdgeInsets.symmetric(horizontal: 24 , vertical: 36),
       itemBuilder: (context , index){
         return BarangCard(barang: listBarang[index]);
       },
       separatorBuilder: (context , index){
-        return SizedBox(height: 24,);
+        return const SizedBox(height: 24,);
       },
       itemCount: listBarang.length,
     );

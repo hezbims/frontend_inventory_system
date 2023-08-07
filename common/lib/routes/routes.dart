@@ -1,3 +1,4 @@
 abstract class Routes {
-  static const lihatStockBarangRoute = "/lihatStockBarangRoute";
+  static const fiturLihatStockBarangRoute = "/stock-barang";
+  static const fiturInputDataBarangRoute = "/stock-barang/input";
 }

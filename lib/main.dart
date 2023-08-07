@@ -1,7 +1,9 @@
 import 'package:common/routes/routes.dart';
 import 'package:common/themes/theme.dart';
 import 'package:dependencies/get.dart';
-import 'package:fitur_lihat_stock_barang/di/lihat_stock_barang_binding.dart';
+import 'package:fitur_input_data_barang/binding/fitur_input_data_barang_binding.dart';
+import 'package:fitur_input_data_barang/presentation/page/input_data_barang_page.dart';
+import 'package:fitur_lihat_stock_barang/binding/fitur_lihat_stock_barang_binding.dart';
 import 'package:fitur_lihat_stock_barang/presentation/page/lihat_stock_barang_page.dart';
 import 'package:flutter/material.dart';
 import 'package:stock_bu_fan/binding/initial_binding.dart';
@@ -23,18 +25,40 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.deepPurple
         ),
-        floatingActionButtonTheme: FloatingActionButtonThemeData(
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
           backgroundColor: Colors.grey
+        ),
+        filledButtonTheme: FilledButtonThemeData(
+          style: ButtonStyle(
+            backgroundColor: const MaterialStatePropertyAll(primaryColor),
+            foregroundColor: const MaterialStatePropertyAll(Colors.white),
+            padding: const MaterialStatePropertyAll(
+                EdgeInsets.symmetric(
+                  vertical: 24,
+                  horizontal: 24,
+                )
+            ),
+            shape: MaterialStatePropertyAll(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12)
+              )
+            ),
+          )
         ),
         useMaterial3: true,
       ),
-      initialRoute: Routes.lihatStockBarangRoute,
+      initialRoute: Routes.fiturLihatStockBarangRoute,
       initialBinding: InitialBinding(),
       getPages: [
         GetPage(
-          name: Routes.lihatStockBarangRoute,
-          page: () => const LihatStockBarang(),
-          binding: LihatStockBarangBinding(),
+          name: Routes.fiturLihatStockBarangRoute,
+          page: () => const LihatStockBarangPage(),
+          binding: FiturLihatStockBarangBinding(),
+        ),
+        GetPage(
+          name: Routes.fiturInputDataBarangRoute,
+          page: () => const InputDataBarangPage(),
+          binding: FiturInputDataBarangBinding(),
         )
       ],
     );
