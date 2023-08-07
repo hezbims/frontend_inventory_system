@@ -1,5 +1,5 @@
-import 'package:dependencies/get.dart';
+import 'package:flutter/material.dart';
 
-class StockBottomNavBarController extends GetxController {
+class StockBottomNavBarProvider extends ChangeNotifier {
 
 }

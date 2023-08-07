@@ -1,21 +1,16 @@
 import 'package:common/response/api_response.dart';
-import 'package:common/routes/routes.dart';
-import 'package:dependencies/get.dart';
 import 'package:fitur_lihat_stock_barang/domain/repository/i_stock_barang_repository.dart';
+import 'package:flutter/material.dart';
 
-class LihatStockBarangController extends GetxController {
+class LihatStockBarangProvider extends ChangeNotifier {
   final IStockBarangRepository _repository;
-  LihatStockBarangController({
+  LihatStockBarangProvider({
     required IStockBarangRepository repository,
   }) : _repository = repository , stockBarangApiResponse = repository.getAllStockBarang();
 
   Future<ApiResponse> stockBarangApiResponse;
   void refreshStockBarang(){
     stockBarangApiResponse = _repository.getAllStockBarang();
-    update();
-  }
-
-  Future<dynamic>? onTapFloatingActionButton(){
-    return Get.toNamed(Routes.fiturInputDataBarangRoute);
+    notifyListeners();
   }
 }

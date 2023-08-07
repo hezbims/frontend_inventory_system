@@ -1,7 +1,6 @@
-import 'package:dependencies/get.dart';
 import 'package:flutter/cupertino.dart';
 
-class InputDataBarangController extends GetxController {
+class InputDataBarangProvider extends ChangeNotifier {
   final namaController = TextEditingController();
   final categoryController = TextEditingController();
   final nomorRakController = TextEditingController();
@@ -22,13 +21,13 @@ class InputDataBarangController extends GetxController {
   }
 
   @override
-  void onClose() {
+  void dispose() {
     namaController.dispose();
     categoryController.dispose();
     nomorRakController.dispose();
     stockSekarangController.dispose();
     lastMonthStockController.dispose();
     unitPriceController.dispose();
-    super.onClose();
+    super.dispose();
   }
 }
