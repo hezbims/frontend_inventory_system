@@ -54,7 +54,7 @@ class InputDataBarangPage extends StatelessWidget {
                   CustomTextfield(
                     controller: provider.namaController,
                     label: "Nama",
-                    errorMessage: provider.namaError,
+                    errorText: provider.namaError,
                   ),
 
                   const VerticalFormSpacing(),
@@ -62,7 +62,7 @@ class InputDataBarangPage extends StatelessWidget {
                   CustomTextfield(
                       controller: provider.categoryController,
                       label: "Kategori",
-                      errorMessage: provider.categoryError
+                      errorText: provider.categoryError
                   ),
 
                   const VerticalFormSpacing(),
@@ -70,7 +70,7 @@ class InputDataBarangPage extends StatelessWidget {
                   CustomTextfield(
                       controller: provider.nomorRakController,
                       label: "Nomor Rak",
-                      errorMessage: provider.nomorRakError
+                      errorText: provider.nomorRakError
                   ),
 
                   const VerticalFormSpacing(),
@@ -78,7 +78,7 @@ class InputDataBarangPage extends StatelessWidget {
                   CustomTextfield(
                     controller: provider.lastMonthStockController,
                     label: "Last Month Stock",
-                    errorMessage: provider.lastMonthStockError,
+                    errorText: provider.lastMonthStockError,
                     inputType: TextInputType.number,
                   ),
 
@@ -87,7 +87,7 @@ class InputDataBarangPage extends StatelessWidget {
                   CustomTextfield(
                     controller: provider.stockSekarangController,
                     label: "Stock Sekarang",
-                    errorMessage: provider.stockSekarangError,
+                    errorText: provider.stockSekarangError,
                     inputType: TextInputType.number,
                     onChanged: provider.updateAmount,
                   ),
@@ -97,7 +97,7 @@ class InputDataBarangPage extends StatelessWidget {
                   CustomTextfield(
                     controller: provider.unitPriceController,
                     label: "Unit Price",
-                    errorMessage: provider.unitPriceError,
+                    errorText: provider.unitPriceError,
                     inputType: TextInputType.number,
                     onChanged: provider.updateAmount,
                   ),

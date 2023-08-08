@@ -6,4 +6,6 @@ abstract class Routes {
 
   static const fiturLihatPengajuanRoute = "/transaksi";
   static const fiturLihatPengajuanIndex = 2;
+
+  static const fiturInputDataPengajuanRoute = "/transaksi/input";
 }

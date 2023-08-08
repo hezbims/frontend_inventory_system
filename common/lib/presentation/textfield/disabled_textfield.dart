@@ -21,7 +21,7 @@ class DisabledTextField extends StatelessWidget {
         Text(label),
         InputDecorator(
           decoration: CustomInputDecoration(
-            errorMessage: errorMessage,
+            errorText: errorMessage,
           ),
           child: Text(value),
         ),

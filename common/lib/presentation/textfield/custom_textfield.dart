@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 class CustomTextfield extends StatelessWidget {
   final TextEditingController controller;
   final String label;
-  final String? errorMessage;
+  final String? errorText;
   final TextInputType inputType;
   final void Function(String)? onChanged;
   const CustomTextfield({
     super.key,
     required this.controller,
     required this.label,
-    required this.errorMessage,
+    required this.errorText,
     this.inputType = TextInputType.text,
     this.onChanged,
   });
@@ -27,7 +27,7 @@ class CustomTextfield extends StatelessWidget {
           controller: controller,
           keyboardType: inputType,
           decoration: CustomInputDecoration(
-            errorMessage: errorMessage,
+            errorText: errorText,
           ),
           onChanged: onChanged,
         )

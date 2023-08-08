@@ -1,4 +1,5 @@
 import 'package:common/domain/model/pengajuan.dart';
+import 'package:common/routes/routes.dart';
 import 'package:flutter/material.dart';
 
 class PengajuanCard extends StatelessWidget {
@@ -42,7 +43,9 @@ class PengajuanCard extends StatelessWidget {
 
                 ElevatedButton(
                   onPressed: (){
-
+                    Navigator.of(context).pushNamed(
+                      Routes.fiturInputDataPengajuanRoute
+                    );
                   },
                   child: const Text("Lihat Detail"),
                 )

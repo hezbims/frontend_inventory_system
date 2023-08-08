@@ -1,6 +1,4 @@
-import 'package:common/presentation/bottom_navbar/stock_bottom_navbar_controller.dart';
 import 'package:common/routes/routes.dart';
-import 'package:dependencies/provider.dart';
 import 'package:flutter/material.dart';
 
 class StockBottomNavBar extends StatelessWidget {
@@ -12,7 +10,6 @@ class StockBottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final StockBottomNavBarProvider provider = Provider.of(context , listen: false);
     return BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (index){

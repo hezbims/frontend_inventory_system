@@ -1,12 +1,11 @@
 import 'package:common/presentation/textfield/style/custom_input_decoration.dart';
-import 'package:common/utils/date_formatter.dart';
 import 'package:flutter/material.dart';
 
-class DateField extends StatelessWidget {
+class ClockField extends StatelessWidget {
   final String? errorMessage;
-  final DateTime value;
-  final void Function(DateTime) onValueChange;
-  const DateField({
+  final TimeOfDay value;
+  final void Function(TimeOfDay) onValueChange;
+  const ClockField({
     super.key,
     required this.errorMessage,
     required this.value,
@@ -19,15 +18,12 @@ class DateField extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text("Tanggal"),
+        const Text("Jam"),
         GestureDetector(
           onTap: () async {
-            final currentDate = DateTime.now();
-            final newValue = await showDatePicker(
+            final newValue = await showTimePicker(
               context: context,
-              initialDate: currentDate,
-              firstDate: currentDate.add(const Duration(days: 365 * -10)),
-              lastDate: currentDate.add(const Duration(days: 365 * 10)),
+              initialTime: TimeOfDay.now()
             );
 
             if (newValue != null){
@@ -37,11 +33,9 @@ class DateField extends StatelessWidget {
           child: InputDecorator(
             decoration: CustomInputDecoration(
               errorText: errorMessage,
-              suffixIcon: const Icon(Icons.date_range),
+              suffixIcon: const Icon(Icons.access_time),
             ),
-            child: Text(
-              IntlFormatter.dateTimeToString(value)
-            ),
+            child: Text(value.format(context)),
           ),
         ),
       ],
