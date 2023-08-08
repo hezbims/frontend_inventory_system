@@ -1,4 +1,5 @@
-import 'package:fitur_lihat_stock_barang/domain/model/barang.dart';
+import 'package:common/domain/model/barang.dart';
+import 'package:common/routes/routes.dart';
 import 'package:flutter/material.dart';
 
 class BarangCard extends StatelessWidget {
@@ -50,7 +51,10 @@ class BarangCard extends StatelessWidget {
                   flex: 2,
                   child: OutlinedButton(
                     onPressed: () {
-
+                      Navigator.of(context).pushNamed(
+                        Routes.fiturInputDataBarangRoute,
+                        arguments: barang,
+                      );
                     },
                     child: const Text("Edit")
                   ),

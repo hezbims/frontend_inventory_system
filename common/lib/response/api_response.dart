@@ -1,9 +1,9 @@
 abstract class ApiResponse {}
 
 class ApiResponseSuccess<T> implements ApiResponse {
-  final T data;
+  final T? data;
   ApiResponseSuccess({
-    required this.data,
+    this.data,
   });
 }
 
@@ -15,4 +15,6 @@ class ApiResponseFailed implements ApiResponse {
     this.statusCode,
   });
 }
+
+class ApiResponseLoading implements ApiResponse {}
 

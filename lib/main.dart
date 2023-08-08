@@ -3,6 +3,7 @@ import 'package:common/routes/routes.dart';
 import 'package:common/themes/theme.dart';
 import 'package:dependencies/provider.dart';
 import 'package:fitur_input_data_barang/presentation/page/input_data_barang_page.dart';
+import 'package:fitur_lihat_pengajuan/presentation/pages/lihat_pengajuan_pages.dart';
 import 'package:fitur_lihat_stock_barang/presentation/page/lihat_stock_barang_page.dart';
 import 'package:flutter/material.dart';
 
@@ -53,6 +54,7 @@ class MyApp extends StatelessWidget {
         routes: {
           Routes.fiturLihatStockBarangRoute : (context) => const LihatStockBarangPage(),
           Routes.fiturInputDataBarangRoute : (context) => const InputDataBarangPage(),
+          Routes.fiturLihatPengajuanRoute : (context) => const LihatPengajuanPages(),
         },
       ),
     );

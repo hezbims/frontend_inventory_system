@@ -1,4 +1,4 @@
-import 'package:fitur_lihat_stock_barang/domain/model/barang.dart';
+import 'package:common/domain/model/barang.dart';
 import 'package:fitur_lihat_stock_barang/presentation/component/barang_card.dart';
 import 'package:flutter/material.dart';
 

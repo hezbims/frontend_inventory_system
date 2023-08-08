@@ -6,12 +6,14 @@ class CustomTextfield extends StatelessWidget {
   final String label;
   final String? errorMessage;
   final TextInputType inputType;
+  final void Function(String)? onChanged;
   const CustomTextfield({
     super.key,
     required this.controller,
     required this.label,
     required this.errorMessage,
     this.inputType = TextInputType.text,
+    this.onChanged,
   });
 
   @override
@@ -27,6 +29,7 @@ class CustomTextfield extends StatelessWidget {
           decoration: CustomInputDecoration(
             errorMessage: errorMessage,
           ),
+          onChanged: onChanged,
         )
       ],
     );

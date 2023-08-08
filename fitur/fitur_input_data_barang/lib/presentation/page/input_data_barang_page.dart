@@ -1,9 +1,11 @@
+import 'package:common/domain/model/barang.dart';
 import 'package:common/presentation/bottom_navbar/submit_card.dart';
 import 'package:common/presentation/textfield/custom_textfield.dart';
 import 'package:common/presentation/textfield/disabled_textfield.dart';
 import 'package:common/presentation/textfield/style/spacing.dart';
+import 'package:common/response/api_response.dart';
 import 'package:dependencies/provider.dart';
-import 'package:fitur_input_data_barang/presentation/controller/input_data_barang_provider.dart';
+import 'package:fitur_input_data_barang/presentation/provider/input_data_barang_provider.dart';
 import 'package:flutter/material.dart';
 
 class InputDataBarangPage extends StatelessWidget {
@@ -13,14 +15,26 @@ class InputDataBarangPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Barang? initialData;
+    try {
+      initialData = ModalRoute.of(context)?.settings.arguments as Barang;
+    } catch (_) { }
+
     return ChangeNotifierProvider(
-      create: (context) => InputDataBarangProvider(),
+      create: (context) => InputDataBarangProvider(
+        initialData: initialData,
+      ),
       child: Consumer<InputDataBarangProvider>(
         builder: (context , provider , child){
+          if (provider.submitResponse is ApiResponseSuccess){
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              Navigator.of(context).pop();
+            });
+          }
           return Scaffold(
               appBar: AppBar(
                 scrolledUnderElevation: 0,
-                title: const Text("Input Data Barang"),
+                title: Text("${initialData == null ? "Tambah" : "Edit"} Data Barang"),
                 centerTitle: true,
                 leading: BackButton(
                   onPressed: (){
@@ -29,9 +43,7 @@ class InputDataBarangPage extends StatelessWidget {
                 ),
               ),
               bottomNavigationBar: SubmitCard(
-                onTap: () {
-
-                },
+                onTap: provider.submit,
               ),
               body : ListView(
                 padding: const EdgeInsets.symmetric(
@@ -64,17 +76,20 @@ class InputDataBarangPage extends StatelessWidget {
                   const VerticalFormSpacing(),
 
                   CustomTextfield(
-                      controller: provider.lastMonthStockController,
-                      label: "Last Month Stock",
-                      errorMessage: provider.lastMonthStockError
+                    controller: provider.lastMonthStockController,
+                    label: "Last Month Stock",
+                    errorMessage: provider.lastMonthStockError,
+                    inputType: TextInputType.number,
                   ),
 
                   const VerticalFormSpacing(),
 
                   CustomTextfield(
-                      controller: provider.stockSekarangController,
-                      label: "Stock Sekarang",
-                      errorMessage: provider.stockSekarangError
+                    controller: provider.stockSekarangController,
+                    label: "Stock Sekarang",
+                    errorMessage: provider.stockSekarangError,
+                    inputType: TextInputType.number,
+                    onChanged: provider.updateAmount,
                   ),
 
                   const VerticalFormSpacing(),
@@ -83,6 +98,8 @@ class InputDataBarangPage extends StatelessWidget {
                     controller: provider.unitPriceController,
                     label: "Unit Price",
                     errorMessage: provider.unitPriceError,
+                    inputType: TextInputType.number,
+                    onChanged: provider.updateAmount,
                   ),
 
                   const VerticalFormSpacing(),

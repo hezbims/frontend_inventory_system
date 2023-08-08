@@ -20,7 +20,7 @@ class ApiLoader<T> extends StatelessWidget {
       builder: (context , snapshot){
         if (snapshot.hasData){
           final response = snapshot.data!;
-          if (response is ApiResponseSuccess<T>){
+          if (response is ApiResponseSuccess){
             return builder(response.data);
           }
           else if (response is ApiResponseFailed) {

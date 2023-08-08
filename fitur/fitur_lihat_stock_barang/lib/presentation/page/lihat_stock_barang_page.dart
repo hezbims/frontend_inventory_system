@@ -3,7 +3,7 @@ import 'package:common/presentation/bottom_navbar/stock_bottom_navbar.dart';
 import 'package:common/routes/routes.dart';
 import 'package:dependencies/provider.dart';
 import 'package:fitur_lihat_stock_barang/data/repository/fake_lihat_stock_barang_repository.dart';
-import 'package:fitur_lihat_stock_barang/domain/model/barang.dart';
+import 'package:common/domain/model/barang.dart';
 import 'package:fitur_lihat_stock_barang/presentation/component/list_view_barang.dart';
 import 'package:fitur_lihat_stock_barang/presentation/provider/lihat_stock_barang_provider.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +31,9 @@ class LihatStockBarangPage extends StatelessWidget {
           shape: const CircleBorder(),
           child: const Icon(Icons.add),
         ),
-        bottomNavigationBar: const StockBottomNavBar(),
+        bottomNavigationBar: const StockBottomNavBar(
+          currentIndex: Routes.fiturLihatStockBarangIndex,
+        ),
         body: Consumer<LihatStockBarangProvider>(
           builder: (context , provider , child){
             return ApiLoader(

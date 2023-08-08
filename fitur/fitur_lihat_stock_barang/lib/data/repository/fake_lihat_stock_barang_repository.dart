@@ -1,5 +1,5 @@
 import 'package:common/response/api_response.dart';
-import 'package:fitur_lihat_stock_barang/domain/model/barang.dart';
+import 'package:common/domain/model/barang.dart';
 import 'package:fitur_lihat_stock_barang/domain/repository/i_stock_barang_repository.dart';
 
 class FakeLihatStockBarangRepository implements IStockBarangRepository{

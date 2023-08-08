@@ -2,7 +2,7 @@ import 'package:common/presentation/button/submit_button.dart';
 import 'package:flutter/material.dart';
 
 class SubmitCard extends StatelessWidget {
-  final void Function() onTap;
+  final void Function()? onTap;
   const SubmitCard({
     super.key,
     required this.onTap,
