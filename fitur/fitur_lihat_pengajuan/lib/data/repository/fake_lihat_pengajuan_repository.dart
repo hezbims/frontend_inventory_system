@@ -8,8 +8,8 @@ class FakeLihatPengajuanRepository implements ILihatPengajuanRepository {
     return Pengajuan(
         id: 1,
         nama: "PT Sarung Tangan Sejahtera",
-        tanggal: "12 Jan 2021",
-        jam: "19.30",
+        tanggal: "Jan 12, 2021",
+        jam: "19:30",
         section: null,
         tipe: "Pemasukan",
         listTransaksi: List.generate(6, (index) {

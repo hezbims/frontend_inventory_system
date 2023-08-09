@@ -10,12 +10,14 @@ abstract class IntlFormatter {
     return _dateFormatter.parse(value);
   }
 
-  static final _timeFormatter = DateFormat.jm();
+  static final _timeFormatter = DateFormat.Hm();
   static String timeOfDayToString(
     TimeOfDay value,
     {required BuildContext context}
   ){
-    return value.format(context);
+    final hour = value.hour.toString().padLeft(2 , "0");
+    final minute = value.minute.toString().padLeft(2 , "0");
+    return "$hour:$minute";
   }
 
   static TimeOfDay stringToTimeOfDay(String value){

@@ -1,4 +1,5 @@
 import 'package:common/presentation/textfield/style/custom_input_decoration.dart';
+import 'package:common/utils/date_formatter.dart';
 import 'package:flutter/material.dart';
 
 class ClockField extends StatelessWidget {
@@ -35,7 +36,7 @@ class ClockField extends StatelessWidget {
               errorText: errorMessage,
               suffixIcon: const Icon(Icons.access_time),
             ),
-            child: Text(value.format(context)),
+            child: Text(IntlFormatter.timeOfDayToString(value, context: context)),
           ),
         ),
       ],

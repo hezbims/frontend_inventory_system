@@ -1,4 +1,5 @@
 import 'package:common/presentation/textfield/style/custom_input_decoration.dart';
+import 'package:common/presentation/textfield/style/text_style.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextfield extends StatelessWidget {
@@ -22,7 +23,10 @@ class CustomTextfield extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label),
+        Text(
+          label,
+          style: labelStyle,
+        ),
         TextField(
           controller: controller,
           keyboardType: inputType,

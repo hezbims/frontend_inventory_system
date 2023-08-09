@@ -44,7 +44,8 @@ class PengajuanCard extends StatelessWidget {
                 ElevatedButton(
                   onPressed: (){
                     Navigator.of(context).pushNamed(
-                      Routes.fiturInputDataPengajuanRoute
+                      Routes.fiturInputDataPengajuanRoute,
+                      arguments: pengajuan,
                     );
                   },
                   child: const Text("Lihat Detail"),
