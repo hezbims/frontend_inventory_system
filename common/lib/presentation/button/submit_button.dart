@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 
 class SubmitButton extends FilledButton {
   final void Function()? onTap;
-  const SubmitButton({
+  final String label;
+  SubmitButton({
     super.key,
     required this.onTap,
+    this.label = "Submit",
   }) : super(
     onPressed: onTap,
-    child: const Text("Submit"),
+    child: Text(label),
   );
 }

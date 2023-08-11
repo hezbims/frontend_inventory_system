@@ -1,3 +1,4 @@
+import 'package:common/data/repository/fake_lihat_stock_barang_repository.dart';
 import 'package:common/domain/model/pengajuan.dart';
 import 'package:common/presentation/bottom_navbar/submit_card.dart';
 import 'package:common/presentation/textfield/custom_textfield.dart';
@@ -5,6 +6,7 @@ import 'package:common/presentation/textfield/style/spacing.dart';
 import 'package:dependencies/provider.dart';
 import 'package:fitur_input_pengajuan/presentation/component/clock_field.dart';
 import 'package:fitur_input_pengajuan/presentation/component/date_field.dart';
+import 'package:fitur_input_pengajuan/presentation/component/barang_field.dart';
 import 'package:fitur_input_pengajuan/presentation/provider/input_pengajuan_provider.dart';
 import 'package:flutter/material.dart';
 
@@ -20,6 +22,7 @@ class InputDataPengajuanPage extends StatelessWidget {
     return ChangeNotifierProvider(
       create : (context) => InputPengajuanProvider(
         initialData: initialData,
+        barangRepository: FakeLihatStockBarangRepository(),
       ),
       child : Scaffold(
         appBar: AppBar(
@@ -84,6 +87,10 @@ class InputDataPengajuanPage extends StatelessWidget {
                     label: "Section",
                     errorText: null,
                 ),
+
+                const VerticalFormSpacing(),
+
+                BarangField(listBarangTransaksi: provider.listBarangTransaksi),
               ],
             );
           }

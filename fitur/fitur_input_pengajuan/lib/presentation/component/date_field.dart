@@ -1,4 +1,5 @@
 import 'package:common/presentation/textfield/style/custom_input_decoration.dart';
+import 'package:common/presentation/textfield/style/text_style.dart';
 import 'package:common/utils/date_formatter.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +20,10 @@ class DateField extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text("Tanggal"),
+        const Text(
+          "Tanggal",
+          style: labelStyle,
+        ),
         GestureDetector(
           onTap: () async {
             final currentDate = DateTime.now();

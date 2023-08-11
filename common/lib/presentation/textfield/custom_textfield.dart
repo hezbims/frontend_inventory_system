@@ -8,6 +8,7 @@ class CustomTextfield extends StatelessWidget {
   final String? errorText;
   final TextInputType inputType;
   final void Function(String)? onChanged;
+  final int minLines;
   const CustomTextfield({
     super.key,
     required this.controller,
@@ -15,6 +16,7 @@ class CustomTextfield extends StatelessWidget {
     required this.errorText,
     this.inputType = TextInputType.text,
     this.onChanged,
+    this.minLines = 1,
   });
 
   @override
@@ -34,6 +36,8 @@ class CustomTextfield extends StatelessWidget {
             errorText: errorText,
           ),
           onChanged: onChanged,
+          minLines: minLines,
+          maxLines: minLines,
         )
       ],
     );
