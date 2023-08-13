@@ -1,8 +1,8 @@
 import 'package:common/presentation/textfield/style/text_style.dart';
 import 'package:common/routes/routes.dart';
-import 'package:common/themes/theme.dart';
 import 'package:dependencies/provider.dart';
 import 'package:fitur_input_pengajuan/domain/model/barang_transaksi.dart';
+import 'package:fitur_input_pengajuan/presentation/component/common/tambah_sesuatu_button.dart';
 import 'package:fitur_input_pengajuan/presentation/provider/input_pengajuan_provider.dart';
 import 'package:flutter/material.dart';
 
@@ -32,32 +32,15 @@ class BarangField extends StatelessWidget {
 
         const SizedBox(height: 12,),
 
-        InkWell(
+        TambahSesuatuButton(
+          label: "Tambah barang",
           onTap: (){
             Navigator.of(context).pushNamed(
               Routes.fiturInputListBarangRoute,
               arguments: provider
             );
           },
-
-          child: const Row(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Icon(Icons.add_circle_outline , color: primaryColor,),
-
-              SizedBox(width: 4,),
-
-              Text(
-                "Tambah barang",
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  color: primaryColor
-                ),
-              )
-            ],
-          ),
-        )
+        ),
       ],
     );
   }

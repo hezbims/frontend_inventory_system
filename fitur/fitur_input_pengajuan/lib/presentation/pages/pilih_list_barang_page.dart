@@ -1,7 +1,8 @@
 import 'package:common/domain/model/barang.dart';
 import 'package:common/presentation/api_loader/api_loader.dart';
 import 'package:dependencies/provider.dart';
-import 'package:fitur_input_pengajuan/presentation/component/preview_stock_barang_card.dart';
+import 'package:fitur_input_pengajuan/presentation/component/pilih_barang/preview_stock_barang_card.dart';
+import 'package:fitur_input_pengajuan/presentation/component/common/search_app_bar.dart';
 import 'package:fitur_input_pengajuan/presentation/provider/input_pengajuan_provider.dart';
 import 'package:flutter/material.dart';
 
@@ -19,25 +20,9 @@ class PilihListBarangPage extends StatelessWidget {
       child: Consumer<InputPengajuanProvider>(
         builder: (context , provider , child) {
           return Scaffold(
-            appBar: AppBar(
-              scrolledUnderElevation: 0,
-              centerTitle: true,
-              title: Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      controller: provider.searchBarangController,
-                      decoration: const InputDecoration(
-                        label: Text("Cari barang"),
-                        prefixIcon: Icon(Icons.search)
-                      ),
-                    ),
-                  ),
-
-                  const SizedBox(width: 48,),
-                ],
-              ),
-              // leading: const BackButton(),
+            appBar: SearchAppBar(
+              controller: provider.searchBarangController,
+              placeholder: "Cari barang",
             ),
             body: ApiLoader<List<Barang>>(
                 apiResponse: provider.filteredBarangResponse,

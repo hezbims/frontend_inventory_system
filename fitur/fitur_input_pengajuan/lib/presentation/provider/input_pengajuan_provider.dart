@@ -4,6 +4,7 @@ import 'package:common/domain/repository/i_stock_barang_repository.dart';
 import 'package:common/response/api_response.dart';
 import 'package:common/utils/date_formatter.dart';
 import 'package:fitur_input_pengajuan/domain/model/barang_transaksi.dart';
+import 'package:common/domain/model/group.dart';
 import 'package:fitur_input_pengajuan/domain/use_case/get_filtered_barang_use_case.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +25,7 @@ class InputPengajuanProvider extends ChangeNotifier {
         IntlFormatter.stringToTimeOfDay(initialData.jam),
     tipePengajuanController = TextEditingController(text: initialData?.tipe ?? ""),
     namaController = TextEditingController(text: initialData?.nama ?? ""),
-    sectionController = TextEditingController(text: initialData?.section ?? "") {
+    _group = initialData?.group  {
     searchBarangController.addListener(notifyListeners);
   }
 
@@ -32,7 +33,13 @@ class InputPengajuanProvider extends ChangeNotifier {
   TimeOfDay jam;
   final TextEditingController tipePengajuanController;
   final TextEditingController namaController;
-  final TextEditingController sectionController;
+  Group? _group;
+  Group? get group => _group;
+  void onChangeGroup(Group newGroup) {
+    _group = newGroup;
+    notifyListeners();
+  }
+
   List<BarangTransaksi> listBarangTransaksi = [];
   final searchBarangController = TextEditingController();
 
@@ -40,6 +47,7 @@ class InputPengajuanProvider extends ChangeNotifier {
   String? jamError;
   String? tipePengajuanError;
   String? namaError;
+  String? groupError;
 
   void onTanggalChange(DateTime newValue){
     tanggal = newValue;
@@ -76,7 +84,6 @@ class InputPengajuanProvider extends ChangeNotifier {
   @override
   void dispose(){
     namaController.dispose();
-    sectionController.dispose();
     searchBarangController.dispose();
     super.dispose();
   }

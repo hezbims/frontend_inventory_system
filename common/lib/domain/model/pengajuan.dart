@@ -1,3 +1,4 @@
+import 'package:common/domain/model/group.dart';
 import 'package:common/domain/model/transaksi.dart';
 
 class Pengajuan {
@@ -5,7 +6,7 @@ class Pengajuan {
   final String nama;
   final String tanggal;
   final String jam;
-  final String? section;
+  final Group group;
   final String tipe;
   final List<Transaksi> listTransaksi;
   Pengajuan({
@@ -13,7 +14,7 @@ class Pengajuan {
     required this.nama,
     required this.tanggal,
     required this.jam,
-    required this.section,
+    required this.group,
     required this.tipe,
     this.listTransaksi = const [],
   });

@@ -1,7 +1,9 @@
 import 'package:common/routes/routes.dart';
 import 'package:common/themes/theme.dart';
+import 'package:dependencies/google_fonts.dart';
 import 'package:fitur_input_data_barang/presentation/page/input_data_barang_page.dart';
 import 'package:fitur_input_pengajuan/presentation/pages/input_data_pengajuan_page.dart';
+import 'package:fitur_input_pengajuan/presentation/pages/pilih_group_page.dart';
 import 'package:fitur_input_pengajuan/presentation/pages/pilih_list_barang_page.dart';
 import 'package:fitur_lihat_pengajuan/presentation/pages/lihat_pengajuan_pages.dart';
 import 'package:fitur_lihat_stock_barang/presentation/page/lihat_stock_barang_page.dart';
@@ -45,6 +47,7 @@ class MyApp extends StatelessWidget {
           )
         ),
         useMaterial3: true,
+        textTheme: GoogleFonts.interTextTheme(),
       ),
       initialRoute: Routes.fiturLihatStockBarangRoute,
       routes: {
@@ -53,6 +56,7 @@ class MyApp extends StatelessWidget {
         Routes.fiturLihatPengajuanRoute : (context) => const LihatPengajuanPages(),
         Routes.fiturInputDataPengajuanRoute : (context) => const InputDataPengajuanPage(),
         Routes.fiturInputListBarangRoute : (context) => const PilihListBarangPage(),
+        Routes.fiturPilihGroupRoute : (context) => const PilihGroupPage(),
       },
     );
   }

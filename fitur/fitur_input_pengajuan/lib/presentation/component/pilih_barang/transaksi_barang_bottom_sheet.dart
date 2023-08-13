@@ -4,7 +4,7 @@ import 'package:common/presentation/button/submit_button.dart';
 import 'package:common/presentation/textfield/custom_textfield.dart';
 import 'package:common/presentation/textfield/style/spacing.dart';
 import 'package:fitur_input_pengajuan/domain/model/barang_transaksi.dart';
-import 'package:fitur_input_pengajuan/presentation/component/barang_quantity_incrementer.dart';
+import 'package:fitur_input_pengajuan/presentation/component/pilih_barang/barang_quantity_incrementer.dart';
 import 'package:flutter/material.dart';
 
 class TransaksiBarangBottomSheet extends StatefulWidget {

@@ -38,7 +38,7 @@ class PengajuanCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
-                  child: Text("Section : ${pengajuan.section ?? "-"}")
+                  child: Text("Group : ${pengajuan.group.namaGroup}")
                 ),
 
                 ElevatedButton(
