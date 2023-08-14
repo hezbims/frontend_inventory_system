@@ -2,7 +2,7 @@ import 'package:common/presentation/button/submit_button.dart';
 import 'package:common/presentation/textfield/custom_textfield.dart';
 import 'package:dependencies/google_fonts.dart';
 import 'package:dependencies/provider.dart';
-import 'package:fitur_input_pengajuan/presentation/provider/buat_group_provider.dart';
+import 'package:fitur_input_pengajuan/presentation/provider/pilih_group/buat_group_provider.dart';
 import 'package:flutter/material.dart';
 
 Future<dynamic> showBuatGroupDialog(BuildContext context){

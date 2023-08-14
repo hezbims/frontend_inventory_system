@@ -3,7 +3,7 @@ import 'package:dependencies/google_fonts.dart';
 import 'package:dependencies/provider.dart';
 import 'package:fitur_input_pengajuan/domain/model/barang_transaksi.dart';
 import 'package:fitur_input_pengajuan/presentation/component/pilih_barang/transaksi_barang_bottom_sheet.dart';
-import 'package:fitur_input_pengajuan/presentation/provider/pilih_barang_provider.dart';
+import 'package:fitur_input_pengajuan/presentation/provider/pilih_barang/pilih_barang_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:common/themes/custom_font_weight.dart';
 
@@ -26,8 +26,8 @@ class PreviewStockBarangCard extends StatelessWidget {
                 return TransaksiBarangBottomSheet(currentBarang: barang);
               }
           );
-          provider.quantityFocusNode.requestFocus();
-          
+          provider.searchBarangFocusNode.requestFocus();
+
           if (result is BarangTransaksi){
             provider.addNewBarangTransaksi(result);
           }

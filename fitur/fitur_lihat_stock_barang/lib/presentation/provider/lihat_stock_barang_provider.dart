@@ -13,4 +13,30 @@ class LihatStockBarangProvider extends ChangeNotifier {
     stockBarangApiResponse = _repository.getAllStockBarang();
     notifyListeners();
   }
+
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final namaController = TextEditingController();
+  String _kategori = "Semua";
+  String get kategori => _kategori;
+  void onKategoriChange(String? value) {
+    if (value != null) {
+      _kategori = value;
+    }
+  }
+
+  String _nomorRak = "Semua";
+  String get nomorRak => _nomorRak;
+  void onNomorRakChange(String? value) {
+    if (value != null) {
+      _nomorRak = value;
+    }
+  }
+
+  @override
+  void dispose(){
+    namaController.dispose();
+
+    super.dispose();
+  }
 }

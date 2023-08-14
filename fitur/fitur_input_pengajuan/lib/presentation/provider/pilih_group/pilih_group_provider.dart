@@ -19,6 +19,7 @@ class PilihGroupProvider extends ChangeNotifier {
   }
 
   final TextEditingController searchController;
+  final searchFocusNode = FocusNode()..requestFocus();
 
   Future<ApiResponse>? _getSortedGroupResponse;
   Future<ApiResponse> get getSortedGroupResponse {
@@ -40,6 +41,7 @@ class PilihGroupProvider extends ChangeNotifier {
   @override
   void dispose(){
     searchController.dispose();
+    searchFocusNode.dispose();
     super.dispose();
   }
 }

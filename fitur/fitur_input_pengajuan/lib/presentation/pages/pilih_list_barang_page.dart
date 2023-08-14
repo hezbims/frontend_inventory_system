@@ -4,7 +4,7 @@ import 'package:common/presentation/api_loader/api_loader.dart';
 import 'package:dependencies/provider.dart';
 import 'package:fitur_input_pengajuan/presentation/component/pilih_barang/preview_stock_barang_card.dart';
 import 'package:fitur_input_pengajuan/presentation/component/common/search_app_bar.dart';
-import 'package:fitur_input_pengajuan/presentation/provider/pilih_barang_provider.dart';
+import 'package:fitur_input_pengajuan/presentation/provider/pilih_barang/pilih_barang_provider.dart';
 import 'package:flutter/material.dart';
 
 class PilihListBarangPage extends StatelessWidget {
@@ -28,6 +28,7 @@ class PilihListBarangPage extends StatelessWidget {
             child: Scaffold(
               appBar: SearchAppBar(
                 controller: provider.searchBarangController,
+                focusNode: provider.searchBarangFocusNode,
                 placeholder: "Cari barang",
                 leading: BackButton(
                   onPressed: (){

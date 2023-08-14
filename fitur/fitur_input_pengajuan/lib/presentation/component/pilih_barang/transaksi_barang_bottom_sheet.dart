@@ -6,7 +6,7 @@ import 'package:common/presentation/textfield/style/spacing.dart';
 import 'package:dependencies/provider.dart';
 import 'package:fitur_input_pengajuan/domain/model/barang_transaksi.dart';
 import 'package:fitur_input_pengajuan/presentation/component/pilih_barang/barang_quantity_incrementer.dart';
-import 'package:fitur_input_pengajuan/presentation/provider/quantity_barang_provider.dart';
+import 'package:fitur_input_pengajuan/presentation/provider/pilih_barang/quantity_barang_provider.dart';
 import 'package:flutter/material.dart';
 
 class TransaksiBarangBottomSheet extends StatelessWidget {

@@ -6,7 +6,7 @@ import 'package:fitur_input_pengajuan/presentation/component/common/search_app_b
 import 'package:fitur_input_pengajuan/presentation/component/common/tambah_sesuatu_button.dart';
 import 'package:fitur_input_pengajuan/presentation/component/pilih_group/group_card.dart';
 import 'package:fitur_input_pengajuan/presentation/component/pilih_group/show_buat_group_dialog.dart';
-import 'package:fitur_input_pengajuan/presentation/provider/pilih_group_provider.dart';
+import 'package:fitur_input_pengajuan/presentation/provider/pilih_group/pilih_group_provider.dart';
 import 'package:flutter/material.dart';
 
 class PilihGroupPage extends StatelessWidget {
@@ -23,6 +23,7 @@ class PilihGroupPage extends StatelessWidget {
           return Scaffold(
             appBar: SearchAppBar(
               controller: provider.searchController,
+              focusNode: provider.searchFocusNode,
               placeholder: "Cari group",
             ),
             body: ApiLoader<List<Group>>(

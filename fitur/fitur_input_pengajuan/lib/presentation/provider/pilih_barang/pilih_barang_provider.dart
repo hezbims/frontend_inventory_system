@@ -31,20 +31,17 @@ class PilihBarangProvider extends ChangeNotifier {
       );
 
   final searchBarangController = TextEditingController();
+  final searchBarangFocusNode = FocusNode()..requestFocus();
 
   List<BarangTransaksi> choosenBarang = [];
   void addNewBarangTransaksi(final BarangTransaksi newBarangTransaksi){
     choosenBarang.add(newBarangTransaksi);
   }
 
-  final searchBarangFocusNode = FocusNode();
-  final quantityFocusNode = FocusNode();
-
   @override
   void dispose(){
     searchBarangController.dispose();
     searchBarangFocusNode.dispose();
-    quantityFocusNode.dispose();
     super.dispose();
   }
 }

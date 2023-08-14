@@ -1,6 +1,6 @@
 import 'package:dependencies/provider.dart';
 import 'package:fitur_input_pengajuan/domain/model/barang_transaksi.dart';
-import 'package:fitur_input_pengajuan/presentation/provider/input_pengajuan_provider.dart';
+import 'package:fitur_input_pengajuan/presentation/provider/main_form/input_pengajuan_provider.dart';
 import 'package:flutter/material.dart';
 
 class BarangTransaksiCard extends StatelessWidget {

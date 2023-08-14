@@ -1,5 +1,6 @@
 import 'package:common/presentation/textfield/style/text_style.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class BarangQuantityIncrementer extends StatelessWidget {
   final void Function() onDecrease;
@@ -40,6 +41,9 @@ class BarangQuantityIncrementer extends StatelessWidget {
                 focusNode: focusNode,
                 keyboardType: TextInputType.number,
                 onSubmitted: onSubmit,
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly
+                ],
               ),
             ),
             // IconButton(
