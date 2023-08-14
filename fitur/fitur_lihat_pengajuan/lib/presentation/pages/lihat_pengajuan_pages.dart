@@ -28,11 +28,20 @@ class LihatPengajuanPages extends StatelessWidget {
             bottomNavigationBar: const StockBottomNavBar(
               currentIndex: Routes.fiturLihatPengajuanIndex,
             ),
+            floatingActionButton: FloatingActionButton(
+              onPressed: (){
+                Navigator.of(context).pushNamed(
+                  Routes.fiturInputDataPengajuanRoute
+                );
+              },
+              child: const Icon(Icons.add),
+            ),
             body: ApiLoader(
               apiResponse: provider.getAllPengajuanResponse,
               onRefresh: provider.refreshData,
               builder: (List<Pengajuan> data){
                 return ListView.separated(
+                  padding: const EdgeInsets.all(24),
                   itemBuilder: (context , index){
                     return PengajuanCard(pengajuan: data[index]);
                   },

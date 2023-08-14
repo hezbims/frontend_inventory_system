@@ -3,7 +3,9 @@ import 'package:dependencies/provider.dart';
 import 'package:fitur_input_pengajuan/data/repository/fake_group_repository.dart';
 import 'package:common/domain/model/group.dart';
 import 'package:fitur_input_pengajuan/presentation/component/common/search_app_bar.dart';
+import 'package:fitur_input_pengajuan/presentation/component/common/tambah_sesuatu_button.dart';
 import 'package:fitur_input_pengajuan/presentation/component/pilih_group/group_card.dart';
+import 'package:fitur_input_pengajuan/presentation/component/pilih_group/show_buat_group_dialog.dart';
 import 'package:fitur_input_pengajuan/presentation/provider/pilih_group_provider.dart';
 import 'package:flutter/material.dart';
 
@@ -27,20 +29,37 @@ class PilihGroupPage extends StatelessWidget {
                 apiResponse: provider.filteredGroupResponse,
                 onRefresh: provider.onRefreshGroup,
                 builder: (listGroup) {
-                  return ListView.separated(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 36,
-                        horizontal: 24
-                    ),
-                    itemBuilder: (context , index){
-                      return GroupCard(
-                        group: listGroup[index],
-                      );
-                    },
-                    separatorBuilder: (context , index){
-                      return const SizedBox(height: 10,);
-                    },
-                    itemCount: listGroup.length
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          top: 16,
+                          right: 24,
+                        ),
+                        child: TambahSesuatuButton(
+                            label: "Tambah group baru",
+                            onTap: (){
+                              showBuatGroupDialog(context);
+                            }
+                        ),
+                      ),
+
+                      Expanded(
+                        child: ListView.separated(
+                          padding: const EdgeInsets.all(24),
+                          itemBuilder: (context , index){
+                            return GroupCard(
+                              group: listGroup[index],
+                            );
+                          },
+                          separatorBuilder: (context , index){
+                            return const SizedBox(height: 10,);
+                          },
+                          itemCount: listGroup.length
+                        ),
+                      ),
+                    ],
                   );
                 }
             ),

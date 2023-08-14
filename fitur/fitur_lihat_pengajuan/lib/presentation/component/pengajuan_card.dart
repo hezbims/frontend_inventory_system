@@ -41,7 +41,7 @@ class PengajuanCard extends StatelessWidget {
                   child: Text("Group : ${pengajuan.group.namaGroup}")
                 ),
 
-                ElevatedButton(
+                OutlinedButton(
                   onPressed: (){
                     Navigator.of(context).pushNamed(
                       Routes.fiturInputDataPengajuanRoute,

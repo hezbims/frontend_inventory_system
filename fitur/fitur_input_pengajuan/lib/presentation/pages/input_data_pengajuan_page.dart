@@ -1,7 +1,7 @@
-import 'package:common/data/repository/fake_lihat_stock_barang_repository.dart';
 import 'package:common/domain/model/group.dart';
 import 'package:common/domain/model/pengajuan.dart';
 import 'package:common/presentation/bottom_navbar/submit_card.dart';
+import 'package:common/presentation/textfield/custom_dropdown_menu.dart';
 import 'package:common/presentation/textfield/custom_textfield.dart';
 import 'package:common/presentation/textfield/dropdown_page_chooser.dart';
 import 'package:common/presentation/textfield/style/spacing.dart';
@@ -25,7 +25,6 @@ class InputDataPengajuanPage extends StatelessWidget {
     return ChangeNotifierProvider(
       create : (context) => InputPengajuanProvider(
         initialData: initialData,
-        barangRepository: FakeLihatStockBarangRepository(),
       ),
       child : Scaffold(
         appBar: AppBar(
@@ -69,37 +68,41 @@ class InputDataPengajuanPage extends StatelessWidget {
 
                 const VerticalFormSpacing(),
 
-                CustomTextfield(
-                  controller: provider.tipePengajuanController,
+                CustomDropdownMenu(
                   label: "Tipe pengajuan",
+                  value: provider.tipePengajuan,
+                  values: const ["Pengeluaran" , "Pemasukan"],
+                  onValueChange: provider.onTipePengajuanChange,
                   errorText: provider.tipePengajuanError
                 ),
 
-                const VerticalFormSpacing(),
-
-                CustomTextfield(
-                    controller: provider.namaController,
-                    label: "Nama",
-                    errorText: provider.namaError,
-                ),
 
                 const VerticalFormSpacing(),
 
-                DropDownPageChooser(
-                  label: "Group",
-                  value: provider.group?.namaGroup ?? "",
-                  errorMessage: provider.groupError,
-                  onTap: () async {
-                      final groupPicked = await Navigator.of(context).pushNamed(
-                        Routes.fiturPilihGroupRoute,
-                      );
-                      if (groupPicked is Group){
-                        provider.onChangeGroup(groupPicked);
-                      }
-                  }
-                ),
-
-                const VerticalFormSpacing(),
+                if (provider.tipePengajuan == "Pemasukan") ...[
+                  CustomTextfield(
+                      controller: provider.namaController,
+                      label: "Nama pemasok",
+                      errorText: provider.namaError,
+                  ),
+                  const VerticalFormSpacing(),
+                ]
+                else if (provider.tipePengajuan == "Pengeluaran") ...[
+                  DropDownPageChooser(
+                    label: "Group",
+                    value: provider.group?.namaGroup ?? "",
+                    errorMessage: provider.groupError,
+                    onTap: () async {
+                        final groupPicked = await Navigator.of(context).pushNamed(
+                          Routes.fiturPilihGroupRoute,
+                        );
+                        if (groupPicked is Group){
+                          provider.onChangeGroup(groupPicked);
+                        }
+                    }
+                  ),
+                  const VerticalFormSpacing(),
+                ],
 
                 BarangField(listBarangTransaksi: provider.listBarangTransaksi),
               ],

@@ -34,11 +34,15 @@ class BarangField extends StatelessWidget {
 
         TambahSesuatuButton(
           label: "Tambah barang",
-          onTap: (){
-            Navigator.of(context).pushNamed(
+          onTap: () async {
+            final result = await Navigator.of(context).pushNamed(
               Routes.fiturInputListBarangRoute,
               arguments: provider
             );
+
+            if (result is List<BarangTransaksi>){
+              provider.addNewBarang(result);
+            }
           },
         ),
       ],

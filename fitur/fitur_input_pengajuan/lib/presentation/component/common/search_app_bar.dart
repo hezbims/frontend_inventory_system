@@ -7,6 +7,7 @@ class SearchAppBar extends AppBar {
     super.key,
     required this.controller,
     required this.placeholder,
+    super.leading,
   }) : super(
     scrolledUnderElevation: 0,
     centerTitle: true,

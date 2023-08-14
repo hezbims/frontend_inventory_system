@@ -28,7 +28,6 @@ class LihatStockBarangPage extends StatelessWidget {
           onPressed: (){
             Navigator.of(context).pushNamed(Routes.fiturInputDataBarangRoute);
           },
-          shape: const CircleBorder(),
           child: const Icon(Icons.add),
         ),
         bottomNavigationBar: const StockBottomNavBar(

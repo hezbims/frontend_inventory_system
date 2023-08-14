@@ -1,4 +1,3 @@
-import 'package:common/presentation/textfield/style/custom_input_decoration.dart';
 import 'package:common/presentation/textfield/style/text_style.dart';
 import 'package:flutter/material.dart';
 
@@ -32,9 +31,7 @@ class CustomTextfield extends StatelessWidget {
         TextField(
           controller: controller,
           keyboardType: inputType,
-          decoration: CustomInputDecoration(
-            errorText: errorText,
-          ),
+          decoration: InputDecoration(errorText: errorText),
           onChanged: onChanged,
           minLines: minLines,
           maxLines: minLines,

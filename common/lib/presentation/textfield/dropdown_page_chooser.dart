@@ -1,4 +1,3 @@
-import 'package:common/presentation/textfield/style/custom_input_decoration.dart';
 import 'package:common/presentation/textfield/style/text_style.dart';
 import 'package:flutter/material.dart';
 
@@ -25,7 +24,7 @@ class DropDownPageChooser extends StatelessWidget {
         InkWell(
           onTap: onTap,
           child: InputDecorator(
-            decoration: CustomInputDecoration(
+            decoration: InputDecoration(
               errorText: errorMessage,
               suffixIcon: const Icon(Icons.arrow_drop_down),
             ),
