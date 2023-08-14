@@ -4,15 +4,19 @@ import 'package:flutter/material.dart';
 class BarangQuantityIncrementer extends StatelessWidget {
   final void Function() onDecrease;
   final void Function() onIncrease;
-  final int currentQuantity;
+  final TextEditingController controller;
+  final FocusNode focusNode;
   final String? errorMessage;
+  final void Function(String) onSubmit;
 
   const BarangQuantityIncrementer({
     super.key,
     required this.onDecrease,
     required this.onIncrease,
-    required this.currentQuantity,
+    required this.controller,
     required this.errorMessage,
+    required this.focusNode,
+    required this.onSubmit,
   });
 
   @override
@@ -25,26 +29,23 @@ class BarangQuantityIncrementer extends StatelessWidget {
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            IconButton(
-              icon: const Icon(Icons.remove_circle),
-              onPressed: onDecrease,
-            ),
+            // IconButton(
+            //   icon: const Icon(Icons.remove_circle),
+            //   onPressed: onDecrease,
+            // ),
 
-            Card(
-              child: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 14,
-                  vertical: 10,
-                ),
-                child: Text(
-                  currentQuantity.toString()
-                )
+            IntrinsicWidth(
+              child: TextField(
+                controller: controller,
+                focusNode: focusNode,
+                keyboardType: TextInputType.number,
+                onSubmitted: onSubmit,
               ),
             ),
-            IconButton(
-              icon: const Icon(Icons.add_circle),
-              onPressed: onIncrease,
-            ),
+            // IconButton(
+            //   icon: const Icon(Icons.add_circle),
+            //   onPressed: onIncrease,
+            // ),
           ],
         ),
 

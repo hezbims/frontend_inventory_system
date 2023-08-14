@@ -37,9 +37,14 @@ class PilihBarangProvider extends ChangeNotifier {
     choosenBarang.add(newBarangTransaksi);
   }
 
+  final searchBarangFocusNode = FocusNode();
+  final quantityFocusNode = FocusNode();
+
   @override
   void dispose(){
     searchBarangController.dispose();
+    searchBarangFocusNode.dispose();
+    quantityFocusNode.dispose();
     super.dispose();
   }
 }

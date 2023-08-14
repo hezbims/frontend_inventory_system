@@ -26,6 +26,8 @@ class PreviewStockBarangCard extends StatelessWidget {
                 return TransaksiBarangBottomSheet(currentBarang: barang);
               }
           );
+          provider.quantityFocusNode.requestFocus();
+          
           if (result is BarangTransaksi){
             provider.addNewBarangTransaksi(result);
           }
