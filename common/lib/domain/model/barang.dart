@@ -1,3 +1,5 @@
+import 'package:common/domain/model/kategori.dart';
+
 class Barang {
   final String? id;
   final String nama;
@@ -6,7 +8,7 @@ class Barang {
   final int stockSekarang;
   final int lastMonthStock;
   final int unitPrice;
-  final String category;
+  final Kategori kategori;
   final String? urlPhoto;
   Barang({
     required this.id,
@@ -16,7 +18,7 @@ class Barang {
     required this.stockSekarang,
     required this.lastMonthStock,
     required this.unitPrice,
-    required this.category,
+    required this.kategori,
     this.urlPhoto,
   });
 }

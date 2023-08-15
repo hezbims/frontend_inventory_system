@@ -1,12 +1,12 @@
 import 'package:common/presentation/textfield/style/text_style.dart';
 import 'package:flutter/material.dart';
 
-class DropDownPageChooser extends StatelessWidget {
+class DropdownPageChooser extends StatelessWidget {
   final String label;
   final String? value;
   final String? errorMessage;
   final void Function() onTap;
-  const DropDownPageChooser({
+  const DropdownPageChooser({
     super.key,
     required this.label,
     required this.value,

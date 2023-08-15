@@ -19,7 +19,14 @@ class PilihGroupProvider extends ChangeNotifier {
   }
 
   final TextEditingController searchController;
-  final searchFocusNode = FocusNode()..requestFocus();
+  final searchFocusNode = FocusNode();
+  var _needRequestFocus = true;
+  void requestFocus(){
+    if (_needRequestFocus){
+      _needRequestFocus = false;
+      searchFocusNode.requestFocus();
+    }
+  }
 
   Future<ApiResponse>? _getSortedGroupResponse;
   Future<ApiResponse> get getSortedGroupResponse {

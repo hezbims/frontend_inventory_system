@@ -31,7 +31,14 @@ class PilihBarangProvider extends ChangeNotifier {
       );
 
   final searchBarangController = TextEditingController();
-  final searchBarangFocusNode = FocusNode()..requestFocus();
+  final searchBarangFocusNode = FocusNode();
+  var _needRequestFocus = true;
+  void requestFocus(){
+    if (_needRequestFocus){
+      _needRequestFocus = false;
+      searchBarangFocusNode.requestFocus();
+    }
+  }
 
   List<BarangTransaksi> choosenBarang = [];
   void addNewBarangTransaksi(final BarangTransaksi newBarangTransaksi){

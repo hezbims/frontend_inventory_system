@@ -1,3 +1,4 @@
+import 'package:common/domain/model/kategori.dart';
 import 'package:common/response/api_response.dart';
 import 'package:common/domain/model/barang.dart';
 import 'package:common/domain/repository/i_stock_barang_repository.dart';
@@ -14,7 +15,7 @@ class FakeLihatStockBarangRepository implements IStockBarangRepository{
         stockSekarang: 50,
         lastMonthStock: 36,
         unitPrice: 2000,
-        category: "Sarung Tangan",
+        kategori: Kategori(id: 1, nama: "Sarung Tangan"),
       );
     }
   );

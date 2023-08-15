@@ -88,7 +88,7 @@ class InputDataPengajuanPage extends StatelessWidget {
                   const VerticalFormSpacing(),
                 ]
                 else if (provider.tipePengajuan == "Pengeluaran") ...[
-                  DropDownPageChooser(
+                  DropdownPageChooser(
                     label: "Group",
                     value: provider.group?.namaGroup ?? "",
                     errorMessage: provider.groupError,

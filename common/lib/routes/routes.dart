@@ -3,6 +3,7 @@ abstract class Routes {
   static const fiturLihatStockBarangIndex = 0;
 
   static const fiturInputDataBarangRoute = "$fiturLihatStockBarangRoute/input";
+  static const fiturPilihKategoriRoute = "$fiturInputDataBarangRoute/kategori";
 
   static const fiturLihatPengajuanRoute = "/transaksi";
   static const fiturLihatPengajuanIndex = 2;

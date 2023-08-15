@@ -39,7 +39,7 @@ class BarangCard extends StatelessWidget {
               children: [
                 Expanded(
                   flex: 3,
-                  child: Text("Kategori :\n${barang.category}")
+                  child: Text("Kategori :\n${barang.kategori}")
                 ),
                 const SizedBox(width: 4,),
                 Expanded(

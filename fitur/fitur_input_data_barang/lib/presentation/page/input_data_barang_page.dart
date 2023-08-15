@@ -1,9 +1,12 @@
 import 'package:common/domain/model/barang.dart';
+import 'package:common/domain/model/kategori.dart';
 import 'package:common/presentation/bottom_navbar/submit_card.dart';
 import 'package:common/presentation/textfield/custom_textfield.dart';
 import 'package:common/presentation/textfield/disabled_textfield.dart';
+import 'package:common/presentation/textfield/dropdown_page_chooser.dart';
 import 'package:common/presentation/textfield/style/spacing.dart';
 import 'package:common/response/api_response.dart';
+import 'package:common/routes/routes.dart';
 import 'package:dependencies/provider.dart';
 import 'package:fitur_input_data_barang/presentation/provider/input_data_barang_provider.dart';
 import 'package:flutter/material.dart';
@@ -59,10 +62,19 @@ class InputDataBarangPage extends StatelessWidget {
 
                   const VerticalFormSpacing(),
 
-                  CustomTextfield(
-                      controller: provider.categoryController,
-                      label: "Kategori",
-                      errorText: provider.categoryError
+                  DropdownPageChooser(
+                    label: "Kategori",
+                    value: provider.kategori?.nama,
+                    errorMessage: provider.kategoriError,
+                    onTap: () async {
+                      final result = await Navigator.of(context).pushNamed(
+                        Routes.fiturPilihKategoriRoute
+                      );
+
+                      if (result is Kategori){
+                        provider.onKategoriChange(result);
+                      }
+                    }
                   ),
 
                   const VerticalFormSpacing(),

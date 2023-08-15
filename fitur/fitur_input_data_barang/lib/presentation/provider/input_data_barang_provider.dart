@@ -1,4 +1,5 @@
 import 'package:common/domain/model/barang.dart';
+import 'package:common/domain/model/kategori.dart';
 import 'package:common/domain/use_cases/empty_validation_use_case.dart';
 import 'package:common/domain/use_cases/int_validation_use_case.dart';
 import 'package:common/response/api_response.dart';
@@ -11,9 +12,7 @@ class InputDataBarangProvider extends ChangeNotifier {
       namaController = TextEditingController(
         text: initialData?.nama ?? ""
       ),
-      categoryController = TextEditingController(
-        text: initialData?.category ?? ""
-      ),
+      _kategori = initialData?.kategori,
       nomorRakController = TextEditingController(
         text: initialData?.nomorRak ?? ""
       ),
@@ -35,7 +34,15 @@ class InputDataBarangProvider extends ChangeNotifier {
   final intValidator = IntValidationUseCase();
 
   final TextEditingController namaController;
-  final TextEditingController categoryController;
+  Kategori? _kategori;
+  Kategori? get kategori => _kategori;
+  void onKategoriChange(Kategori? newValue){
+    if (newValue != null && newValue.id != kategori?.id){
+      _kategori = newValue;
+      notifyListeners();
+    }
+  }
+
   final TextEditingController nomorRakController;
   final TextEditingController stockSekarangController;
   final TextEditingController lastMonthStockController;
@@ -43,7 +50,7 @@ class InputDataBarangProvider extends ChangeNotifier {
   String amount;
 
   String? namaError;
-  String? categoryError;
+  String? kategoriError;
   String? nomorRakError;
   String? stockSekarangError;
   String? lastMonthStockError;
@@ -65,7 +72,7 @@ class InputDataBarangProvider extends ChangeNotifier {
   void submit() async {
     if (submitResponse is! ApiResponseLoading){
       namaError = emptyValidator.validate(namaController.text, fieldName: "Nama");
-      categoryError = emptyValidator.validate(categoryController.text, fieldName: "Category");
+      kategoriError = emptyValidator.validate(kategori?.nama ?? "", fieldName: "Category");
       nomorRakError = emptyValidator.validate(nomorRakController.text, fieldName: "Nomor rak");
       stockSekarangError = intValidator.validate(stockSekarangController.text, fieldName: "Stock sekarang");
       lastMonthStockError = intValidator.validate(lastMonthStockController.text, fieldName: "Last month stock");
@@ -83,7 +90,7 @@ class InputDataBarangProvider extends ChangeNotifier {
 
   bool get _noError {
     return namaError == null &&
-      categoryError == null &&
+      kategoriError == null &&
       nomorRakError == null &&
       stockSekarangError == null &&
       lastMonthStockError == null &&
@@ -95,7 +102,6 @@ class InputDataBarangProvider extends ChangeNotifier {
   @override
   void dispose() {
     namaController.dispose();
-    categoryController.dispose();
     nomorRakController.dispose();
     stockSekarangController.dispose();
     lastMonthStockController.dispose();
