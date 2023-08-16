@@ -15,6 +15,8 @@ dependencies:
   dropdown_search: ^5.0.6
   fluttertoast: ^8.2.2
   google_fonts: ^5.1.0
+  http: ^1.1.0
+  infinite_scroll_pagination: ^4.0.0
 
 dev_dependencies:
   flutter_test:

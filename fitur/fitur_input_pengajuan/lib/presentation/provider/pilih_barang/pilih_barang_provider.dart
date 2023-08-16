@@ -1,26 +1,26 @@
-import 'package:common/domain/repository/i_stock_barang_repository.dart';
+import 'package:common/domain/repository/i_barang_repository.dart';
 import 'package:common/response/api_response.dart';
 import 'package:fitur_input_pengajuan/domain/model/barang_transaksi.dart';
 import 'package:fitur_input_pengajuan/domain/use_case/get_filtered_barang_use_case.dart';
 import 'package:flutter/material.dart';
 
 class PilihBarangProvider extends ChangeNotifier {
-  final IStockBarangRepository _barangRepository;
+  final IBarangRepository _barangRepository;
   final _getFilteredBarangUseCase = GetFilteredBarangFromApiUseCase();
 
   PilihBarangProvider({
-    required IStockBarangRepository barangRepository,
+    required IBarangRepository barangRepository,
   }) : _barangRepository = barangRepository {
     searchBarangController.addListener(notifyListeners);
   }
 
   Future<ApiResponse>? _allBarangResponse;
   Future<ApiResponse> _getAllBarangResponse() {
-    _allBarangResponse ??= _barangRepository.getAllStockBarang();
+    _allBarangResponse ??= _barangRepository.getStockBarang(1);
     return _allBarangResponse!;
   }
   void onRefreshStockBarang(){
-    _allBarangResponse = _barangRepository.getAllStockBarang();
+    _allBarangResponse = _barangRepository.getStockBarang(1);
     notifyListeners();
   }
 

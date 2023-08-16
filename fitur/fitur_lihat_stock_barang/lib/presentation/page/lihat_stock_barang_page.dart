@@ -1,12 +1,13 @@
-import 'package:common/presentation/api_loader/api_loader.dart';
 import 'package:common/presentation/bottom_navbar/stock_bottom_navbar.dart';
 import 'package:common/presentation/textfield/search_with_filter_app_bar.dart';
+import 'package:common/presentation/textfield/style/spacing.dart';
 import 'package:common/routes/routes.dart';
+import 'package:dependencies/infinite_scroll_pagination.dart';
 import 'package:dependencies/provider.dart';
 import 'package:common/data/repository/fake_lihat_stock_barang_repository.dart';
 import 'package:common/domain/model/barang.dart';
+import 'package:fitur_lihat_stock_barang/presentation/component/barang_card.dart';
 import 'package:fitur_lihat_stock_barang/presentation/component/filter_drawer.dart';
-import 'package:fitur_lihat_stock_barang/presentation/component/list_view_barang.dart';
 import 'package:fitur_lihat_stock_barang/presentation/provider/lihat_stock_barang_provider.dart';
 import 'package:flutter/material.dart';
 
@@ -40,13 +41,18 @@ class LihatStockBarangPage extends StatelessWidget {
             bottomNavigationBar: const StockBottomNavBar(
               currentIndex: Routes.fiturLihatStockBarangIndex,
             ),
-            body: ApiLoader(
-              apiResponse: provider.stockBarangApiResponse,
-              onRefresh: provider.refreshStockBarang,
-              builder: (List<Barang> listBarang){
-                return ListViewBarang(listBarang: listBarang);
+            body: PagedListView<int , Barang>.separated(
+              padding: const EdgeInsets.all(24),
+              pagingController: provider.pagingController,
+              builderDelegate: PagedChildBuilderDelegate(
+                itemBuilder: (context , barang , index){
+                  return BarangCard(barang: barang);
+                }
+              ),
+              separatorBuilder: (context , index){
+                return const VerticalFormSpacing();
               },
-            )
+            ),
           );
         }
       ),

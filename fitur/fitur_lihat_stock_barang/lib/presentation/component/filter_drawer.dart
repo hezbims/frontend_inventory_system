@@ -1,7 +1,9 @@
+import 'package:common/domain/model/kategori.dart';
 import 'package:common/presentation/button/submit_button.dart';
 import 'package:common/presentation/textfield/custom_dropdown_menu.dart';
-import 'package:common/presentation/textfield/custom_textfield.dart';
+import 'package:common/presentation/textfield/dropdown_page_chooser.dart';
 import 'package:common/presentation/textfield/style/spacing.dart';
+import 'package:common/routes/routes.dart';
 import 'package:dependencies/provider.dart';
 import 'package:fitur_lihat_stock_barang/presentation/provider/lihat_stock_barang_provider.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +13,7 @@ class FilterDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final LihatStockBarangProvider provider = Provider.of(context , listen: false);
+    final LihatStockBarangProvider provider = Provider.of(context , listen: true);
 
     final drawerWidth = MediaQuery.of(context).size.width * 3 / 4;
     return ConstrainedBox(
@@ -32,20 +34,19 @@ class FilterDrawer extends StatelessWidget {
 
               const SizedBox(height: 45,),
 
-              CustomTextfield(
-                controller: provider.namaController,
-                label: "Nama Barang",
-                errorText: null
-              ),
-
-              const VerticalFormSpacing(),
-
-              CustomDropdownMenu(
+              DropdownPageChooser(
                 label: "Kategori",
-                value: provider.kategori,
-                values: const ["Semua" , "Sarung Tangan" , "Kaos Kaki"],
-                onValueChange: provider.onKategoriChange,
-                errorText: null
+                value: provider.kategori?.nama ?? "",
+                errorMessage: null,
+                onTap: () async {
+                  final result = await Navigator.of(context).pushNamed(
+                    Routes.fiturPilihKategoriRoute
+                  );
+
+                  if (result is Kategori){
+                    provider.onKategoriChange(result);
+                  }
+                }
               ),
 
               const VerticalFormSpacing(),

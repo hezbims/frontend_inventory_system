@@ -8,6 +8,7 @@ class CustomTextfield extends StatelessWidget {
   final TextInputType inputType;
   final void Function(String)? onChanged;
   final int minLines;
+  final FocusNode? focusNode;
   const CustomTextfield({
     super.key,
     required this.controller,
@@ -16,6 +17,7 @@ class CustomTextfield extends StatelessWidget {
     this.inputType = TextInputType.text,
     this.onChanged,
     this.minLines = 1,
+    this.focusNode,
   });
 
   @override
@@ -30,6 +32,7 @@ class CustomTextfield extends StatelessWidget {
         ),
         TextField(
           controller: controller,
+          focusNode: focusNode,
           keyboardType: inputType,
           decoration: InputDecoration(errorText: errorText),
           onChanged: onChanged,

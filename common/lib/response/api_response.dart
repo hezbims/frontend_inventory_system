@@ -2,8 +2,10 @@ abstract class ApiResponse {}
 
 class ApiResponseSuccess<T> implements ApiResponse {
   final T? data;
+  bool isNextDataExist;
   ApiResponseSuccess({
     this.data,
+    this.isNextDataExist = false,
   });
 }
 

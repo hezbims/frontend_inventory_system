@@ -6,4 +6,7 @@ class Kategori {
     required this.nama,
   });
 
+  factory Kategori.fromJson(Map<String , dynamic> json){
+    return Kategori(id: json['id'], nama: json['nama']);
+  }
 }

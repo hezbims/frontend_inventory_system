@@ -32,7 +32,11 @@ class QuantityBarangProvider extends ChangeNotifier {
     } else {
       quantityError = intValidator.validate(quantityController.text, fieldName: "Quantity");
     }
+    if (quantityError != null){
+      quantityFocusNode.requestFocus();
+    }
     notifyListeners();
+
 
     return quantityError == null;
   }

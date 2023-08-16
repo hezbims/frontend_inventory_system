@@ -79,10 +79,36 @@ class InputDataBarangPage extends StatelessWidget {
 
                   const VerticalFormSpacing(),
 
-                  CustomTextfield(
-                      controller: provider.nomorRakController,
-                      label: "Nomor Rak",
-                      errorText: provider.nomorRakError
+                  Row(
+                    children: [
+                      Expanded(
+                        child: CustomTextfield(
+                            controller: provider.nomorRakController,
+                            label: "Nomor Rak",
+                            errorText: null
+                        ),
+                      ),
+
+                      const SizedBox(width: 12,),
+
+                      Expanded(
+                        child: CustomTextfield(
+                            controller: provider.nomorLaciController,
+                            label: "Nomor Laci",
+                            errorText: null
+                        ),
+                      ),
+
+                      const SizedBox(width: 12,),
+
+                      Expanded(
+                        child: CustomTextfield(
+                            controller: provider.nomorKolomController,
+                            label: "Nomor Kolom",
+                            errorText: null
+                        ),
+                      ),
+                    ],
                   ),
 
                   const VerticalFormSpacing(),

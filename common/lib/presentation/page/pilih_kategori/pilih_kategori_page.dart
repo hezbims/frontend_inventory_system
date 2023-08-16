@@ -1,10 +1,11 @@
+import 'package:common/data/repository/kategori_repository_impl.dart';
 import 'package:common/domain/model/kategori.dart';
 import 'package:common/presentation/api_loader/api_loader.dart';
 import 'package:common/presentation/button/tambah_sesuatu_button.dart';
+import 'package:common/presentation/dialog/kategori_dialog/kategori_dialog.dart';
 import 'package:dependencies/provider.dart';
-import 'package:fitur_input_data_barang/data/repository/fake_kategori_repository.dart';
-import 'package:fitur_input_data_barang/presentation/component/kategori_card.dart';
-import 'package:fitur_input_data_barang/presentation/provider/kategori_provider.dart';
+import 'package:common/presentation/card/kategori_card.dart';
+import 'package:common/presentation/page/pilih_kategori/pilih_kategori_provider.dart';
 import 'package:common/presentation/textfield/search_app_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -14,10 +15,10 @@ class PilihKategoriPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => KategoriProvider(
-          repository: FakeKategoriRepository()
+      create: (context) => PilihKategoriProvider(
+          repository: KategoriRepositoryImpl(),
       ),
-      child: Consumer<KategoriProvider>(
+      child: Consumer<PilihKategoriProvider>(
         builder: (context , provider , child){
           WidgetsBinding.instance.addPostFrameCallback(
             (_) {
@@ -44,8 +45,17 @@ class PilihKategoriPage extends StatelessWidget {
                         ),
                         child: TambahSesuatuButton(
                             label: "Tambah kategori baru",
-                            onTap: (){
+                            onTap: () async {
+                              final result = await showDialog(
+                                context: context,
+                                builder: (context){
+                                  return const KategoriDialog();
+                                }
+                              );
 
+                              if (result != null){
+                                provider.onRefreshKategori();
+                              }
                             }
                         ),
                       ),

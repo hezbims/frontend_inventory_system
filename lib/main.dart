@@ -1,6 +1,6 @@
+import 'package:common/presentation/page/pilih_kategori/pilih_kategori_page.dart';
 import 'package:common/routes/routes.dart';
 import 'package:fitur_input_data_barang/presentation/page/input_data_barang_page.dart';
-import 'package:fitur_input_data_barang/presentation/page/pilih_kategori_page.dart';
 import 'package:fitur_input_pengajuan/presentation/pages/input_data_pengajuan_page.dart';
 import 'package:fitur_input_pengajuan/presentation/pages/pilih_group_page.dart';
 import 'package:fitur_input_pengajuan/presentation/pages/pilih_list_barang_page.dart';

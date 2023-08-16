@@ -29,8 +29,8 @@ class BarangCard extends StatelessWidget {
                 Text("Total : ${barang.stockSekarang}"),
               ],
             ),
-            if (barang.id != null)
-              Text(barang.id!),
+
+            Text(barang.id),
 
             const SizedBox(height: 24,),
 
@@ -39,12 +39,17 @@ class BarangCard extends StatelessWidget {
               children: [
                 Expanded(
                   flex: 3,
-                  child: Text("Kategori :\n${barang.kategori}")
+                  child: Text("Kategori :\n${barang.kategori.nama}")
                 ),
                 const SizedBox(width: 4,),
                 Expanded(
                   flex: 2,
-                  child: Text("Rak :\n${barang.nomorRak}")
+                  child: Text(
+                    "Rak :\n"
+                    "R${barang.rak.nomorRak}-"
+                    "${barang.rak.nomorLaci}-"
+                    "${barang.rak.nomorKolom}"
+                  )
                 ),
                 const SizedBox(width: 4,),
                 Expanded(

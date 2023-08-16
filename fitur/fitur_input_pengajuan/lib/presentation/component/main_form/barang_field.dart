@@ -28,16 +28,13 @@ class BarangField extends StatelessWidget {
           style: labelStyle,
         ),
 
-        ...buildCards(),
-
         const SizedBox(height: 12,),
 
         TambahSesuatuButton(
           label: "Tambah barang",
           onTap: () async {
             final result = await Navigator.of(context).pushNamed(
-              Routes.fiturInputListBarangRoute,
-              arguments: provider
+                Routes.fiturInputListBarangRoute,
             );
 
             if (result is List<BarangTransaksi>){
@@ -45,6 +42,10 @@ class BarangField extends StatelessWidget {
             }
           },
         ),
+
+        ...buildCards(),
+
+
       ],
     );
   }

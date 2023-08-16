@@ -8,7 +8,7 @@ import 'package:stock_bu_fan/theme/custom_text_theme.dart';
 
 final customThemeData = ThemeData(
   useMaterial3: true,
-    primaryColor: primaryColor,
+  primaryColor: primaryColor,
     colorScheme: ColorScheme.fromSeed(
         seedColor: Colors.deepPurple
     ),

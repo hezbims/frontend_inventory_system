@@ -24,9 +24,11 @@ class ApiLoader<T> extends StatelessWidget {
             return builder(response.data);
           }
           else if (response is ApiResponseFailed) {
-            return DefaultErrorWidget(
-              onTap: onRefresh,
-              errorMessage: response.message ?? "Unknown Error",
+            return Center(
+              child: DefaultErrorWidget(
+                onTap: onRefresh,
+                errorMessage: response.message ?? "Unknown Error",
+              ),
             );
           }
           else {

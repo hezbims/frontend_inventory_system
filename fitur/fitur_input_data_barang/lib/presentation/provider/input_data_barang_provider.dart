@@ -14,7 +14,13 @@ class InputDataBarangProvider extends ChangeNotifier {
       ),
       _kategori = initialData?.kategori,
       nomorRakController = TextEditingController(
-        text: initialData?.nomorRak ?? ""
+        text: initialData?.rak.nomorRak.toString() ?? ""
+      ),
+      nomorLaciController = TextEditingController(
+        text: initialData?.rak.nomorLaci.toString() ?? ""
+      ),
+      nomorKolomController = TextEditingController(
+        text: initialData?.rak.nomorKolom.toString() ?? ""
       ),
       stockSekarangController = TextEditingController(
         text: initialData?.stockSekarang.toString() ?? ""
@@ -44,6 +50,8 @@ class InputDataBarangProvider extends ChangeNotifier {
   }
 
   final TextEditingController nomorRakController;
+  final TextEditingController nomorLaciController;
+  final TextEditingController nomorKolomController;
   final TextEditingController stockSekarangController;
   final TextEditingController lastMonthStockController;
   final TextEditingController unitPriceController;
