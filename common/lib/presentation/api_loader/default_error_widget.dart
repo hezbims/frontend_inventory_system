@@ -18,14 +18,12 @@ class DefaultErrorWidget extends StatelessWidget {
       children : [
         const Icon(Icons.warning , size: 48,),
 
-        const SizedBox(height: 16,),
-
         Text(
           errorMessage,
           textAlign: TextAlign.center,
         ),
 
-        const SizedBox(height: 16,),
+        const SizedBox(height: 8,),
 
         ElevatedButton(
           onPressed: onTap,

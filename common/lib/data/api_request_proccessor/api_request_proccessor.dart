@@ -1,11 +1,14 @@
 import 'package:common/data/mapper/message_mapper.dart';
+import 'package:common/data/mapper/pagination_checker.dart';
 import 'package:common/response/api_response.dart';
 import 'package:dependencies/http.dart';
 
 abstract class ApiRequestProcessor {
-  static Future<ApiResponse> process<T>({
+  static Future<ApiResponse> process<ModelType , ErrorType>({
     required Future<Response> apiRequest,
-    required T Function(String)? getModelFromBody,
+    ModelType Function(String)? getModelFromBody,
+    ErrorType? Function(String)? getErrorMessageFromBody,
+    bool isPagination = false,
     String? repositoryName,
   }) async {
     try {
@@ -15,16 +18,21 @@ abstract class ApiRequestProcessor {
           data: getModelFromBody == null ?
             null :
             getModelFromBody(response.body),
+          isNextDataExist: isPagination ?
+            PaginationChecker.hasNext(response.body) :
+            false
         );
       } else {
         return ApiResponseFailed(
-          message: MessageMapper.getMessageFromBody(response.body),
+          error: getErrorMessageFromBody == null ?
+            DefaultMessageMapper.getMessageFromBody(response.body) :
+            getErrorMessageFromBody(response.body),
           statusCode: response.statusCode,
         );
       }
     } catch (e) {
       return ApiResponseFailed(
-        message: "$repositoryName : $e",
+        error: "$repositoryName : $e",
       );
     }
 

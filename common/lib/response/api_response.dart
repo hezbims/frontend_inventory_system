@@ -9,11 +9,11 @@ class ApiResponseSuccess<T> implements ApiResponse {
   });
 }
 
-class ApiResponseFailed implements ApiResponse {
-  final String? message;
+class ApiResponseFailed<T> implements ApiResponse {
+  final T? error;
   final int? statusCode;
   ApiResponseFailed({
-    this.message,
+    this.error,
     this.statusCode,
   });
 }

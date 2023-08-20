@@ -1,9 +1,10 @@
-import 'package:common/domain/model/pengajuan.dart';
 import 'package:common/routes/routes.dart';
+import 'package:common/utils/date_formatter.dart';
+import 'package:fitur_lihat_pengajuan/domain/model/pengajuan_preview.dart';
 import 'package:flutter/material.dart';
 
 class PengajuanCard extends StatelessWidget {
-  final Pengajuan pengajuan;
+  final PengajuanPreview pengajuan;
   const PengajuanCard({
     super.key,
     required this.pengajuan,
@@ -21,16 +22,12 @@ class PengajuanCard extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                  child: Text(pengajuan.nama),
+                  child: Text("Tipe : ${pengajuan.tipe}"),
                 ),
 
-                Text(pengajuan.tanggal),
+                Text(IntlFormatter.dateTimeToString(pengajuan.tanggal)),
               ],
             ),
-
-            const SizedBox(height: 10,),
-
-            Text("Tipe : ${pengajuan.tipe}"),
 
             const SizedBox(height: 10,),
 
@@ -38,14 +35,14 @@ class PengajuanCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
-                  child: Text("Group : ${pengajuan.group.namaGroup}")
+                  child: Text(pengajuan.namaPengaju)
                 ),
 
                 OutlinedButton(
                   onPressed: (){
                     Navigator.of(context).pushNamed(
                       Routes.fiturInputDataPengajuanRoute,
-                      arguments: pengajuan,
+                      arguments: pengajuan.id,
                     );
                   },
                   child: const Text("Lihat Detail"),

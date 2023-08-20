@@ -9,7 +9,7 @@ class FakeLihatStockBarangRepository implements IBarangRepository{
     15,
     (index){
       return Barang(
-        id: "XG3024",
+        id: 23,
         nama: "Sarung Tangan Kain",
         minStock: 25,
         rak: Rak(nomorRak: 1, nomorLaci: 2, nomorKolom: 3),
@@ -17,6 +17,7 @@ class FakeLihatStockBarangRepository implements IBarangRepository{
         lastMonthStock: 36,
         unitPrice: 2000,
         kategori: Kategori(id: 1, nama: "Sarung Tangan"),
+        uom: "pc"
       );
     }
   );
@@ -25,6 +26,7 @@ class FakeLihatStockBarangRepository implements IBarangRepository{
     await Future.delayed(const Duration(seconds: 1));
     if (pageNumber == 4){
       return ApiResponseSuccess(data: _listBarang.sublist(0,4),);
+      // return ApiResponseFailed();
     }
     else {
       return ApiResponseSuccess(

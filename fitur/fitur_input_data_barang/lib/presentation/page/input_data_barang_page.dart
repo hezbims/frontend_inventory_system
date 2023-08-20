@@ -8,6 +8,8 @@ import 'package:common/presentation/textfield/style/spacing.dart';
 import 'package:common/response/api_response.dart';
 import 'package:common/routes/routes.dart';
 import 'package:dependencies/provider.dart';
+import 'package:fitur_input_data_barang/data/repository/submit_barang_repository_impl.dart';
+import 'package:fitur_input_data_barang/domain/model/submit_barang_dto.dart';
 import 'package:fitur_input_data_barang/presentation/provider/input_data_barang_provider.dart';
 import 'package:flutter/material.dart';
 
@@ -26,12 +28,13 @@ class InputDataBarangPage extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => InputDataBarangProvider(
         initialData: initialData,
+        repository: SubmitBarangRepositoryImpl(),
       ),
       child: Consumer<InputDataBarangProvider>(
         builder: (context , provider , child){
           if (provider.submitResponse is ApiResponseSuccess){
             WidgetsBinding.instance.addPostFrameCallback((_) {
-              Navigator.of(context).pop();
+              Navigator.of(context).pop(true);
             });
           }
           return Scaffold(
@@ -41,12 +44,14 @@ class InputDataBarangPage extends StatelessWidget {
                 centerTitle: true,
                 leading: BackButton(
                   onPressed: (){
-                    Navigator.of(context).pop();
+                    Navigator.of(context).pop(true);
                   },
                 ),
               ),
               bottomNavigationBar: SubmitCard(
-                onTap: provider.submit,
+                onTap: provider.submitResponse is ApiResponseLoading ?
+                  null :
+                  provider.submit,
               ),
               body : ListView(
                 padding: const EdgeInsets.symmetric(
@@ -57,7 +62,7 @@ class InputDataBarangPage extends StatelessWidget {
                   CustomTextfield(
                     controller: provider.namaController,
                     label: "Nama",
-                    errorText: provider.namaError,
+                    errorText: provider.errorMessage[SubmitBarangDto.kolomNama],
                   ),
 
                   const VerticalFormSpacing(),
@@ -65,7 +70,7 @@ class InputDataBarangPage extends StatelessWidget {
                   DropdownPageChooser(
                     label: "Kategori",
                     value: provider.kategori?.nama,
-                    errorMessage: provider.kategoriError,
+                    errorMessage: provider.errorMessage[SubmitBarangDto.kolomIdKategori],
                     onTap: () async {
                       final result = await Navigator.of(context).pushNamed(
                         Routes.fiturPilihKategoriRoute
@@ -85,7 +90,7 @@ class InputDataBarangPage extends StatelessWidget {
                         child: CustomTextfield(
                             controller: provider.nomorRakController,
                             label: "Nomor Rak",
-                            errorText: null
+                            errorText: provider.errorMessage[SubmitBarangDto.kolomNomorRak]
                         ),
                       ),
 
@@ -95,7 +100,7 @@ class InputDataBarangPage extends StatelessWidget {
                         child: CustomTextfield(
                             controller: provider.nomorLaciController,
                             label: "Nomor Laci",
-                            errorText: null
+                            errorText: provider.errorMessage[SubmitBarangDto.kolomNomorLaci]
                         ),
                       ),
 
@@ -105,7 +110,7 @@ class InputDataBarangPage extends StatelessWidget {
                         child: CustomTextfield(
                             controller: provider.nomorKolomController,
                             label: "Nomor Kolom",
-                            errorText: null
+                            errorText: provider.errorMessage[SubmitBarangDto.kolomNomorKolom]
                         ),
                       ),
                     ],
@@ -114,9 +119,18 @@ class InputDataBarangPage extends StatelessWidget {
                   const VerticalFormSpacing(),
 
                   CustomTextfield(
+                    controller: provider.minStockController,
+                    label: "Min. Stock",
+                    errorText: provider.errorMessage[SubmitBarangDto.kolomMinStock],
+                    inputType: TextInputType.number,
+                  ),
+
+                  const VerticalFormSpacing(),
+
+                  CustomTextfield(
                     controller: provider.lastMonthStockController,
                     label: "Last Month Stock",
-                    errorText: provider.lastMonthStockError,
+                    errorText: provider.errorMessage[SubmitBarangDto.kolomLastMonthStock],
                     inputType: TextInputType.number,
                   ),
 
@@ -125,7 +139,7 @@ class InputDataBarangPage extends StatelessWidget {
                   CustomTextfield(
                     controller: provider.stockSekarangController,
                     label: "Stock Sekarang",
-                    errorText: provider.stockSekarangError,
+                    errorText: provider.errorMessage[SubmitBarangDto.kolomStockSekarang],
                     inputType: TextInputType.number,
                     onChanged: provider.updateAmount,
                   ),
@@ -135,7 +149,7 @@ class InputDataBarangPage extends StatelessWidget {
                   CustomTextfield(
                     controller: provider.unitPriceController,
                     label: "Unit Price",
-                    errorText: provider.unitPriceError,
+                    errorText: provider.errorMessage[SubmitBarangDto.kolomUnitPrice],
                     inputType: TextInputType.number,
                     onChanged: provider.updateAmount,
                   ),
@@ -146,6 +160,14 @@ class InputDataBarangPage extends StatelessWidget {
                     label: "Amount",
                     value: provider.amount,
                     errorMessage: null,
+                  ),
+
+                  const VerticalFormSpacing(),
+
+                  CustomTextfield(
+                    controller: provider.uomController,
+                    label: "UOM",
+                    errorText: provider.errorMessage[SubmitBarangDto.kolomUom],
                   ),
                 ],
               )

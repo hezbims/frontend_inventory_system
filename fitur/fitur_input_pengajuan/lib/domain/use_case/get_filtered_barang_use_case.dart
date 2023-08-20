@@ -25,7 +25,7 @@ class GetFilteredBarangFromApiUseCase {
       }
     ).catchError((error){
       return ApiResponseFailed(
-        message: error.toString(),
+        error: error.toString(),
       );
     });
   }

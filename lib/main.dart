@@ -29,7 +29,12 @@ class MyApp extends StatelessWidget {
         Routes.fiturInputDataBarangRoute : (context) => const InputDataBarangPage(),
         Routes.fiturPilihKategoriRoute : (context) => const PilihKategoriPage(),
         Routes.fiturLihatPengajuanRoute : (context) => const LihatPengajuanPages(),
-        Routes.fiturInputDataPengajuanRoute : (context) => const InputDataPengajuanPage(),
+        Routes.fiturInputDataPengajuanRoute : (context){
+          final idPengajuan = ModalRoute.of(context)?.settings.arguments as int?;
+          debugPrint(idPengajuan.toString());
+
+          return const InputDataPengajuanPage();
+        },
         Routes.fiturInputListBarangRoute : (context) => const PilihListBarangPage(),
         Routes.fiturPilihGroupRoute : (context) => const PilihGroupPage(),
       },

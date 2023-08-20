@@ -22,7 +22,7 @@ class GetFilteredGroupUseCase {
       }
     } catch (e) {
       return ApiResponseFailed(
-        message: e.toString()
+        error: e.toString()
       );
     }
   }

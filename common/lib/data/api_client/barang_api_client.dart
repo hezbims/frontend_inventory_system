@@ -1,10 +1,18 @@
 import 'package:common/constant/url/common_url.dart';
+import 'package:common/domain/model/rak.dart';
 import 'package:dependencies/http.dart';
 
 class BarangApiClient {
-  Future<Response> getAllBarang(){
-    const getBarangUrl = "${CommonUrl.baseUrl}/barang/all";
-
+  Future<Response> getBarang(int pageNumber){
+    final getBarangUrl = "${CommonUrl.baseUrl}/barang/all?page=$pageNumber";
     return get(Uri.parse(getBarangUrl));
+  }
+
+  Future<Response> cekRak(Rak rak){
+    const cekRakUrl = "${CommonUrl.baseUrl}/rak/check";
+    return post(
+      Uri.parse(cekRakUrl),
+      body: rak.toJson(),
+    );
   }
 }

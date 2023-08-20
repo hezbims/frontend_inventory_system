@@ -11,7 +11,8 @@ class KategoriRepositoryImpl implements IKategoriRepository{
   Future<ApiResponse> getAllKategori() {
     return ApiRequestProcessor.process(
       apiRequest: _apiClient.getAllKategori(),
-      getModelFromBody: KategoriMapper.getListKategoriFromBody
+      getModelFromBody: KategoriMapper.getListKategoriFromBody,
+      isPagination: false
     );
   }
 
@@ -20,6 +21,7 @@ class KategoriRepositoryImpl implements IKategoriRepository{
     return ApiRequestProcessor.process(
       apiRequest: _apiClient.addNewKategori(namaKategori),
       getModelFromBody: null,
+      isPagination: false,
     );
   }
 

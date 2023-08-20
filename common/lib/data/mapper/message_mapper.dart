@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-abstract class MessageMapper  {
+abstract class DefaultMessageMapper  {
   static String getMessageFromBody(String jsonString){
     try {
       final json = jsonDecode(jsonString);

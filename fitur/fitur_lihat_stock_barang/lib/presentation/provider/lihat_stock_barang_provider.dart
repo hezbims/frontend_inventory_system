@@ -12,32 +12,39 @@ class LihatStockBarangProvider extends ChangeNotifier {
     required IBarangRepository repository,
   }) : _barangPaginator = GetBarangPaginateUseCase(repository: repository) {
     pagingController.addPageRequestListener((pageNumber) async {
-      final apiResponse = await _barangPaginator.fetch(pageNumber: pageNumber,);
-      if (apiResponse is ApiResponseSuccess<List<Barang>>){
-        if (apiResponse.isNextDataExist){
-          pagingController.appendPage(
-            apiResponse.data!,
-            pageNumber + 1,
+      try {
+        final apiResponse = await _barangPaginator.fetch(
+          pageNumber: pageNumber,);
+        if (apiResponse is ApiResponseSuccess<List<Barang>>) {
+          if (apiResponse.isNextDataExist) {
+            pagingController.appendPage(
+              apiResponse.data!,
+              pageNumber + 1,
+            );
+          }
+          else {
+            pagingController.appendLastPage(apiResponse.data!);
+          }
+        }
+        else if (apiResponse is ApiResponseFailed) {
+          pagingController.error = Exception(
+            apiResponse.error,
           );
         }
         else {
-          pagingController.appendLastPage(apiResponse.data!);
+          throw Exception("Error di lihat stock barang");
         }
-      }
-      else if (apiResponse is ApiResponseFailed) {
-        pagingController.error = apiResponse.message;
-      }
-      else {
-        throw Exception("Error di lihat stock barang");
+      } catch (e) {
+        debugPrint("Error di paging controller : $e");
       }
     });
   }
 
   final PagingController<int , Barang> pagingController = PagingController(firstPageKey: 1);
-
-
-
-
+  void refresh(){
+    pagingController.refresh();
+    notifyListeners();
+  }
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 

@@ -1,10 +1,11 @@
+import 'package:common/data/repository/barang_repository_impl.dart';
+import 'package:common/presentation/api_loader/default_error_widget.dart';
 import 'package:common/presentation/bottom_navbar/stock_bottom_navbar.dart';
 import 'package:common/presentation/textfield/search_with_filter_app_bar.dart';
 import 'package:common/presentation/textfield/style/spacing.dart';
 import 'package:common/routes/routes.dart';
 import 'package:dependencies/infinite_scroll_pagination.dart';
 import 'package:dependencies/provider.dart';
-import 'package:common/data/repository/fake_lihat_stock_barang_repository.dart';
 import 'package:common/domain/model/barang.dart';
 import 'package:fitur_lihat_stock_barang/presentation/component/barang_card.dart';
 import 'package:fitur_lihat_stock_barang/presentation/component/filter_drawer.dart';
@@ -18,7 +19,7 @@ class LihatStockBarangPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => LihatStockBarangProvider(
-        repository: FakeLihatStockBarangRepository(),
+        repository: BarangRepositoryImpl(),
       ),
       child: Consumer<LihatStockBarangProvider>(
         builder: (context , provider , child) {
@@ -33,8 +34,14 @@ class LihatStockBarangPage extends StatelessWidget {
               searchController: provider.namaController,
             ),
             floatingActionButton: FloatingActionButton(
-              onPressed: (){
-                Navigator.of(context).pushNamed(Routes.fiturInputDataBarangRoute);
+              onPressed: () async {
+                final result = await Navigator.of(context).pushNamed(
+                    Routes.fiturInputDataBarangRoute
+                );
+
+                if (result != null){
+                  provider.refresh();
+                }
               },
               child: const Icon(Icons.add),
             ),
@@ -47,6 +54,20 @@ class LihatStockBarangPage extends StatelessWidget {
               builderDelegate: PagedChildBuilderDelegate(
                 itemBuilder: (context , barang , index){
                   return BarangCard(barang: barang);
+                },
+                newPageErrorIndicatorBuilder: (context) {
+                  return DefaultErrorWidget(
+                    onTap: provider.pagingController.retryLastFailedRequest,
+                    errorMessage: "Gagal Tersambung",
+                  );
+                },
+                firstPageErrorIndicatorBuilder: (context){
+                  return Center(
+                    child: DefaultErrorWidget(
+                      onTap: provider.pagingController.retryLastFailedRequest,
+                      errorMessage: "Gagal Tersambung",
+                    ),
+                  );
                 }
               ),
               separatorBuilder: (context , index){

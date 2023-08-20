@@ -25,7 +25,7 @@ class FakeLihatPengajuanRepository implements ILihatPengajuanRepository {
   });
 
   @override
-  Future<ApiResponse> getAllPengajuan() {
+  Future<ApiResponse> getPengajuanPreview(int pageNumber) {
     return Future.delayed(const Duration(seconds: 2) , (){
       return ApiResponseSuccess(data : _listPengajuan);
     });

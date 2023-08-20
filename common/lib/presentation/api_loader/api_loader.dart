@@ -27,7 +27,7 @@ class ApiLoader<T> extends StatelessWidget {
             return Center(
               child: DefaultErrorWidget(
                 onTap: onRefresh,
-                errorMessage: response.message ?? "Unknown Error",
+                errorMessage: response.error ?? "Unknown Error",
               ),
             );
           }

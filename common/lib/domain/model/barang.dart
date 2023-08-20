@@ -2,7 +2,7 @@ import 'package:common/domain/model/kategori.dart';
 import 'package:common/domain/model/rak.dart';
 
 class Barang {
-  final String id;
+  final int id;
   final String nama;
   final int minStock;
   final Rak rak;
@@ -11,6 +11,7 @@ class Barang {
   final int unitPrice;
   final Kategori kategori;
   final String? urlPhoto;
+  final String uom;
   Barang({
     required this.id,
     required this.nama,
@@ -20,19 +21,46 @@ class Barang {
     required this.lastMonthStock,
     required this.unitPrice,
     required this.kategori,
+    required this.uom,
     this.urlPhoto,
   });
 
+
+  static const _kolomId = 'id';
+  static const _kolomNama = 'nama';
+  static const _kolomMinStock = 'min_stock';
+  static const _kolomRak = 'rak';
+  static const _kolomStockSekarang = 'stock_sekarang';
+  static const _kolomLastMonthStock = 'last_month_stock';
+  static const _kolomUnitPrice = 'unit_price';
+  static const _kolomKategori = 'kategori';
+  static const _kolomUom = "uom";
+
   factory Barang.fromJson(Map<String , dynamic> json){
     return Barang(
-        id: json['id'],
-        nama: json['nama'],
-        minStock: json['min_stock'],
-        rak: Rak.fromjson(json['rak']),
-        stockSekarang: json['stock_sekarang'],
-        lastMonthStock: json['last_month_stock'],
-        unitPrice: json['unit_price'],
-        kategori: json['kategori'],
+        id: json[_kolomId],
+        nama: json[_kolomNama],
+        minStock: json[_kolomMinStock],
+        rak: Rak.fromjson(json[_kolomRak]),
+        stockSekarang: json[_kolomStockSekarang],
+        lastMonthStock: json[_kolomLastMonthStock],
+        unitPrice: json[_kolomUnitPrice],
+        kategori: Kategori.fromJson(json[_kolomKategori]),
+        uom: json[_kolomUom],
     );
+  }
+
+  Map<String , dynamic> toJson(){
+    return {
+      _kolomId : id,
+      _kolomNama : nama,
+      _kolomMinStock : minStock,
+      _kolomRak : rak.toJson(),
+      _kolomStockSekarang : stockSekarang,
+      _kolomLastMonthStock : lastMonthStock,
+      _kolomUnitPrice : unitPrice,
+      _kolomKategori : kategori.toJson(),
+      _kolomUom : uom,
+    };
   }
 }

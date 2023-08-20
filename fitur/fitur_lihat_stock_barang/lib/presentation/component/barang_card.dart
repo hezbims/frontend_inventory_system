@@ -30,7 +30,7 @@ class BarangCard extends StatelessWidget {
               ],
             ),
 
-            Text(barang.id),
+            Text(barang.id.toString()),
 
             const SizedBox(height: 24,),
 
