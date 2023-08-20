@@ -11,7 +11,8 @@ class InputPengajuanProvider extends ChangeNotifier {
     jam = TimeOfDay.fromDateTime(initialData.tanggal),
     isPemasukan = initialData.isPemasok,
     _group = initialData.isPemasok == false ? initialData.pengaju : null,
-    _pemasok = initialData.isPemasok == true ? initialData.pengaju : null;
+    _pemasok = initialData.isPemasok == true ? initialData.pengaju : null,
+    listBarangTransaksi = initialData.listBarangTransaksi;
 
   DateTime tanggal;
   TimeOfDay jam;
@@ -40,7 +41,7 @@ class InputPengajuanProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<BarangTransaksi> listBarangTransaksi = [];
+  List<BarangTransaksi> listBarangTransaksi;
 
   String? tanggalError;
   String? jamError;

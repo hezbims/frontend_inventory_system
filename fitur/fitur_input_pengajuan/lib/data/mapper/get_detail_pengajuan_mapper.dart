@@ -18,7 +18,7 @@ class GetDetailPengajuanMapper {
           keterangan: json['keterangan'] ?? ""
         );
       }
-    ).toList();
+    ).toList().cast<BarangTransaksi>();
 
 
     return Pengajuan(

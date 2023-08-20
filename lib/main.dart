@@ -31,7 +31,6 @@ class MyApp extends StatelessWidget {
         Routes.fiturLihatPengajuanRoute : (context) => const LihatPengajuanPages(),
         Routes.fiturInputDataPengajuanRoute : (context){
           final idPengajuan = ModalRoute.of(context)?.settings.arguments as int?;
-          debugPrint(idPengajuan.toString());
 
           return InitialDetailPengajuanLoader(idPengajuan: idPengajuan);
         },
