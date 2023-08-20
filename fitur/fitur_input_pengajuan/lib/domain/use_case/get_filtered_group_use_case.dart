@@ -1,5 +1,5 @@
 import 'package:common/response/api_response.dart';
-import 'package:common/domain/model/group.dart';
+import 'package:fitur_input_pengajuan/domain/model/pengaju.dart';
 
 class GetFilteredGroupUseCase {
   Future<ApiResponse> filter({
@@ -8,11 +8,11 @@ class GetFilteredGroupUseCase {
   }) async {
     try {
       final response = await apiResponse;
-      if (response is ApiResponseSuccess<List<Group>>) {
+      if (response is ApiResponseSuccess<List<Pengaju>>) {
         return ApiResponseSuccess(
           data: response.data!.where(
             (group) =>
-              group.namaGroup.toLowerCase()
+              group.nama.toLowerCase()
                   .contains(keyword.toLowerCase())
           ).toList()
         );

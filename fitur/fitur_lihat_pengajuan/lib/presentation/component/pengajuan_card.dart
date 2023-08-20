@@ -1,13 +1,14 @@
-import 'package:common/routes/routes.dart';
 import 'package:common/utils/date_formatter.dart';
 import 'package:fitur_lihat_pengajuan/domain/model/pengajuan_preview.dart';
 import 'package:flutter/material.dart';
 
 class PengajuanCard extends StatelessWidget {
   final PengajuanPreview pengajuan;
+  final void Function() onTap;
   const PengajuanCard({
     super.key,
     required this.pengajuan,
+    required this.onTap,
   });
 
   @override
@@ -39,12 +40,7 @@ class PengajuanCard extends StatelessWidget {
                 ),
 
                 OutlinedButton(
-                  onPressed: (){
-                    Navigator.of(context).pushNamed(
-                      Routes.fiturInputDataPengajuanRoute,
-                      arguments: pengajuan.id,
-                    );
-                  },
+                  onPressed: onTap,
                   child: const Text("Lihat Detail"),
                 )
               ],

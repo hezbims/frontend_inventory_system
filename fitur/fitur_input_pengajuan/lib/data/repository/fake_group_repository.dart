@@ -1,18 +1,18 @@
 import 'package:common/response/api_response.dart';
-import 'package:common/domain/model/group.dart';
+import 'package:fitur_input_pengajuan/domain/model/pengaju.dart';
 import 'package:fitur_input_pengajuan/domain/repository/i_group_repository.dart';
 
 class FakeGroupRepository implements IGroupRepository {
   final _groups = [
-    Group(namaGroup: "D20-E3", groupId: 1),
-    Group(namaGroup: "T3F", groupId: 2),
-    Group(namaGroup: "24JPL", groupId: 3),
-    Group(namaGroup: "B40003E420", groupId: 4),
-    Group(namaGroup: "E65", groupId: 5),
-    Group(namaGroup: "700G24", groupId: 6),
-    Group(namaGroup: "T36JFG", groupId: 7),
-    Group(namaGroup: "B1", groupId: 8),
-    Group(namaGroup: "EVZ74G", groupId: 9),
+    Pengaju(nama: "D20-E3", id: 1),
+    Pengaju(nama: "T3F", id: 2),
+    Pengaju(nama: "24JPL", id: 3),
+    Pengaju(nama: "B40003E420", id: 4),
+    Pengaju(nama: "E65", id: 5),
+    Pengaju(nama: "700G24", id: 6),
+    Pengaju(nama: "T36JFG", id: 7),
+    Pengaju(nama: "B1", id: 8),
+    Pengaju(nama: "EVZ74G", id: 9),
   ];
   @override
   Future<ApiResponse> getGroups() {

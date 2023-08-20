@@ -25,7 +25,7 @@ class BarangTransaksiCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    barangTransaksi.barang.nama,
+                    barangTransaksi.namaBarang,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),

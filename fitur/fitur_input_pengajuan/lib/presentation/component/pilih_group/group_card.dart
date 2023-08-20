@@ -1,10 +1,10 @@
-import 'package:common/domain/model/group.dart';
 import 'package:common/themes/custom_font_weight.dart';
 import 'package:dependencies/google_fonts.dart';
+import 'package:fitur_input_pengajuan/domain/model/pengaju.dart';
 import 'package:flutter/material.dart';
 
 class GroupCard extends StatelessWidget {
-  final Group group;
+  final Pengaju group;
   const GroupCard({
     super.key,
     required this.group,
@@ -25,7 +25,7 @@ class GroupCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(group.namaGroup),
+              Text(group.nama),
               Text(
                 "Section : AIDA",
                 style: GoogleFonts.inter(

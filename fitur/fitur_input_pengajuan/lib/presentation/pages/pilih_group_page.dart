@@ -1,9 +1,9 @@
 import 'package:common/presentation/api_loader/api_loader.dart';
 import 'package:dependencies/provider.dart';
 import 'package:fitur_input_pengajuan/data/repository/fake_group_repository.dart';
-import 'package:common/domain/model/group.dart';
 import 'package:common/presentation/textfield/search_app_bar.dart';
 import 'package:common/presentation/button/tambah_sesuatu_button.dart';
+import 'package:fitur_input_pengajuan/domain/model/pengaju.dart';
 import 'package:fitur_input_pengajuan/presentation/component/pilih_group/group_card.dart';
 import 'package:fitur_input_pengajuan/presentation/component/pilih_group/show_buat_group_dialog.dart';
 import 'package:fitur_input_pengajuan/presentation/provider/pilih_group/pilih_group_provider.dart';
@@ -31,7 +31,7 @@ class PilihGroupPage extends StatelessWidget {
               focusNode: provider.searchFocusNode,
               placeholder: "Cari group",
             ),
-            body: ApiLoader<List<Group>>(
+            body: ApiLoader<List<Pengaju>>(
                 apiResponse: provider.filteredGroupResponse,
                 onRefresh: provider.onRefreshGroup,
                 builder: (listGroup) {

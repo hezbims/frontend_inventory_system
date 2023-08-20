@@ -96,7 +96,9 @@ class TransaksiBarangBottomSheet extends StatelessWidget {
     if (provider.canSubmit()) {
       Navigator.of(context).pop(
           BarangTransaksi(
-            barang: currentBarang,
+            id: null,
+            idBarang: currentBarang.id,
+            namaBarang: currentBarang.nama,
             quantity: provider.currentQuantity!,
             keterangan: provider.keteranganController.text,
           )

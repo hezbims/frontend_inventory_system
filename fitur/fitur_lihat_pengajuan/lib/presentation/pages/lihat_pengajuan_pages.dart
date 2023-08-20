@@ -42,7 +42,15 @@ class LihatPengajuanPages extends StatelessWidget {
               pagingController: provider.pagingController,
               builderDelegate: PagedChildBuilderDelegate(
                 itemBuilder: (context , PengajuanPreview pengajuan , index){
-                  return PengajuanCard(pengajuan: pengajuan);
+                  return PengajuanCard(
+                    pengajuan: pengajuan,
+                    onTap: (){
+                      Navigator.of(context).pushNamed(
+                        Routes.fiturInputDataPengajuanRoute,
+                        arguments: pengajuan.id,
+                      );
+                    },
+                  );
                 },
                 firstPageErrorIndicatorBuilder: (context){
                   return DefaultErrorWidget(
