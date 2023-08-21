@@ -64,8 +64,8 @@ class InputPengajuanProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
-  void addNewBarang(List<BarangTransaksi> newBarang) {
-    listBarangTransaksi.addAll(newBarang);
+  void setNewListBarang(List<BarangTransaksi> newBarang) {
+    listBarangTransaksi = newBarang;
     notifyListeners();
   }
   void deleteBarang(BarangTransaksi oldBarang) {

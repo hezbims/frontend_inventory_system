@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 
 class SearchWithFilterAppBar extends AppBar {
   final void Function() onFilterPressed;
+  final void Function(String) onValueChange;
   final TextEditingController searchController;
 
   SearchWithFilterAppBar({
     required this.onFilterPressed,
     required this.searchController,
+    required this.onValueChange,
     super.key,
   }) : super(
     title: Padding(
@@ -22,6 +24,7 @@ class SearchWithFilterAppBar extends AppBar {
           label: Text("Cari nama barang"),
           contentPadding: EdgeInsets.zero,
         ),
+        onChanged: onValueChange,
       ),
     ),
     actions: [

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:common/domain/model/barang.dart';
 import 'package:common/domain/model/kategori.dart';
 import 'package:common/domain/repository/i_barang_repository.dart';
@@ -11,40 +13,64 @@ class LihatStockBarangProvider extends ChangeNotifier {
   LihatStockBarangProvider({
     required IBarangRepository repository,
   }) : _barangPaginator = GetBarangPaginateUseCase(repository: repository) {
-    pagingController.addPageRequestListener((pageNumber) async {
-      try {
-        final apiResponse = await _barangPaginator.fetch(
-          pageNumber: pageNumber,);
-        if (apiResponse is ApiResponseSuccess<List<Barang>>) {
-          if (apiResponse.isNextDataExist) {
-            pagingController.appendPage(
-              apiResponse.data!,
-              pageNumber + 1,
-            );
-          }
-          else {
-            pagingController.appendLastPage(apiResponse.data!);
-          }
-        }
-        else if (apiResponse is ApiResponseFailed) {
-          pagingController.error = Exception(
-            apiResponse.error,
+    pagingController.addPageRequestListener(_performApiCall);
+  }
+
+  void tryApiCall() async {
+    // make sure api call ini cuma dipanggil sekali aja,
+    // karena tryApiCall ini asynchronous, ada kemungkinan _waitListener dipanggil
+    // berkali-kali kalo gak ada penanda proses tryApiCall() udah selesai atau belum
+    if (!_isTryApiCall) {
+      _isTryApiCall = true;
+      await _waitListener();
+      pagingController.refresh();
+      _isTryApiCall = false;
+    }
+  }
+
+  Future<void> _waitListener() async {
+    while (_listenerIsProcessing){
+      await Future.delayed(const Duration(milliseconds: 100));
+    }
+  }
+
+  bool _isTryApiCall = false;
+  bool _listenerIsProcessing = false;
+
+  void _performApiCall(int pageNumber) async {
+    _listenerIsProcessing = true;
+    try {
+      final apiResponse = await _barangPaginator.fetch(
+        pageNumber: pageNumber,
+        keyword: namaController.text,
+      );
+      if (apiResponse is ApiResponseSuccess<List<Barang>>) {
+        if (apiResponse.isNextDataExist) {
+          pagingController.appendPage(
+            apiResponse.data!,
+            pageNumber + 1,
           );
         }
         else {
-          throw Exception("Error di lihat stock barang");
+          pagingController.appendLastPage(apiResponse.data!);
         }
-      } catch (e) {
-        debugPrint("Error di paging controller : $e");
       }
-    });
+      else if (apiResponse is ApiResponseFailed) {
+        pagingController.error = Exception(
+          apiResponse.error,
+        );
+      }
+      else {
+        throw Exception("Error di lihat stock barang");
+      }
+    } catch (e) {
+      debugPrint("Error di paging controller : $e");
+    }
+    _listenerIsProcessing = false;
   }
 
   final PagingController<int , Barang> pagingController = PagingController(firstPageKey: 1);
-  void refresh(){
-    pagingController.refresh();
-    notifyListeners();
-  }
+
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 

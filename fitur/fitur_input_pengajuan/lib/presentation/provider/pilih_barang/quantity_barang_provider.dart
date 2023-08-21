@@ -2,6 +2,8 @@ import 'package:common/domain/use_cases/int_validation_use_case.dart';
 import 'package:flutter/material.dart';
 
 class QuantityBarangProvider extends ChangeNotifier {
+  final int _maxQuantity;
+
   final quantityController = TextEditingController(text: "0");
   int? get currentQuantity => int.tryParse(quantityController.text);
   final keteranganController = TextEditingController();
@@ -10,7 +12,7 @@ class QuantityBarangProvider extends ChangeNotifier {
 
   String? quantityError;
 
-  QuantityBarangProvider(){
+  QuantityBarangProvider({required int maxQuantity}) :_maxQuantity = maxQuantity{
     quantityFocusNode.requestFocus();
   }
 
@@ -32,11 +34,14 @@ class QuantityBarangProvider extends ChangeNotifier {
     } else {
       quantityError = intValidator.validate(quantityController.text, fieldName: "Quantity");
     }
+
     if (quantityError != null){
       quantityFocusNode.requestFocus();
     }
+    else if (currentQuantity! > _maxQuantity){
+      quantityError = "Quantity melebihi current stock";
+    }
     notifyListeners();
-
 
     return quantityError == null;
   }

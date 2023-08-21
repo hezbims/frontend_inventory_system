@@ -22,7 +22,7 @@ class FakeLihatStockBarangRepository implements IBarangRepository{
     }
   );
   @override
-  Future<ApiResponse> getStockBarang(int pageNumber) async {
+  Future<ApiResponse> getStockBarang(int pageNumber , String keyword) async {
     await Future.delayed(const Duration(seconds: 1));
     if (pageNumber == 4){
       return ApiResponseSuccess(data: _listBarang.sublist(0,4),);

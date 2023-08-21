@@ -9,7 +9,8 @@ class GetBarangPaginateUseCase {
 
   Future<ApiResponse> fetch({
     required int pageNumber,
+    required String keyword,
   }) {
-    return _repository.getStockBarang(pageNumber);
+    return _repository.getStockBarang(pageNumber , keyword);
   }
 }

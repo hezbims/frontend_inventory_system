@@ -3,8 +3,8 @@ import 'package:common/domain/model/rak.dart';
 import 'package:dependencies/http.dart';
 
 class BarangApiClient {
-  Future<Response> getBarang(int pageNumber){
-    final getBarangUrl = "${CommonUrl.baseUrl}/barang/all?page=$pageNumber";
+  Future<Response> getBarang(int pageNumber , String keyword){
+    final getBarangUrl = "${CommonUrl.baseUrl}/barang/all?page=$pageNumber&keyword=$keyword";
     return get(Uri.parse(getBarangUrl));
   }
 

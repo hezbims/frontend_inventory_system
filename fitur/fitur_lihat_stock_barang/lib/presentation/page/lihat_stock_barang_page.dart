@@ -32,6 +32,7 @@ class LihatStockBarangPage extends StatelessWidget {
                 provider.scaffoldKey.currentState?.openEndDrawer();
               },
               searchController: provider.namaController,
+              onValueChange: (newValue) => provider.tryApiCall(),
             ),
             floatingActionButton: FloatingActionButton(
               onPressed: () async {
@@ -40,7 +41,7 @@ class LihatStockBarangPage extends StatelessWidget {
                 );
 
                 if (result != null){
-                  provider.refresh();
+                  provider.pagingController.refresh();
                 }
               },
               child: const Icon(Icons.add),
