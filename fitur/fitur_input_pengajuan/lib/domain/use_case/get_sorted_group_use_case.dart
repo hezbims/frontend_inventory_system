@@ -1,16 +1,18 @@
 import 'package:common/response/api_response.dart';
 import 'package:fitur_input_pengajuan/domain/model/pengaju.dart';
-import 'package:fitur_input_pengajuan/domain/repository/i_group_repository.dart';
+import 'package:fitur_input_pengajuan/domain/repository/i_pengaju_repository.dart';
 
 class GetSortedGroupUseCase {
-  final IGroupRepository _repository;
+  final IPengajuRepository _repository;
+  final int _isPemasok;
   GetSortedGroupUseCase({
-    required IGroupRepository repository,
-  }) : _repository = repository;
+    required IPengajuRepository repository,
+    required int isPemasok,
+  }) : _repository = repository , _isPemasok = isPemasok;
 
   Future<ApiResponse> get() async {
     try {
-      final apiResponse = await _repository.getGroups();
+      final apiResponse = await _repository.getPengaju(_isPemasok);
       if (apiResponse is ApiResponseSuccess<List<Pengaju>>){
         final data = apiResponse.data!;
         final sortedData = data..sort(

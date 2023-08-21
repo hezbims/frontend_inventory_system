@@ -2,7 +2,7 @@ import 'package:common/presentation/page/pilih_kategori/pilih_kategori_page.dart
 import 'package:common/routes/routes.dart';
 import 'package:fitur_input_data_barang/presentation/page/input_data_barang_page.dart';
 import 'package:fitur_input_pengajuan/presentation/pages/initial_detail_pengajuan_loader.dart';
-import 'package:fitur_input_pengajuan/presentation/pages/pilih_group_page.dart';
+import 'package:fitur_input_pengajuan/presentation/pages/pilih_pengaju_page.dart';
 import 'package:fitur_input_pengajuan/presentation/pages/pilih_list_barang_page.dart';
 import 'package:fitur_lihat_pengajuan/presentation/pages/lihat_pengajuan_pages.dart';
 import 'package:fitur_lihat_stock_barang/presentation/page/lihat_stock_barang_page.dart';
@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
           return InitialDetailPengajuanLoader(idPengajuan: idPengajuan);
         },
         Routes.fiturInputListBarangRoute : (context) => const PilihListBarangPage(),
-        Routes.fiturPilihGroupRoute : (context) => const PilihGroupPage(),
+        Routes.fiturPilihGroupRoute : (context) => const PilihPengajuPage(),
       },
     );
   }

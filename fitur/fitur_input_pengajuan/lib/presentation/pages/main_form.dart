@@ -86,6 +86,7 @@ class MainForm extends StatelessWidget {
                           onTap: () async {
                             final pemasokPicked = await Navigator.of(context).pushNamed(
                               Routes.fiturPilihGroupRoute,
+                              arguments: 1,
                             );
                             if (pemasokPicked is Pengaju){
                               provider.onChangePemasok(pemasokPicked);
@@ -102,6 +103,7 @@ class MainForm extends StatelessWidget {
                           onTap: () async {
                             final groupPicked = await Navigator.of(context).pushNamed(
                               Routes.fiturPilihGroupRoute,
+                              arguments: 0,
                             );
                             if (groupPicked is Pengaju){
                               provider.onChangeGroup(groupPicked);
