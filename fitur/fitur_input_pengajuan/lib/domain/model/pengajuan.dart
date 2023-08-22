@@ -9,14 +9,11 @@ class Pengajuan {
 
   final Pengaju? pengaju;
 
-  final bool? isPemasok;
-
   final List<BarangTransaksi> listBarangTransaksi;
   Pengajuan({
     required this.id,
     required this.tanggal,
     required this.pengaju,
-    required this.isPemasok,
     this.listBarangTransaksi = const [],
   });
 }

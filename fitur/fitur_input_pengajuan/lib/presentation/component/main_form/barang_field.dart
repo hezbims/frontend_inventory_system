@@ -4,7 +4,7 @@ import 'package:dependencies/provider.dart';
 import 'package:fitur_input_pengajuan/domain/model/barang_transaksi.dart';
 import 'package:common/presentation/button/tambah_sesuatu_button.dart';
 import 'package:fitur_input_pengajuan/presentation/arg_model/main_form_to_pilih_barang_arg.dart';
-import 'package:fitur_input_pengajuan/presentation/provider/main_form/input_pengajuan_provider.dart';
+import 'package:fitur_input_pengajuan/presentation/provider/main_form/main_form_provider.dart';
 import 'package:flutter/material.dart';
 
 import 'barang_transaksi_card.dart';
@@ -19,7 +19,7 @@ class BarangField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final InputPengajuanProvider provider = Provider.of(context , listen : false);
+    final MainFormProvider provider = Provider.of(context , listen : false);
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,

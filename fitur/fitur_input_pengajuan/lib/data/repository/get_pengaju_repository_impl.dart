@@ -9,7 +9,7 @@ class GetPengajuRepositoryImpl implements IGetPengajuRepository{
   final _mapper = GetPengajuMapper();
 
   @override
-  Future<ApiResponse> getPengaju(int isPemasok){
+  Future<ApiResponse> getPengaju(bool isPemasok){
     return ApiRequestProcessor.process(
       apiRequest: _apiClient.getPengaju(isPemasok),
       getModelFromBody: _mapper.fromBodyToListPengaju,

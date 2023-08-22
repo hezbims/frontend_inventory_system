@@ -27,8 +27,9 @@ class GetDetailPengajuanMapper {
       pengaju: Pengaju(
         nama: data['pengaju']['nama'],
         id: data['pengaju']['id'],
+        isPemasok: data['pengaju']['is_pemasok'] == 1,
       ),
-      isPemasok: data['pengaju']['is_pemasok'] == 1,
+
       listBarangTransaksi: listBarangTransaksi,
     );
   }

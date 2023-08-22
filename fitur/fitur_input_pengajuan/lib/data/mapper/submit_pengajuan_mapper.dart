@@ -7,7 +7,7 @@ class SubmitPengajuanMapper {
     final jsonMap = {
       'id' : pengajuan.id,
       'id_pengaju' : pengajuan.pengaju!.id,
-      'is_pemasok' : pengajuan.isPemasok!,
+      'is_pemasok' : pengajuan.pengaju!.isPemasok,
       'list_barang_ajuan' : pengajuan.listBarangTransaksi.map(
         (barangAjuan) => {
             'quantity' : barangAjuan.quantity,

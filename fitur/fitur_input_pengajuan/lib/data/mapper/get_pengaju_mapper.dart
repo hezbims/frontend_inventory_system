@@ -13,6 +13,7 @@ class GetPengajuMapper {
         return Pengaju(
           nama: json['nama'],
           id: json['id'],
+          isPemasok: json['is_pemasok'] == 1,
         );
       }
     ).toList().cast<Pengaju>();

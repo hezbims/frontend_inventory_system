@@ -14,7 +14,7 @@ class PilihPengajuPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isPemasok = ModalRoute.of(context)?.settings.arguments as int;
+    final isPemasok = ModalRoute.of(context)?.settings.arguments as bool;
 
     return ChangeNotifierProvider(
       create: (context) => PilihGroupProvider(
@@ -36,7 +36,7 @@ class PilihPengajuPage extends StatelessWidget {
             ),
             body: ApiLoader<List<Pengaju>>(
                 apiResponse: provider.filteredGroupResponse,
-                onRefresh: provider.onRefreshGroup,
+                onRefresh: provider.refresh,
                 builder: (listGroup) {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -48,8 +48,15 @@ class PilihPengajuPage extends StatelessWidget {
                         ),
                         child: TambahSesuatuButton(
                             label: "Tambah group baru",
-                            onTap: (){
-                              showBuatGroupDialog(context);
+                            onTap: () async {
+                              final result = await showBuatGroupDialog(
+                                context: context,
+                                isPemasok: isPemasok,
+                              );
+
+                              if (result != null){
+                                provider.refresh();
+                              }
                             }
                         ),
                       ),

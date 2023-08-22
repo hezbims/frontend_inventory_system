@@ -11,7 +11,7 @@ import 'package:fitur_input_pengajuan/domain/model/pengajuan.dart';
 import 'package:fitur_input_pengajuan/presentation/component/main_form/clock_field.dart';
 import 'package:fitur_input_pengajuan/presentation/component/main_form/barang_field.dart';
 import 'package:fitur_input_pengajuan/presentation/component/main_form/date_field.dart';
-import 'package:fitur_input_pengajuan/presentation/provider/main_form/input_pengajuan_provider.dart';
+import 'package:fitur_input_pengajuan/presentation/provider/main_form/main_form_provider.dart';
 import 'package:flutter/material.dart';
 
 class MainForm extends StatelessWidget {
@@ -24,11 +24,11 @@ class MainForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-        create : (context) => InputPengajuanProvider(
+        create : (context) => MainFormProvider(
           initialData: initialData,
           repository: SubmitPengajuanRepositoryImpl()
         ),
-        child : Consumer<InputPengajuanProvider>(
+        child : Consumer<MainFormProvider>(
             builder: (context , provider , child) {
               if (provider.submitResponse is ApiResponseSuccess){
                 WidgetsBinding.instance.addPostFrameCallback(
@@ -98,7 +98,7 @@ class MainForm extends StatelessWidget {
                           onTap: () async {
                             final pemasokPicked = await Navigator.of(context).pushNamed(
                               Routes.fiturPilihGroupRoute,
-                              arguments: 1,
+                              arguments: true,
                             );
                             if (pemasokPicked is Pengaju){
                               provider.onChangePemasok(pemasokPicked);
@@ -115,7 +115,7 @@ class MainForm extends StatelessWidget {
                           onTap: () async {
                             final groupPicked = await Navigator.of(context).pushNamed(
                               Routes.fiturPilihGroupRoute,
-                              arguments: 0,
+                              arguments: false,
                             );
                             debugPrint(groupPicked.toString());
                             if (groupPicked is Pengaju){

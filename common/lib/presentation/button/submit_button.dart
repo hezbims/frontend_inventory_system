@@ -10,8 +10,12 @@ class SubmitButton extends FilledButton {
   }) : super(
     onPressed: onTap,
     child: onTap == null ?
-      const CircularProgressIndicator(
-        color: Colors.white,
+      const SizedBox(
+        height: 20,
+        width: 20,
+        child: CircularProgressIndicator(
+          color: Colors.white,
+        ),
       ) :
       Text(label),
   );

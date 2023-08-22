@@ -21,7 +21,6 @@ class GetDetailPengajuanProvider extends ChangeNotifier {
             id: null,
             tanggal: DateTime.now(),
             pengaju: null,
-            isPemasok: null
           )
         )
       );

@@ -7,12 +7,12 @@ import 'package:fitur_input_pengajuan/domain/repository/i_submit_pengajuan_repos
 import 'package:fitur_input_pengajuan/domain/use_case/null_validation_use_case.dart';
 import 'package:flutter/material.dart';
 
-class InputPengajuanProvider extends ChangeNotifier {
+class MainFormProvider extends ChangeNotifier {
   final _nullValidator = NullValidationUseCase();
   final ISubmitPengajuanRepository _repository;
   final int? _id;
 
-  InputPengajuanProvider({
+  MainFormProvider({
     required Pengajuan initialData,
     required ISubmitPengajuanRepository repository
   })  :
@@ -20,9 +20,9 @@ class InputPengajuanProvider extends ChangeNotifier {
     _id = initialData.id,
     tanggal = initialData.tanggal,
     jam = TimeOfDay.fromDateTime(initialData.tanggal),
-    isPemasukan = initialData.isPemasok,
-    _group = initialData.isPemasok == false ? initialData.pengaju : null,
-    _pemasok = initialData.isPemasok == true ? initialData.pengaju : null,
+    isPemasukan = initialData.pengaju?.isPemasok,
+    _group = initialData.pengaju?.isPemasok == false ? initialData.pengaju : null,
+    _pemasok = initialData.pengaju?.isPemasok == true ? initialData.pengaju : null,
     listBarangTransaksi = initialData.listBarangTransaksi;
 
   DateTime tanggal;
@@ -95,7 +95,6 @@ class InputPengajuanProvider extends ChangeNotifier {
             id: _id,
             tanggal: tanggal,
             pengaju: isPemasukan! ? _pemasok : _group,
-            isPemasok: isPemasukan,
             listBarangTransaksi: listBarangTransaksi,
           )
         );

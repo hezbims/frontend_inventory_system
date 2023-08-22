@@ -1,6 +1,6 @@
 import 'package:dependencies/provider.dart';
 import 'package:fitur_input_pengajuan/domain/model/barang_transaksi.dart';
-import 'package:fitur_input_pengajuan/presentation/provider/main_form/input_pengajuan_provider.dart';
+import 'package:fitur_input_pengajuan/presentation/provider/main_form/main_form_provider.dart';
 import 'package:flutter/material.dart';
 
 class BarangTransaksiCard extends StatelessWidget {
@@ -12,7 +12,7 @@ class BarangTransaksiCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<InputPengajuanProvider>(context , listen: false);
+    final provider = Provider.of<MainFormProvider>(context , listen: false);
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(12.0),

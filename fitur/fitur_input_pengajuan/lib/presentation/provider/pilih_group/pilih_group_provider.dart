@@ -11,7 +11,7 @@ class PilihGroupProvider extends ChangeNotifier {
 
   PilihGroupProvider({
     required IGetPengajuRepository repository,
-    required int isPemasok,
+    required bool isPemasok,
   }) : _getSortedGroupUseCase = GetSortedGroupUseCase(
         repository: repository,
         isPemasok: isPemasok,
@@ -42,7 +42,7 @@ class PilihGroupProvider extends ChangeNotifier {
     );
   }
 
-  void onRefreshGroup(){
+  void refresh(){
     _getSortedGroupResponse = _getSortedGroupUseCase.get();
     notifyListeners();
   }

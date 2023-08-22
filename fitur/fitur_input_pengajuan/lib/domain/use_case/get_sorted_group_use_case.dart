@@ -4,10 +4,10 @@ import 'package:fitur_input_pengajuan/domain/repository/i_get_pengaju_repository
 
 class GetSortedGroupUseCase {
   final IGetPengajuRepository _repository;
-  final int _isPemasok;
+  final bool _isPemasok;
   GetSortedGroupUseCase({
     required IGetPengajuRepository repository,
-    required int isPemasok,
+    required bool isPemasok,
   }) : _repository = repository , _isPemasok = isPemasok;
 
   Future<ApiResponse> get() async {
