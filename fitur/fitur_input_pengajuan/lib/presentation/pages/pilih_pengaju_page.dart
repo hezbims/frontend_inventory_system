@@ -2,7 +2,7 @@ import 'package:common/presentation/api_loader/api_loader.dart';
 import 'package:dependencies/provider.dart';
 import 'package:common/presentation/textfield/search_app_bar.dart';
 import 'package:common/presentation/button/tambah_sesuatu_button.dart';
-import 'package:fitur_input_pengajuan/data/repository/pengaju_repository_impl.dart';
+import 'package:fitur_input_pengajuan/data/repository/get_pengaju_repository_impl.dart';
 import 'package:fitur_input_pengajuan/domain/model/pengaju.dart';
 import 'package:fitur_input_pengajuan/presentation/component/pilih_group/group_card.dart';
 import 'package:fitur_input_pengajuan/presentation/component/pilih_group/show_buat_group_dialog.dart';
@@ -18,7 +18,7 @@ class PilihPengajuPage extends StatelessWidget {
 
     return ChangeNotifierProvider(
       create: (context) => PilihGroupProvider(
-        repository: PengajuRepositoryImpl(),
+        repository: GetPengajuRepositoryImpl(),
         isPemasok: isPemasok,
       ),
       child: Consumer<PilihGroupProvider>(

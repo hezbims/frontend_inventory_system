@@ -1,20 +1,23 @@
-import 'package:common/domain/use_cases/int_validation_use_case.dart';
+import 'package:fitur_input_pengajuan/domain/use_case/quantity_validation_use_case.dart';
 import 'package:flutter/material.dart';
 
 class QuantityBarangProvider extends ChangeNotifier {
-  final int _maxQuantity;
+  final int _currentStock;
+  final bool _isPemasukan;
 
   final quantityController = TextEditingController(text: "0");
-  int? get currentQuantity => int.tryParse(quantityController.text);
-  final keteranganController = TextEditingController();
   final quantityFocusNode = FocusNode();
-  final intValidator = IntValidationUseCase();
+  final quantityValidator = QuantityValidtionUseCase();
+  int? get currentQuantity => int.tryParse(quantityController.text);
+
+  final keteranganController = TextEditingController();
 
   String? quantityError;
 
-  QuantityBarangProvider({required int maxQuantity}) :_maxQuantity = maxQuantity{
-    quantityFocusNode.requestFocus();
-  }
+  QuantityBarangProvider({
+    required int currentStock,
+    required bool isPemasukan,
+  }) : _currentStock = currentStock , _isPemasukan = isPemasukan;
 
   void onIncrease(){
     quantityController.text = (
@@ -29,21 +32,19 @@ class QuantityBarangProvider extends ChangeNotifier {
   }
 
   bool canSubmit(){
-    if (quantityController.text == "0") {
-      quantityError = "Quantity tidak boleh 0!";
-    } else {
-      quantityError = intValidator.validate(quantityController.text, fieldName: "Quantity");
-    }
-
-    if (quantityError != null){
-      quantityFocusNode.requestFocus();
-    }
-    else if (currentQuantity! > _maxQuantity){
-      quantityError = "Quantity melebihi current stock";
-    }
+    quantityError = quantityValidator(
+      quantityText: quantityController.text,
+      isPemasukan: _isPemasukan,
+      currentStock: _currentStock,
+    );
     notifyListeners();
 
-    return quantityError == null;
+    if (quantityError == null){
+      return true;
+    }
+    else {
+      return false;
+    }
   }
 
   @override

@@ -3,6 +3,7 @@ import 'package:common/domain/model/kategori.dart';
 import 'package:common/domain/use_cases/empty_validation_use_case.dart';
 import 'package:common/domain/use_cases/int_validation_use_case.dart';
 import 'package:common/response/api_response.dart';
+import 'package:dependencies/fluttertoast.dart';
 import 'package:fitur_input_data_barang/domain/model/submit_barang_dto.dart';
 import 'package:fitur_input_data_barang/domain/repository/i_submit_barang_repository.dart';
 import 'package:flutter/cupertino.dart';
@@ -138,6 +139,12 @@ class InputDataBarangProvider extends ChangeNotifier {
       // parse semua error messagenya ke dalam error di textfield
       if (nextResponse is ApiResponseFailed) {
         errorMessage = nextResponse.error;
+        if (errorMessage[SubmitBarangDto.kolomCreateRak] != null){
+          Fluttertoast.showToast(
+            msg: errorMessage[SubmitBarangDto.kolomCreateRak].toString(),
+            timeInSecForIosWeb: 3,
+          );
+        }
       }
 
       submitResponse = nextResponse;

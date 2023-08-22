@@ -26,7 +26,7 @@ class BarangCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(barang.nama),
-                Text("Total : ${barang.stockSekarang}"),
+                Text("Current stock : ${barang.stockSekarang}"),
               ],
             ),
 

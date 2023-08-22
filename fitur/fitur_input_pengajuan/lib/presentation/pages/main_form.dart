@@ -2,8 +2,10 @@ import 'package:common/presentation/bottom_navbar/submit_card.dart';
 import 'package:common/presentation/textfield/custom_dropdown_menu.dart';
 import 'package:common/presentation/textfield/dropdown_page_chooser.dart';
 import 'package:common/presentation/textfield/style/spacing.dart';
+import 'package:common/response/api_response.dart';
 import 'package:common/routes/routes.dart';
 import 'package:dependencies/provider.dart';
+import 'package:fitur_input_pengajuan/data/repository/submit_pengajuan_repository_impl.dart';
 import 'package:fitur_input_pengajuan/domain/model/pengaju.dart';
 import 'package:fitur_input_pengajuan/domain/model/pengajuan.dart';
 import 'package:fitur_input_pengajuan/presentation/component/main_form/clock_field.dart';
@@ -24,9 +26,17 @@ class MainForm extends StatelessWidget {
     return ChangeNotifierProvider(
         create : (context) => InputPengajuanProvider(
           initialData: initialData,
+          repository: SubmitPengajuanRepositoryImpl()
         ),
         child : Consumer<InputPengajuanProvider>(
             builder: (context , provider , child) {
+              if (provider.submitResponse is ApiResponseSuccess){
+                WidgetsBinding.instance.addPostFrameCallback(
+                  (_) {
+                    Navigator.of(context).pop(true);
+                  }
+                );
+              }
               return Scaffold(
                 appBar: AppBar(
                   scrolledUnderElevation: 0,
@@ -35,7 +45,9 @@ class MainForm extends StatelessWidget {
                   leading: const BackButton(),
                 ),
                 bottomNavigationBar: SubmitCard(
-                  onTap: (){},
+                  onTap: provider.submitResponse is ApiResponseLoading ?
+                    null :
+                    provider.submit,
                 ),
                 body: ListView(
                   padding: const EdgeInsets.symmetric(
@@ -105,6 +117,7 @@ class MainForm extends StatelessWidget {
                               Routes.fiturPilihGroupRoute,
                               arguments: 0,
                             );
+                            debugPrint(groupPicked.toString());
                             if (groupPicked is Pengaju){
                               provider.onChangeGroup(groupPicked);
                             }
@@ -113,7 +126,8 @@ class MainForm extends StatelessWidget {
                       const VerticalFormSpacing(),
                     ],
 
-                    BarangField(listBarangTransaksi: provider.listBarangTransaksi),
+                    if (provider.isPemasukan != null)
+                      BarangField(listBarangTransaksi: provider.listBarangTransaksi),
                   ],
                 ),
               );

@@ -1,12 +1,12 @@
 import 'package:common/response/api_response.dart';
 import 'package:fitur_input_pengajuan/domain/model/pengaju.dart';
-import 'package:fitur_input_pengajuan/domain/repository/i_pengaju_repository.dart';
+import 'package:fitur_input_pengajuan/domain/repository/i_get_pengaju_repository.dart';
 
 class GetSortedGroupUseCase {
-  final IPengajuRepository _repository;
+  final IGetPengajuRepository _repository;
   final int _isPemasok;
   GetSortedGroupUseCase({
-    required IPengajuRepository repository,
+    required IGetPengajuRepository repository,
     required int isPemasok,
   }) : _repository = repository , _isPemasok = isPemasok;
 

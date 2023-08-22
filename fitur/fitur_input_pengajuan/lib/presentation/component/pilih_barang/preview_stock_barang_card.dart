@@ -20,27 +20,29 @@ class PreviewStockBarangCard extends StatelessWidget {
     final provider = Provider.of<PilihBarangProvider>(context , listen : false);
     return InkWell(
       onTap: () async {
-        if (barang.currentStock > 0) {
-          if (provider.thisBarangAlreadyTaken(barang)){
-            Fluttertoast.showToast(
-              msg: "Barang ini sudah pernah anda ambil!",
-              webBgColor: "black",
-              textColor: Colors.blueAccent
-            );
-          }
-          else {
-            final result = await showModalBottomSheet(
-                context: context,
-                builder: (context) {
-                  return TransaksiBarangBottomSheet(currentBarang: barang);
-                }
-            );
-            provider.searchBarangFocusNode.requestFocus();
+        if (barang.currentStock == 0 &&
+            !provider.isPemasukan) {
+          Fluttertoast.showToast(msg: "Barang sudah habis!",);
+          return;
+        }
+        if (provider.thisBarangAlreadyTaken(barang)) {
+          Fluttertoast.showToast(msg: "Barang ini sudah pernah anda ambil!",);
+          return;
+        }
 
-            if (result is BarangTransaksi) {
-              provider.addNewBarangTransaksi(result);
+        final result = await showModalBottomSheet(
+            context: context,
+            builder: (context) {
+              return TransaksiBarangBottomSheet(
+                currentBarang: barang,
+                isPemasukan: provider.isPemasukan,
+              );
             }
-          }
+        );
+        provider.searchBarangFocusNode.requestFocus();
+
+        if (result is BarangTransaksi) {
+          provider.addNewBarangTransaksi(result);
         }
       },
       child: Card(

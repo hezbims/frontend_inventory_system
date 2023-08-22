@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:fitur_input_pengajuan/domain/model/pengaju.dart';
 
-class PengajuMapper {
+class GetPengajuMapper {
   List<Pengaju> fromBodyToListPengaju(String body){
     final jsonBody = jsonDecode(body);
 

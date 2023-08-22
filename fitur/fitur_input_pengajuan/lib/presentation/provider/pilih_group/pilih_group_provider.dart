@@ -1,6 +1,6 @@
 
 import 'package:common/response/api_response.dart';
-import 'package:fitur_input_pengajuan/domain/repository/i_pengaju_repository.dart';
+import 'package:fitur_input_pengajuan/domain/repository/i_get_pengaju_repository.dart';
 import 'package:fitur_input_pengajuan/domain/use_case/get_filtered_group_use_case.dart';
 import 'package:fitur_input_pengajuan/domain/use_case/get_sorted_group_use_case.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +10,7 @@ class PilihGroupProvider extends ChangeNotifier {
   final _groupFilter = GetFilteredGroupUseCase();
 
   PilihGroupProvider({
-    required IPengajuRepository repository,
+    required IGetPengajuRepository repository,
     required int isPemasok,
   }) : _getSortedGroupUseCase = GetSortedGroupUseCase(
         repository: repository,

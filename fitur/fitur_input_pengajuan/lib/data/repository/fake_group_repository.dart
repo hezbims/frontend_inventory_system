@@ -1,8 +1,8 @@
 import 'package:common/response/api_response.dart';
 import 'package:fitur_input_pengajuan/domain/model/pengaju.dart';
-import 'package:fitur_input_pengajuan/domain/repository/i_pengaju_repository.dart';
+import 'package:fitur_input_pengajuan/domain/repository/i_get_pengaju_repository.dart';
 
-class FakeGroupRepository implements IPengajuRepository {
+class FakeGroupRepository implements IGetPengajuRepository {
   final _groups = [
     Pengaju(nama: "D20-E3", id: 1),
     Pengaju(nama: "T3F", id: 2),

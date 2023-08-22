@@ -1,12 +1,23 @@
+import 'package:common/response/api_response.dart';
+import 'package:dependencies/fluttertoast.dart';
 import 'package:fitur_input_pengajuan/domain/model/barang_transaksi.dart';
 import 'package:fitur_input_pengajuan/domain/model/pengaju.dart';
 import 'package:fitur_input_pengajuan/domain/model/pengajuan.dart';
+import 'package:fitur_input_pengajuan/domain/repository/i_submit_pengajuan_repository.dart';
+import 'package:fitur_input_pengajuan/domain/use_case/null_validation_use_case.dart';
 import 'package:flutter/material.dart';
 
 class InputPengajuanProvider extends ChangeNotifier {
+  final _nullValidator = NullValidationUseCase();
+  final ISubmitPengajuanRepository _repository;
+  final int? _id;
+
   InputPengajuanProvider({
     required Pengajuan initialData,
+    required ISubmitPengajuanRepository repository
   })  :
+    _repository = repository,
+    _id = initialData.id,
     tanggal = initialData.tanggal,
     jam = TimeOfDay.fromDateTime(initialData.tanggal),
     isPemasukan = initialData.isPemasok,
@@ -46,9 +57,64 @@ class InputPengajuanProvider extends ChangeNotifier {
   String? tanggalError;
   String? jamError;
   String? tipePengajuanError;
-  String? namaError;
+  String? namaPemasokError;
   String? groupError;
   String? pemasokError;
+
+  ApiResponse? submitResponse;
+  void submit() async {
+    if (submitResponse is! ApiResponseLoading) {
+      submitResponse = ApiResponseLoading();
+      tipePengajuanError =
+          _nullValidator(isPemasukan, fieldName: "Tipe pengajuan");
+      if (isPemasukan == true) {
+        pemasokError = _nullValidator(_pemasok, fieldName: "Nama pemasok");
+      }
+      else if (isPemasukan == false) {
+        groupError = _nullValidator(_group, fieldName: "Group");
+      }
+      notifyListeners();
+
+      if (listBarangTransaksi.isEmpty){
+        Fluttertoast.showToast(
+          msg: "Anda harus memilih minimal satu jenis barang!",
+          toastLength: Toast.LENGTH_LONG,
+          timeInSecForIosWeb: 5,
+        );
+      }
+
+      // kalo semua validasi lolos
+      if (
+        tipePengajuanError == null &&
+        pemasokError == null &&
+        groupError == null &&
+        listBarangTransaksi.isNotEmpty
+      ){
+        submitResponse = await _repository.submitData(
+          Pengajuan(
+            id: _id,
+            tanggal: tanggal,
+            pengaju: isPemasukan! ? _pemasok : _group,
+            isPemasok: isPemasukan,
+            listBarangTransaksi: listBarangTransaksi,
+          )
+        );
+
+        if (submitResponse is ApiResponseFailed){
+          debugPrint((submitResponse as ApiResponseFailed).error.toString());
+          Fluttertoast.showToast(
+            msg: (submitResponse as ApiResponseFailed).error.toString(),
+            toastLength: Toast.LENGTH_LONG,
+            timeInSecForIosWeb: 5,
+          );
+        }
+      }
+      else {
+        submitResponse = null;
+      }
+      notifyListeners();
+    }
+  }
 
   void onTanggalChange(DateTime newValue){
     tanggal = newValue;

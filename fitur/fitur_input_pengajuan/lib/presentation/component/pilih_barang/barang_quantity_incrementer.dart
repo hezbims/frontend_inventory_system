@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class BarangQuantityIncrementer extends StatelessWidget {
-  final void Function() onDecrease;
-  final void Function() onIncrease;
   final TextEditingController controller;
   final FocusNode focusNode;
   final String? errorMessage;
@@ -12,8 +10,6 @@ class BarangQuantityIncrementer extends StatelessWidget {
 
   const BarangQuantityIncrementer({
     super.key,
-    required this.onDecrease,
-    required this.onIncrease,
     required this.controller,
     required this.errorMessage,
     required this.focusNode,
@@ -35,7 +31,8 @@ class BarangQuantityIncrementer extends StatelessWidget {
             //   onPressed: onDecrease,
             // ),
 
-            IntrinsicWidth(
+            SizedBox(
+              width: 100,
               child: TextField(
                 controller: controller,
                 focusNode: focusNode,

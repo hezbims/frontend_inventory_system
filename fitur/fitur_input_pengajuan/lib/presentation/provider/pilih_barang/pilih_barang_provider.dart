@@ -7,8 +7,10 @@ import 'package:flutter/material.dart';
 
 class PilihBarangProvider extends ChangeNotifier {
   final IBarangRepository _barangRepository;
+  final bool isPemasukan;
 
   PilihBarangProvider({
+    required this.isPemasukan,
     required IBarangRepository barangRepository,
     required this.choosenBarang,
   }) : _barangRepository = barangRepository {
@@ -27,11 +29,9 @@ class PilihBarangProvider extends ChangeNotifier {
         }
       }
       else if (apiResponse is ApiResponseFailed){
-        debugPrint("masuk apiresponse failed : ${apiResponse.error.toString()}");
         pagingController.error = Exception(apiResponse.error.toString());
       }
       else {
-        debugPrint((apiResponse as ApiResponseSuccess).data.runtimeType.toString());
         throw Exception("Kesalahan di pilih barang provider");
       }
     });
@@ -51,7 +51,7 @@ class PilihBarangProvider extends ChangeNotifier {
 
   List<BarangTransaksi> choosenBarang = [];
   void addNewBarangTransaksi(final BarangTransaksi newBarangTransaksi){
-    choosenBarang.add(newBarangTransaksi);
+    choosenBarang = [...choosenBarang , newBarangTransaksi];
   }
   bool thisBarangAlreadyTaken(BarangPreview barang){
     return choosenBarang.any((element) => element.idBarang == barang.id);

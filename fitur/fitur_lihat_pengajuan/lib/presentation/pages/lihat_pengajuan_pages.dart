@@ -31,24 +31,35 @@ class LihatPengajuanPages extends StatelessWidget {
               currentIndex: Routes.fiturLihatPengajuanIndex,
             ),
             floatingActionButton: FloatingActionButton(
-              onPressed: (){
-                Navigator.of(context).pushNamed(
+              onPressed: () async {
+                final result = await Navigator.of(context).pushNamed(
                   Routes.fiturInputDataPengajuanRoute
                 );
+
+                if (result != null){
+                  provider.pagingController.refresh();
+                }
               },
               child: const Icon(Icons.add),
             ),
             body: PagedListView.separated(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 24
+              ),
               pagingController: provider.pagingController,
               builderDelegate: PagedChildBuilderDelegate(
                 itemBuilder: (context , PengajuanPreview pengajuan , index){
                   return PengajuanCard(
                     pengajuan: pengajuan,
-                    onTap: (){
-                      Navigator.of(context).pushNamed(
+                    onTap: () async {
+                      final result = await Navigator.of(context).pushNamed(
                         Routes.fiturInputDataPengajuanRoute,
                         arguments: pengajuan.id,
                       );
+
+                      if (result != null){
+                        provider.pagingController.refresh();
+                      }
                     },
                   );
                 },

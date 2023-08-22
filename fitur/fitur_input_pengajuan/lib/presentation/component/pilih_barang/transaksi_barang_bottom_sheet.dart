@@ -11,10 +11,12 @@ import 'package:flutter/material.dart';
 
 class TransaksiBarangBottomSheet extends StatelessWidget {
   final BarangPreview currentBarang;
+  final bool isPemasukan;
   final int? idBarangTransaksi;
 
   const TransaksiBarangBottomSheet({
     required this.currentBarang,
+    required this.isPemasukan,
     this.idBarangTransaksi,
     super.key,
   });
@@ -22,9 +24,15 @@ class TransaksiBarangBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => QuantityBarangProvider(maxQuantity: currentBarang.currentStock),
+      create: (context) => QuantityBarangProvider(
+        currentStock: currentBarang.currentStock,
+        isPemasukan: isPemasukan,
+      ),
       child: Consumer<QuantityBarangProvider>(
         builder: (context , provider , child) {
+          WidgetsBinding.instance.addPostFrameCallback(
+            (_) => provider.quantityFocusNode.requestFocus(),
+          );
           void trySubmit(){
             if (provider.canSubmit()){
               Navigator.of(context).pop(
@@ -56,8 +64,6 @@ class TransaksiBarangBottomSheet extends StatelessWidget {
               const VerticalFormSpacing(),
 
               BarangQuantityIncrementer(
-                onDecrease: provider.onDecrease,
-                onIncrease: provider.onIncrease,
                 controller: provider.quantityController,
                 errorMessage: provider.quantityError,
                 focusNode: provider.quantityFocusNode,
