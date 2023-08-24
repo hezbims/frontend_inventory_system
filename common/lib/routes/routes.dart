@@ -11,4 +11,8 @@ abstract class Routes {
   static const fiturInputDataPengajuanRoute = "$fiturLihatPengajuanRoute/input";
   static const fiturInputListBarangRoute = "$fiturInputDataPengajuanRoute/listBarang";
   static const fiturPilihGroupRoute = "$fiturLihatPengajuanRoute/pilih-group";
+
+  static const fiturBuatLaporanRoute = "/laporan";
+  static const previewLaporanRoute = "$fiturBuatLaporanRoute/preview";
+  static const fiturBuatLaporanIndex = 1;
 }

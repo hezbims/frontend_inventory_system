@@ -21,6 +21,9 @@ class StockBottomNavBar extends StatelessWidget {
             case Routes.fiturLihatPengajuanIndex:
               nextRoute = Routes.fiturLihatPengajuanRoute;
               break;
+            case Routes.fiturBuatLaporanIndex:
+              nextRoute = Routes.fiturBuatLaporanRoute;
+              break;
           }
 
           if (nextRoute != null){
