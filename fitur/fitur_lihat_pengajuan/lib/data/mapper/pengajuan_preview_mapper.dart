@@ -14,7 +14,7 @@ class PengajuanPreviewMapper {
         id: json['id'],
         namaPengaju: json['pengaju']['nama'],
         isPemasok: json['pengaju']['is_pemasok'] == 1,
-        tanggal: DateTime.parse(json['created_at']),
+        kodeTransaksi: json['kode_transaksi'],
       );
     }).toList();
   }

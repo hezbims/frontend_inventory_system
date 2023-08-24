@@ -8,9 +8,15 @@ class LihatPengajuanRepositoryImpl implements ILihatPengajuanRepository {
   final _mapper = PengajuanPreviewMapper();
   final _apiClient = LihatPengajuanApiClient();
   @override
-  Future<ApiResponse> getPengajuanPreview(int pageNumber) {
+  Future<ApiResponse> getPengajuanPreview({
+    required int pageNumber,
+    required String keyword,
+  }) {
     return ApiRequestProcessor.process(
-      apiRequest: _apiClient.getPengajuanPreview(pageNumber),
+      apiRequest: _apiClient.getPengajuanPreview(
+        pageNumber: pageNumber,
+        keyword: keyword
+      ),
       getModelFromBody: _mapper.fromBodyToPengajuanPreview,
       isPagination: true,
     );

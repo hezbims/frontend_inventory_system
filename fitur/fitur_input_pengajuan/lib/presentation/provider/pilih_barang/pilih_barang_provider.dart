@@ -14,27 +14,42 @@ class PilihBarangProvider extends ChangeNotifier {
     required IBarangRepository barangRepository,
     required this.choosenBarang,
   }) : _barangRepository = barangRepository {
-    pagingController.addPageRequestListener((pageNumber) async {
-      final apiResponse = await _barangRepository.getStockBarang(
+    pagingController.addPageRequestListener((pageNumber) {
+        _pageReqestProcess = _processPageRequest(pageNumber);
+    });
+  }
+
+  bool _isTryingRefresh = false;
+  void tryRefresh() async {
+    if (!_isTryingRefresh){
+      _isTryingRefresh = true;
+      await _pageReqestProcess;
+      pagingController.refresh();
+      _isTryingRefresh = false;
+    }
+  }
+
+  Future<void>? _pageReqestProcess;
+  Future<void> _processPageRequest(int pageNumber) async{
+    final apiResponse = await _barangRepository.getStockBarang(
         pageNumber ,
         searchBarangController.text
-      );
+    );
 
-      if (apiResponse is ApiResponseSuccess<List<BarangPreview>>){
-        if (apiResponse.isNextDataExist){
-          pagingController.appendPage(apiResponse.data!, pageNumber + 1);
-        }
-        else {
-          pagingController.appendLastPage(apiResponse.data!);
-        }
-      }
-      else if (apiResponse is ApiResponseFailed){
-        pagingController.error = Exception(apiResponse.error.toString());
+    if (apiResponse is ApiResponseSuccess<List<BarangPreview>>){
+      if (apiResponse.isNextDataExist){
+        pagingController.appendPage(apiResponse.data!, pageNumber + 1);
       }
       else {
-        throw Exception("Kesalahan di pilih barang provider");
+        pagingController.appendLastPage(apiResponse.data!);
       }
-    });
+    }
+    else if (apiResponse is ApiResponseFailed){
+      pagingController.error = Exception(apiResponse.error.toString());
+    }
+    else {
+      throw Exception("Kesalahan di pilih barang provider");
+    }
   }
 
   final pagingController = PagingController<int , BarangPreview>(firstPageKey: 1);

@@ -4,11 +4,13 @@ class SearchAppBar extends AppBar {
   final TextEditingController controller;
   final String placeholder;
   final FocusNode focusNode;
+  final Function(String)? onValueChange;
   SearchAppBar({
     super.key,
     required this.controller,
     required this.placeholder,
     required this.focusNode,
+    this.onValueChange,
     super.leading,
   }) : super(
     scrolledUnderElevation: 0,
@@ -23,6 +25,7 @@ class SearchAppBar extends AppBar {
                 label: Text(placeholder),
                 prefixIcon: const Icon(Icons.search)
             ),
+            onChanged: onValueChange,
           ),
         ),
 

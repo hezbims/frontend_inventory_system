@@ -1,4 +1,3 @@
-import 'package:common/utils/date_formatter.dart';
 import 'package:fitur_lihat_pengajuan/domain/model/pengajuan_preview.dart';
 import 'package:flutter/material.dart';
 
@@ -26,7 +25,7 @@ class PengajuanCard extends StatelessWidget {
                   child: Text("Tipe : ${pengajuan.tipe}"),
                 ),
 
-                Text(IntlFormatter.dateTimeToString(pengajuan.tanggal)),
+                Text(pengajuan.kodeTransaksi),
               ],
             ),
 

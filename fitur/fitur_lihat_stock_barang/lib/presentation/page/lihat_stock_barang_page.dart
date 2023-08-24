@@ -28,6 +28,7 @@ class LihatStockBarangPage extends StatelessWidget {
             endDrawerEnableOpenDragGesture: false,
             endDrawer: const FilterDrawer(),
             appBar: SearchWithFilterAppBar(
+              label: "Cari nama barang",
               onFilterPressed: (){
                 provider.scaffoldKey.currentState?.openEndDrawer();
               },

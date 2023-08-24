@@ -45,6 +45,7 @@ class PilihListBarangPage extends StatelessWidget {
                     Navigator.of(context).pop(provider.choosenBarang);
                   },
                 ),
+                onValueChange: (_) => provider.tryRefresh(),
               ),
               body: PagedListView.separated(
                 padding: const EdgeInsets.symmetric(

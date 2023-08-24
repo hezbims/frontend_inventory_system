@@ -1,5 +1,6 @@
 import 'package:common/presentation/api_loader/default_error_widget.dart';
 import 'package:common/presentation/bottom_navbar/stock_bottom_navbar.dart';
+import 'package:common/presentation/textfield/search_with_filter_app_bar.dart';
 import 'package:common/presentation/textfield/style/spacing.dart';
 import 'package:common/routes/routes.dart';
 import 'package:dependencies/infinite_scroll_pagination.dart';
@@ -7,6 +8,7 @@ import 'package:dependencies/provider.dart';
 import 'package:fitur_lihat_pengajuan/data/repository/lihat_pengajuan_repository_impl.dart';
 import 'package:fitur_lihat_pengajuan/domain/model/pengajuan_preview.dart';
 import 'package:fitur_lihat_pengajuan/presentation/component/pengajuan_card.dart';
+import 'package:fitur_lihat_pengajuan/presentation/component/transaksi_drawer.dart';
 import 'package:fitur_lihat_pengajuan/presentation/provider/lihat_pengajuan_provider.dart';
 import 'package:flutter/material.dart';
 
@@ -22,11 +24,15 @@ class LihatPengajuanPages extends StatelessWidget {
       child: Consumer<LihatPengajuanProvider>(
         builder: (context , provider , child) {
           return Scaffold(
-            appBar: AppBar(
-              scrolledUnderElevation: 0,
-              title: const Text("List Pengajuan"),
-              centerTitle: true,
+            key: provider.scaffoldKey,
+            appBar: SearchWithFilterAppBar(
+              label: "Cari transaksi ",
+              hintText: "ex : TRXI20220914001",
+              onFilterPressed: (){},
+              searchController: provider.searchController,
+              onValueChange: (_) => provider.tryRefresh(),
             ),
+            endDrawer: TransaksiDrawer(),
             bottomNavigationBar: const StockBottomNavBar(
               currentIndex: Routes.fiturLihatPengajuanIndex,
             ),

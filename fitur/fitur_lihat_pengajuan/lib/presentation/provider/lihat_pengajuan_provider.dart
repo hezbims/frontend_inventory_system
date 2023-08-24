@@ -9,31 +9,52 @@ class LihatPengajuanProvider extends ChangeNotifier {
   LihatPengajuanProvider({
     required ILihatPengajuanRepository repository,
   }) : _repository = repository {
-    pagingController.addPageRequestListener((pageNumber) async {
-      final response = await _repository.getPengajuanPreview(pageNumber);
-
-      if (response is ApiResponseSuccess){
-        if (response.isNextDataExist){
-          pagingController.appendPage(response.data, pageNumber + 1);
-        }
-        else {
-          pagingController.appendLastPage(response.data);
-        }
-      }
-      else if (response is ApiResponseFailed){
-        pagingController.error = Exception(response.error);
-      }
-      else {
-        throw Exception("Enggak mungkin");
-      }
+    pagingController.addPageRequestListener((pageNumber) {
+      _pageRequestProcess = _requestPage(pageNumber);
     });
   }
 
+  final searchController = TextEditingController();
+
   final pagingController = PagingController<int , PengajuanPreview>(firstPageKey: 1);
+  Future<void>? _pageRequestProcess;
+  Future<void> _requestPage(int pageNumber) async {
+    final response = await _repository.getPengajuanPreview(
+      pageNumber: pageNumber,
+      keyword: searchController.text,
+    );
+
+    if (response is ApiResponseSuccess){
+      if (response.isNextDataExist){
+        pagingController.appendPage(response.data, pageNumber + 1);
+      }
+      else {
+        pagingController.appendLastPage(response.data);
+      }
+    }
+    else if (response is ApiResponseFailed){
+      pagingController.error = Exception(response.error);
+    }
+    else {
+      throw Exception("Enggak mungkin");
+    }
+  }
+  bool _isRefreshing = false;
+  void tryRefresh() async {
+    if (!_isRefreshing){
+      _isRefreshing = true;
+      await _pageRequestProcess;
+      pagingController.refresh();
+      _isRefreshing = false;
+    }
+  }
+
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void dispose(){
     pagingController.dispose();
+    searchController.dispose();
     super.dispose();
   }
 

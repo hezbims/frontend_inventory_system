@@ -3,7 +3,7 @@ class PengajuanPreview {
   final int id;
   final String namaPengaju;
   final bool isPemasok;
-  final DateTime tanggal;
+  final String kodeTransaksi;
 
   String get tipe {
     if (isPemasok) {
@@ -16,6 +16,6 @@ class PengajuanPreview {
     required this.id,
     required this.namaPengaju,
     required this.isPemasok,
-    required this.tanggal,
+    required this.kodeTransaksi,
   });
 }
