@@ -7,11 +7,13 @@ class ClockField extends StatelessWidget {
   final String? errorMessage;
   final TimeOfDay value;
   final void Function(TimeOfDay) onValueChange;
+  final bool readOnly;
   const ClockField({
     super.key,
     required this.errorMessage,
     required this.value,
     required this.onValueChange,
+    this.readOnly = true,
   });
 
   @override
@@ -26,13 +28,15 @@ class ClockField extends StatelessWidget {
         ),
         GestureDetector(
           onTap: () async {
-            final newValue = await showTimePicker(
-              context: context,
-              initialTime: TimeOfDay.now()
-            );
+            if (!readOnly) {
+              final newValue = await showTimePicker(
+                  context: context,
+                  initialTime: TimeOfDay.now()
+              );
 
-            if (newValue != null){
-              onValueChange(newValue);
+              if (newValue != null) {
+                onValueChange(newValue);
+              }
             }
           },
           child: InputDecorator(

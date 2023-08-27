@@ -36,7 +36,7 @@ class BarangTransaksiCard extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "Keterangan : ${barangTransaksi.keterangan.isEmpty ? "-" : barangTransaksi.keterangan}",
+                    "Keterangan : ${barangTransaksi.keterangan ?? "-"}",
                     style: const TextStyle(
                       fontWeight: FontWeight.w200
                     ),

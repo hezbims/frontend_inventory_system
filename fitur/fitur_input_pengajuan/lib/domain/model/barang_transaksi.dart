@@ -4,7 +4,7 @@ class BarangTransaksi {
   final int idBarang;
   final String namaBarang;
   final int quantity;
-  final String keterangan;
+  final String? keterangan;
   BarangTransaksi({
     required this.id,
     required this.idBarang,

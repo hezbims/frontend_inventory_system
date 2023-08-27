@@ -62,7 +62,13 @@ class MainFormProvider extends ChangeNotifier {
   String? pemasokError;
 
   ApiResponse? submitResponse;
-  void submit() async {
+  void Function()? get submit {
+    if (submitResponse is ApiResponseLoading){
+      return null;
+    }
+    return _submit;
+  }
+  void _submit() async {
     if (submitResponse is! ApiResponseLoading) {
       submitResponse = ApiResponseLoading();
       tipePengajuanError =
@@ -123,7 +129,15 @@ class MainFormProvider extends ChangeNotifier {
     jam = newValue;
     notifyListeners();
   }
-  void onTipePengajuanChange(String? newValue){
+
+  void Function(String?)? get onTipePengajuanChange {
+    if (_id != null){
+      return _onTipePengajuanChange;
+    }
+    return null;
+  }
+
+  void _onTipePengajuanChange(String? newValue){
     if (newValue != null){
       isPemasukan = newValue == tipePengajuanList[0];
       notifyListeners();

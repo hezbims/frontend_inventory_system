@@ -73,17 +73,6 @@ class InputDataBarangProvider extends ChangeNotifier {
   final TextEditingController uomController;
   String amount;
 
-  // String? namaError;
-  // String? kategoriError;
-  // String? nomorRakError;
-  // String? nomorLaciError;
-  // String? nomorKolomError;
-  // String? createRakError;
-  // String? minStockError;
-  // String? stockSekarangError;
-  // String? lastMonthStockError;
-  // String? unitPriceError;
-  // String? uomError;
   Map<String , String?> errorMessage = {};
 
   void updateAmount(String _) async {
@@ -99,18 +88,20 @@ class InputDataBarangProvider extends ChangeNotifier {
   }
 
   ApiResponse? submitResponse;
-  void submit() async {
+
+  void Function()? get submit {
+    // kalo lagi loading, maka jangan bolehin user ngetap
+    if (submitResponse is ApiResponseLoading) {
+      return null;
+    }
+    // bolehin user ngetap (ngegunain function _submit)
+    return _submit;
+  }
+
+  void _submit() async {
     if (submitResponse is! ApiResponseLoading) {
       submitResponse = ApiResponseLoading();
       notifyListeners();
-
-      // namaError = emptyValidator.validate(namaController.text, fieldName: "Nama");
-      // kategoriError = emptyValidator.validate(kategori?.nama ?? "", fieldName: "Category");
-      // nomorRakError = emptyValidator.validate(nomorRakController.text, fieldName: "Nomor rak");
-      // stockSekarangError = intValidator.validate(stockSekarangController.text, fieldName: "Stock sekarang");
-      // lastMonthStockError = intValidator.validate(lastMonthStockController.text, fieldName: "Last month stock");
-      // unitPriceError = intValidator.validate(unitPriceController.text, fieldName: "Unit price");
-      // notifyListeners();
 
       final data = SubmitBarangDto(
         id: _initialData?.id.toString() ?? "",

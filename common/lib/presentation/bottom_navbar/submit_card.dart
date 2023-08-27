@@ -1,11 +1,10 @@
-import 'package:common/presentation/button/submit_button.dart';
 import 'package:flutter/material.dart';
 
 class SubmitCard extends StatelessWidget {
-  final void Function()? onTap;
+  final Widget button;
   const SubmitCard({
     super.key,
-    required this.onTap,
+    required this.button,
   });
 
   @override
@@ -35,9 +34,7 @@ class SubmitCard extends StatelessWidget {
               bottom: 36,
               top: 16
           ),
-          child: SubmitButton(
-            onTap: onTap,
-          ),
+          child: button,
         ),
       ),
     );

@@ -32,7 +32,7 @@ class LihatPengajuanPages extends StatelessWidget {
               searchController: provider.searchController,
               onValueChange: (_) => provider.tryRefresh(),
             ),
-            endDrawer: TransaksiDrawer(),
+            endDrawer: const TransaksiDrawer(),
             bottomNavigationBar: const StockBottomNavBar(
               currentIndex: Routes.fiturLihatPengajuanIndex,
             ),

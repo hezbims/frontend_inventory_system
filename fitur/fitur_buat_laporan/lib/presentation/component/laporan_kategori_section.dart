@@ -7,7 +7,7 @@ Widget buildLaporanKategoriSection({required DataLaporan data}){
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text(data.namaKategori , style: TextStyle(fontWeight: FontWeight.bold)),
+      Text("Kategori : ${data.namaKategori}" , style: TextStyle(fontWeight: FontWeight.bold)),
       buildLaporanListBarangSummary(data: data.barang),
     ]
   );

@@ -9,7 +9,8 @@ class SubmitButton extends FilledButton {
     this.label = "Submit",
   }) : super(
     onPressed: onTap,
-    child: onTap == null ?
+    child:
+      onTap == null ?
       const SizedBox(
         height: 20,
         width: 20,

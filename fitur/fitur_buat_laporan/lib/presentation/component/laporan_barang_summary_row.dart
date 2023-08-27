@@ -11,6 +11,7 @@ Widget buildLaporanBarangSummaryRow (TransaksiBarangSummary data){
       Expanded(child: Text(data.lastMonthStock.toString())),
       Expanded(child: Text(data.totalMasuk.toString())),
       Expanded(child: Text(data.totalKeluar.toString())),
+      Expanded(child: Text(data.unitPrice.toString())),
 
     ]
   );

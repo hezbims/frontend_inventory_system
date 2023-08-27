@@ -13,6 +13,9 @@ class StockBottomNavBar extends StatelessWidget {
     return BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (index){
+          if (index == _currentIndex){
+            return;
+          }
           String? nextRoute;
           switch (index){
             case Routes.fiturLihatStockBarangIndex:

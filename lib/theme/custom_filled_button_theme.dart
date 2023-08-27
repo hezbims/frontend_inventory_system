@@ -4,7 +4,14 @@ import 'package:flutter/material.dart';
 class CustomFilledButtonTheme extends FilledButtonThemeData {
   CustomFilledButtonTheme() : super(
       style: ButtonStyle(
-        backgroundColor: const MaterialStatePropertyAll(primaryColor),
+        backgroundColor: MaterialStateProperty.resolveWith<Color>(
+          (states){
+            if (states.contains(MaterialState.disabled)){
+              return Colors.grey;
+            }
+            return primaryColor;
+          }
+        ),
         foregroundColor: const MaterialStatePropertyAll(Colors.white),
         padding: const MaterialStatePropertyAll(
             EdgeInsets.symmetric(

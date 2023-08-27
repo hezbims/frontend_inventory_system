@@ -1,4 +1,5 @@
 import 'package:common/presentation/bottom_navbar/submit_card.dart';
+import 'package:common/presentation/button/submit_button.dart';
 import 'package:common/presentation/textfield/custom_dropdown_menu.dart';
 import 'package:common/presentation/textfield/dropdown_page_chooser.dart';
 import 'package:common/presentation/textfield/style/spacing.dart';
@@ -45,9 +46,7 @@ class MainForm extends StatelessWidget {
                   leading: const BackButton(),
                 ),
                 bottomNavigationBar: SubmitCard(
-                  onTap: provider.submitResponse is ApiResponseLoading ?
-                    null :
-                    provider.submit,
+                  button: SubmitButton(onTap: provider.submit),
                 ),
                 body: ListView(
                   padding: const EdgeInsets.symmetric(

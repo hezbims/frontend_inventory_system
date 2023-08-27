@@ -1,6 +1,8 @@
 import 'package:common/domain/model/barang.dart';
 import 'package:common/domain/model/kategori.dart';
 import 'package:common/presentation/bottom_navbar/submit_card.dart';
+import 'package:common/presentation/button/disabled_submit_button.dart';
+import 'package:common/presentation/button/submit_button.dart';
 import 'package:common/presentation/textfield/custom_textfield.dart';
 import 'package:common/presentation/textfield/disabled_textfield.dart';
 import 'package:common/presentation/textfield/dropdown_page_chooser.dart';
@@ -48,10 +50,21 @@ class InputDataBarangPage extends StatelessWidget {
                   },
                 ),
               ),
-              bottomNavigationBar: SubmitCard(
-                onTap: provider.submitResponse is ApiResponseLoading ?
-                  null :
-                  provider.submit,
+              bottomNavigationBar: Builder(
+                builder: (context) {
+                  late Widget button;
+
+                  // karean initial datanya gak ada berarti tambah barang
+                  if (initialData == null){
+                    button = SubmitButton(onTap: provider.submit);
+                  }
+                  // kalo lagi ngedit, gunain button yang disabled
+                  else {
+                    button = DisabledSubmitButton();
+                  }
+
+                  return SubmitCard(button: button);
+                }
               ),
               body : ListView(
                 padding: const EdgeInsets.symmetric(

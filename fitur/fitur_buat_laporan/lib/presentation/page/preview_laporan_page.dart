@@ -1,4 +1,5 @@
 import 'package:common/presentation/api_loader/default_error_widget.dart';
+import 'package:common/themes/theme.dart';
 import 'package:dependencies/provider.dart';
 import 'package:fitur_buat_laporan/data/repository/get_data_laporan_repository_impl.dart';
 import 'package:fitur_buat_laporan/domain/model/generate_pdf_parameter_dto.dart';
@@ -20,14 +21,21 @@ class PreviewLaporanPage extends StatelessWidget {
       ),
       child: Consumer<PreviewLaporanProvder>(
         builder: (context , provider , child) {
-          return PdfPreview(
-            onError: (context , error){
-              return DefaultErrorWidget(
-                onTap: provider.refresh,
-                errorMessage: error.toString(),
-              );
-            },
-            build: provider.generatePdf
+          return Scaffold(
+            appBar: AppBar(
+              foregroundColor: Colors.white,
+              backgroundColor: primaryColor,
+              scrolledUnderElevation: 0,
+            ),
+            body: PdfPreview(
+              onError: (context , error){
+                return DefaultErrorWidget(
+                  onTap: provider.refresh,
+                  errorMessage: error.toString(),
+                );
+              },
+              build: provider.generatePdf
+            ),
           );
         }
       ),
