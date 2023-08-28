@@ -2,12 +2,17 @@ import 'package:dependencies/intl.dart';
 import 'package:flutter/material.dart';
 
 abstract class IntlFormatter {
-  static final _dateFormatter = DateFormat.yMMMd();
+  static final _dateYmdFormatter = DateFormat.yMMMd();
+  static final _ymFormatter = DateFormat.yMMM();
+
   static String dateTimeToString(DateTime value){
-    return _dateFormatter.format(value);
+    return _dateYmdFormatter.format(value);
+  }
+  static String dateTimeToYm(DateTime value){
+    return _ymFormatter.format(value);
   }
   static  DateTime stringToDateTime(String value){
-    return _dateFormatter.parse(value);
+    return _dateYmdFormatter.parse(value);
   }
 
   static final _timeFormatter = DateFormat.Hm();

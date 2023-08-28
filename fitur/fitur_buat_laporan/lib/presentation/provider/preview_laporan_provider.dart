@@ -1,4 +1,5 @@
 import 'package:common/response/api_response.dart';
+import 'package:common/utils/date_formatter.dart';
 import 'package:fitur_buat_laporan/domain/model/data_laporan.dart';
 import 'package:fitur_buat_laporan/domain/model/generate_pdf_parameter_dto.dart';
 import 'package:fitur_buat_laporan/domain/repository/i_get_data_laporan_repository.dart';
@@ -14,7 +15,7 @@ class PreviewLaporanProvder extends ChangeNotifier{
   PreviewLaporanProvder({
     required IGetDataLaporanRepository repository,
     required GeneratePdfParameterDto param,
-  }) : _repository = repository , _param = param;
+  }) : _param = param, _repository = repository;
 
   Future<ApiResponse>? _dataLaporanResponse;
   Future<ApiResponse> get dataLaporanResponse {
@@ -26,6 +27,7 @@ class PreviewLaporanProvder extends ChangeNotifier{
 
     if (apiResponse is ApiResponseSuccess<List<DataLaporan>>) {
       return _pdfGenerator.generate(
+        period: _period,
         pageFormat: pageFormat,
         listDataLaporan: apiResponse.data!
       );
@@ -39,4 +41,10 @@ class PreviewLaporanProvder extends ChangeNotifier{
   }
 
   void refresh() => notifyListeners();
+
+  String get _period {
+    final dateTime = DateTime(_param.year , _param.month);
+
+    return IntlFormatter.dateTimeToYm(dateTime);
+  }
 }

@@ -1,4 +1,5 @@
 class TransaksiBarangSummary {
+  // TODO : Nanti tambahin kolom untuk current sama amount, biar business logic dipindahin ke backend
   final int nomorRak;
   final int nomorLaci;
   final int nomorKolom;
