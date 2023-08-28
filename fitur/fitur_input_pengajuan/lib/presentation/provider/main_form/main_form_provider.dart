@@ -131,7 +131,7 @@ class MainFormProvider extends ChangeNotifier {
   }
 
   void Function(String?)? get onTipePengajuanChange {
-    if (_id != null){
+    if (_id == null){
       return _onTipePengajuanChange;
     }
     return null;
