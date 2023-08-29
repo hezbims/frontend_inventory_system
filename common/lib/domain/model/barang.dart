@@ -3,6 +3,7 @@ import 'package:common/domain/model/rak.dart';
 
 class Barang {
   final int id;
+  final String kodeBarang;
   final String nama;
   final int minStock;
   final Rak rak;
@@ -14,6 +15,7 @@ class Barang {
   final String uom;
   Barang({
     required this.id,
+    required this.kodeBarang,
     required this.nama,
     required this.minStock,
     required this.rak,
@@ -35,10 +37,12 @@ class Barang {
   static const _kolomUnitPrice = 'unit_price';
   static const _kolomKategori = 'kategori';
   static const _kolomUom = "uom";
+  static const _kolomKodeBarang = 'kode_barang';
 
   factory Barang.fromJson(Map<String , dynamic> json){
     return Barang(
         id: json[_kolomId],
+        kodeBarang: json[_kolomKodeBarang],
         nama: json[_kolomNama],
         minStock: json[_kolomMinStock],
         rak: Rak.fromjson(json[_kolomRak]),

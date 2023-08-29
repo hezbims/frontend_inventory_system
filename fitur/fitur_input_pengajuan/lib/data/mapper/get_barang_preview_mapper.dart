@@ -11,6 +11,7 @@ class GetBarangPreviewMapper {
       (json){
         return BarangPreview(
           id: json['id'],
+          kodeBarang: json['kode_barang'],
           nama: json['nama'],
           currentStock: json['stock_sekarang'],
         );

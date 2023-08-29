@@ -38,6 +38,6 @@ class SubmitBarangDto {
   static const kolomStockSekarang = 'stock_sekarang';
   static const kolomLastMonthStock = 'last_month_stock';
   static const kolomUnitPrice = 'unit_price';
-  static const kolomIdKategori = 'id_category';
+  static const kolomIdKategori = 'kategori_id';
   static const kolomUom = 'uom';
 }

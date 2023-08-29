@@ -7,6 +7,7 @@ class CustomTextfield extends StatelessWidget {
   final String? errorText;
   final TextInputType inputType;
   final void Function(String)? onChanged;
+  final void Function(String)? onSubmit;
   final int minLines;
   final FocusNode? focusNode;
   const CustomTextfield({
@@ -16,6 +17,7 @@ class CustomTextfield extends StatelessWidget {
     required this.errorText,
     this.inputType = TextInputType.text,
     this.onChanged,
+    this.onSubmit,
     this.minLines = 1,
     this.focusNode,
   });
@@ -38,6 +40,7 @@ class CustomTextfield extends StatelessWidget {
           onChanged: onChanged,
           minLines: minLines,
           maxLines: minLines,
+          onSubmitted: onSubmit,
         )
       ],
     );

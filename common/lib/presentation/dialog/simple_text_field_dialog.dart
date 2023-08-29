@@ -66,6 +66,11 @@ class _SimpleTextFieldDialogState extends State<SimpleTextFieldDialog> {
               label: widget.label,
               errorText: textError,
               focusNode: focusNode,
+              onSubmit: (_) {
+                if (trySubmit != null){
+                  trySubmit!();
+                }
+              },
             ),
           ),
 
@@ -74,22 +79,27 @@ class _SimpleTextFieldDialogState extends State<SimpleTextFieldDialog> {
             width: double.infinity,
             child: SubmitButton(
               label: "Buat",
-              onTap: widget.onSubmit == null ?
-                  null :
-                  (){
-                    if (textController.text.isEmpty){
-                      setState(() {
-                        textError = "Data tidak boleh kosong";
-                      });
-                    }
-                    else {
-                      widget.onSubmit!(textController.text);
-                    }
-                  },
+              onTap: trySubmit
             ),
           )
         ],
       ),
     );
+  }
+
+  void Function()? get trySubmit {
+    if (widget.onSubmit == null){
+      return null;
+    }
+    return (){
+      if (textController.text.isEmpty){
+        setState(() {
+          textError = "Data tidak boleh kosong";
+        });
+      }
+      else {
+        widget.onSubmit!(textController.text);
+      }
+    };
   }
 }

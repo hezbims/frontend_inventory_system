@@ -32,7 +32,7 @@ class PilihPengajuPage extends StatelessWidget {
             appBar: SearchAppBar(
               controller: provider.searchController,
               focusNode: provider.searchFocusNode,
-              placeholder: "Cari group",
+              placeholder: "Cari nama ${isPemasok ? 'pemasok' : 'group'}",
             ),
             body: ApiLoader<List<Pengaju>>(
                 apiResponse: provider.filteredGroupResponse,
@@ -47,7 +47,7 @@ class PilihPengajuPage extends StatelessWidget {
                           right: 24,
                         ),
                         child: TambahSesuatuButton(
-                            label: "Tambah group baru",
+                            label: "Tambah ${isPemasok ? 'pemasok' : 'group'} baru",
                             onTap: () async {
                               final result = await showBuatGroupDialog(
                                 context: context,

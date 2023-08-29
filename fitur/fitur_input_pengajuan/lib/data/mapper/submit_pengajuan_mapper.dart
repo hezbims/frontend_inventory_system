@@ -9,9 +9,9 @@ class SubmitPengajuanMapper {
       'id_pengaju' : pengajuan.pengaju!.id,
       'list_barang_ajuan' : pengajuan.listBarangTransaksi.map(
         (barangAjuan) => {
-            'quantity' : barangAjuan.quantity,
-            'keterangan' : barangAjuan.keterangan,
-            'id_barang' : barangAjuan.idBarang,
+          'quantity' : barangAjuan.quantity,
+          'keterangan' : barangAjuan.keterangan,
+          'id_barang' : barangAjuan.idBarang,
         }
       ).toList(),
     };

@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 class PilihBarangProvider extends ChangeNotifier {
   final IBarangRepository _barangRepository;
   final bool isPemasukan;
+  Function(BarangPreview)? showBottomSheet;
 
   PilihBarangProvider({
     required this.isPemasukan,
@@ -15,7 +16,7 @@ class PilihBarangProvider extends ChangeNotifier {
     required this.choosenBarang,
   }) : _barangRepository = barangRepository {
     pagingController.addPageRequestListener((pageNumber) {
-        _pageReqestProcess = _processPageRequest(pageNumber);
+        _pageRequestProcess = _processPageRequest(pageNumber);
     });
   }
 
@@ -23,14 +24,16 @@ class PilihBarangProvider extends ChangeNotifier {
   void tryRefresh() async {
     if (!_isTryingRefresh){
       _isTryingRefresh = true;
-      await _pageReqestProcess;
+      await _pageRequestProcess;
       pagingController.refresh();
       _isTryingRefresh = false;
     }
   }
 
-  Future<void>? _pageReqestProcess;
-  Future<void> _processPageRequest(int pageNumber) async{
+  // Kenapa return valuenya BarangPreview?, ini gak seberapa penting
+  // tapi yang penting adalah bahwa pageRequestProcess ini asynchronous
+  Future<BarangPreview?> _pageRequestProcess = Future.value(null);
+  Future<BarangPreview?> _processPageRequest(int pageNumber) async{
     final apiResponse = await _barangRepository.getStockBarang(
         pageNumber ,
         searchBarangController.text
@@ -42,6 +45,12 @@ class PilihBarangProvider extends ChangeNotifier {
       }
       else {
         pagingController.appendLastPage(apiResponse.data!);
+        if (apiResponse.data?.length == 1){
+          if (showBottomSheet != null) {
+            showBottomSheet!(apiResponse.data!.first);
+          }
+          return apiResponse.data!.first;
+        }
       }
     }
     else if (apiResponse is ApiResponseFailed){
@@ -50,6 +59,7 @@ class PilihBarangProvider extends ChangeNotifier {
     else {
       throw Exception("Kesalahan di pilih barang provider");
     }
+    return null;
   }
 
   final pagingController = PagingController<int , BarangPreview>(firstPageKey: 1);

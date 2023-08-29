@@ -10,6 +10,7 @@ class FakeLihatStockBarangRepository implements IBarangRepository{
     (index){
       return Barang(
         id: 23,
+        kodeBarang: "a",
         nama: "Sarung Tangan Kain",
         minStock: 25,
         rak: Rak(nomorRak: 1, nomorLaci: 2, nomorKolom: 3),

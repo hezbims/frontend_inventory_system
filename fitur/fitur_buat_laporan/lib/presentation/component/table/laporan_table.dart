@@ -3,6 +3,7 @@ import 'package:fitur_buat_laporan/domain/model/transaksi_barang_summary.dart';
 import 'package:fitur_buat_laporan/presentation/component/table/laporan_barang_summary_row.dart';
 import 'package:fitur_buat_laporan/presentation/component/table/laporan_table_header.dart';
 import 'package:pdf/widgets.dart';
+// ignore: depend_on_referenced_packages
 import 'package:collection/collection.dart';
 
 class LaporanTable extends StatelessWidget {
