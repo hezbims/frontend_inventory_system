@@ -45,7 +45,7 @@ class PilihBarangProvider extends ChangeNotifier {
       }
       else {
         pagingController.appendLastPage(apiResponse.data!);
-        if (apiResponse.data?.length == 1){
+        if (apiResponse.data?.length == 1 && pageNumber == 1){
           if (showBottomSheet != null) {
             showBottomSheet!(apiResponse.data!.first);
           }
