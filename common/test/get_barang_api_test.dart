@@ -3,7 +3,6 @@ import 'package:common/domain/model/barang.dart';
 import 'package:common/response/api_response.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-
 import 'test_api_client.dart';
 
 void main() {
@@ -24,5 +23,5 @@ void main() {
       if (!getBarangResponse.isNextDataExist)
         break;
     }
-  });
+  } , tags: ['api_test']);
 }
