@@ -49,6 +49,7 @@ class PilihListBarangPage extends StatelessWidget {
                   },
                 ),
                 onValueChange: (_) => provider.tryRefresh(),
+                onSubmit: (_) => provider.searchBarangFocusNode.requestFocus(),
               ),
               body: Builder(
                 builder: (context) {

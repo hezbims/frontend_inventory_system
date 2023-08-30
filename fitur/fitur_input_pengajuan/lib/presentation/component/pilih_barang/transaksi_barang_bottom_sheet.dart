@@ -2,6 +2,7 @@ import 'package:common/presentation/button/cancel_button.dart';
 import 'package:common/presentation/button/submit_button.dart';
 import 'package:common/presentation/textfield/custom_textfield.dart';
 import 'package:common/presentation/textfield/style/spacing.dart';
+import 'package:dependencies/fluttertoast.dart';
 import 'package:dependencies/provider.dart';
 import 'package:fitur_input_pengajuan/domain/model/barang_preview.dart';
 import 'package:fitur_input_pengajuan/domain/model/barang_transaksi.dart';
@@ -35,6 +36,11 @@ class TransaksiBarangBottomSheet extends StatelessWidget {
           );
           void trySubmit(){
             if (provider.canSubmit()){
+              Fluttertoast.showToast(
+                msg: "Berhasil mengambil ${currentBarang.nama}(${provider.currentQuantity!})",
+                timeInSecForIosWeb: 3
+              );
+
               Navigator.of(context).pop(
                   BarangTransaksi(
                     id: idBarangTransaksi,

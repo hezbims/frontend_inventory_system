@@ -1,12 +1,16 @@
+import 'package:common/response/api_response.dart';
+import 'package:fitur_lihat_pengajuan/data/repository/lihat_pengajuan_repository_impl.dart';
+import 'package:fitur_lihat_pengajuan/domain/model/pengajuan_preview.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:fitur_lihat_pengajuan/fitur_lihat_pengajuan.dart';
-
 void main() {
-  test('adds one to input values', () {
-    final calculator = Calculator();
-    expect(calculator.addOne(2), 3);
-    expect(calculator.addOne(-7), -6);
-    expect(calculator.addOne(0), 1);
+  test('Pastikan pengajuan yang didapat dari API sudah terformat dengan benar', () async {
+    final repository = LihatPengajuanRepositoryImpl();
+
+    // TODO : seed database
+
+
+    final response = await repository.getPengajuanPreview(pageNumber: 1, keyword: "");
+    assert(response is ApiResponseSuccess<List<PengajuanPreview>>);
   });
 }
