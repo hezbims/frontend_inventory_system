@@ -1,7 +1,5 @@
 import 'package:dependencies/google_fonts.dart';
-import 'package:dependencies/provider.dart';
 import 'package:fitur_input_pengajuan/domain/model/barang_preview.dart';
-import 'package:fitur_input_pengajuan/presentation/provider/pilih_barang/pilih_barang_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:common/themes/custom_font_weight.dart';
 

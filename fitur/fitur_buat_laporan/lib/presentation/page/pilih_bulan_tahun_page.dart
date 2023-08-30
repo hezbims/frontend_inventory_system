@@ -5,6 +5,7 @@ import 'package:common/presentation/textfield/custom_textfield.dart';
 import 'package:common/presentation/textfield/style/spacing.dart';
 import 'package:common/routes/routes.dart';
 import 'package:dependencies/provider.dart';
+import 'package:fitur_buat_laporan/data/repository/get_data_laporan_repository_impl.dart';
 import 'package:fitur_buat_laporan/domain/model/month.dart';
 import 'package:fitur_buat_laporan/presentation/provider/pilih_bulan_tahun_provider.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,9 @@ class PilihTahunBulanPage extends StatelessWidget {
         currentIndex: Routes.fiturBuatLaporanIndex
       ),
       body: ChangeNotifierProvider(
-        create: (context) => PilihBulanTahunProvider(),
+        create: (context) => PilihBulanTahunProvider(
+          repository: GetDataLaporanRepositoryImpl()
+        ),
         child: Consumer<PilihBulanTahunProvider>(
           builder: (context , provider , child) {
             if (provider.goNext){
@@ -73,6 +76,17 @@ class PilihTahunBulanPage extends StatelessWidget {
                       onTap: provider.submit
                     ),
                   ),
+
+                  const VerticalFormSpacing(),
+
+                  SizedBox(
+                    width: double.infinity,
+                    child: SubmitButton(
+                      label: "Download CSV",
+                      onTap: provider.downloadCSV
+                    ),
+                  ),
+
                 ],
               ),
             );

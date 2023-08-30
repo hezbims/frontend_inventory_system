@@ -11,8 +11,8 @@ class LaporanBarangSummaryRow extends TableRow{
     required this.index,
   }) : super(
     children: [
-      Text(index.toString() , style: textNormalStyle , textAlign: TextAlign.center , maxLines: 1),
-      Text("R${data.nomorRak}-${data.nomorLaci}" , style: textNormalStyle , textAlign: TextAlign.center , maxLines: 1),
+      Text((index + 1).toString() , style: textNormalStyle , textAlign: TextAlign.center , maxLines: 1),
+      Text(data.kodeBarang , style: textNormalStyle , textAlign: TextAlign.center , maxLines: 1),
       Text(data.namaBarang , style: textNormalStyle , maxLines: 1),
       Text("Rack ${data.nomorRak}" , style: textNormalStyle , textAlign: TextAlign.center , maxLines: 1),
       Text(data.uom , style: textNormalStyle , textAlign: TextAlign.center , maxLines: 1),
@@ -30,7 +30,7 @@ class LaporanBarangSummaryRow extends TableRow{
             children: [
               Text(data.totalMasuk.toString() , style: textNormalStyle , textAlign: TextAlign.center , maxLines: 1),
               Text(data.totalKeluar.toString() , style: textNormalStyle , textAlign: TextAlign.center , maxLines: 1),
-              Text(data.lastMonthStock.toString() , style: textNormalStyle , textAlign: TextAlign.center , maxLines: 1),
+              Text(data.currentStock.toString() , style: textNormalStyle , textAlign: TextAlign.center , maxLines: 1),
             ],
           )
         ]
@@ -49,7 +49,7 @@ class LaporanBarangSummaryRow extends TableRow{
         child: Row(
           children: [
             Text("Rp" , style: textNormalStyle),
-            Expanded(child: Text(CurrencyFormatter.toRupiah(data.unitPrice * data.lastMonthStock) , style: textNormalStyle , textAlign: TextAlign.right , maxLines: 1))
+            Expanded(child: Text(CurrencyFormatter.toRupiah(data.amount) , style: textNormalStyle , textAlign: TextAlign.right , maxLines: 1))
           ]
         ),
       )

@@ -5,12 +5,14 @@ class SearchAppBar extends AppBar {
   final String placeholder;
   final FocusNode focusNode;
   final Function(String)? onValueChange;
+  final Function(String)? onSubmit;
   SearchAppBar({
     super.key,
     required this.controller,
     required this.placeholder,
     required this.focusNode,
     this.onValueChange,
+    this.onSubmit,
     super.leading,
   }) : super(
     scrolledUnderElevation: 0,
@@ -26,6 +28,7 @@ class SearchAppBar extends AppBar {
                 prefixIcon: const Icon(Icons.search)
             ),
             onChanged: onValueChange,
+            onSubmitted: onSubmit,
           ),
         ),
 
