@@ -31,7 +31,10 @@ class MyApp extends StatelessWidget {
           nextPage = const LoginScreen();
         }
 
-        return MaterialPageRoute(builder: (context) => nextPage);
+        return MaterialPageRoute(
+          builder: (context) => nextPage,
+          settings: settings,
+        );
       },
     );
   }

@@ -23,7 +23,6 @@ class PreviewLaporanPage extends StatelessWidget {
       ),
       child: Consumer<PreviewLaporanProvder>(
         builder: (context , provider , child) {
-
           return Scaffold(
             appBar: AppBar(
               foregroundColor: Colors.white,
