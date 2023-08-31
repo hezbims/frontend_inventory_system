@@ -20,8 +20,9 @@ void main() {
       var getBarangResponse = await repository.getStockBarang(i, '');
       getBarangResponse = getBarangResponse as ApiResponseSuccess<List<Barang>>;
 
-      if (!getBarangResponse.isNextDataExist)
+      if (!getBarangResponse.isNextDataExist) {
         break;
+      }
     }
   } , tags: ['api_test']);
 }

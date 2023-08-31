@@ -1,4 +1,6 @@
 abstract class Routes {
+  static const initialRoute = '/';
+
   static const fiturLihatStockBarangRoute = "/stock-barang";
   static const fiturLihatStockBarangIndex = 0;
 
@@ -15,4 +17,6 @@ abstract class Routes {
   static const fiturBuatLaporanRoute = "/laporan";
   static const previewLaporanRoute = "$fiturBuatLaporanRoute/preview";
   static const fiturBuatLaporanIndex = 1;
+
+  static const loginRoute = '/login';
 }
