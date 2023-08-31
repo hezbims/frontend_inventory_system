@@ -11,15 +11,24 @@ class RouteGuardProvider extends ChangeNotifier {
   }) : _repository = repository;
 
   void setCurrentSessionToken(String newValue){
-    _checkLocalTokenIsValidResponse = Future.value(
+    _getCurrentSessionTokenResponse = Future.value(
       ApiResponseSuccess(data: newValue)
     );
   }
 
-  Future<ApiResponse>? _checkLocalTokenIsValidResponse;
-  Future<ApiResponse> get checkLocalTokenIsValidResponse =>
-    _checkLocalTokenIsValidResponse ??= _checkLocalTokenIsValid();
-  Future<ApiResponse> _checkLocalTokenIsValid() async {
+  // TODO : buat testing bolak balik. Pastiin kalo udah pernah login, gak perlu login lagi
+
+  Future<ApiResponse>? _getCurrentSessionTokenResponse;
+
+  /// Token yang ada di shared preferences bisa jadi sudah kadaluarsa,
+  /// oleh karena itu, variabel ini dibuat. Veriabel ini dibuat karena token yang di simpan di
+  /// variabel ini sudah pasti tidak kadaluarsa ketika aplikasi berjalan. Mengapa begitu?
+  /// karena token yang didapat dari variabel ini akan direfresh setiap
+  /// aplikasi mulai berjalan. masa dari token yang baru saja didapatkan adalah
+  /// 1 bulan.
+  Future<ApiResponse> get getCurrentSessionTokenResponse =>
+    _getCurrentSessionTokenResponse ??= _getCurrentSessionToken();
+  Future<ApiResponse> _getCurrentSessionToken() async {
     final response = await _repository.getNewToken();
     if (response is ApiResponseSuccess<String> || response is ApiResponseFailed){
       return response;
@@ -38,7 +47,7 @@ class RouteGuardProvider extends ChangeNotifier {
   }
 
   void refresh(){
-    _checkLocalTokenIsValidResponse = null;
+    _getCurrentSessionTokenResponse = null;
     notifyListeners();
   }
 }

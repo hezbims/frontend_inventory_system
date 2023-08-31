@@ -22,18 +22,19 @@ class LoginScreen extends StatelessWidget {
         child: ChangeNotifierProvider(
           create: (context) => AuthProvider(
             repository: AuthRepositoryImpl(),
-            setCurrentSessionToken : setCurrentSessionToken,
           ),
           child: Consumer<AuthProvider>(
             builder: (context , provider , child) {
-              if (provider.loginResponse is ApiResponseSuccess<String>){
+              final loginResponse = provider.loginResponse;
+              if (loginResponse is ApiResponseSuccess<String>){
                 WidgetsBinding.instance.addPostFrameCallback(
                   (_) {
-                    debugPrint('ngecoba ngepush initial route');
+                    setCurrentSessionToken(loginResponse.data!);
                     Navigator.of(context).pushReplacementNamed(Routes.initialRoute);
                   }
                 );
               }
+
               return ConstrainedBox(
                 constraints: const BoxConstraints(
                   maxWidth: 372,

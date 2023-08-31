@@ -16,7 +16,7 @@ class RouteGuard extends StatelessWidget {
     return Consumer<RouteGuardProvider>(
       builder: (context , provider , child) {
         return FutureBuilder(
-          future: provider.checkLocalTokenIsValidResponse,
+          future: provider.getCurrentSessionTokenResponse,
           builder: (context , snapshot){
             if (snapshot.hasData){
               final data = snapshot.data!;
