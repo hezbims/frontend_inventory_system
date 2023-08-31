@@ -4,6 +4,7 @@ import 'package:dependencies/provider.dart';
 import 'package:fitur_buat_laporan/data/repository/get_data_laporan_repository_impl.dart';
 import 'package:fitur_buat_laporan/domain/model/generate_pdf_parameter_dto.dart';
 import 'package:fitur_buat_laporan/presentation/provider/preview_laporan_provider.dart';
+import 'package:fitur_buat_laporan/presentation/utils/generate_pdf.dart';
 import 'package:flutter/material.dart';
 import 'package:pdf/pdf.dart';
 import 'package:printing/printing.dart';
@@ -22,12 +23,6 @@ class PreviewLaporanPage extends StatelessWidget {
       ),
       child: Consumer<PreviewLaporanProvder>(
         builder: (context , provider , child) {
-          // Printing.layoutPdf(
-          //     format : PdfPageFormat.a4,
-          //     onLayout: (format){
-          //       return provider.generatePdf(format);
-          //     }
-          // );
 
           return Scaffold(
             appBar: AppBar(
@@ -44,7 +39,13 @@ class PreviewLaporanPage extends StatelessWidget {
                 );
               },
               initialPageFormat: PdfPageFormat.a4,
-              build: provider.generatePdf
+              build: (pageFormat) async {
+                return generatePdf (
+                  pageFormat: pageFormat,
+                  period: provider.period,
+                  apiResponse: await provider.dataLaporanResponse
+                );
+              }
             ),
           );
         }

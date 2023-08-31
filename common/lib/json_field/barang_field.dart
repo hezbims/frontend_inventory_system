@@ -8,4 +8,7 @@ abstract class BarangField {
   static const unitPrice = 'unit_price';
   static const totalMasuk = 'in';
   static const totalKeluar = 'out';
+  static const kodeBarang = 'kode_barang';
+  static const amount = 'amount';
+  static const currentStock = 'stock_sekarang';
 }
