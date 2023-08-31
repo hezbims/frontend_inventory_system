@@ -3,7 +3,7 @@ import 'package:dependencies/http.dart';
 
 class SubmitPengajuanApiClient {
   Future<Response> submitData(String body){
-    const url = "${CommonUrl.baseUrl}/pengajuan/add";
+    final url = "${CommonUrl.baseUrl}/pengajuan/add";
 
     return post(
       Uri.parse(url),

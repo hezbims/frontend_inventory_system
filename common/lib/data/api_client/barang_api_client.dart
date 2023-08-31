@@ -9,7 +9,7 @@ class BarangApiClient {
   }
 
   Future<Response> cekRak(Rak rak){
-    const cekRakUrl = "${CommonUrl.baseUrl}/rak/check";
+    final cekRakUrl = "${CommonUrl.baseUrl}/rak/check";
     return post(
       Uri.parse(cekRakUrl),
       body: rak.toJson(),

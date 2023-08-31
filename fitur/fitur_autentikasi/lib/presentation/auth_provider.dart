@@ -7,8 +7,10 @@ import 'package:flutter/material.dart';
 
 class AuthProvider extends ChangeNotifier {
   final IAuthRepository _repository;
+  final void Function(String) setCurrentSessionToken;
   AuthProvider({
     required IAuthRepository repository,
+    required this.setCurrentSessionToken,
   }) : _repository = repository;
 
   final usernameC = TextEditingController();
@@ -30,9 +32,10 @@ class AuthProvider extends ChangeNotifier {
         password: passwordC.text, username: usernameC.text)
       );
       if (loginResponse is ApiResponseSuccess<String>){
-        await TokenManager.setToken(
-          (loginResponse as ApiResponseSuccess<String>).data!,
-        );
+        final token = (loginResponse as ApiResponseSuccess<String>).data!;
+
+        setCurrentSessionToken(token);
+        debugPrint("berhasil ngeset token, auth provider : ${await TokenManager.getTokenizedHeader()}");
       }
       else if (loginResponse is ApiResponseFailed){
         Fluttertoast.showToast(

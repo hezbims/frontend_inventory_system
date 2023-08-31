@@ -9,20 +9,28 @@ import 'package:fitur_autentikasi/data/repository/auth_repository_impl.dart';
 import 'package:fitur_autentikasi/presentation/auth_provider.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+  final void Function(String) setCurrentSessionToken;
+  const LoginScreen({
+    super.key,
+    required this.setCurrentSessionToken,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
         child: ChangeNotifierProvider(
-          create: (context) => AuthProvider(repository: AuthRepositoryImpl()),
+          create: (context) => AuthProvider(
+            repository: AuthRepositoryImpl(),
+            setCurrentSessionToken : setCurrentSessionToken,
+          ),
           child: Consumer<AuthProvider>(
             builder: (context , provider , child) {
               if (provider.loginResponse is ApiResponseSuccess<String>){
                 WidgetsBinding.instance.addPostFrameCallback(
                   (_) {
-                    Navigator.of(context).pushNamed(Routes.initialRoute);
+                    debugPrint('ngecoba ngepush initial route');
+                    Navigator.of(context).pushReplacementNamed(Routes.initialRoute);
                   }
                 );
               }

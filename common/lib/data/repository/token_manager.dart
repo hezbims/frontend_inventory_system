@@ -5,15 +5,11 @@ abstract class TokenManager {
   static const _tokenKey = 'token';
   static SharedPreferences? _pref;
   static Future<Map<String , String>> getTokenizedHeader() async {
-    debugPrint('ngecoba ngeload shared pref instance');
     _pref ??= await SharedPreferences.getInstance();
-    debugPrint('berhasil ngeload shared pref instance');
 
     final token = _pref!.get(_tokenKey);
-    debugPrint("ngecoba dapetin token : $token");
-    if (token == null){
-      return {};
-    }
+
+    debugPrint("Token manager : $token}");
     return {
       'Authorization' : "Bearer $token",
       'Accept' : 'application/json',

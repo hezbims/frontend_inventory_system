@@ -5,7 +5,7 @@ import 'package:fitur_input_data_barang/domain/model/submit_barang_dto.dart';
 
 class SubmitBarangApiClient {
   Future<Response> submit(SubmitBarangDto barang){
-    const url = "${CommonUrl.baseUrl}/barang/add";
+    final url = "${CommonUrl.baseUrl}/barang/add";
 
     return post(
       Uri.parse(url),
