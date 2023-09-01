@@ -1,4 +1,4 @@
-import 'package:fitur_autentikasi/fitur_autentikasi.dart';
+import 'package:fitur_setting_akun/fitur_setting_akun.dart';
 import 'package:test/test.dart';
 
 void main() {

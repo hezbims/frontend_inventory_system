@@ -1,6 +1,6 @@
 import 'package:common/routes/routes.dart';
 import 'package:dependencies/provider.dart';
-import 'package:fitur_autentikasi/data/repository/auth_repository_impl.dart';
+import 'package:fitur_login/data/repository/auth_repository_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:stock_bu_fan/routing/route_guard.dart';
 import 'package:stock_bu_fan/routing/route_guard_provider.dart';

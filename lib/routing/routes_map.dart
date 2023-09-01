@@ -8,6 +8,7 @@ import 'package:fitur_input_pengajuan/presentation/pages/pilih_list_barang_page.
 import 'package:fitur_input_pengajuan/presentation/pages/pilih_pengaju_page.dart';
 import 'package:fitur_lihat_pengajuan/presentation/pages/lihat_pengajuan_pages.dart';
 import 'package:fitur_lihat_stock_barang/presentation/page/lihat_stock_barang_page.dart';
+import 'package:fitur_setting_akun/presentation/page/setting_akun_page.dart';
 
 final routesMap = {
   Routes.initialRoute : const LihatStockBarangPage(),
@@ -20,4 +21,5 @@ final routesMap = {
   Routes.fiturPilihGroupRoute : const PilihPengajuPage(),
   Routes.fiturBuatLaporanRoute : const PilihTahunBulanPage(),
   Routes.previewLaporanRoute : const PreviewLaporanPage(),
+  Routes.settingAkunRoute : const SettingAkunPage(),
 };

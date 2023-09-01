@@ -1,6 +1,5 @@
-
 import 'package:common/response/api_response.dart';
-import 'package:fitur_autentikasi/domain/repository/i_auth_repository.dart';
+import 'package:fitur_login/domain/repository/i_auth_repository.dart';
 import 'package:flutter/material.dart';
 
 /// Fungsinya adalah untuk menyimpan current session token

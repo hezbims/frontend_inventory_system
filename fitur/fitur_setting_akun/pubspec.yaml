@@ -1,4 +1,4 @@
-name: fitur_autentikasi
+name: fitur_setting_akun
 description: A sample command-line application.
 version: 1.0.0
 publish_to: none
@@ -11,10 +11,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  dependencies:
-    path: ../../dependencies
   common:
     path: ../../common
+  dependencies:
+    path: ../../dependencies
   # path: ^1.8.0
 
 dev_dependencies:

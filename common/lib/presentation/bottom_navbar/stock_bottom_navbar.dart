@@ -13,6 +13,8 @@ class StockBottomNavBar extends StatelessWidget {
     return BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (index){
+          // Kalo ngetap tempat yang sama dengan destinatin sekarang, maka enggak
+          // usah lakuin apa-apa
           if (index == _currentIndex){
             return;
           }
@@ -26,6 +28,9 @@ class StockBottomNavBar extends StatelessWidget {
               break;
             case Routes.fiturBuatLaporanIndex:
               nextRoute = Routes.fiturBuatLaporanRoute;
+              break;
+            case Routes.settingAkunIndex:
+              nextRoute = Routes.settingAkunRoute;
               break;
           }
 
@@ -46,7 +51,13 @@ class StockBottomNavBar extends StatelessWidget {
               icon: Icon(Icons.swap_vert),
               label: "Transaksi"
           ),
-        ]
+
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_circle),
+            label: 'Akun',
+          ),
+        ],
+        type: BottomNavigationBarType.fixed,
     );
   }
 }

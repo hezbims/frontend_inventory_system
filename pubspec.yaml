@@ -44,8 +44,10 @@ dependencies:
     path: fitur/fitur_input_pengajuan
   fitur_buat_laporan:
     path: fitur/fitur_buat_laporan
-  fitur_autentikasi:
-    path: fitur/fitur_autentikasi
+  fitur_login:
+    path: fitur/fitur_login
+  fitur_setting_akun:
+    path: fitur/fitur_setting_akun
 
 
   # The following adds the Cupertino Icons font to your application.

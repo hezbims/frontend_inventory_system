@@ -10,6 +10,7 @@ class CustomTextfield extends StatelessWidget {
   final void Function(String)? onSubmit;
   final int minLines;
   final FocusNode? focusNode;
+  final TextInputAction? textInputAction;
   const CustomTextfield({
     super.key,
     required this.controller,
@@ -20,6 +21,7 @@ class CustomTextfield extends StatelessWidget {
     this.onSubmit,
     this.minLines = 1,
     this.focusNode,
+    this.textInputAction,
   });
 
   @override
@@ -41,6 +43,7 @@ class CustomTextfield extends StatelessWidget {
           minLines: minLines,
           maxLines: minLines,
           onSubmitted: onSubmit,
+          textInputAction: textInputAction,
         )
       ],
     );

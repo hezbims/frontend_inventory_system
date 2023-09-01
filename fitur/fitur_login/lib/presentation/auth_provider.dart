@@ -1,7 +1,7 @@
 import 'package:common/response/api_response.dart';
 import 'package:dependencies/fluttertoast.dart';
-import 'package:fitur_autentikasi/domain/model/post_login_dto.dart';
-import 'package:fitur_autentikasi/domain/repository/i_auth_repository.dart';
+import 'package:fitur_login/domain/model/post_login_dto.dart';
+import 'package:fitur_login/domain/repository/i_auth_repository.dart';
 import 'package:flutter/material.dart';
 
 class AuthProvider extends ChangeNotifier {

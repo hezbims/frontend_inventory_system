@@ -1,7 +1,7 @@
 import 'package:common/constant/url/common_url.dart';
 import 'package:common/data/repository/token_manager.dart';
 import 'package:dependencies/http.dart';
-import 'package:fitur_autentikasi/domain/model/post_login_dto.dart';
+import 'package:fitur_login/domain/model/post_login_dto.dart';
 
 class AuthApiClient {
   Future<Response> login(PostLoginDto data) async {

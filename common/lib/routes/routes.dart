@@ -19,4 +19,7 @@ abstract class Routes {
   static const fiturBuatLaporanIndex = 1;
 
   static const loginRoute = '/login';
+
+  static const settingAkunRoute = '/setting-akun';
+  static const settingAkunIndex = 3;
 }

@@ -5,8 +5,8 @@ import 'package:common/response/api_response.dart';
 import 'package:common/routes/routes.dart';
 import 'package:dependencies/provider.dart';
 import 'package:flutter/material.dart';
-import 'package:fitur_autentikasi/data/repository/auth_repository_impl.dart';
-import 'package:fitur_autentikasi/presentation/auth_provider.dart';
+import 'package:fitur_login/data/repository/auth_repository_impl.dart';
+import 'package:fitur_login/presentation/auth_provider.dart';
 
 class LoginScreen extends StatelessWidget {
   final void Function(String) setCurrentSessionToken;
@@ -52,7 +52,8 @@ class LoginScreen extends StatelessWidget {
                       CustomTextfield(
                         controller: provider.usernameC,
                         label: 'Username',
-                        errorText: null
+                        errorText: null,
+                        textInputAction: TextInputAction.next,
                       ),
 
                       const VerticalFormSpacing(),
@@ -60,7 +61,12 @@ class LoginScreen extends StatelessWidget {
                       CustomTextfield(
                         controller: provider.passwordC,
                         label: 'Password',
-                        errorText: null
+                        errorText: null,
+                        onSubmit: (_){
+                          if (provider.login != null){
+                            provider.login!();
+                          }
+                        },
                       ),
 
                       const VerticalFormSpacing(),
