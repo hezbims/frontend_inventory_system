@@ -4,7 +4,7 @@ import 'package:common/presentation/textfield/custom_dropdown_menu.dart';
 import 'package:common/presentation/textfield/dropdown_page_chooser.dart';
 import 'package:common/presentation/textfield/style/spacing.dart';
 import 'package:common/response/api_response.dart';
-import 'package:common/routes/routes.dart';
+import 'package:common/constant/routes/routes.dart';
 import 'package:dependencies/provider.dart';
 import 'package:fitur_input_pengajuan/data/repository/submit_pengajuan_repository_impl.dart';
 import 'package:fitur_input_pengajuan/domain/model/pengaju.dart';

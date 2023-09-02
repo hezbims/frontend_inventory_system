@@ -1,7 +1,6 @@
 import 'package:common/presentation/bottom_navbar/stock_bottom_navbar.dart';
 import 'package:common/presentation/textfield/style/spacing.dart';
-import 'package:common/response/api_response.dart';
-import 'package:common/routes/routes.dart';
+import 'package:common/constant/routes/routes.dart';
 import 'package:dependencies/provider.dart';
 import 'package:fitur_setting_akun/data/repository/setting_akun_repository_impl.dart';
 import 'package:fitur_setting_akun/presentation/component/loader_overlay.dart';
@@ -23,7 +22,7 @@ class SettingAkunPage extends StatelessWidget {
           if (provider.logoutSuccess){
             WidgetsBinding.instance.addPostFrameCallback(
               (timeStamp) {
-                Navigator.of(context).pushReplacementNamed(routeName);
+                Navigator.of(context).pushReplacementNamed(Routes.loginRoute);
               }
             );
           }

@@ -2,7 +2,7 @@ import 'package:common/presentation/api_loader/default_error_widget.dart';
 import 'package:common/presentation/bottom_navbar/stock_bottom_navbar.dart';
 import 'package:common/presentation/textfield/search_with_filter_app_bar.dart';
 import 'package:common/presentation/textfield/style/spacing.dart';
-import 'package:common/routes/routes.dart';
+import 'package:common/constant/routes/routes.dart';
 import 'package:dependencies/infinite_scroll_pagination.dart';
 import 'package:dependencies/provider.dart';
 import 'package:fitur_lihat_pengajuan/data/repository/lihat_pengajuan_repository_impl.dart';

@@ -1,4 +1,4 @@
-name: fitur_login
+name: fitur_auth_guard
 description: A sample command-line application.
 version: 1.0.0
 publish_to: none

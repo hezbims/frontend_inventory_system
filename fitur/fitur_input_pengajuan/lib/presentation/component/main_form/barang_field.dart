@@ -1,5 +1,5 @@
 import 'package:common/presentation/textfield/style/text_style.dart';
-import 'package:common/routes/routes.dart';
+import 'package:common/constant/routes/routes.dart';
 import 'package:dependencies/provider.dart';
 import 'package:fitur_input_pengajuan/domain/model/barang_transaksi.dart';
 import 'package:common/presentation/button/tambah_sesuatu_button.dart';

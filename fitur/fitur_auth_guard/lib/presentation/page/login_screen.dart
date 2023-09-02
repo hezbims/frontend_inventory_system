@@ -1,35 +1,41 @@
+import 'package:common/domain/model/user.dart';
+import 'package:common/presentation/provider/user_provider.dart';
 import 'package:common/presentation/button/submit_button.dart';
 import 'package:common/presentation/textfield/custom_textfield.dart';
 import 'package:common/presentation/textfield/style/spacing.dart';
 import 'package:common/response/api_response.dart';
-import 'package:common/routes/routes.dart';
+import 'package:common/constant/routes/routes.dart';
 import 'package:dependencies/provider.dart';
 import 'package:flutter/material.dart';
-import 'package:fitur_login/data/repository/auth_repository_impl.dart';
-import 'package:fitur_login/presentation/auth_provider.dart';
+import 'package:fitur_auth_guard/data/repository/login_repository_impl.dart';
+import 'package:fitur_auth_guard/presentation/provider/login_provider.dart';
 
 class LoginScreen extends StatelessWidget {
-  final void Function(String) setCurrentSessionToken;
   const LoginScreen({
     super.key,
-    required this.setCurrentSessionToken,
   });
 
   @override
   Widget build(BuildContext context) {
+    final onLoginSuccess = Provider.of<UserProvider>(
+      context,
+      listen: false
+    ).onLoginSuccess;
+
+
     return Scaffold(
       body: Center(
         child: ChangeNotifierProvider(
-          create: (context) => AuthProvider(
-            repository: AuthRepositoryImpl(),
+          create: (context) => LoginProvider(
+            repository: LoginRepositoryImpl(),
           ),
-          child: Consumer<AuthProvider>(
+          child: Consumer<LoginProvider>(
             builder: (context , provider , child) {
               final loginResponse = provider.loginResponse;
-              if (loginResponse is ApiResponseSuccess<String>){
+              if (loginResponse is ApiResponseSuccess<User>){
+                onLoginSuccess(loginResponse.data!);
                 WidgetsBinding.instance.addPostFrameCallback(
                   (_) {
-                    setCurrentSessionToken(loginResponse.data!);
                     Navigator.of(context).pushReplacementNamed(Routes.initialRoute);
                   }
                 );

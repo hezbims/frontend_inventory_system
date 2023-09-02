@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:common/json_field/barang_field.dart';
-import 'package:common/json_field/kategori_field.dart';
-import 'package:common/json_field/rak_field.dart';
+import 'package:common/constant/json_field/barang_field.dart';
+import 'package:common/constant/json_field/kategori_field.dart';
+import 'package:common/constant/json_field/rak_field.dart';
 import 'package:fitur_buat_laporan/domain/model/data_laporan.dart';
 import 'package:fitur_buat_laporan/domain/model/transaksi_barang_summary.dart';
 import 'package:flutter/material.dart';

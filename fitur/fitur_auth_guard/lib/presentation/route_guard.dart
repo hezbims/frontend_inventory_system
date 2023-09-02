@@ -1,9 +1,10 @@
+import 'package:common/domain/model/user.dart';
+import 'package:common/presentation/provider/user_provider.dart';
 import 'package:common/presentation/api_loader/default_error_widget.dart';
 import 'package:common/response/api_response.dart';
 import 'package:dependencies/provider.dart';
-import 'package:fitur_login/presentation/login_screen.dart';
+import 'package:fitur_auth_guard/presentation/page/login_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:stock_bu_fan/routing/route_guard_provider.dart';
 
 class RouteGuard extends StatelessWidget {
   final Widget displayedPage;
@@ -13,10 +14,10 @@ class RouteGuard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<RouteGuardProvider>(
+    return Consumer<UserProvider>(
       builder: (context , provider , child) {
         return FutureBuilder(
-          future: provider.getCurrentSessionTokenResponse,
+          future: provider.getUserResponse,
           builder: (context , snapshot){
             if (snapshot.hasData){
               final data = snapshot.data!;
@@ -31,15 +32,13 @@ class RouteGuard extends StatelessWidget {
                 }
                 // Berarti local token (dari shared-pref) sekarang enggak valid
                 else if (data.statusCode == 401){
-                  return LoginScreen(
-                    setCurrentSessionToken: provider.setCurrentSessionToken,
-                  );
+                  return LoginScreen();
                 }
                 else {
                   throw Exception('Get Current User ngedapetin status yang enggak diketahui');
                 }
               }
-              else if (data is ApiResponseSuccess<String>){
+              else if (data is ApiResponseSuccess<User>){
                 return displayedPage;
               }
               else { throw Exception('Unknown Api Response Route Guard'); }

@@ -1,4 +1,4 @@
-import 'package:common/routes/routes.dart';
+import 'package:common/constant/routes/routes.dart';
 import 'package:flutter/material.dart';
 
 class StockBottomNavBar extends StatelessWidget {

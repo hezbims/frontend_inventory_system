@@ -1,13 +1,13 @@
 import 'package:common/response/api_response.dart';
 import 'package:dependencies/fluttertoast.dart';
-import 'package:fitur_login/domain/model/post_login_dto.dart';
-import 'package:fitur_login/domain/repository/i_auth_repository.dart';
+import 'package:fitur_auth_guard/domain/model/post_login_dto.dart';
+import 'package:fitur_auth_guard/domain/repository/i_login_repository.dart';
 import 'package:flutter/material.dart';
 
-class AuthProvider extends ChangeNotifier {
-  final IAuthRepository _repository;
-  AuthProvider({
-    required IAuthRepository repository,
+class LoginProvider extends ChangeNotifier {
+  final ILoginRepository _repository;
+  LoginProvider({
+    required ILoginRepository repository,
   }) : _repository = repository;
 
   final usernameC = TextEditingController();

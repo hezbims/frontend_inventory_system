@@ -159,6 +159,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.1.4"
+  fitur_auth_guard:
+    dependency: "direct main"
+    description:
+      path: "fitur/fitur_auth_guard"
+      relative: true
+    source: path
+    version: "1.0.0"
   fitur_buat_laporan:
     dependency: "direct main"
     description:
@@ -194,13 +201,6 @@ packages:
       relative: true
     source: path
     version: "0.0.1"
-  fitur_login:
-    dependency: "direct main"
-    description:
-      path: "fitur/fitur_login"
-      relative: true
-    source: path
-    version: "1.0.0"
   fitur_setting_akun:
     dependency: "direct main"
     description:

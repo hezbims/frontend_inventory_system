@@ -1,23 +1,18 @@
+import 'package:common/domain/model/user.dart';
+import 'package:common/domain/repository/i_user_repository.dart';
 import 'package:common/response/api_response.dart';
-import 'package:fitur_login/domain/repository/i_auth_repository.dart';
 import 'package:flutter/material.dart';
 
 /// Fungsinya adalah untuk menyimpan current session token
-class RouteGuardProvider extends ChangeNotifier {
-  final IAuthRepository _repository;
-  RouteGuardProvider({
-    required IAuthRepository repository
+class UserProvider extends ChangeNotifier {
+  final IUserRepository _repository;
+  UserProvider({
+    required IUserRepository repository
   }) : _repository = repository;
-
-  void setCurrentSessionToken(String newValue){
-    _getCurrentSessionTokenResponse = Future.value(
-      ApiResponseSuccess(data: newValue)
-    );
-  }
 
   // TODO : buat testing bolak balik. Pastiin kalo udah pernah login, gak perlu login lagi
 
-  Future<ApiResponse>? _getCurrentSessionTokenResponse;
+  Future<ApiResponse>? _getUserResponse;
 
   /// Token yang ada di shared preferences bisa jadi sudah kadaluarsa,
   /// oleh karena itu, variabel ini dibuat. Veriabel ini dibuat karena token yang di simpan di
@@ -25,11 +20,11 @@ class RouteGuardProvider extends ChangeNotifier {
   /// karena token yang didapat dari variabel ini akan direfresh setiap
   /// aplikasi mulai berjalan. masa dari token yang baru saja didapatkan adalah
   /// 1 bulan.
-  Future<ApiResponse> get getCurrentSessionTokenResponse =>
-    _getCurrentSessionTokenResponse ??= _getCurrentSessionToken();
-  Future<ApiResponse> _getCurrentSessionToken() async {
-    final response = await _repository.getNewToken();
-    if (response is ApiResponseSuccess<String> || response is ApiResponseFailed){
+  Future<ApiResponse> get getUserResponse =>
+    _getUserResponse ??= _getUser();
+  Future<ApiResponse> _getUser() async {
+    final response = await _repository.getUser();
+    if (response is ApiResponseSuccess<User> || response is ApiResponseFailed){
       return response;
     }
     else if (response is ApiResponseSuccess){
@@ -44,9 +39,17 @@ class RouteGuardProvider extends ChangeNotifier {
       );
     }
   }
+  void onLoginSuccess(User currentUser){
+    _getUserResponse = Future.value(
+      ApiResponseSuccess(data: currentUser)
+    );
+  }
+  void onLogoutSuccess(){
+    _getUserResponse = Future.value(ApiResponseFailed(statusCode: 401));
+  }
 
   void refresh(){
-    _getCurrentSessionTokenResponse = null;
+    _getUserResponse = null;
     notifyListeners();
   }
 }

@@ -1,18 +1,18 @@
-import 'package:common/routes/routes.dart';
+import 'package:common/data/repository/user_repository_impl.dart';
+import 'package:common/presentation/provider/user_provider.dart';
+import 'package:common/constant/routes/routes.dart';
 import 'package:dependencies/provider.dart';
-import 'package:fitur_login/data/repository/auth_repository_impl.dart';
 import 'package:flutter/material.dart';
-import 'package:stock_bu_fan/routing/route_guard.dart';
-import 'package:stock_bu_fan/routing/route_guard_provider.dart';
-import 'package:stock_bu_fan/routing/route_not_found_page.dart';
+import 'package:fitur_auth_guard/presentation/route_guard.dart';
+import 'package:fitur_auth_guard/presentation/page/route_not_found_page.dart';
 import 'package:stock_bu_fan/routing/routes_map.dart';
 import 'package:stock_bu_fan/theme/custom_theme_data.dart';
 
 void main() {
   runApp(
     ChangeNotifierProvider(
-      create: (context) => RouteGuardProvider(
-        repository: AuthRepositoryImpl()
+      create: (context) => UserProvider(
+        repository: UserRepositoryImpl()
       ),
       child: const MyApp(),
     )

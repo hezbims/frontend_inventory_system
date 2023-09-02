@@ -1,5 +1,5 @@
 import 'package:common/presentation/api_loader/default_error_widget.dart';
-import 'package:common/themes/theme.dart';
+import 'package:common/constant/themes/theme_color.dart';
 import 'package:dependencies/provider.dart';
 import 'package:fitur_buat_laporan/data/repository/get_data_laporan_repository_impl.dart';
 import 'package:fitur_buat_laporan/domain/model/generate_pdf_parameter_dto.dart';
