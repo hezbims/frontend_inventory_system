@@ -51,7 +51,7 @@ class SettingAkunPage extends StatelessWidget {
                           const VerticalFormSpacing(),
 
                           SettingAkunItem(
-                            onTap: (){},
+                            onTap: provider.logout,
                             icon: Icons.logout,
                             label: "Logout"
                           ),

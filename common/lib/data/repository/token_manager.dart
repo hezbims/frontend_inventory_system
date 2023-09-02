@@ -21,4 +21,10 @@ abstract class TokenManager {
 
     await _pref!.setString(_tokenKey, token);
   }
+
+  static Future<void> clearToken() async {
+    _pref ??= await SharedPreferences.getInstance();
+
+    await _pref!.remove(_tokenKey);
+  }
 }

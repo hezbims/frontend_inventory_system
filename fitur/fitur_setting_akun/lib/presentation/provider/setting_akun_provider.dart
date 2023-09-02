@@ -12,7 +12,7 @@ class SettingAkunProvider extends ChangeNotifier {
 
   ApiResponse? logoutResponse;
   void logout() async {
-    if (isLoading){
+    if (!isLoading){
       logoutResponse = ApiResponseLoading();
       notifyListeners();
 
@@ -23,6 +23,7 @@ class SettingAkunProvider extends ChangeNotifier {
           timeInSecForIosWeb: 5,
         );
       }
+      debugPrint("tipe dari logout response : ${logoutResponse.runtimeType}");
       notifyListeners();
     }
   }

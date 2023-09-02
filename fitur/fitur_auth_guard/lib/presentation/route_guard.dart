@@ -25,9 +25,11 @@ class RouteGuard extends StatelessWidget {
               if (data is ApiResponseFailed){
                 // berarti gagal tersambung ke server
                 if (data.statusCode == null){
-                  return DefaultErrorWidget(
-                    onTap: provider.refresh,
-                    errorMessage: data.error.toString(),
+                  return Scaffold(
+                    body: DefaultErrorWidget(
+                      onTap: provider.refresh,
+                      errorMessage: data.error.toString(),
+                    ),
                   );
                 }
                 // Berarti local token (dari shared-pref) sekarang enggak valid
