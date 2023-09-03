@@ -7,7 +7,9 @@ class UserMapper {
     final jsonBody = jsonDecode(body);
 
     return User(
-      token:jsonBody['token']
+      token:jsonBody['token'],
+      username: jsonBody['user']['username'],
+      isAdmin: jsonBody['user']['is_admin'] == 1,
     );
   }
 }

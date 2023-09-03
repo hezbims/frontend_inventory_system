@@ -3,6 +3,7 @@ import 'package:common/presentation/textfield/style/spacing.dart';
 import 'package:common/constant/routes/routes.dart';
 import 'package:dependencies/provider.dart';
 import 'package:fitur_setting_akun/data/repository/setting_akun_repository_impl.dart';
+import 'package:fitur_setting_akun/presentation/component/buat_akun_baru_dialog.dart';
 import 'package:fitur_setting_akun/presentation/component/loader_overlay.dart';
 import 'package:fitur_setting_akun/presentation/component/setting_akun_item.dart';
 import 'package:fitur_setting_akun/presentation/provider/setting_akun_provider.dart';
@@ -67,7 +68,14 @@ class SettingAkunPage extends StatelessWidget {
                           const SizedBox(height: 12,),
 
                           SettingAkunItem(
-                            onTap: (){},
+                            onTap: (){
+                              showDialog(
+                                context: context,
+                                builder: (context){
+                                  return BuatAkunBaruDialog();
+                                }
+                              );
+                            },
                             icon: Icons.person_add_alt,
                             label: 'Tambah akun baru'
                           ),

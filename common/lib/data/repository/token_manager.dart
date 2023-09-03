@@ -1,5 +1,4 @@
 import 'package:dependencies/shared_preference.dart';
-import 'package:flutter/material.dart';
 
 abstract class TokenManager {
   static const _tokenKey = 'token';
@@ -9,7 +8,6 @@ abstract class TokenManager {
 
     final token = _pref!.get(_tokenKey);
 
-    debugPrint("Token manager : $token}");
     return {
       'Authorization' : "Bearer $token",
       'Accept' : 'application/json',
