@@ -14,6 +14,7 @@ abstract class TokenManager {
     };
   }
 
+  // TODO : pasttin token di set sehabis login dan pas ngedapetin current user di repository
   static Future<void> setToken(String token) async {
     _pref ??= await SharedPreferences.getInstance();
 

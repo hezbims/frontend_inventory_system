@@ -130,7 +130,6 @@ class InputDataBarangProvider extends ChangeNotifier {
       // parse semua error messagenya ke dalam error di textfield
       if (nextResponse is ApiResponseFailed) {
         errorMessage = nextResponse.error;
-        debugPrint(nextResponse.error.toString());
         if (errorMessage[SubmitBarangDto.kolomCreateRak] != null){
           Fluttertoast.showToast(
             msg: errorMessage[SubmitBarangDto.kolomCreateRak].toString(),

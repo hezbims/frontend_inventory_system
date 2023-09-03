@@ -8,6 +8,8 @@ class PasswordTextfield extends StatelessWidget {
   final void Function() onChangePasswordVisibility;
   final String? errorText;
   final FocusNode? focusNode;
+  final TextInputAction? textInputAction;
+  final void Function(String)? onSubmit;
 
   const PasswordTextfield({
     super.key,
@@ -17,6 +19,8 @@ class PasswordTextfield extends StatelessWidget {
     required this.onChangePasswordVisibility,
     this.errorText,
     this.focusNode,
+    this.textInputAction,
+    this.onSubmit,
   });
 
   @override
@@ -39,11 +43,14 @@ class PasswordTextfield extends StatelessWidget {
               onTap: onChangePasswordVisibility,
               child: suffixIcon,
             ),
+            errorText: errorText,
           ),
           obscureText: isPasswordVisible ? false : true,
           enableSuggestions: false,
           autocorrect: false,
           focusNode: focusNode,
+          onSubmitted: onSubmit,
+          textInputAction: textInputAction,
         )
       ],
     );

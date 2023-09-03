@@ -1,4 +1,5 @@
 import 'package:common/presentation/bottom_navbar/stock_bottom_navbar.dart';
+import 'package:common/presentation/provider/user_provider.dart';
 import 'package:common/presentation/textfield/style/spacing.dart';
 import 'package:common/constant/routes/routes.dart';
 import 'package:dependencies/provider.dart';
@@ -14,6 +15,8 @@ class SettingAkunPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+
     return ChangeNotifierProvider(
       create: (BuildContext context) => SettingAkunProvider(
         repository: SettingAkunRepositoryImpl()
@@ -65,20 +68,22 @@ class SettingAkunPage extends StatelessWidget {
                             label: "Lupa password"
                           ),
 
-                          const SizedBox(height: 12,),
+                          if (userProvider.currentUser.isAdmin) ...[
+                            const SizedBox(height: 12,),
 
-                          SettingAkunItem(
-                            onTap: (){
-                              showDialog(
-                                context: context,
-                                builder: (context){
-                                  return BuatAkunBaruDialog();
-                                }
-                              );
-                            },
-                            icon: Icons.person_add_alt,
-                            label: 'Tambah akun baru'
-                          ),
+                            SettingAkunItem(
+                              onTap: () async {
+                                showDialog(
+                                  context: context,
+                                  builder: (context){
+                                    return BuatAkunBaruDialog();
+                                  }
+                                );
+                              },
+                              icon: Icons.person_add_alt,
+                              label: 'Tambah akun baru'
+                            ),
+                          ]
                         ],
                       ),
                     ),
