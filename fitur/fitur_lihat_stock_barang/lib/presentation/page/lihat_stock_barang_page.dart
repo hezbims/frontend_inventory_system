@@ -1,9 +1,9 @@
-import 'package:common/data/repository/barang_repository_impl.dart';
 import 'package:common/presentation/api_loader/default_error_widget.dart';
 import 'package:common/presentation/bottom_navbar/stock_bottom_navbar.dart';
 import 'package:common/presentation/textfield/search_with_filter_app_bar.dart';
 import 'package:common/presentation/textfield/style/spacing.dart';
 import 'package:common/constant/routes/routes.dart';
+import 'package:dependencies/get_it.dart';
 import 'package:dependencies/infinite_scroll_pagination.dart';
 import 'package:dependencies/provider.dart';
 import 'package:common/domain/model/barang.dart';
@@ -19,7 +19,7 @@ class LihatStockBarangPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => LihatStockBarangProvider(
-        repository: BarangRepositoryImpl(),
+        repository: GetIt.I.get(),
       ),
       child: Consumer<LihatStockBarangProvider>(
         builder: (context , provider , child) {

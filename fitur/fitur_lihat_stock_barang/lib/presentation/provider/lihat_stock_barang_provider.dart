@@ -44,6 +44,7 @@ class LihatStockBarangProvider extends ChangeNotifier {
         pageNumber: pageNumber,
         keyword: namaController.text,
       );
+
       if (apiResponse is ApiResponseSuccess<List<Barang>>) {
         if (apiResponse.isNextDataExist) {
           pagingController.appendPage(

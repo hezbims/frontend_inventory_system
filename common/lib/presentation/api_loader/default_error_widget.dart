@@ -27,7 +27,7 @@ class DefaultErrorWidget extends StatelessWidget {
 
           ElevatedButton(
             onPressed: onTap,
-            child: const Text("Refersh"),
+            child: const Text("Refresh"),
           )
         ]
       ),

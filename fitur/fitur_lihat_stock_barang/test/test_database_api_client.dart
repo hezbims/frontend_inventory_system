@@ -1,7 +1,7 @@
 import 'package:common/constant/url/common_url.dart';
 import 'package:dependencies/http.dart';
 
-class TestApiClient {
+class TestDatabaseApiClient {
   Future<Response> resetDatabase(){
     final url = "${CommonUrl.baseUrl}/reset-database";
     return delete(Uri.parse(url));

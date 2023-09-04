@@ -19,11 +19,14 @@ dependencies:
   infinite_scroll_pagination: ^4.0.0
   async: ^2.11.0
   shared_preferences: ^2.2.0
+  get_it: ^7.6.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
+  mockito: ^5.4.2
+  build_runner: ^2.4.6
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

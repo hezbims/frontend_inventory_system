@@ -5,10 +5,12 @@ import 'package:dependencies/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:fitur_auth_guard/presentation/route_guard.dart';
 import 'package:fitur_auth_guard/presentation/page/route_not_found_page.dart';
+import 'package:stock_bu_fan/dependency_injection/setup_di.dart';
 import 'package:stock_bu_fan/routing/routes_map.dart';
 import 'package:stock_bu_fan/theme/custom_theme_data.dart';
 
 void main() {
+  setupDI();
   runApp(
     ChangeNotifierProvider(
       create: (context) => UserProvider(
