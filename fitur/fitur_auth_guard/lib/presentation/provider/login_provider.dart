@@ -20,13 +20,13 @@ class LoginProvider extends ChangeNotifier {
   }
 
   ApiResponse? loginResponse;
-  void Function()? get login {
+  Future<void> Function()? get login {
     if (loginResponse is ApiResponseLoading){
       return null;
     }
     return _login;
   }
-  void _login() async {
+  Future<void> _login() async {
     if (loginResponse is! ApiResponseLoading){
       loginResponse = ApiResponseLoading();
       notifyListeners();

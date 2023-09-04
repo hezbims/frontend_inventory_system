@@ -6,9 +6,9 @@ import 'package:common/presentation/textfield/password_textfield.dart';
 import 'package:common/presentation/textfield/style/spacing.dart';
 import 'package:common/response/api_response.dart';
 import 'package:common/constant/routes/routes.dart';
+import 'package:dependencies/get_it.dart';
 import 'package:dependencies/provider.dart';
 import 'package:flutter/material.dart';
-import 'package:fitur_auth_guard/data/repository/login_repository_impl.dart';
 import 'package:fitur_auth_guard/presentation/provider/login_provider.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -28,7 +28,7 @@ class LoginScreen extends StatelessWidget {
       body: Center(
         child: ChangeNotifierProvider(
           create: (context) => LoginProvider(
-            repository: LoginRepositoryImpl(),
+            repository: GetIt.I.get(),
           ),
           child: Consumer<LoginProvider>(
             builder: (context , provider , child) {

@@ -1,9 +1,17 @@
+import 'package:common/domain/repository/i_token_manager.dart';
 import 'package:dependencies/shared_preference.dart';
 
-abstract class TokenManager {
-  static const _tokenKey = 'token';
-  static SharedPreferences? _pref;
-  static Future<Map<String , String>> getTokenizedHeader() async {
+class TokenManagerImpl implements ITokenManager {
+  TokenManagerImpl._privateConstructor();
+  static final TokenManagerImpl _instance = TokenManagerImpl._privateConstructor();
+  factory TokenManagerImpl(){
+    return _instance;
+  }
+
+  final _tokenKey = 'token';
+  SharedPreferences? _pref;
+  @override
+  Future<Map<String , String>> getTokenizedHeader() async {
     _pref ??= await SharedPreferences.getInstance();
 
     final token = _pref!.get(_tokenKey);
@@ -15,13 +23,15 @@ abstract class TokenManager {
   }
 
   // TODO : pasttin token di set sehabis login dan pas ngedapetin current user di repository
-  static Future<void> setToken(String token) async {
+  @override
+  Future<void> setToken(String token) async {
     _pref ??= await SharedPreferences.getInstance();
 
     await _pref!.setString(_tokenKey, token);
   }
 
-  static Future<void> clearToken() async {
+  @override
+  Future<void> clearToken() async {
     _pref ??= await SharedPreferences.getInstance();
 
     await _pref!.remove(_tokenKey);

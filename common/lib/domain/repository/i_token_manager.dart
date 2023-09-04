@@ -1,4 +1,5 @@
 abstract class ITokenManager {
-  static Future<void> setToken(String token);
-  static Future<Map<String , String>> getTokenizedHeader();
+  Future<void> setToken(String token);
+  Future<void> clearToken();
+  Future<Map<String , String>> getTokenizedHeader();
 }

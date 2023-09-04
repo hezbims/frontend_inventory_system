@@ -1,13 +1,15 @@
+import 'package:common/domain/repository/i_token_manager.dart';
+import 'package:dependencies/get_it.dart';
 import 'package:dependencies/http.dart';
 import 'package:common/constant/url/common_url.dart';
-import 'package:common/data/repository/token_manager.dart';
 class SettingAkunApiClient {
+  final ITokenManager _tokenManager = GetIt.I.get();
   Future<Response> logout() async {
     final url = "${CommonUrl.baseUrl}/logout";
 
     return delete(
       Uri.parse(url),
-      headers: await TokenManager.getTokenizedHeader()
+      headers: await _tokenManager.getTokenizedHeader()
     );
   }
 }
