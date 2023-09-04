@@ -12,10 +12,6 @@ class UserProvider extends ChangeNotifier {
 
   // TODO : buat testing bolak balik. Pastiin kalo udah pernah login, gak perlu login lagi
 
-  // Untuk digunain ngecek apakah admin atau bukan
-  User? _currentUser;
-  User get currentUser => _currentUser!;
-
   Future<ApiResponse>? _getUserResponse;
 
   /// Token yang ada di shared preferences bisa jadi sudah kadaluarsa,
@@ -29,9 +25,6 @@ class UserProvider extends ChangeNotifier {
   Future<ApiResponse> _getUser() async {
     final response = await _repository.getUser();
     if (response is ApiResponseSuccess<User> || response is ApiResponseFailed){
-      if (response is ApiResponseSuccess<User>){
-        _currentUser = response.data;
-      }
       return response;
     }
     else if (response is ApiResponseSuccess){
@@ -50,7 +43,6 @@ class UserProvider extends ChangeNotifier {
     _getUserResponse = Future.value(
       ApiResponseSuccess(data: user)
     );
-    _currentUser = user;
   }
   void onLogoutSuccess(){
     _getUserResponse = Future.value(ApiResponseFailed(statusCode: 401));

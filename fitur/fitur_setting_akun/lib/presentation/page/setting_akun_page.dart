@@ -1,7 +1,9 @@
+import 'package:common/domain/model/user.dart';
 import 'package:common/presentation/bottom_navbar/stock_bottom_navbar.dart';
 import 'package:common/presentation/provider/user_provider.dart';
 import 'package:common/presentation/textfield/style/spacing.dart';
 import 'package:common/constant/routes/routes.dart';
+import 'package:common/response/api_response.dart';
 import 'package:dependencies/provider.dart';
 import 'package:fitur_setting_akun/data/repository/setting_akun_repository_impl.dart';
 import 'package:fitur_setting_akun/presentation/component/buat_akun_baru_dialog.dart';
@@ -68,22 +70,41 @@ class SettingAkunPage extends StatelessWidget {
                             label: "Lupa password"
                           ),
 
-                          if (userProvider.currentUser.isAdmin) ...[
-                            const SizedBox(height: 12,),
+                          FutureBuilder(
+                            future: userProvider.getUserResponse,
+                            builder: (BuildContext context , snapshot){
+                              if (snapshot.hasData){
+                                final response = snapshot.data as ApiResponseSuccess<User>;
+                                if (response.data!.isAdmin) {
+                                  return Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      const SizedBox(height: 12,),
 
-                            SettingAkunItem(
-                              onTap: () async {
-                                showDialog(
-                                  context: context,
-                                  builder: (context){
-                                    return BuatAkunBaruDialog();
-                                  }
-                                );
-                              },
-                              icon: Icons.person_add_alt,
-                              label: 'Tambah akun baru'
-                            ),
-                          ]
+                                      SettingAkunItem(
+                                        onTap: () async {
+                                          showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return BuatAkunBaruDialog();
+                                            }
+                                          );
+                                        },
+                                        icon: Icons.person_add_alt,
+                                        label: 'Tambah akun baru'
+                                      ),
+                                    ],
+                                  );
+                                }
+                                else  {
+                                  return const SizedBox();
+                                }
+                              }
+                              else {
+                                return const SizedBox();
+                              }
+                            }
+                          ),
                         ],
                       ),
                     ),

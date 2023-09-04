@@ -46,44 +46,46 @@ class LoginScreen extends StatelessWidget {
                   maxWidth: 372,
                   maxHeight: 332
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 24,
-                    vertical: 36
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      CustomTextfield(
-                        controller: provider.usernameC,
-                        label: 'Username',
-                        errorText: null,
-                        textInputAction: TextInputAction.next,
-                      ),
-
-                      const VerticalFormSpacing(),
-
-                      CustomTextfield(
-                        controller: provider.passwordC,
-                        label: 'Password',
-                        errorText: null,
-                        onSubmit: (_){
-                          if (provider.login != null){
-                            provider.login!();
-                          }
-                        },
-                      ),
-
-                      const VerticalFormSpacing(),
-
-                      SizedBox(
-                        width: double.infinity,
-                        child: SubmitButton(
-                          onTap: provider.login
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 24,
+                      vertical: 36
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        CustomTextfield(
+                          controller: provider.usernameC,
+                          label: 'Username',
+                          errorText: null,
+                          textInputAction: TextInputAction.next,
                         ),
-                      ),
-                    ],
+
+                        const VerticalFormSpacing(),
+
+                        CustomTextfield(
+                          controller: provider.passwordC,
+                          label: 'Password',
+                          errorText: null,
+                          onSubmit: (_){
+                            if (provider.login != null){
+                              provider.login!();
+                            }
+                          },
+                        ),
+
+                        const VerticalFormSpacing(),
+
+                        SizedBox(
+                          width: double.infinity,
+                          child: SubmitButton(
+                            onTap: provider.login
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               );
