@@ -98,17 +98,12 @@ class BuatAkunBaruDialog extends StatelessWidget {
       PasswordTextfield(
         label: 'Password',
         controller: provider.passwordController,
-        isPasswordVisible: provider.isPasswordVisible,
-        onChangePasswordVisibility: provider.turnPasswordVisibility,
         errorText: provider.errorMap[UserField.password],
-        textInputAction: TextInputAction.next,
       ),
 
       PasswordTextfield(
         label: 'Konfirmasi Password',
         controller: provider.confirmPasswordController,
-        isPasswordVisible: provider.isConfirmPasswordVisible,
-        onChangePasswordVisibility: provider.turnConfirmPasswordVisibility,
         onSubmit: (_){
           if (provider.register != null){
             provider.register!();

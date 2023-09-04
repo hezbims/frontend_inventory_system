@@ -12,6 +12,12 @@ class LoginProvider extends ChangeNotifier {
 
   final usernameC = TextEditingController();
   final passwordC = TextEditingController();
+  bool _isPasswordVisible = false;
+  bool get isPasswordVisible => _isPasswordVisible;
+  void turnPasswordVisibility(){
+    _isPasswordVisible = !_isPasswordVisible;
+    notifyListeners();
+  }
 
   ApiResponse? loginResponse;
   void Function()? get login {

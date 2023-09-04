@@ -2,6 +2,7 @@ import 'package:common/domain/model/user.dart';
 import 'package:common/presentation/provider/user_provider.dart';
 import 'package:common/presentation/button/submit_button.dart';
 import 'package:common/presentation/textfield/custom_textfield.dart';
+import 'package:common/presentation/textfield/password_textfield.dart';
 import 'package:common/presentation/textfield/style/spacing.dart';
 import 'package:common/response/api_response.dart';
 import 'package:common/constant/routes/routes.dart';
@@ -65,15 +66,14 @@ class LoginScreen extends StatelessWidget {
 
                         const VerticalFormSpacing(),
 
-                        CustomTextfield(
-                          controller: provider.passwordC,
+                        PasswordTextfield(
                           label: 'Password',
-                          errorText: null,
+                          controller: provider.passwordC,
                           onSubmit: (_){
                             if (provider.login != null){
                               provider.login!();
                             }
-                          },
+                          }
                         ),
 
                         const VerticalFormSpacing(),
