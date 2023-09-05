@@ -1,3 +1,4 @@
+import 'package:common/constant/test_tags/test_tags.dart';
 import 'package:common/domain/repository/i_token_manager.dart';
 import 'package:dependencies/get_it.dart';
 import 'package:dependencies/http.dart';
@@ -15,7 +16,9 @@ import 'unit.mocks.dart';
 @GenerateMocks([LoginApiClient , ITokenManager])
 void main(){
   TestWidgetsFlutterBinding.ensureInitialized();
-  test('Ketika klik login, maka set token di token manager terpanggil', () async {
+  test(
+    'Ketika klik login, maka set token di token manager terpanggil',
+    () async {
     final token = '81|laravel_sanctum_Q9Y4jVeoEMYLV9nfnyHl20DZHYjsHfmJElcXnlx3ba57b5a5';
     final mockApiClient = prepareMockApiClient(token: token);
     final mockTokenManager = prepareMockTokenManager();
@@ -32,7 +35,7 @@ void main(){
 
     verify(mockTokenManager.setToken(token)).called(1);
 
-  });
+  } , tags: TestTags.fast_test);
 }
 
 MockLoginApiClient prepareMockApiClient({required String token}){
