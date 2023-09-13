@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
         }
         else {
           nextPage = RouteGuard(
-              displayedPage: routesMap[settings.name]!
+              displayedPage: routesMap[settings.name]!.getPage()
           );
         }
 

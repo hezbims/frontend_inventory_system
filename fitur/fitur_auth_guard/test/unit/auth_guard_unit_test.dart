@@ -7,7 +7,6 @@ import 'package:fitur_auth_guard/data/repository/login_repository_impl.dart';
 import 'package:fitur_auth_guard/presentation/provider/login_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:dependencies/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
@@ -35,7 +34,7 @@ void main(){
 
     verify(mockTokenManager.setToken(token)).called(1);
 
-  } , tags: TestTags.fast_test);
+  } , tags: TestTags.fastTetst);
 }
 
 MockLoginApiClient prepareMockApiClient({required String token}){

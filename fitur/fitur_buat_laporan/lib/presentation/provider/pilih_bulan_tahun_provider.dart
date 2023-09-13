@@ -47,13 +47,20 @@ class PilihBulanTahunProvider extends ChangeNotifier {
   }
 
   ApiResponse? downloadCSVProgress;
-  void downloadCSV() async {
+  void Function()? get downloadCSV {
+    if (downloadCSVProgress is ApiResponseLoading){
+      return null;
+    }
+    return _downloadCSV;
+  }
+
+  void _downloadCSV() async {
     if (kIsWeb) {
       if (downloadCSVProgress is! ApiResponseLoading) {
         downloadCSVProgress = ApiResponseLoading();
         notifyListeners();
 
-        // TODO : TAMBAHIN VALIDATION YEAR
+        // TODO : Tambahin validation untuk year field
 
         downloadCSVProgress = await _repository.getDataLaporan(pdfParameter);
         if (downloadCSVProgress is ApiResponseFailed) {

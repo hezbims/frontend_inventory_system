@@ -1,12 +1,13 @@
 import 'package:common/domain/repository/i_barang_repository.dart';
 import 'package:common/response/api_response.dart';
 import 'package:dependencies/get_it.dart';
-import 'package:dependencies/mockito.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 import 'package:fitur_lihat_stock_barang/presentation/page/lihat_stock_barang_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../fitur_lihat_stock_barang_test.mocks.dart';
+import 'lihat_stock_barang_widget_test.mocks.dart';
 
 @GenerateMocks([IBarangRepository])
 void main(){

@@ -5,10 +5,11 @@ import 'package:common/presentation/textfield/dropdown_page_chooser.dart';
 import 'package:common/presentation/textfield/style/spacing.dart';
 import 'package:common/response/api_response.dart';
 import 'package:common/constant/routes/routes.dart';
+import 'package:dependencies/get_it.dart';
 import 'package:dependencies/provider.dart';
-import 'package:fitur_input_pengajuan/data/repository/submit_pengajuan_repository_impl.dart';
 import 'package:fitur_input_pengajuan/domain/model/pengaju.dart';
 import 'package:fitur_input_pengajuan/domain/model/pengajuan.dart';
+import 'package:fitur_input_pengajuan/domain/repository/i_submit_pengajuan_repository.dart';
 import 'package:fitur_input_pengajuan/presentation/component/main_form/clock_field.dart';
 import 'package:fitur_input_pengajuan/presentation/component/main_form/barang_field.dart';
 import 'package:fitur_input_pengajuan/presentation/component/main_form/date_field.dart';
@@ -27,7 +28,7 @@ class MainForm extends StatelessWidget {
     return ChangeNotifierProvider(
         create : (context) => MainFormProvider(
           initialData: initialData,
-          repository: SubmitPengajuanRepositoryImpl()
+          repository: GetIt.I.get<ISubmitPengajuanRepository>(),
         ),
         child : Consumer<MainFormProvider>(
             builder: (context , provider , child) {
@@ -91,7 +92,7 @@ class MainForm extends StatelessWidget {
 
                     if (provider.isPemasukan == true) ...[
                       DropdownPageChooser(
-                          label: "Nama Pemasok",
+                          label: "Nama pemasok",
                           value: provider.pemasok?.nama ?? "",
                           errorMessage: provider.pemasokError,
                           onTap: () async {
@@ -126,7 +127,7 @@ class MainForm extends StatelessWidget {
                     ],
 
                     if (provider.isPemasukan != null)
-                      BarangField(listBarangTransaksi: provider.listBarangTransaksi),
+                      ListBarangFormField(listBarangTransaksi: provider.listBarangTransaksi),
                   ],
                 ),
               );

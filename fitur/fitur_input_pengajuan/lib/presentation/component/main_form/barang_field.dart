@@ -9,10 +9,10 @@ import 'package:flutter/material.dart';
 
 import 'barang_transaksi_card.dart';
 
-class BarangField extends StatelessWidget {
+class ListBarangFormField extends StatelessWidget {
   final List<BarangTransaksi> listBarangTransaksi;
 
-  const BarangField({
+  const ListBarangFormField({
     super.key,
     required this.listBarangTransaksi,
   });

@@ -5,14 +5,15 @@ import 'package:common/domain/repository/i_token_manager.dart';
 import 'package:common/domain/repository/i_user_repository.dart';
 import 'package:common/presentation/provider/user_provider.dart';
 import 'package:common/response/api_response.dart';
-import 'package:dependencies/flutter_test.dart';
 import 'package:dependencies/get_it.dart';
-import 'package:dependencies/mockito.dart';
+import 'package:mockito/mockito.dart';
+import 'package:mockito/annotations.dart';
 import 'package:dependencies/provider.dart';
 import 'package:fitur_setting_akun/presentation/page/setting_akun_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
 
-import 'widget.mocks.dart';
+import 'setting_akun_widget_test.mocks.dart';
 
 @GenerateMocks([IUserRepository])
 void main(){
@@ -61,5 +62,5 @@ void main(){
 
     expect(tambahAkunItem, findsOneWidget);
 
-  } , tags: TestTags.fast_test);
+  } , tags: TestTags.fastTetst);
 }
