@@ -103,6 +103,7 @@ class MainFormProvider extends ChangeNotifier {
             tanggal: tanggal,
             pengaju: isPemasukan! ? _pemasok : _group,
             listBarangTransaksi: listBarangTransaksi,
+            status: null,
           )
         );
 

@@ -1,8 +1,8 @@
-import 'package:common/constant/enums/status_pengajuan.dart';
 import 'package:common/constant/themes/custom_font_weight.dart';
 import 'package:common/constant/themes/theme_color.dart';
+import 'package:common/presentation/card/status_mini_card.dart';
 import 'package:fitur_lihat_pengajuan/domain/model/pengajuan_preview.dart';
-import 'package:fitur_lihat_pengajuan/presentation/component/styles.dart';
+import 'package:common/constant/themes/status_colors.dart';
 import 'package:flutter/material.dart';
 
 class PengajuanCard extends StatelessWidget {
@@ -17,7 +17,7 @@ class PengajuanCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: getCardColorFrom(pengajuan.status),
+      color: pengajuan.status.getContainerColor(),
       elevation: 0,
       child: Container(
         padding: const EdgeInsets.all(16),
@@ -31,7 +31,7 @@ class PengajuanCard extends StatelessWidget {
                   child: Text("Tipe : ${pengajuan.tipe}"),
                 ),
 
-                buildStatusMiniCard(pengajuan.status),
+                StatusMiniCard(status: pengajuan.status),
               ],
             ),
             Text(
@@ -65,7 +65,8 @@ class PengajuanCard extends StatelessWidget {
                   ),
                 ),
 
-                GestureDetector(
+                InkWell(
+                  borderRadius: BorderRadius.circular(12),
                   onTap: onTap,
                   child: Container(
                     decoration: BoxDecoration(
@@ -84,67 +85,6 @@ class PengajuanCard extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-
-  Color getCardColorFrom(StatusPengajuan status){
-    switch (status){
-      case StatusPengajuan.diterima:
-        return const Color(0x4061FF00);
-      case StatusPengajuan.menunggu:
-        return const Color(0x40FFC700);
-      case StatusPengajuan.ditolak:
-        return const Color(0x40FF0000);
-    }
-  }
-
-  Widget buildStatusMiniCard(StatusPengajuan status){
-    late Widget text;
-    late Color containerColor;
-
-    switch (status) {
-      case StatusPengajuan.diterima:
-        text = const Text(
-          'diterima',
-          style: TextStyle(
-            color: Color(0xFF0D6705),
-            fontSize: 10,
-          ),
-        );
-        containerColor = const Color(0x4014FF00);
-        break;
-      case StatusPengajuan.menunggu:
-        text = const Text(
-          'menunggu',
-          style: TextStyle(
-            color: Color(0xFF644E00),
-            fontSize: 10,
-          ),
-        );
-        containerColor = const Color(0x40FFC700);
-        break;
-      case StatusPengajuan.ditolak:
-        text = const Text(
-          'ditolak',
-          style: TextStyle(
-            color: Color(0xFF670505),
-            fontSize: 10,
-          ),
-        );
-        containerColor = const Color(0x40FF0000);
-        break;
-    }
-
-    return Container(
-      decoration: BoxDecoration(
-        color: containerColor,
-        borderRadius: BorderRadius.circular(12)
-      ),
-      padding: const EdgeInsets.symmetric(
-        horizontal: 8,
-        vertical: 4
-      ),
-      child: text,
     );
   }
 }

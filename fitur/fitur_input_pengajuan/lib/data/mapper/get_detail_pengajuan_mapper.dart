@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:common/constant/enums/status_pengajuan.dart';
 import 'package:fitur_input_pengajuan/domain/model/barang_transaksi.dart';
 import 'package:fitur_input_pengajuan/domain/model/pengaju.dart';
 import 'package:fitur_input_pengajuan/domain/model/pengajuan.dart';
@@ -29,7 +30,7 @@ class GetDetailPengajuanMapper {
         id: data['pengaju']['id'],
         isPemasok: data['pengaju']['is_pemasok'] == 1,
       ),
-
+      status: StatusPengajuan.from(data['status']),
       listBarangTransaksi: listBarangTransaksi,
     );
   }

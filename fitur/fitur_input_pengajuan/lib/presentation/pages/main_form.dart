@@ -1,5 +1,6 @@
 import 'package:common/presentation/bottom_navbar/submit_card.dart';
 import 'package:common/presentation/button/submit_button.dart';
+import 'package:common/presentation/card/status_mini_card.dart';
 import 'package:common/presentation/textfield/custom_dropdown_menu.dart';
 import 'package:common/presentation/textfield/dropdown_page_chooser.dart';
 import 'package:common/presentation/textfield/style/spacing.dart';
@@ -44,6 +45,16 @@ class MainForm extends StatelessWidget {
                   scrolledUnderElevation: 0,
                   centerTitle: true,
                   title: const Text("Form Input Transaksi"),
+                  actions: [
+                    if (initialData.status != null)
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 8 , right: 24),
+                          child: StatusMiniCard(status: initialData.status!),
+                        ),
+                      )
+                  ],
                   leading: const BackButton(),
                 ),
                 bottomNavigationBar: SubmitCard(

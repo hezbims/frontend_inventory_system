@@ -23,6 +23,7 @@ void main() {
                   id: null,
                   tanggal: DateTime.now(),
                   pengaju: null,
+                  status: null,
                 ),
               ),
           ),

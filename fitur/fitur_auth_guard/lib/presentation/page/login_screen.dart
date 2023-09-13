@@ -45,18 +45,30 @@ class LoginScreen extends StatelessWidget {
               return ConstrainedBox(
                 constraints: const BoxConstraints(
                   maxWidth: 372,
-                  maxHeight: 332
                 ),
                 child: Card(
+                  elevation: 8,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 24,
                       vertical: 36
                     ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                    child: ListView(
+                      shrinkWrap: true,
                       children: [
+                        Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            'Login',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+
+                        const VerticalFormSpacing(),
+
                         CustomTextfield(
                           controller: provider.usernameC,
                           label: 'Username',
