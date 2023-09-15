@@ -7,7 +7,7 @@ import 'package:fitur_input_pengajuan/presentation/arg_model/main_form_to_pilih_
 import 'package:fitur_input_pengajuan/domain/model/barang_preview.dart';
 import 'package:fitur_input_pengajuan/presentation/component/pilih_barang/preview_stock_barang_card.dart';
 import 'package:common/presentation/textfield/search_app_bar.dart';
-import 'package:fitur_input_pengajuan/presentation/component/pilih_barang/transaksi_barang_bottom_sheet.dart';
+import 'package:fitur_input_pengajuan/presentation/component/common/transaksi_barang_bottom_sheet.dart';
 import 'package:fitur_input_pengajuan/presentation/provider/pilih_barang/pilih_barang_provider.dart';
 import 'package:flutter/material.dart';
 
@@ -108,8 +108,13 @@ class PilihListBarangPage extends StatelessWidget {
         context: context,
         builder: (context) {
           return TransaksiBarangBottomSheet(
-            currentBarang: barang,
-            isPemasukan: provider.isPemasukan,
+            initialBarangTransaksi: BarangTransaksi(
+              id: null,
+              idBarang: barang.id,
+              namaBarang: barang.nama,
+              quantity: 0,
+              keterangan: null
+            ),
           );
         }
     );

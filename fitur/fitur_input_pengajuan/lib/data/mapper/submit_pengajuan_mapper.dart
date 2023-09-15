@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:fitur_input_pengajuan/domain/model/pengajuan.dart';
+import 'package:flutter/material.dart';
 
 class SubmitPengajuanMapper {
   String fromPengajuanToJson(Pengajuan pengajuan){
@@ -15,6 +16,7 @@ class SubmitPengajuanMapper {
         }
       ).toList(),
     };
+    debugPrint(jsonMap.toString());
 
     return jsonEncode(jsonMap);
   }

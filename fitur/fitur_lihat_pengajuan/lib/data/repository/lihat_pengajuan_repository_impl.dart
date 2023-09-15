@@ -3,7 +3,6 @@ import 'package:common/response/api_response.dart';
 import 'package:fitur_lihat_pengajuan/data/api_client/lihat_pengajuan_api_client.dart';
 import 'package:fitur_lihat_pengajuan/data/mapper/pengajuan_preview_mapper.dart';
 import 'package:fitur_lihat_pengajuan/domain/repository/i_lihat_pengajuan_repository.dart';
-import 'package:flutter/material.dart';
 
 class LihatPengajuanRepositoryImpl implements ILihatPengajuanRepository {
   final _mapper = PengajuanPreviewMapper();
@@ -13,7 +12,6 @@ class LihatPengajuanRepositoryImpl implements ILihatPengajuanRepository {
     required int pageNumber,
     required String keyword,
   }) {
-    debugPrint('lihat pengajuan repository');
     return ApiRequestProcessor.process(
       apiRequest: _apiClient.getPengajuanPreview(
         pageNumber: pageNumber,

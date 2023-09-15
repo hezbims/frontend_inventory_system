@@ -2,9 +2,6 @@ import 'package:fitur_input_pengajuan/domain/use_case/quantity_validation_use_ca
 import 'package:flutter/material.dart';
 
 class QuantityBarangProvider extends ChangeNotifier {
-  final int _currentStock;
-  final bool _isPemasukan;
-
   final quantityController = TextEditingController(text: "0");
   final quantityFocusNode = FocusNode();
   final quantityValidator = QuantityValidtionUseCase();
@@ -14,10 +11,7 @@ class QuantityBarangProvider extends ChangeNotifier {
 
   String? quantityError;
 
-  QuantityBarangProvider({
-    required int currentStock,
-    required bool isPemasukan,
-  }) : _currentStock = currentStock , _isPemasukan = isPemasukan;
+  QuantityBarangProvider();
 
   void onIncrease(){
     quantityController.text = (
@@ -34,8 +28,6 @@ class QuantityBarangProvider extends ChangeNotifier {
   bool canSubmit(){
     quantityError = quantityValidator(
       quantityText: quantityController.text,
-      isPemasukan: _isPemasukan,
-      currentStock: _currentStock,
     );
     notifyListeners();
 

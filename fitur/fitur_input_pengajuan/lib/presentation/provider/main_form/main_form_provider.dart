@@ -149,6 +149,15 @@ class MainFormProvider extends ChangeNotifier {
     listBarangTransaksi = newBarang;
     notifyListeners();
   }
+
+  void onEditBarangTransaksi({
+    required BarangTransaksi newBarangTransaksi,
+    required int index
+  }){
+    listBarangTransaksi[index] = newBarangTransaksi;
+    notifyListeners();
+  }
+
   void deleteBarang(BarangTransaksi oldBarang) {
     listBarangTransaksi.remove(oldBarang);
     notifyListeners();

@@ -48,20 +48,30 @@ class ListBarangFormField extends StatelessWidget {
           },
         ),
 
-        ...buildCards(),
+        ...buildCards(provider),
 
 
       ],
     );
   }
 
-  List<Widget> buildCards(){
+  List<Widget> buildCards(MainFormProvider provider){
     final widgetList = <Widget>[];
     for (int i = 0 ; i < listBarangTransaksi.length ; i++){
       if (i > 0){
         widgetList.add(const SizedBox(height: 4,));
       }
-      widgetList.add(BarangTransaksiCard(barangTransaksi: listBarangTransaksi[i]));
+      widgetList.add(
+        BarangTransaksiCard(
+          barangTransaksi: listBarangTransaksi[i],
+          onEdit: (newBarangTransaksi){
+            provider.onEditBarangTransaksi(
+              newBarangTransaksi: newBarangTransaksi,
+              index: i
+            );
+          },
+        )
+      );
     }
     return widgetList;
   }
