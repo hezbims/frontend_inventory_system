@@ -27,8 +27,15 @@ class PengajuanCard extends StatelessWidget {
           children: [
             Row(
               children: [
+                Text("Tipe : ${pengajuan.tipe}"),
                 Expanded(
-                  child: Text("Tipe : ${pengajuan.tipe}"),
+                  child: Text(
+                    " (${pengajuan.username})",
+                    style: TextStyle(
+                      fontSize: 10,
+                      fontWeight: CustomFontWeight.extraLight,
+                    ),
+                  ),
                 ),
 
                 StatusMiniCard(status: pengajuan.status),

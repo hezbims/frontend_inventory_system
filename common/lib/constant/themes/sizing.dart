@@ -1,0 +1,1 @@
+const maxPhoneWidth = 374;

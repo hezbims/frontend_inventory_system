@@ -1,3 +1,5 @@
+import 'package:common/constant/enums/status_pengajuan.dart';
+import 'package:common/domain/model/user.dart';
 import 'package:common/response/api_response.dart';
 import 'package:dependencies/fluttertoast.dart';
 import 'package:dependencies/get_it.dart';
@@ -12,11 +14,15 @@ class MainFormProvider extends ChangeNotifier {
   final _nullValidator = NullValidationUseCase();
   final ISubmitPengajuanRepository _repository;
   final int? _id;
+  final User _user;
+  final StatusPengajuan? status;
 
   MainFormProvider({
+    required User user,
     required Pengajuan initialData,
     required ISubmitPengajuanRepository repository,
-  })  :
+  })  : _user = user,
+    status = initialData.status,
     _repository = repository,
     _id = initialData.id,
     tanggal = initialData.tanggal,
@@ -61,10 +67,13 @@ class MainFormProvider extends ChangeNotifier {
   String? namaPemasokError;
   String? groupError;
   String? pemasokError;
+  String? _listBarangTransaksiError;
 
   ApiResponse? submitResponse;
   void Function()? get submit {
-    if (submitResponse is ApiResponseLoading){
+    if (
+      submitResponse is ApiResponseLoading
+    ){
       return null;
     }
     return _submit;
@@ -82,21 +91,20 @@ class MainFormProvider extends ChangeNotifier {
       }
       notifyListeners();
 
-      if (listBarangTransaksi.isEmpty){
+      if (listBarangTransaksi.isEmpty && !_user.isAdmin){
+        _listBarangTransaksiError = "Anda harus memilih minimal satu jenis barang!";
         Fluttertoast.showToast(
-          msg: "Anda harus memilih minimal satu jenis barang!",
+          msg: _listBarangTransaksiError!,
           toastLength: Toast.LENGTH_LONG,
           timeInSecForIosWeb: 5,
         );
       }
+      else {
+        _listBarangTransaksiError = null;
+      }
 
       // kalo semua validasi lolos
-      if (
-        tipePengajuanError == null &&
-        pemasokError == null &&
-        groupError == null &&
-        listBarangTransaksi.isNotEmpty
-      ){
+      if (canSubmit()){
         submitResponse = await _repository.submitData(
           Pengajuan(
             id: _id,
@@ -121,6 +129,17 @@ class MainFormProvider extends ChangeNotifier {
       }
       notifyListeners();
     }
+  }
+
+  bool canSubmit(){
+    if (tipePengajuanError != null ||
+        pemasokError != null ||
+        groupError != null ||
+        _listBarangTransaksiError != null
+    ) {
+      return false;
+    }
+    return true;
   }
 
   void onTanggalChange(DateTime newValue){
@@ -161,6 +180,28 @@ class MainFormProvider extends ChangeNotifier {
   void deleteBarang(BarangTransaksi oldBarang) {
     listBarangTransaksi.remove(oldBarang);
     notifyListeners();
+  }
+
+  bool get useDisabledButton{
+    if (!_user.isAdmin && status == StatusPengajuan.diterima){
+      return true;
+    }
+    return false;
+  }
+
+  String get submitButtonLabel {
+    // berarti lagi ngebuat pengajuan baru
+    if (_id == null){
+      return 'Submit';
+    }
+
+
+    if (status == StatusPengajuan.menunggu && _user.isAdmin){
+      return 'Terima';
+    }
+
+
+    return 'Simpan Perubahan';
   }
 
   @override

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:common/domain/repository/i_token_manager.dart';
 import 'package:dependencies/shared_preference.dart';
 
@@ -17,9 +19,9 @@ class TokenManagerImpl implements ITokenManager {
     final token = _pref!.get(_tokenKey);
 
     return {
-      'Authorization' : "Bearer $token",
-      'Accept' : 'application/json',
-      'Content-Type' : 'application/json',
+      HttpHeaders.authorizationHeader : "Bearer $token",
+      HttpHeaders.acceptHeader : 'application/json',
+      HttpHeaders.contentTypeHeader : 'application/json',
     };
   }
 

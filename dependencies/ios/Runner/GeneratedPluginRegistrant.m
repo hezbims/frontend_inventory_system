@@ -18,6 +18,12 @@
 @import path_provider_foundation;
 #endif
 
+#if __has_include(<pusher_channels_flutter/PusherChannelsFlutterPlugin.h>)
+#import <pusher_channels_flutter/PusherChannelsFlutterPlugin.h>
+#else
+@import pusher_channels_flutter;
+#endif
+
 #if __has_include(<shared_preferences_foundation/SharedPreferencesPlugin.h>)
 #import <shared_preferences_foundation/SharedPreferencesPlugin.h>
 #else
@@ -29,6 +35,7 @@
 + (void)registerWithRegistry:(NSObject<FlutterPluginRegistry>*)registry {
   [FluttertoastPlugin registerWithRegistrar:[registry registrarForPlugin:@"FluttertoastPlugin"]];
   [PathProviderPlugin registerWithRegistrar:[registry registrarForPlugin:@"PathProviderPlugin"]];
+  [PusherChannelsFlutterPlugin registerWithRegistrar:[registry registrarForPlugin:@"PusherChannelsFlutterPlugin"]];
   [SharedPreferencesPlugin registerWithRegistrar:[registry registrarForPlugin:@"SharedPreferencesPlugin"]];
 }
 
