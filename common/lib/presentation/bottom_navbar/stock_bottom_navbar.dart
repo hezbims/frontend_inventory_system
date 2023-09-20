@@ -1,6 +1,4 @@
 import 'package:common/constant/routes/routes.dart';
-import 'package:common/presentation/provider/notification_provider.dart';
-import 'package:dependencies/provider.dart';
 import 'package:flutter/material.dart';
 
 class StockBottomNavBar extends StatelessWidget {
@@ -12,9 +10,6 @@ class StockBottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<NotificationProvider>(context , listen : false);
-    provider.test();
-
     return BottomNavigationBar(
       currentIndex: _currentIndex,
       onTap: (index){

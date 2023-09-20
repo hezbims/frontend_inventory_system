@@ -24,7 +24,8 @@ void main(){
         data: User(
             token: '',
             username: 'hezbi',
-            isAdmin: true
+            isAdmin: true,
+            id: 1
         ),
       ),
     );

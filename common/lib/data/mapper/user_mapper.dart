@@ -10,6 +10,7 @@ class UserMapper {
       token:jsonBody['token'],
       username: jsonBody['user']['username'],
       isAdmin: jsonBody['user']['is_admin'] == 1,
+      id: jsonBody['user']['id'],
     );
   }
 }

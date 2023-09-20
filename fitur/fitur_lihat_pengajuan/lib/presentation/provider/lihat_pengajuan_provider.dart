@@ -1,3 +1,5 @@
+import 'package:common/data/repository/notification_repository_impl.dart';
+import 'package:common/domain/repository/i_notification_repository.dart';
 import 'package:common/response/api_response.dart';
 import 'package:dependencies/infinite_scroll_pagination.dart';
 import 'package:fitur_lihat_pengajuan/domain/model/pengajuan_preview.dart';
@@ -6,11 +8,17 @@ import 'package:flutter/material.dart';
 
 class LihatPengajuanProvider extends ChangeNotifier {
   final ILihatPengajuanRepository _repository;
+  final INotificationRepository _notifRepo;
   LihatPengajuanProvider({
     required ILihatPengajuanRepository repository,
-  }) : _repository = repository {
+    INotificationRepository? notifRepo,
+  }) :  _notifRepo = notifRepo ?? NotificationRepositoryImpl(),
+        _repository = repository {
     pagingController.addPageRequestListener((pageNumber) {
       _pageRequestProcess = _requestPage(pageNumber);
+    });
+    _notifRepo.newPengajuanNotification().listen((event) {
+      tryRefresh();
     });
   }
 

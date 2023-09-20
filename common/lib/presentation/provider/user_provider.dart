@@ -1,6 +1,7 @@
 import 'package:common/domain/model/user.dart';
 import 'package:common/domain/repository/i_user_repository.dart';
 import 'package:common/response/api_response.dart';
+import 'package:dependencies/get_it.dart';
 import 'package:flutter/material.dart';
 
 /// Fungsinya adalah untuk menyimpan current session token
@@ -25,6 +26,9 @@ class UserProvider extends ChangeNotifier {
   Future<ApiResponse> _getUser() async {
     final response = await _repository.getUser();
     if (response is ApiResponseSuccess<User> || response is ApiResponseFailed){
+      if (response is ApiResponseSuccess<User>) {
+        GetIt.I.registerSingleton(response.data!);
+      }
       return response;
     }
     else if (response is ApiResponseSuccess){
@@ -40,6 +44,7 @@ class UserProvider extends ChangeNotifier {
     }
   }
   void onLoginSuccess(User user){
+    GetIt.I.registerSingleton(user);
     _getUserResponse = Future.value(
       ApiResponseSuccess(data: user)
     );
