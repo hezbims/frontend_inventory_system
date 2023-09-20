@@ -12,7 +12,7 @@ class SubmitBarangApiClient {
   }) : _tokenManager = tokenManager ?? TokenManagerImpl();
 
   Future<Response> submit(SubmitBarangDto barang) async {
-    final url = "${CommonUrl.baseUrl}/barang/add";
+    final url = "${CommonUrl.baseApiUrl}/barang/add";
 
     return post(
       Uri.parse(url),
@@ -22,7 +22,7 @@ class SubmitBarangApiClient {
   }
 
   Future<Response> edit(SubmitBarangDto submit) async {
-    final url = "${CommonUrl.baseUrl}/barang/edit/${submit.json['id']}";
+    final url = "${CommonUrl.baseApiUrl}/barang/edit/${submit.json['id']}";
 
     return put(
       Uri.parse(url),

@@ -3,14 +3,14 @@ import 'package:dependencies/http.dart';
 
 class KategoriApiClient {
   Future<Response> getAllKategori(){
-    final getUrl = "${CommonUrl.baseUrl}/kategori/all";
+    final getUrl = "${CommonUrl.baseApiUrl}/kategori/all";
     return get(
       Uri.parse(getUrl)
     );
   }
 
   Future<Response> addNewKategori(String namaKategori){
-    final postUrl = "${CommonUrl.baseUrl}/kategori/add";
+    final postUrl = "${CommonUrl.baseApiUrl}/kategori/add";
 
     return post(
       Uri.parse(postUrl),

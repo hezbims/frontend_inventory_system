@@ -13,7 +13,7 @@ class LihatPengajuanApiClient {
     required int pageNumber,
     required String keyword,
   }) async {
-    final url = "${CommonUrl.baseUrl}/pengajuan/get?page=$pageNumber&keyword=$keyword";
+    final url = "${CommonUrl.baseApiUrl}/pengajuan/get?page=$pageNumber&keyword=$keyword";
 
     return get(
       Uri.parse(url),

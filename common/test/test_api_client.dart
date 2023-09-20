@@ -3,12 +3,12 @@ import 'package:dependencies/http.dart';
 
 class TestApiClient {
   Future<Response> resetDatabase(){
-    final url = "${CommonUrl.baseUrl}/reset-database";
+    final url = "${CommonUrl.baseApiUrl}/reset-database";
     return delete(Uri.parse(url));
   }
 
   Future<Response> seedBarang(){
-    final url = "${CommonUrl.baseUrl}/seed-barang-large";
+    final url = "${CommonUrl.baseApiUrl}/seed-barang-large";
     return get(Uri.parse(url));
   }
 }

@@ -10,7 +10,7 @@ class GetDetailPengajuanApiClient {
   }) : _tokenManager = tokenManager ?? TokenManagerImpl();
 
   Future<Response> getDetailPengajuan(int id) async {
-    final url = "${CommonUrl.baseUrl}/pengajuan/get/$id";
+    final url = "${CommonUrl.baseApiUrl}/pengajuan/get/$id";
 
     return get(
       Uri.parse(url),

@@ -5,7 +5,7 @@ import 'package:common/constant/url/common_url.dart';
 class SettingAkunApiClient {
   final ITokenManager _tokenManager = GetIt.I.get();
   Future<Response> logout() async {
-    final url = "${CommonUrl.baseUrl}/logout";
+    final url = "${CommonUrl.baseApiUrl}/logout";
 
     return delete(
       Uri.parse(url),

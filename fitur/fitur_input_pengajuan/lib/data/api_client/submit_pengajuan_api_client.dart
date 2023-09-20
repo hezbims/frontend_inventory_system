@@ -10,7 +10,7 @@ class SubmitPengajuanApiClient {
   }) : _tokenManager = tokenManager ?? TokenManagerImpl();
 
   Future<Response> submitData(String body) async {
-    final url = "${CommonUrl.baseUrl}/pengajuan/add";
+    final url = "${CommonUrl.baseApiUrl}/pengajuan/add";
 
     return post(
       Uri.parse(url),

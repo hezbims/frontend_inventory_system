@@ -4,7 +4,7 @@ import 'package:fitur_auth_guard/domain/model/post_login_dto.dart';
 
 class LoginApiClient {
   Future<Response> login(PostLoginDto data) async {
-    final url = "${CommonUrl.baseUrl}/login";
+    final url = "${CommonUrl.baseApiUrl}/login";
     return post(
       Uri.parse(url),
       body: {

@@ -2,6 +2,7 @@ import 'package:common/data/mapper/message_mapper.dart';
 import 'package:common/data/mapper/pagination_checker.dart';
 import 'package:common/response/api_response.dart';
 import 'package:dependencies/http.dart';
+import 'package:flutter/material.dart';
 
 abstract class ApiRequestProcessor {
   static Future<ApiResponse> process<ModelType , ErrorType>({
@@ -23,6 +24,7 @@ abstract class ApiRequestProcessor {
             false
         );
       } else {
+        debugPrint("api request processor failed : ${response.body}");
         return ApiResponseFailed(
           error: getErrorMessageFromBody == null ?
             DefaultMessageMapper.getMessageFromBody(response.body) :
@@ -31,6 +33,7 @@ abstract class ApiRequestProcessor {
         );
       }
     } catch (e) {
+      debugPrint("api request processor failed : $e");
       return ApiResponseFailed(
         error: "$repositoryName : $e",
       );

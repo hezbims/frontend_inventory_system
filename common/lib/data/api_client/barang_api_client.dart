@@ -4,12 +4,12 @@ import 'package:dependencies/http.dart';
 
 class BarangApiClient {
   Future<Response> getBarang(int pageNumber , String keyword){
-    final getBarangUrl = "${CommonUrl.baseUrl}/barang/all?page=$pageNumber&keyword=$keyword";
+    final getBarangUrl = "${CommonUrl.baseApiUrl}/barang/all?page=$pageNumber&keyword=$keyword";
     return get(Uri.parse(getBarangUrl));
   }
 
   Future<Response> cekRak(Rak rak){
-    final cekRakUrl = "${CommonUrl.baseUrl}/rak/check";
+    final cekRakUrl = "${CommonUrl.baseApiUrl}/rak/check";
     return post(
       Uri.parse(cekRakUrl),
       body: rak.toJson(),

@@ -10,7 +10,7 @@ class CreatePengajuApiClient {
   }) : _tokenManager = tokenManager ?? TokenManagerImpl();
 
   Future<Response> createPengaju(String body) async {
-    final url = "${CommonUrl.baseUrl}/pengaju/add";
+    final url = "${CommonUrl.baseApiUrl}/pengaju/add";
     return post(
       Uri.parse(url),
       headers: await _tokenManager.getTokenizedHeader(),

@@ -27,7 +27,7 @@ class UserProvider extends ChangeNotifier {
     final response = await _repository.getUser();
     if (response is ApiResponseSuccess<User> || response is ApiResponseFailed){
       if (response is ApiResponseSuccess<User>) {
-        GetIt.I.registerSingleton(response.data!);
+        _getItRegisterUser(response.data!);
       }
       return response;
     }
@@ -44,13 +44,20 @@ class UserProvider extends ChangeNotifier {
     }
   }
   void onLoginSuccess(User user){
-    GetIt.I.registerSingleton(user);
+    _getItRegisterUser(user);
     _getUserResponse = Future.value(
       ApiResponseSuccess(data: user)
     );
   }
   void onLogoutSuccess(){
     _getUserResponse = Future.value(ApiResponseFailed(statusCode: 401));
+  }
+
+  void _getItRegisterUser(User user){
+    if (GetIt.I.isRegistered<User>()){
+      GetIt.I.unregister<User>();
+    }
+    GetIt.I.registerSingleton(user);
   }
 
   void refresh(){

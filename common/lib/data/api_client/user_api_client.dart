@@ -6,7 +6,7 @@ import 'package:dependencies/http.dart';
 class UserApiClient {
   final ITokenManager tokenManager = GetIt.I.get();
   Future<Response> getUser() async {
-    final url = "${CommonUrl.baseUrl}/get-current-user";
+    final url = "${CommonUrl.baseApiUrl}/get-current-user";
 
     return get(
         Uri.parse(url),

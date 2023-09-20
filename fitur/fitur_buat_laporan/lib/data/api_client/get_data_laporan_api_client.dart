@@ -4,7 +4,7 @@ import 'package:fitur_buat_laporan/domain/model/generate_pdf_parameter_dto.dart'
 
 class GetDataLaporanApiClient {
   Future<Response> getDataLaporan(GeneratePdfParameterDto param){
-    final url = "${CommonUrl.baseUrl}/kategori/laporan?"
+    final url = "${CommonUrl.baseApiUrl}/kategori/laporan?"
       "month=${param.month}&year=${param.year}";
 
     return get(Uri.parse(url),);
