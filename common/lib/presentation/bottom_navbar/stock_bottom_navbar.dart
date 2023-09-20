@@ -12,59 +12,57 @@ class StockBottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<NotificationProvider>(
-      builder: (context , provider , child) {
-        provider.test();
-        return BottomNavigationBar(
-            currentIndex: _currentIndex,
-            onTap: (index){
-              // Kalo ngetap tempat yang sama dengan destinatin sekarang, maka enggak
-              // usah lakuin apa-apa
-              if (index == _currentIndex){
-                return;
-              }
-              String? nextRoute;
-              switch (index){
-                case Routes.fiturLihatStockBarangIndex:
-                  nextRoute = Routes.fiturLihatStockBarangRoute;
-                  break;
-                case Routes.fiturLihatPengajuanIndex:
-                  nextRoute = Routes.fiturLihatPengajuanRoute;
-                  break;
-                case Routes.fiturBuatLaporanIndex:
-                  nextRoute = Routes.fiturBuatLaporanRoute;
-                  break;
-                case Routes.settingAkunIndex:
-                  nextRoute = Routes.settingAkunRoute;
-                  break;
-              }
+    final provider = Provider.of<NotificationProvider>(context , listen : false);
+    provider.test();
 
-              if (nextRoute != null){
-                Navigator.of(context).pushReplacementNamed(nextRoute);
-              }
-            },
-            items: const [
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.inventory),
-                  label: "Stock Barang"
-              ),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.receipt_long),
-                  label: "Laporan"
-              ),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.swap_vert),
-                  label: "Transaksi"
-              ),
+    return BottomNavigationBar(
+      currentIndex: _currentIndex,
+      onTap: (index){
+        // Kalo ngetap tempat yang sama dengan destinatin sekarang, maka enggak
+        // usah lakuin apa-apa
+        if (index == _currentIndex){
+          return;
+        }
+        String? nextRoute;
+        switch (index){
+          case Routes.fiturLihatStockBarangIndex:
+            nextRoute = Routes.fiturLihatStockBarangRoute;
+            break;
+          case Routes.fiturLihatPengajuanIndex:
+            nextRoute = Routes.fiturLihatPengajuanRoute;
+            break;
+          case Routes.fiturBuatLaporanIndex:
+            nextRoute = Routes.fiturBuatLaporanRoute;
+            break;
+          case Routes.settingAkunIndex:
+            nextRoute = Routes.settingAkunRoute;
+            break;
+        }
 
-              BottomNavigationBarItem(
-                icon: Icon(Icons.account_circle),
-                label: 'Akun',
-              ),
-            ],
-            type: BottomNavigationBarType.fixed,
-        );
-      }
+        if (nextRoute != null){
+          Navigator.of(context).pushReplacementNamed(nextRoute);
+        }
+      },
+      items: const [
+        BottomNavigationBarItem(
+            icon: Icon(Icons.inventory),
+            label: "Stock Barang"
+        ),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.receipt_long),
+            label: "Laporan"
+        ),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.swap_vert),
+            label: "Transaksi"
+        ),
+
+        BottomNavigationBarItem(
+          icon: Icon(Icons.account_circle),
+          label: 'Akun',
+        ),
+      ],
+      type: BottomNavigationBarType.fixed,
     );
   }
 }

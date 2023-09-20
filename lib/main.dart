@@ -1,4 +1,3 @@
-import 'package:common/data/repository/notification_repository_impl.dart';
 import 'package:common/data/repository/user_repository_impl.dart';
 import 'package:common/presentation/provider/notification_provider.dart';
 import 'package:common/presentation/provider/user_provider.dart';
@@ -29,10 +28,9 @@ class MyApp extends StatelessWidget {
               repository: UserRepositoryImpl()
           ),
         ),
+
         ChangeNotifierProvider(
-          create: (context) => NotificationProvider(
-            repository: NotificationRepositoryImpl(),
-          ),
+          create: (context) => NotificationProvider()
         ),
       ],
 

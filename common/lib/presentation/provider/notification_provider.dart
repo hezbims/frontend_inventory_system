@@ -9,11 +9,8 @@ class NotificationProvider extends ChangeNotifier {
   }) : _repository = repository ?? NotificationRepositoryImpl();
 
  void test() async {
-   debugPrint('halo dunia1 notif provider');
-   (await _repository.newPengajuanNotification()).listen(
-    (event) {
-      debugPrint(event);
-    }
-  );
+   _repository.newPengajuanNotification().listen((event) {
+     debugPrint("ada event : $event");
+   });
  }
 }
