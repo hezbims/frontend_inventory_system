@@ -1,3 +1,4 @@
+import 'package:common/domain/extension/media_query_data_extension.dart';
 import 'package:dependencies/fluttertoast.dart';
 import 'package:dependencies/infinite_scroll_pagination.dart';
 import 'package:dependencies/provider.dart';
@@ -61,9 +62,9 @@ class PilihListBarangPage extends StatelessWidget {
                   };
 
                   return PagedListView.separated(
-                    padding: const EdgeInsets.symmetric(
+                    padding: EdgeInsets.symmetric(
                       vertical: 36,
-                      horizontal: 24,
+                      horizontal: 24 + MediaQuery.of(context).maxHorizontalPadding,
                     ),
                     pagingController: provider.pagingController,
                     builderDelegate: PagedChildBuilderDelegate(

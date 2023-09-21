@@ -1,16 +1,27 @@
+import 'package:common/constant/themes/custom_sizing.dart';
 import 'package:flutter/material.dart';
 
-class CancelButton extends FilledButton {
+class CancelButton extends StatelessWidget {
   final String label;
-  CancelButton({
+  final void Function() _onPressed;
+  const CancelButton({
     this.label = "Cancel",
-    required super.onPressed,
+    required void Function() onPressed,
     super.key,
-  }) : super(
-    child: Text(label,),
-    style: const ButtonStyle(
-      backgroundColor: MaterialStatePropertyAll(Color(0xFFC5C3C3)),
-      foregroundColor: MaterialStatePropertyAll(Colors.black),
-    )
-  );
+  }) : _onPressed = onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: CustomSizing.maxLayoutWidth),
+      child: FilledButton(
+        onPressed: _onPressed,
+        style: const ButtonStyle(
+          backgroundColor: MaterialStatePropertyAll(Color(0xFFC5C3C3)),
+          foregroundColor: MaterialStatePropertyAll(Colors.black),
+        ),
+        child: Text(label,)
+      ),
+    );
+  }
 }

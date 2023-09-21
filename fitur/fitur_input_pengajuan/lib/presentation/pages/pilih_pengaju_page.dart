@@ -1,3 +1,4 @@
+import 'package:common/domain/extension/media_query_data_extension.dart';
 import 'package:common/presentation/api_loader/api_loader.dart';
 import 'package:dependencies/provider.dart';
 import 'package:common/presentation/textfield/search_app_bar.dart';
@@ -38,14 +39,27 @@ class PilihPengajuPage extends StatelessWidget {
                 apiResponse: provider.filteredGroupResponse,
                 onRefresh: provider.refresh,
                 builder: (listGroup) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
+                  return Stack(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          top: 16,
-                          right: 24,
+                      ListView.separated(
+                        padding: EdgeInsets.symmetric(
+                          vertical: 48,
+                          horizontal: 24 + MediaQuery.of(context).maxHorizontalPadding
                         ),
+                        itemBuilder: (context , index){
+                          return GroupCard(
+                            group: listGroup[index],
+                          );
+                        },
+                        separatorBuilder: (context , index){
+                          return const SizedBox(height: 10,);
+                        },
+                        itemCount: listGroup.length
+                      ),
+
+                      Positioned(
+                        top: 16,
+                        right: 24 + MediaQuery.of(context).maxHorizontalPadding,
                         child: TambahSesuatuButton(
                             label: "Tambah ${isPemasok ? 'pemasok' : 'group'} baru",
                             onTap: () async {
@@ -58,21 +72,6 @@ class PilihPengajuPage extends StatelessWidget {
                                 provider.refresh();
                               }
                             }
-                        ),
-                      ),
-
-                      Expanded(
-                        child: ListView.separated(
-                          padding: const EdgeInsets.all(24),
-                          itemBuilder: (context , index){
-                            return GroupCard(
-                              group: listGroup[index],
-                            );
-                          },
-                          separatorBuilder: (context , index){
-                            return const SizedBox(height: 10,);
-                          },
-                          itemCount: listGroup.length
                         ),
                       ),
                     ],

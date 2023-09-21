@@ -1,3 +1,4 @@
+import 'package:common/domain/extension/media_query_data_extension.dart';
 import 'package:common/presentation/api_loader/default_error_widget.dart';
 import 'package:common/presentation/bottom_navbar/stock_bottom_navbar.dart';
 import 'package:common/presentation/textfield/search_with_filter_app_bar.dart';
@@ -35,17 +36,22 @@ class LihatStockBarangPage extends StatelessWidget {
               searchController: provider.namaController,
               onValueChange: (newValue) => provider.tryApiCall(),
             ),
-            floatingActionButton: FloatingActionButton(
-              onPressed: () async {
-                final result = await Navigator.of(context).pushNamed(
-                    Routes.fiturInputDataBarangRoute
-                );
+            floatingActionButton: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).maxHorizontalPadding,
+              ),
+              child: FloatingActionButton(
+                onPressed: () async {
+                  final result = await Navigator.of(context).pushNamed(
+                      Routes.fiturInputDataBarangRoute
+                  );
 
-                if (result != null){
-                  provider.pagingController.refresh();
-                }
-              },
-              child: const Icon(Icons.add),
+                  if (result != null){
+                    provider.pagingController.refresh();
+                  }
+                },
+                child: const Icon(Icons.add),
+              ),
             ),
             bottomNavigationBar: const StockBottomNavBar(
               currentIndex: Routes.fiturLihatStockBarangIndex,

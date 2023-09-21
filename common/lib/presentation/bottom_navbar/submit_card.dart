@@ -1,3 +1,4 @@
+import 'package:common/domain/extension/media_query_data_extension.dart';
 import 'package:flutter/material.dart';
 
 class SubmitCard extends StatelessWidget {
@@ -10,6 +11,9 @@ class SubmitCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.symmetric(
+        horizontal: MediaQuery.of(context).maxHorizontalPadding,
+      ),
       decoration: const BoxDecoration(
           boxShadow: [
             BoxShadow(

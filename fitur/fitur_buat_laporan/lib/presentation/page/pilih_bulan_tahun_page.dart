@@ -1,5 +1,6 @@
 import 'package:common/presentation/bottom_navbar/stock_bottom_navbar.dart';
 import 'package:common/presentation/button/submit_button.dart';
+import 'package:common/presentation/constraint/constrained_width.dart';
 import 'package:common/presentation/textfield/custom_dropdown_menu.dart';
 import 'package:common/presentation/textfield/custom_textfield.dart';
 import 'package:common/presentation/textfield/style/spacing.dart';
@@ -36,8 +37,7 @@ class PilihTahunBulanPage extends StatelessWidget {
                 }
               );
             }
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
+            return ConstrainedWidthCenter(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

@@ -1,3 +1,4 @@
+import 'package:common/domain/extension/media_query_data_extension.dart';
 import 'package:common/presentation/api_loader/default_error_widget.dart';
 import 'package:common/presentation/bottom_navbar/stock_bottom_navbar.dart';
 import 'package:common/presentation/textfield/search_with_filter_app_bar.dart';
@@ -36,17 +37,22 @@ class LihatPengajuanPages extends StatelessWidget {
             bottomNavigationBar: const StockBottomNavBar(
               currentIndex: Routes.fiturLihatPengajuanIndex,
             ),
-            floatingActionButton: FloatingActionButton(
-              onPressed: () async {
-                final result = await Navigator.of(context).pushNamed(
-                  Routes.fiturInputDataPengajuanRoute
-                );
+            floatingActionButton: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).maxHorizontalPadding,
+              ),
+              child: FloatingActionButton(
+                onPressed: () async {
+                  final result = await Navigator.of(context).pushNamed(
+                    Routes.fiturInputDataPengajuanRoute
+                  );
 
-                if (result != null){
-                  provider.pagingController.refresh();
-                }
-              },
-              child: const Icon(Icons.add),
+                  if (result != null){
+                    provider.pagingController.refresh();
+                  }
+                },
+                child: const Icon(Icons.add),
+              ),
             ),
             body: PagedListView.separated(
               padding: const EdgeInsets.symmetric(

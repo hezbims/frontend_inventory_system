@@ -1,12 +1,23 @@
+import 'package:common/constant/themes/custom_sizing.dart';
 import 'package:flutter/material.dart';
 
-class DisabledSubmitButton extends FilledButton {
+class DisabledSubmitButton extends StatelessWidget {
   final String label;
-  DisabledSubmitButton({
+  const DisabledSubmitButton({
     super.key,
     this.label = "Submit",
-  }) : super(
-    onPressed: null,
-    child: Text(label),
-  );
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: CustomSizing.maxLayoutWidth),
+      child: FilledButton(
+        onPressed: null,
+        child: Text(label),
+      ),
+    );
+  }
+
+
 }

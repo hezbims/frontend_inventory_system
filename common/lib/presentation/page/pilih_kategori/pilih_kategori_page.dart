@@ -1,4 +1,5 @@
 import 'package:common/data/repository/kategori_repository_impl.dart';
+import 'package:common/domain/extension/media_query_data_extension.dart';
 import 'package:common/domain/model/kategori.dart';
 import 'package:common/presentation/api_loader/api_loader.dart';
 import 'package:common/presentation/button/tambah_sesuatu_button.dart';
@@ -35,47 +36,46 @@ class PilihKategoriPage extends StatelessWidget {
                 apiResponse: provider.getFilteredKategori(),
                 onRefresh: provider.onRefreshKategori,
                 builder: (listKategori) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
+                  final horizontalPaddingSize = MediaQuery.of(context).maxHorizontalPadding;
+                  return Stack(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          top: 16,
-                          right: 24,
-                        ),
+                      ListView.separated(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: horizontalPaddingSize,
+                            vertical: 48,
+                          ),
+                          itemBuilder: (context , index){
+                            final kategori = listKategori[index];
+                            return KategoriCard(
+                              kategori: kategori,
+                              onTap: (){
+                                Navigator.of(context).pop(kategori);
+                              },
+                            );
+                          },
+                          separatorBuilder: (context , index){
+                            return const SizedBox(height: 10,);
+                          },
+                          itemCount: listKategori.length
+                      ),
+
+                      Positioned(
+                        top: 16,
+                        right: horizontalPaddingSize,
                         child: TambahSesuatuButton(
                             label: "Tambah kategori baru",
                             onTap: () async {
                               final result = await showDialog(
-                                context: context,
-                                builder: (context){
-                                  return const KategoriDialog();
-                                }
+                                  context: context,
+                                  builder: (context){
+                                    return const KategoriDialog();
+                                  }
                               );
 
                               if (result != null){
                                 provider.onRefreshKategori();
                               }
                             }
-                        ),
-                      ),
-
-                      Expanded(
-                        child: ListView.separated(
-                            padding: const EdgeInsets.all(24),
-                            itemBuilder: (context , index){
-                              final kategori = listKategori[index];
-                              return KategoriCard(
-                                kategori: kategori,
-                                onTap: (){
-                                  Navigator.of(context).pop(kategori);
-                                },
-                              );
-                            },
-                            separatorBuilder: (context , index){
-                              return const SizedBox(height: 10,);
-                            },
-                            itemCount: listKategori.length
                         ),
                       ),
                     ],

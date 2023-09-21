@@ -1,3 +1,4 @@
+import 'package:common/domain/extension/media_query_data_extension.dart';
 import 'package:common/domain/model/user.dart';
 import 'package:common/presentation/bottom_navbar/submit_card.dart';
 import 'package:common/presentation/button/disabled_submit_button.dart';
@@ -83,90 +84,95 @@ class MainForm extends StatelessWidget {
                           label: provider.submitButtonLabel,
                         ),
                       ),
-                      body: ListView(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 24,
-                            vertical: 36
-                        ),
-                        children: [
-                          Row(
-                            children: [
-                              Expanded(
-                                child: DateField(
-                                  errorMessage: provider.tanggalError,
-                                  value: provider.tanggal,
-                                  onValueChange: provider.onTanggalChange,
+                      body: Builder(
+                        builder: (context) {
+                          final listItem = [
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: DateField(
+                                    errorMessage: provider.tanggalError,
+                                    value: provider.tanggal,
+                                    onValueChange: provider.onTanggalChange,
+                                  ),
                                 ),
-                              ),
 
-                              const HorizontalFormSpacing(),
+                                const HorizontalFormSpacing(),
 
-                              Expanded(
-                                child: ClockField(
-                                    errorMessage: provider.jamError,
-                                    value: provider.jam,
-                                    onValueChange: provider.onJamChange
+                                Expanded(
+                                  child: ClockField(
+                                      errorMessage: provider.jamError,
+                                      value: provider.jam,
+                                      onValueChange: provider.onJamChange
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-
-                          const VerticalFormSpacing(),
-
-                          CustomDropdownMenu(
-                              label: "Tipe pengajuan",
-                              value: provider.currentTipePengajuan,
-                              values: provider.tipePengajuanList,
-                              onValueChange: provider.onTipePengajuanChange,
-                              errorText: provider.tipePengajuanError
-                          ),
-
-
-                          const VerticalFormSpacing(),
-
-                          if (provider.isPemasukan == true) ...[
-                            DropdownPageChooser(
-                                label: "Nama pemasok",
-                                value: provider.pemasok?.nama ?? "",
-                                errorMessage: provider.pemasokError,
-                                onTap: () async {
-                                  final pemasokPicked = await Navigator.of(
-                                      context).pushNamed(
-                                    Routes.fiturPilihGroupRoute,
-                                    arguments: true,
-                                  );
-                                  if (pemasokPicked is Pengaju) {
-                                    provider.onChangePemasok(pemasokPicked);
-                                  }
-                                }
+                              ],
                             ),
-                            const VerticalFormSpacing(),
-                          ]
-                          else
-                            if (provider.isPemasukan == false) ...[
+
+                            CustomDropdownMenu(
+                                label: "Tipe pengajuan",
+                                value: provider.currentTipePengajuan,
+                                values: provider.tipePengajuanList,
+                                onValueChange: provider.onTipePengajuanChange,
+                                errorText: provider.tipePengajuanError
+                            ),
+
+                            if (provider.isPemasukan == true) ...[
                               DropdownPageChooser(
-                                  label: "Group",
-                                  value: provider.group?.nama ?? "",
-                                  errorMessage: provider.groupError,
+                                  label: "Nama pemasok",
+                                  value: provider.pemasok?.nama ?? "",
+                                  errorMessage: provider.pemasokError,
                                   onTap: () async {
-                                    final groupPicked = await Navigator.of(
+                                    final pemasokPicked = await Navigator.of(
                                         context).pushNamed(
                                       Routes.fiturPilihGroupRoute,
-                                      arguments: false,
+                                      arguments: true,
                                     );
-                                    debugPrint(groupPicked.toString());
-                                    if (groupPicked is Pengaju) {
-                                      provider.onChangeGroup(groupPicked);
+                                    if (pemasokPicked is Pengaju) {
+                                      provider.onChangePemasok(pemasokPicked);
                                     }
                                   }
                               ),
-                              const VerticalFormSpacing(),
-                            ],
+                            ]
+                            else
+                              if (provider.isPemasukan == false) ...[
+                                DropdownPageChooser(
+                                    label: "Group",
+                                    value: provider.group?.nama ?? "",
+                                    errorMessage: provider.groupError,
+                                    onTap: () async {
+                                      final groupPicked = await Navigator.of(
+                                          context).pushNamed(
+                                        Routes.fiturPilihGroupRoute,
+                                        arguments: false,
+                                      );
+                                      debugPrint(groupPicked.toString());
+                                      if (groupPicked is Pengaju) {
+                                        provider.onChangeGroup(groupPicked);
+                                      }
+                                    }
+                                ),
+                              ],
 
-                          if (provider.isPemasukan != null)
-                            ListBarangFormField(listBarangTransaksi: provider
-                                .listBarangTransaksi),
-                        ],
+                            if (provider.isPemasukan != null)
+                              ListBarangFormField(listBarangTransaksi: provider
+                                  .listBarangTransaksi),
+                          ];
+
+                          return ListView.separated(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: MediaQuery.of(context).maxHorizontalPadding + 24,
+                                vertical: 36
+                            ),
+                            itemBuilder: (context , index){
+                              return listItem[index];
+                            },
+                            separatorBuilder: (context, index){
+                              return const VerticalFormSpacing();
+                            },
+                            itemCount: listItem.length,
+                          );
+                        }
                       ),
                     );
                   }

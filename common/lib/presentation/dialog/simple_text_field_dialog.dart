@@ -1,4 +1,5 @@
 import 'package:common/presentation/button/submit_button.dart';
+import 'package:common/presentation/constraint/constrained_width.dart';
 import 'package:common/presentation/textfield/custom_textfield.dart';
 import 'package:flutter/material.dart';
 
@@ -34,55 +35,57 @@ class _SimpleTextFieldDialogState extends State<SimpleTextFieldDialog> {
       }
     );
 
-    return Dialog(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(
-              right: 16,
-              top: 16
+    return ConstrainedWidthCenter(
+      child: Dialog(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(
+                right: 16,
+                top: 16
+              ),
+              child: IconButton(
+                onPressed: (){
+                  Navigator.pop(context);
+                },
+                icon: const Icon(
+                  Icons.cancel_outlined,
+                  size: 28,
+                )
+              ),
             ),
-            child: IconButton(
-              onPressed: (){
-                Navigator.pop(context);
-              },
-              icon: const Icon(
-                Icons.cancel_outlined,
-                size: 28,
-              )
-            ),
-          ),
 
-          const SizedBox(height: 4,),
+            const SizedBox(height: 4,),
 
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 24
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 24
+              ),
+              child: CustomTextfield(
+                controller: textController,
+                label: widget.label,
+                errorText: textError,
+                focusNode: focusNode,
+                onSubmit: (_) {
+                  if (trySubmit != null){
+                    trySubmit!();
+                  }
+                },
+              ),
             ),
-            child: CustomTextfield(
-              controller: textController,
-              label: widget.label,
-              errorText: textError,
-              focusNode: focusNode,
-              onSubmit: (_) {
-                if (trySubmit != null){
-                  trySubmit!();
-                }
-              },
-            ),
-          ),
 
-          Container(
-            padding: const EdgeInsets.all(24),
-            width: double.infinity,
-            child: SubmitButton(
-              label: "Buat",
-              onTap: trySubmit
-            ),
-          )
-        ],
+            Container(
+              padding: const EdgeInsets.all(24),
+              width: double.infinity,
+              child: SubmitButton(
+                label: "Buat",
+                onTap: trySubmit
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
