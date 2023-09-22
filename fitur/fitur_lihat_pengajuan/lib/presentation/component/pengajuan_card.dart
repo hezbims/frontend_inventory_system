@@ -27,15 +27,8 @@ class PengajuanCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                Text("Tipe : ${pengajuan.tipe}"),
                 Expanded(
-                  child: Text(
-                    " (${pengajuan.username})",
-                    style: TextStyle(
-                      fontSize: 10,
-                      fontWeight: CustomFontWeight.extraLight,
-                    ),
-                  ),
+                  child: Text("Tipe : ${pengajuan.tipe}")
                 ),
 
                 StatusMiniCard(status: pengajuan.status),
@@ -52,24 +45,12 @@ class PengajuanCard extends StatelessWidget {
             const SizedBox(height: 10,),
 
             Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Expanded(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        pengajuan.tipe == "Pengeluaran" ? "Group" : "Nama Pemasok",
-                        style: smallText,
-                      ),
-
-                      Text(
-                        pengajuan.namaPengaju,
-                        style: smallText
-                      ),
-                    ],
-                  ),
+                Text(
+                  pengajuan.tipe == "Pengeluaran" ? "Group" : "Nama Pemasok",
+                  style: smallText,
                 ),
 
                 InkWell(
@@ -88,7 +69,27 @@ class PengajuanCard extends StatelessWidget {
                   ),
                 )
               ],
-            )
+            ),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                    pengajuan.namaPengaju,
+                    style: smallText
+                ),
+
+                Text(
+                  "${pengajuan.username}  ",
+                  style: TextStyle(
+                    fontSize: 10,
+                    fontWeight: CustomFontWeight.extraLight,
+                    fontStyle: FontStyle.italic,
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ),
