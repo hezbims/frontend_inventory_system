@@ -1,4 +1,6 @@
 
+import 'dart:convert';
+
 import 'package:common/constant/url/common_url.dart';
 import 'package:common/data/repository/token_manager.dart';
 import 'package:common/domain/repository/i_token_manager.dart';
@@ -16,7 +18,7 @@ class SubmitBarangApiClient {
 
     return post(
       Uri.parse(url),
-      body: barang.json,
+      body: jsonEncode(barang.json),
       headers: await _tokenManager.getTokenizedHeader(),
     );
   }
