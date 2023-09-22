@@ -24,10 +24,12 @@ class ApiLoader<T> extends StatelessWidget {
             return builder(response.data);
           }
           else if (response is ApiResponseFailed) {
-            return Center(
-              child: DefaultErrorWidget(
-                onTap: onRefresh,
-                errorMessage: response.error ?? "Unknown Error",
+            return Scaffold(
+              body: Center(
+                child: DefaultErrorWidget(
+                  onTap: onRefresh,
+                  errorMessage: response.error ?? "Unknown Error",
+                ),
               ),
             );
           }
@@ -36,8 +38,10 @@ class ApiLoader<T> extends StatelessWidget {
           }
         }
         else {
-          return const Center(
-            child: CircularProgressIndicator(),
+          return const Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
           );
         }
       }

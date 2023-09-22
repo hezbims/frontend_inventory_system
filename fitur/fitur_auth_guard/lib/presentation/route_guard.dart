@@ -47,7 +47,7 @@ class RouteGuard extends StatelessWidget {
 
             }
             else {
-              return const Center(child: CircularProgressIndicator(),);
+              return Scaffold(body: const Center(child: CircularProgressIndicator(),));
             }
           }
         );
