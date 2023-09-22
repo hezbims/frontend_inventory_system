@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 
 abstract class CommonUrl {
   static const _debugApiUrl = 'http://127.0.0.1:8000/api';

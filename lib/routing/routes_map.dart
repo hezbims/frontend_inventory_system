@@ -10,52 +10,63 @@ import 'package:fitur_lihat_pengajuan/presentation/pages/lihat_pengajuan_pages.d
 import 'package:fitur_lihat_stock_barang/presentation/page/lihat_stock_barang_page.dart';
 import 'package:fitur_auth_guard/presentation/page/login_screen.dart';
 import 'package:fitur_setting_akun/presentation/page/setting_akun_page.dart';
-import 'package:common/presentation/page_setup/page_setup.dart';
+import 'package:common/presentation/page_setup/get_it_page_setup.dart';
 
 final routesMap = {
-  Routes.initialRoute : PageSetup(
+  Routes.initialRoute : GetItPageSetup(
       setup: (){},
+      disposeFunction: (){},
       page: const LihatStockBarangPage()
   ),
-  Routes.fiturLihatStockBarangRoute : PageSetup(
+  Routes.fiturLihatStockBarangRoute : GetItPageSetup(
       setup: (){},
+      disposeFunction: (){},
       page: const LihatStockBarangPage()
   ),
-  Routes.fiturInputDataBarangRoute : PageSetup(
+  Routes.fiturInputDataBarangRoute : GetItPageSetup(
       setup: (){},
+      disposeFunction: (){},
       page: const InputDataBarangPage()
   ),
-  Routes.fiturPilihKategoriRoute : PageSetup(
+  Routes.fiturPilihKategoriRoute : GetItPageSetup(
       setup: (){},
+      disposeFunction: (){},
       page: const PilihKategoriPage()
   ),
-  Routes.fiturLihatPengajuanRoute : PageSetup(
+  Routes.fiturLihatPengajuanRoute : GetItPageSetup(
       setup: (){},
+      disposeFunction: (){},
       page: const LihatPengajuanPages()
   ),
   Routes.fiturInputDataPengajuanRoute : InputDataPengajuanPageSetup(),
-  Routes.fiturInputListBarangRoute : PageSetup(
+  Routes.fiturInputListBarangRoute : GetItPageSetup(
       setup: (){},
+      disposeFunction: (){},
       page: const PilihListBarangPage()
   ),
-  Routes.fiturPilihGroupRoute : PageSetup(
+  Routes.fiturPilihGroupRoute : GetItPageSetup(
       setup: (){},
+      disposeFunction: (){},
       page: const PilihPengajuPage()
   ),
-  Routes.fiturBuatLaporanRoute : PageSetup(
+  Routes.fiturBuatLaporanRoute : GetItPageSetup(
       setup: (){},
+      disposeFunction: (){},
       page: const PilihTahunBulanPage()
   ),
-  Routes.previewLaporanRoute : PageSetup(
+  Routes.previewLaporanRoute : GetItPageSetup(
       setup: (){},
+      disposeFunction: (){},
       page: const PreviewLaporanPage()
   ),
-  Routes.settingAkunRoute : PageSetup(
+  Routes.settingAkunRoute : GetItPageSetup(
       setup: (){},
+      disposeFunction: (){},
       page: const SettingAkunPage()
   ),
-  Routes.loginRoute : PageSetup(
+  Routes.loginRoute : GetItPageSetup(
       setup: (){},
+      disposeFunction: (){},
       page: const LoginScreen()
   ),
 };

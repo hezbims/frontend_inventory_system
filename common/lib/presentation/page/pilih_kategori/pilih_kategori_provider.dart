@@ -16,7 +16,7 @@ class PilihKategoriProvider extends ChangeNotifier {
   final searchController = TextEditingController();
   final searchFocusNode = FocusNode();
   var _needRequestFocus = true;
-  void requestFocus(){
+  void tryRequestFocus(){
     if (_needRequestFocus){
       _needRequestFocus = false;
       searchFocusNode.requestFocus();

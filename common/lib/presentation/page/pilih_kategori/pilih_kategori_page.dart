@@ -23,7 +23,7 @@ class PilihKategoriPage extends StatelessWidget {
         builder: (context , provider , child){
           WidgetsBinding.instance.addPostFrameCallback(
             (_) {
-              provider.requestFocus();
+              provider.tryRequestFocus();
             }
           );
           return Scaffold(

@@ -2,7 +2,6 @@ import 'package:common/constant/enums/status_pengajuan.dart';
 import 'package:common/domain/model/user.dart';
 import 'package:common/response/api_response.dart';
 import 'package:dependencies/fluttertoast.dart';
-import 'package:dependencies/get_it.dart';
 import 'package:fitur_input_pengajuan/domain/model/barang_transaksi.dart';
 import 'package:fitur_input_pengajuan/domain/model/pengaju.dart';
 import 'package:fitur_input_pengajuan/domain/model/pengajuan.dart';
@@ -204,9 +203,4 @@ class MainFormProvider extends ChangeNotifier {
     return 'Simpan Perubahan';
   }
 
-  @override
-  void dispose(){
-    GetIt.I.unregister<ISubmitPengajuanRepository>();
-    super.dispose();
-  }
 }
