@@ -24,7 +24,7 @@ class TransaksiBarangBottomSheet extends StatelessWidget {
       child: Consumer<QuantityBarangProvider>(
         builder: (context , provider , child) {
           WidgetsBinding.instance.addPostFrameCallback(
-            (_) => provider.quantityFocusNode.requestFocus(),
+            (_) => provider.tryRequestFocus(),
           );
           void trySubmit(){
             if (provider.canSubmit()){

@@ -2,7 +2,7 @@ import 'package:fitur_input_pengajuan/domain/use_case/quantity_validation_use_ca
 import 'package:flutter/material.dart';
 
 class QuantityBarangProvider extends ChangeNotifier {
-  final quantityController = TextEditingController(text: "0");
+  final quantityController = TextEditingController();
   final quantityFocusNode = FocusNode();
   final quantityValidator = QuantityValidtionUseCase();
   int? get currentQuantity => int.tryParse(quantityController.text);
@@ -36,6 +36,14 @@ class QuantityBarangProvider extends ChangeNotifier {
     }
     else {
       return false;
+    }
+  }
+
+  bool _isFirstTimeFocused = true;
+  void tryRequestFocus(){
+    if (_isFirstTimeFocused){
+      _isFirstTimeFocused = false;
+      quantityFocusNode.requestFocus();
     }
   }
 
