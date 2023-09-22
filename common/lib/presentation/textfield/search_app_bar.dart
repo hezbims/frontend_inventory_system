@@ -35,7 +35,8 @@ class SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
                 focusNode: focusNode,
                 decoration: InputDecoration(
                     label: Text(placeholder),
-                    prefixIcon: const Icon(Icons.search)
+                    prefixIcon: const Icon(Icons.search),
+                    contentPadding: EdgeInsets.zero,
                 ),
                 onChanged: onValueChange,
                 onSubmitted: onSubmit,
