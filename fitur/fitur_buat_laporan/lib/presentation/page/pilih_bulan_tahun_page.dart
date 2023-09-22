@@ -41,7 +41,7 @@ class PilihTahunBulanPage extends StatelessWidget {
             }
             return Padding(
               padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).maxHorizontalPadding + 24
+                horizontal: MediaQuery.of(context).maxHorizontalPadding
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,

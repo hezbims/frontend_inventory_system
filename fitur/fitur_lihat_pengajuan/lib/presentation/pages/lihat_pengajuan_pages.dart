@@ -55,8 +55,9 @@ class LihatPengajuanPages extends StatelessWidget {
               ),
             ),
             body: PagedListView.separated(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 24
+              padding: EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).maxHorizontalPadding,
+                vertical: 24,
               ),
               pagingController: provider.pagingController,
               builderDelegate: PagedChildBuilderDelegate(

@@ -44,7 +44,7 @@ class PilihPengajuPage extends StatelessWidget {
                       ListView.separated(
                         padding: EdgeInsets.symmetric(
                           vertical: 48,
-                          horizontal: 24 + MediaQuery.of(context).maxHorizontalPadding
+                          horizontal: MediaQuery.of(context).maxHorizontalPadding
                         ),
                         itemBuilder: (context , index){
                           return GroupCard(

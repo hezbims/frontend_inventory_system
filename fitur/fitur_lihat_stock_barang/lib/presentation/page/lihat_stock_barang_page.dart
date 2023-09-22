@@ -57,7 +57,10 @@ class LihatStockBarangPage extends StatelessWidget {
               currentIndex: Routes.fiturLihatStockBarangIndex,
             ),
             body: PagedListView<int , Barang>.separated(
-              padding: const EdgeInsets.all(24),
+              padding: EdgeInsets.symmetric(
+                vertical: 24,
+                horizontal: MediaQuery.of(context).maxHorizontalPadding,
+              ),
               pagingController: provider.pagingController,
               builderDelegate: PagedChildBuilderDelegate(
                 itemBuilder: (context , barang , index){

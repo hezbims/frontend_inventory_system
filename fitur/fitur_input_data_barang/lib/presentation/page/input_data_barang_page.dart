@@ -1,9 +1,9 @@
+import 'package:common/domain/extension/media_query_data_extension.dart';
 import 'package:common/domain/model/barang.dart';
 import 'package:common/domain/model/kategori.dart';
 import 'package:common/presentation/bottom_navbar/submit_card.dart';
 import 'package:common/presentation/button/disabled_submit_button.dart';
 import 'package:common/presentation/button/submit_button.dart';
-import 'package:common/presentation/constraint/constrained_width.dart';
 import 'package:common/presentation/textfield/custom_textfield.dart';
 import 'package:common/presentation/textfield/disabled_textfield.dart';
 import 'package:common/presentation/textfield/dropdown_page_chooser.dart';
@@ -168,14 +168,12 @@ class InputDataBarangPage extends StatelessWidget {
                   ];
 
                   return ListView.separated(
-                    padding: const EdgeInsets.only(
-                      left: 24, right: 24,
-                      bottom: 36, top: 36,
+                    padding: EdgeInsets.symmetric(
+                      vertical: 36,
+                      horizontal: MediaQuery.of(context).maxHorizontalPadding,
                     ),
                     itemBuilder: (context, index){
-                      return ConstrainedWidthCenter(
-                        child: listViewItem[index]
-                      );
+                      return listViewItem[index];
                     },
                     separatorBuilder: (context, index){
                       return const VerticalFormSpacing();
