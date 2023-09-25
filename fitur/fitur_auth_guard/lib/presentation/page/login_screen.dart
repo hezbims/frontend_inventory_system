@@ -1,3 +1,4 @@
+import 'package:common/domain/extension/media_query_data_extension.dart';
 import 'package:common/domain/model/user.dart';
 import 'package:common/presentation/provider/user_provider.dart';
 import 'package:common/presentation/button/submit_button.dart';
@@ -42,9 +43,9 @@ class LoginScreen extends StatelessWidget {
                 );
               }
 
-              return ConstrainedBox(
-                constraints: const BoxConstraints(
-                  maxWidth: 372,
+              return Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).maxHorizontalPadding,
                 ),
                 child: Card(
                   elevation: 8,

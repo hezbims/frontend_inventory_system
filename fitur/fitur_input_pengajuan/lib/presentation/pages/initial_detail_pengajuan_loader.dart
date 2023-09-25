@@ -27,7 +27,8 @@ class InitialDetailPengajuanLoader extends StatelessWidget {
               onRefresh: provider.refresh,
               builder: (Pengajuan initialData) {
                 return MainForm(initialData: initialData);
-              }
+              },
+              useScaffold: true,
             );
           }
       ),
