@@ -1,7 +1,7 @@
 import 'package:common/presentation/dialog/simple_text_field_dialog.dart';
 import 'package:common/response/api_response.dart';
 import 'package:dependencies/provider.dart';
-import 'package:fitur_input_pengajuan/data/repository/create_pengaju_repository_impl.dart';
+import 'package:common/data/repository/pengaju_repository_impl.dart';
 import 'package:fitur_input_pengajuan/presentation/provider/pilih_group/buat_group_provider.dart';
 import 'package:flutter/material.dart';
 
@@ -26,7 +26,7 @@ class _BuatGroupDialog extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => BuatGroupProvider(
         isPemasok: isPemasok,
-        repository: CreatePengajuRepositoryImpl(),
+        repository: PengajuRepositoryImpl(),
       ),
       child: Consumer<BuatGroupProvider>(
         builder: (context , provider , child) {

@@ -1,7 +1,7 @@
 import 'package:fitur_input_pengajuan/domain/use_case/quantity_validation_use_case.dart';
 import 'package:flutter/material.dart';
 
-class QuantityBarangProvider extends ChangeNotifier {
+class BottomSheetBarangProvider extends ChangeNotifier {
   final quantityController = TextEditingController();
   final quantityFocusNode = FocusNode();
   final quantityValidator = QuantityValidtionUseCase();
@@ -11,7 +11,7 @@ class QuantityBarangProvider extends ChangeNotifier {
 
   String? quantityError;
 
-  QuantityBarangProvider();
+  BottomSheetBarangProvider();
 
   void onIncrease(){
     quantityController.text = (

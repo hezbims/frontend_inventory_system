@@ -1,6 +1,6 @@
 import 'package:common/constant/enums/status_pengajuan.dart';
 import 'package:fitur_input_pengajuan/domain/model/barang_transaksi.dart';
-import 'package:fitur_input_pengajuan/domain/model/pengaju.dart';
+import 'package:common/domain/model/pengaju.dart';
 
 class Pengajuan {
   final int? id;

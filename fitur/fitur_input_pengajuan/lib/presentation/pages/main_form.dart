@@ -10,7 +10,7 @@ import 'package:common/response/api_response.dart';
 import 'package:common/constant/routes/routes.dart';
 import 'package:dependencies/get_it.dart';
 import 'package:dependencies/provider.dart';
-import 'package:fitur_input_pengajuan/domain/model/pengaju.dart';
+import 'package:common/domain/model/pengaju.dart';
 import 'package:fitur_input_pengajuan/domain/model/pengajuan.dart';
 import 'package:fitur_input_pengajuan/domain/repository/i_submit_pengajuan_repository.dart';
 import 'package:fitur_input_pengajuan/presentation/component/main_form/clock_field.dart';

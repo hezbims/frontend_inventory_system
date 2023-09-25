@@ -1,9 +1,10 @@
-import 'package:common/constant/themes/custom_font_weight.dart';
+import 'package:dependencies/google_fonts.dart';
 import 'package:flutter/material.dart';
 
-final smallText = TextStyle(
-  fontSize: 11,
-  fontWeight: CustomFontWeight.light,
+final smallText = GoogleFonts.inter(
+  textStyle: const TextStyle(
+    fontSize: 11,
+  )
 );
 
 const diterimaStatusTextColor = Color(0xFF0D6705);

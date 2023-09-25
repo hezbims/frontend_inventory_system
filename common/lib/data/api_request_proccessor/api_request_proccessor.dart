@@ -1,5 +1,5 @@
-import 'package:common/data/mapper/message_mapper.dart';
-import 'package:common/data/mapper/pagination_checker.dart';
+import 'package:common/data/mapper/other/message_mapper.dart';
+import 'package:common/data/mapper/other/pagination_checker.dart';
 import 'package:common/response/api_response.dart';
 import 'package:dependencies/http.dart';
 import 'package:flutter/material.dart';

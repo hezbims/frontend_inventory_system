@@ -9,7 +9,8 @@ import 'package:dependencies/provider.dart';
 import 'package:fitur_lihat_pengajuan/data/repository/lihat_pengajuan_repository_impl.dart';
 import 'package:fitur_lihat_pengajuan/domain/model/pengajuan_preview.dart';
 import 'package:fitur_lihat_pengajuan/presentation/component/pengajuan_card.dart';
-import 'package:fitur_lihat_pengajuan/presentation/component/transaksi_drawer.dart';
+import 'package:fitur_lihat_pengajuan/presentation/pages/filter_pengaju_drawer.dart';
+import 'package:fitur_lihat_pengajuan/presentation/provider/filter_pengaju_provider.dart';
 import 'package:fitur_lihat_pengajuan/presentation/provider/lihat_pengajuan_provider.dart';
 import 'package:flutter/material.dart';
 
@@ -18,10 +19,18 @@ class LihatPengajuanPages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => LihatPengajuanProvider(
-        repository: LihatPengajuanRepositoryImpl(),
-      ),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => LihatPengajuanProvider(
+            repository: LihatPengajuanRepositoryImpl(),
+          ),
+        ),
+
+        ChangeNotifierProvider(
+          create: (context) => FilterPengajuProvider(),
+        ),
+      ],
       child: Consumer<LihatPengajuanProvider>(
         builder: (context , provider , child) {
           return Scaffold(
@@ -29,11 +38,18 @@ class LihatPengajuanPages extends StatelessWidget {
             appBar: SearchWithFilterAppBar(
               label: "Cari transaksi ",
               hintText: "ex : TRXI20220914001",
-              onFilterPressed: (){},
+              onFilterPressed: (){
+                provider.scaffoldKey.currentState?.openEndDrawer();
+              },
               searchController: provider.searchController,
               onValueChange: (_) => provider.tryRefresh(),
             ),
-            endDrawer: const TransaksiDrawer(),
+            endDrawer: const FilterPengajuDrawer(),
+            onEndDrawerChanged: (isOpened){
+              if (!isOpened){
+
+              }
+            },
             bottomNavigationBar: const StockBottomNavBar(
               currentIndex: Routes.fiturLihatPengajuanIndex,
             ),

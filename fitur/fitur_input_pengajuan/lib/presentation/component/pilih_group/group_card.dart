@@ -1,4 +1,4 @@
-import 'package:fitur_input_pengajuan/domain/model/pengaju.dart';
+import 'package:common/domain/model/pengaju.dart';
 import 'package:flutter/material.dart';
 
 class GroupCard extends StatelessWidget {

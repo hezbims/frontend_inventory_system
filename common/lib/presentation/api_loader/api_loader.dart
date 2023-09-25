@@ -6,10 +6,12 @@ class ApiLoader<T> extends StatelessWidget {
   final Future<ApiResponse> apiResponse;
   final void Function() onRefresh;
   final Widget Function(T data) builder;
+  final bool useScaffold;
   const ApiLoader({
     required this.apiResponse,
     required this.onRefresh,
     required this.builder,
+    this.useScaffold = false,
     super.key,
   });
 
@@ -24,13 +26,17 @@ class ApiLoader<T> extends StatelessWidget {
             return builder(response.data);
           }
           else if (response is ApiResponseFailed) {
-            return Scaffold(
-              body: Center(
-                child: DefaultErrorWidget(
+            if (useScaffold){
+              return Scaffold(
+                body: DefaultErrorWidget(
                   onTap: onRefresh,
                   errorMessage: response.error ?? "Unknown Error",
                 ),
-              ),
+              );
+            }
+            return DefaultErrorWidget(
+              onTap: onRefresh,
+              errorMessage: response.error ?? "Unknown Error",
             );
           }
           else {
@@ -38,10 +44,15 @@ class ApiLoader<T> extends StatelessWidget {
           }
         }
         else {
-          return const Scaffold(
-            body: Center(
-              child: CircularProgressIndicator(),
-            ),
+          if (useScaffold) {
+            return const Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
+          }
+          return const Center(
+            child: CircularProgressIndicator(),
           );
         }
       }

@@ -63,5 +63,5 @@ void main(){
 
     expect(tambahAkunItem, findsOneWidget);
 
-  } , tags: TestTags.fastTetst);
+  } , tags: TestTags.fastTest);
 }

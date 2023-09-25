@@ -1,5 +1,5 @@
 import 'package:common/response/api_response.dart';
-import 'package:fitur_input_pengajuan/domain/model/pengaju.dart';
+import 'package:common/domain/model/pengaju.dart';
 
 class GetFilteredGroupUseCase {
   Future<ApiResponse> filter({

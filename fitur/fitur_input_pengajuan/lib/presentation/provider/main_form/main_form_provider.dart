@@ -3,7 +3,7 @@ import 'package:common/domain/model/user.dart';
 import 'package:common/response/api_response.dart';
 import 'package:dependencies/fluttertoast.dart';
 import 'package:fitur_input_pengajuan/domain/model/barang_transaksi.dart';
-import 'package:fitur_input_pengajuan/domain/model/pengaju.dart';
+import 'package:common/domain/model/pengaju.dart';
 import 'package:fitur_input_pengajuan/domain/model/pengajuan.dart';
 import 'package:fitur_input_pengajuan/domain/repository/i_submit_pengajuan_repository.dart';
 import 'package:fitur_input_pengajuan/domain/use_case/null_validation_use_case.dart';

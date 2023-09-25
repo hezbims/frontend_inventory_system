@@ -1,15 +1,15 @@
+import 'package:common/domain/repository/i_pengaju_repository.dart';
 import 'package:common/domain/use_cases/empty_validation_use_case.dart';
 import 'package:common/response/api_response.dart';
 import 'package:dependencies/fluttertoast.dart';
-import 'package:fitur_input_pengajuan/domain/model/pengaju.dart';
-import 'package:fitur_input_pengajuan/domain/repository/i_create_pengaju_repository.dart';
+import 'package:common/domain/model/pengaju.dart';
 import 'package:flutter/material.dart';
 
 class BuatGroupProvider extends ChangeNotifier {
-  final ICreatePengajuRepository _repository;
+  final IPengajuRepository _repository;
   final bool _isPemasok;
   BuatGroupProvider({
-    required ICreatePengajuRepository repository,
+    required IPengajuRepository repository,
     required bool isPemasok,
   }) : _repository = repository , _isPemasok = isPemasok;
   final emptyValidator = EmptyValidationUseCase();

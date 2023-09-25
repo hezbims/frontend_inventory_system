@@ -1,5 +1,5 @@
 import 'package:common/data/api_client/user_api_client.dart';
-import 'package:common/data/mapper/user_mapper.dart';
+import 'package:common/data/mapper/user/get_user_mapper.dart';
 import 'package:common/domain/model/user.dart';
 import 'package:common/domain/repository/i_token_manager.dart';
 import 'package:common/domain/repository/i_user_repository.dart';
@@ -9,7 +9,7 @@ import 'package:dependencies/get_it.dart';
 
 class UserRepositoryImpl implements IUserRepository {
   final _apiClient = UserApiClient();
-  final _mapper = UserMapper();
+  final _mapper = GetUserMapper();
   final ITokenManager _tokenManager = GetIt.I.get();
   @override
   Future<ApiResponse> getUser() async {

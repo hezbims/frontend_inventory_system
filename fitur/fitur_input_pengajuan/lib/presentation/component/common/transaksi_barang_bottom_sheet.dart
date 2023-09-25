@@ -3,6 +3,7 @@ import 'package:common/presentation/button/submit_button.dart';
 import 'package:common/presentation/textfield/custom_textfield.dart';
 import 'package:common/presentation/textfield/style/spacing.dart';
 import 'package:dependencies/fluttertoast.dart';
+import 'package:dependencies/get_it.dart';
 import 'package:dependencies/provider.dart';
 import 'package:fitur_input_pengajuan/domain/model/barang_transaksi.dart';
 import 'package:fitur_input_pengajuan/presentation/component/pilih_barang/barang_quantity_incrementer.dart';
@@ -20,8 +21,8 @@ class TransaksiBarangBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => QuantityBarangProvider(),
-      child: Consumer<QuantityBarangProvider>(
+      create: (context) => GetIt.I.get<BottomSheetBarangProvider>(),
+      child: Consumer<BottomSheetBarangProvider>(
         builder: (context , provider , child) {
           WidgetsBinding.instance.addPostFrameCallback(
             (_) => provider.tryRequestFocus(),
