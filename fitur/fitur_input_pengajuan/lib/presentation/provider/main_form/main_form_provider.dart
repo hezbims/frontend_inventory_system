@@ -115,7 +115,7 @@ class MainFormProvider extends ChangeNotifier {
         );
 
         if (submitResponse is ApiResponseFailed){
-          debugPrint((submitResponse as ApiResponseFailed).error.toString());
+          debugPrint("test submit response ${(submitResponse as ApiResponseFailed).error}");
           Fluttertoast.showToast(
             msg: (submitResponse as ApiResponseFailed).error.toString(),
             toastLength: Toast.LENGTH_LONG,

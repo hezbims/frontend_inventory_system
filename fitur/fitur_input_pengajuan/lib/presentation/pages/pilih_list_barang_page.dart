@@ -6,9 +6,9 @@ import 'package:fitur_input_pengajuan/data/repository/get_barang_preview_reposit
 import 'package:fitur_input_pengajuan/domain/model/barang_transaksi.dart';
 import 'package:fitur_input_pengajuan/presentation/arg_model/main_form_to_pilih_barang_arg.dart';
 import 'package:fitur_input_pengajuan/domain/model/barang_preview.dart';
+import 'package:fitur_input_pengajuan/presentation/component/common/transaksi_barang_bottom_sheet_setup.dart';
 import 'package:fitur_input_pengajuan/presentation/component/pilih_barang/preview_stock_barang_card.dart';
 import 'package:common/presentation/textfield/search_app_bar.dart';
-import 'package:fitur_input_pengajuan/presentation/component/common/transaksi_barang_bottom_sheet.dart';
 import 'package:fitur_input_pengajuan/presentation/provider/pilih_barang/pilih_barang_provider.dart';
 import 'package:flutter/material.dart';
 
@@ -108,7 +108,7 @@ class PilihListBarangPage extends StatelessWidget {
     final result = await showModalBottomSheet(
         context: context,
         builder: (context) {
-          return TransaksiBarangBottomSheet(
+          return TransaksiBarangBottomSheetBuilder(
             initialBarangTransaksi: BarangTransaksi(
               id: null,
               idBarang: barang.id,
