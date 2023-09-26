@@ -2,6 +2,7 @@ import 'package:common/constant/test_tags/test_tags.dart';
 import 'package:common/domain/model/user.dart';
 import 'package:common/presentation/textfield/custom_dropdown_menu.dart';
 import 'package:dependencies/get_it.dart';
+import 'package:dependencies/provider.dart';
 import 'package:fitur_input_pengajuan/domain/model/barang_transaksi.dart';
 import 'package:fitur_input_pengajuan/domain/model/pengajuan.dart';
 import 'package:fitur_input_pengajuan/domain/repository/i_submit_pengajuan_repository.dart';
@@ -15,7 +16,23 @@ import 'package:flutter_test/flutter_test.dart';
 import '../mock/mock.dart';
 
 void main() {
-  testWidgets('List Barang dan Grup/Pemasok terdisplay sesuai dengan tipe pengaju',
+  late BarangTransaksi dummyBarangTransaksi;
+  setUpAll((){
+    dummyBarangTransaksi = BarangTransaksi(
+        id: 1,
+        idBarang: 1,
+        namaBarang: 'Mata Solder',
+        quantity: 2,
+        keterangan: ''
+    );
+  });
+  testWidgets('diberikan sebuah main form dalam kondisi pembuatan pengajuan baru, '
+      'ketika belum melakukan apa-apa, '
+      'maka field grup/pemasok dan field pengeditan list barang tidak akan tampil'
+      'ketika tipe pengaju diubah menjadi pemasok, '
+      'maka field pemasok dan list barang akan tampil, '
+      'ketika tipe pengaju diubah menjadi group, '
+      'maka field group dan list barang juga akan tampil, ',
     (tester) async {
       GetIt.I.registerSingleton<ISubmitPengajuanRepository>(MockSubmitPengajuanRepository());
       GetIt.I.registerSingleton(User(token: '', username: '', isAdmin: true, id: 1));
@@ -73,8 +90,21 @@ void main() {
 
   testWidgets('ketika bottom sheet pertama kali dibuka, maka need focus, '
       'namun yang kedua maka tidak perlu focus' , (tester) async {
-    final bottomSheetProvider = GetIt.I.registerSingleton(BottomSheetBarangProvider());
-    await tester.pumpWidget(prepareTransaksiBarangBottomSheet());
+
+    final bottomSheetProvider = BottomSheetBarangProvider();
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: Directionality(
+            textDirection: TextDirection.ltr,
+            child: ChangeNotifierProvider.value(
+              value: bottomSheetProvider,
+              child: TransaksiBarangBottomSheet(initialBarangTransaksi: dummyBarangTransaksi)
+            ),
+          ),
+        ),
+      ),
+    );
 
     expect(bottomSheetProvider.quantityFocusNode.hasFocus, isTrue);
 
@@ -84,21 +114,3 @@ void main() {
   } , tags: [TestTags.fastTest]);
 }
 
-Widget prepareTransaksiBarangBottomSheet(){
-  return MaterialApp(
-    home: Directionality(
-      textDirection: TextDirection.ltr,
-      child: Scaffold(
-        body: TransaksiBarangBottomSheet(
-          initialBarangTransaksi: BarangTransaksi(
-              id: 1,
-              idBarang: 1,
-              namaBarang: 'Mata Solder',
-              quantity: 2,
-              keterangan: ''
-          ),
-        ),
-      ),
-    ),
-  );
-}
