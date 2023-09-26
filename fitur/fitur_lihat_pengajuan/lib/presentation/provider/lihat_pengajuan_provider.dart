@@ -1,4 +1,5 @@
 import 'package:common/data/repository/notification_repository_impl.dart';
+import 'package:common/domain/model/pengaju.dart';
 import 'package:common/domain/repository/i_notification_repository.dart';
 import 'package:common/response/api_response.dart';
 import 'package:dependencies/infinite_scroll_pagination.dart';
@@ -30,6 +31,7 @@ class LihatPengajuanProvider extends ChangeNotifier {
     final response = await _repository.getPengajuanPreview(
       pageNumber: pageNumber,
       keyword: searchController.text,
+      idPengaju: _filterPengaju?.id,
     );
 
     if (response is ApiResponseSuccess){
@@ -54,6 +56,14 @@ class LihatPengajuanProvider extends ChangeNotifier {
       await _pageRequestProcess;
       pagingController.refresh();
       _isRefreshing = false;
+    }
+  }
+
+  Pengaju? _filterPengaju;
+  void setFilterPengaju(Pengaju? newFilterPengaju){
+    if (newFilterPengaju?.id != _filterPengaju?.id){
+      _filterPengaju = newFilterPengaju;
+      tryRefresh();
     }
   }
 

@@ -10,7 +10,9 @@ void main() {
     // TODO : seed database
 
 
-    final response = await repository.getPengajuanPreview(pageNumber: 1, keyword: "");
+    final response = await repository.getPengajuanPreview(
+        pageNumber: 1, keyword: "", idPengaju: null
+    );
     assert(response is ApiResponseSuccess<List<PengajuanPreview>>);
   });
 }

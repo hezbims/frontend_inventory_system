@@ -34,8 +34,8 @@ class SearchWithFilterAppBar extends StatelessWidget implements PreferredSizeWid
         ),
         actions: [
           IconButton(
-              onPressed: onFilterPressed,
-              icon: const Icon(Icons.filter_alt , size: 32,)
+            onPressed: onFilterPressed,
+            icon: const Icon(Icons.filter_alt , size: 32,)
           ),
 
           const SizedBox(width: 16,),

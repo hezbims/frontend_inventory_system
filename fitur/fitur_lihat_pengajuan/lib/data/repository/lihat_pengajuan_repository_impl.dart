@@ -11,11 +11,13 @@ class LihatPengajuanRepositoryImpl implements ILihatPengajuanRepository {
   Future<ApiResponse> getPengajuanPreview({
     required int pageNumber,
     required String keyword,
+    required int? idPengaju,
   }) {
     return ApiRequestProcessor.process(
       apiRequest: _apiClient.getPengajuanPreview(
         pageNumber: pageNumber,
-        keyword: keyword
+        keyword: keyword,
+        idPengaju: idPengaju,
       ),
       getModelFromBody: _mapper.fromBodyToPengajuanPreview,
       isPagination: true,

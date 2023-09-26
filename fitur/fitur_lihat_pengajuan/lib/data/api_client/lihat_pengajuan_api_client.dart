@@ -12,8 +12,12 @@ class LihatPengajuanApiClient {
   Future<Response> getPengajuanPreview({
     required int pageNumber,
     required String keyword,
+    required int? idPengaju,
   }) async {
-    final url = "${CommonUrl.baseApiUrl}/pengajuan/get?page=$pageNumber&keyword=$keyword";
+    final url = "${CommonUrl.baseApiUrl}/pengajuan/get?"
+        "page=$pageNumber&"
+        "keyword=$keyword&"
+        "id_pengaju=${idPengaju ?? ''}";
 
     return get(
       Uri.parse(url),

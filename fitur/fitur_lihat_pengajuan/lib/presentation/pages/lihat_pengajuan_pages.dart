@@ -47,7 +47,11 @@ class LihatPengajuanPages extends StatelessWidget {
             endDrawer: const FilterPengajuDrawer(),
             onEndDrawerChanged: (isOpened){
               if (!isOpened){
-
+                final filterProvider = Provider.of<FilterPengajuProvider>(
+                  context,
+                  listen: false
+                );
+                provider.setFilterPengaju(filterProvider.pengajuDipilih);
               }
             },
             bottomNavigationBar: const StockBottomNavBar(
