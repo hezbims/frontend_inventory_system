@@ -6,7 +6,7 @@ import 'package:dependencies/get_it.dart';
 import 'package:fitur_auth_guard/data/repository/login_repository_impl.dart';
 import 'package:fitur_auth_guard/domain/repository/i_login_repository.dart';
 
-void setupDI(){
+void setupMainDependencyInjection(){
   final getIt = GetIt.instance;
   getIt.registerSingleton<IBarangRepository>(BarangRepositoryImpl());
   getIt.registerSingleton<ITokenManager>(TokenManagerImpl());

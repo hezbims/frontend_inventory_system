@@ -10,7 +10,6 @@ import 'package:stock_bu_fan/routing/routes_map.dart';
 import 'package:stock_bu_fan/theme/custom_theme_data.dart';
 
 void main() {
-  setupDI();
   runApp(const MyApp());
 }
 
@@ -20,6 +19,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    setupMainDependencyInjection();
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
