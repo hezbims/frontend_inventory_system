@@ -3,6 +3,7 @@ import 'package:common/domain/repository/i_token_manager.dart';
 import 'package:dependencies/get_it.dart';
 import 'package:dependencies/http.dart';
 import 'package:fitur_auth_guard/data/repository/login_repository_impl.dart';
+import 'package:fitur_auth_guard/domain/repository/i_login_repository.dart';
 import 'package:fitur_auth_guard/presentation/provider/login_provider.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -24,11 +25,12 @@ void main(){
     final mockApiClient = prepareMockApiClient(token: token);
     final mockTokenManager = prepareMockTokenManager();
 
-    final loginProvider = LoginProvider(
-      repository: LoginRepositoryImpl(
-        apiClient:mockApiClient,
-      ),
+    GetIt.I.registerSingleton<ILoginRepository>(
+        LoginRepositoryImpl(
+          apiClient: mockApiClient
+        ),
     );
+    final loginProvider = LoginProvider();
 
     await loginProvider.login!();
 

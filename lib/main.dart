@@ -1,6 +1,6 @@
-import 'package:common/data/repository/user_repository_impl.dart';
 import 'package:common/presentation/provider/user_provider.dart';
 import 'package:common/constant/routes/routes.dart';
+import 'package:dependencies/get_it.dart';
 import 'package:dependencies/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:fitur_auth_guard/presentation/route_guard.dart';
@@ -10,6 +10,7 @@ import 'package:stock_bu_fan/routing/routes_map.dart';
 import 'package:stock_bu_fan/theme/custom_theme_data.dart';
 
 void main() {
+  setupMainDependencyInjection();
   runApp(const MyApp());
 }
 
@@ -19,13 +20,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    setupMainDependencyInjection();
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => UserProvider(
-              repository: UserRepositoryImpl()
-          ),
+          create: (context) => GetIt.I.get<UserProvider>(),
         ),
       ],
 
@@ -43,7 +41,7 @@ class MyApp extends StatelessWidget {
               }
               else {
                 nextPage = RouteGuard(
-                    displayedPage: routesMap[settings.name]!.getPage()
+                    displayedPage: routesMap[settings.name]!,
                 );
               }
 

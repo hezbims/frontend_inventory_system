@@ -28,9 +28,7 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: ChangeNotifierProvider(
-          create: (context) => LoginProvider(
-            repository: GetIt.I.get(),
-          ),
+          create: (context) => GetIt.I.get<LoginProvider>(),
           child: Consumer<LoginProvider>(
             builder: (context , provider , child) {
               final loginResponse = provider.loginResponse;

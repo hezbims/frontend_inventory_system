@@ -1,14 +1,13 @@
 import 'package:common/response/api_response.dart';
 import 'package:dependencies/fluttertoast.dart';
+import 'package:dependencies/get_it.dart';
 import 'package:fitur_auth_guard/domain/model/post_login_dto.dart';
 import 'package:fitur_auth_guard/domain/repository/i_login_repository.dart';
 import 'package:flutter/material.dart';
 
 class LoginProvider extends ChangeNotifier {
-  final ILoginRepository _repository;
-  LoginProvider({
-    required ILoginRepository repository,
-  }) : _repository = repository;
+  final ILoginRepository _repository = GetIt.I.get();
+  LoginProvider();
 
   final usernameC = TextEditingController();
   final passwordC = TextEditingController();

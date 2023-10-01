@@ -3,7 +3,7 @@ import 'package:common/presentation/provider/user_provider.dart';
 import 'package:common/presentation/api_loader/default_error_widget.dart';
 import 'package:common/response/api_response.dart';
 import 'package:dependencies/provider.dart';
-import 'package:fitur_auth_guard/presentation/page/login_screen.dart';
+import 'package:fitur_auth_guard/dependency_setup/login_dependency_setup.dart';
 import 'package:flutter/material.dart';
 
 class RouteGuard extends StatelessWidget {
@@ -34,7 +34,7 @@ class RouteGuard extends StatelessWidget {
                 }
                 // Berarti local token (dari shared-pref) sekarang enggak valid
                 else if (data.statusCode == 401){
-                  return LoginScreen();
+                  return LoginDependencySetup();
                 }
                 else {
                   throw Exception('Get Current User ngedapetin status yang enggak diketahui');
