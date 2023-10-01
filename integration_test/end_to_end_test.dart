@@ -5,6 +5,7 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
+
 import 'package:common/domain/model/barang.dart';
 import 'package:common/domain/model/kategori.dart';
 import 'package:common/domain/model/rak.dart';
@@ -31,9 +32,18 @@ extension DoublePump on WidgetTester {
   }
 
   Future<void> typeTextField(String textFieldLabel, String text,) async {
-    await find.widgetWithText(C, text)
-    await scrollUntilVisible(finder, 50);
-    await enterText(finder, text);
+    final customColumnTextField = find.widgetWithText(Column, textFieldLabel);
+    expect(customColumnTextField, findsOneWidget);
+
+    final textField = find.descendant(
+      of: customColumnTextField,
+      matching: find.byType(TextField)
+    );
+
+    final scrollable = find.byType(ListView);
+
+    await dragUntilVisible(textField, scrollable, const Offset(0, -50));
+    await enterText(textField, text);
 
   }
 }
@@ -64,6 +74,10 @@ void main() {
       required String namaKategori,
       required WidgetTester tester,
   }) async {
+    await tester.tap(find.byType(DropdownPageChooser));
+
+    await tester.pumpAndSettle(shortTimePump);
+
     await tester.tap(find.byType(TambahSesuatuButton));
     await tester.pumpAndSettle(shortTimePump);
 
@@ -85,27 +99,26 @@ void main() {
     await tester.tap(find.byType(FloatingActionButton));
     await tester.pumpAndSettle(shortTimePump);
 
-    final allTextField = find.byType(TextField , skipOffstage: false);
-
-    await tester.typeTextField(allTextField.at(1), data.nama);
-    await tester.tap(find.byType(DropdownPageChooser));
-
-    await tester.pumpAndSettle(shortTimePump);
-
+    await tester.typeTextField('Nama', data.nama);
+    // entah kenapa kalo enggak di pump and settle, dropdown kategori bisa didapat
+    // tapi pas di tap enggak navigate
+    await tester.pumpAndSettle();
     await inputDanPilihKategori(
       namaKategori : data.kategori.nama,
       tester: tester,
     );
+    await tester.typeTextField('Nomor Rak', data.rak.nomorRak.toString());
+    await tester.typeTextField('Nomor Laci', data.rak.nomorLaci.toString());
+    await tester.typeTextField('Nomor Kolom', data.rak.nomorKolom.toString());
+    await tester.typeTextField('Min. Stock', data.minStock.toString());
+    await tester.typeTextField('Last Month Stock', data.lastMonthStock.toString());
+    await tester.typeTextField('Stock Sekarang', data.stockSekarang.toString());
+    await tester.typeTextField('Unit Price', data.unitPrice.toString());
+    await tester.typeTextField('UOM', data.uom);
 
-    await tester.enterText(allTextField.at(2), data.rak.nomorRak.toString());
-    await tester.enterText(allTextField.at(3), data.rak.nomorKolom.toString());
-    await tester.enterText(allTextField.at(4), data.rak.nomorLaci.toString());
-    await tester.enterText(allTextField.at(5), data.minStock.toString());
-    await tester.enterText(allTextField.at(6), data.lastMonthStock.toString());
-    await tester.enterText(allTextField.at(7), data.stockSekarang.toString());
-    await tester.enterText(allTextField.at(8), data.unitPrice.toString());
-    await tester.enterText(allTextField.at(9), data.uom);
-    await tester.tap(find.byType(SubmitButton));
+    final submitButtonFinder = find.byType(SubmitButton);
+    await tester.dragUntilVisible(submitButtonFinder, find.byType(ListView), const Offset(0, -50));
+    await tester.tap(submitButtonFinder);
 
   }
 

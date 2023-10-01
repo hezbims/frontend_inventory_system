@@ -70,115 +70,123 @@ class InputDataBarangPage extends StatelessWidget {
               ),
               body : Builder(
                 builder: (context) {
-                  final listViewItem = [
-                    CustomTextfield(
-                      controller: provider.namaController,
-                      label: "Nama",
-                      errorText: provider.errorMessage[SubmitBarangDto.kolomNama],
-                    ),
-
-                    DropdownPageChooser(
-                        label: "Kategori",
-                        value: provider.kategori?.nama,
-                        errorMessage: provider.errorMessage[SubmitBarangDto.kolomIdKategori],
-                        onTap: () async {
-                          final result = await Navigator.of(context).pushNamed(
-                              Routes.fiturPilihKategoriRoute
-                          );
-
-                          if (result is Kategori){
-                            provider.onKategoriChange(result);
-                          }
-                        }
-                    ),
-
-                    Row(
-                      children: [
-                        Expanded(
-                          child: CustomTextfield(
-                              controller: provider.nomorRakController,
-                              label: "Nomor Rak",
-                              errorText: provider.errorMessage[SubmitBarangDto.kolomNomorRak]
-                          ),
-                        ),
-
-                        const SizedBox(width: 12,),
-
-                        Expanded(
-                          child: CustomTextfield(
-                              controller: provider.nomorLaciController,
-                              label: "Nomor Laci",
-                              errorText: provider.errorMessage[SubmitBarangDto.kolomNomorLaci]
-                          ),
-                        ),
-
-                        const SizedBox(width: 12,),
-
-                        Expanded(
-                          child: CustomTextfield(
-                              controller: provider.nomorKolomController,
-                              label: "Nomor Kolom",
-                              errorText: provider.errorMessage[SubmitBarangDto.kolomNomorKolom]
-                          ),
-                        ),
-                      ],
-                    ),
-
-                    CustomTextfield(
-                      controller: provider.minStockController,
-                      label: "Min. Stock",
-                      errorText: provider.errorMessage[SubmitBarangDto.kolomMinStock],
-                      inputType: TextInputType.number,
-                    ),
-
-                    CustomTextfield(
-                      controller: provider.lastMonthStockController,
-                      label: "Last Month Stock",
-                      errorText: provider.errorMessage[SubmitBarangDto.kolomLastMonthStock],
-                      inputType: TextInputType.number,
-                    ),
-
-                    CustomTextfield(
-                      controller: provider.stockSekarangController,
-                      label: "Stock Sekarang",
-                      errorText: provider.errorMessage[SubmitBarangDto.kolomStockSekarang],
-                      inputType: TextInputType.number,
-                      onChanged: provider.updateAmount,
-                    ),
-
-                    CustomTextfield(
-                      controller: provider.unitPriceController,
-                      label: "Unit Price",
-                      errorText: provider.errorMessage[SubmitBarangDto.kolomUnitPrice],
-                      inputType: TextInputType.number,
-                      onChanged: provider.updateAmount,
-                    ),
-
-                    DisabledTextField(
-                      label: "Amount",
-                      value: provider.amount,
-                      errorMessage: null,
-                    ),
-
-                    CustomTextfield(
-                      controller: provider.uomController,
-                      label: "UOM",
-                      errorText: provider.errorMessage[SubmitBarangDto.kolomUom],
-                    ),
-                  ];
-
-                  return ListView.separated(
+                  return ListView(
                     padding: EdgeInsets.symmetric(
                       vertical: 36,
                       horizontal: MediaQuery.of(context).maxHorizontalPadding,
                     ),
-                    itemBuilder: (context, index){
-                      return listViewItem[index];
-                    },
-                    separatorBuilder: (context, index){
-                      return const VerticalFormSpacing();
-                    },
-                    itemCount: listViewItem.length,
+                    children: [
+                      CustomTextfield(
+                        controller: provider.namaController,
+                        label: "Nama",
+                        errorText: provider.errorMessage[SubmitBarangDto.kolomNama],
+                      ),
+
+                      const VerticalFormSpacing(),
+
+                      DropdownPageChooser(
+                          label: "Kategori",
+                          value: provider.kategori?.nama,
+                          errorMessage: provider.errorMessage[SubmitBarangDto.kolomIdKategori],
+                          onTap: () async {
+                            final result = await Navigator.of(context).pushNamed(
+                                Routes.fiturPilihKategoriRoute
+                            );
+
+                            if (result is Kategori){
+                              provider.onKategoriChange(result);
+                            }
+                          }
+                      ),
+
+                      const VerticalFormSpacing(),
+
+                      Row(
+                        children: [
+                          Expanded(
+                            child: CustomTextfield(
+                                controller: provider.nomorRakController,
+                                label: "Nomor Rak",
+                                errorText: provider.errorMessage[SubmitBarangDto.kolomNomorRak]
+                            ),
+                          ),
+
+                          const SizedBox(width: 12,),
+
+                          Expanded(
+                            child: CustomTextfield(
+                                controller: provider.nomorLaciController,
+                                label: "Nomor Laci",
+                                errorText: provider.errorMessage[SubmitBarangDto.kolomNomorLaci]
+                            ),
+                          ),
+
+                          const SizedBox(width: 12,),
+
+                          Expanded(
+                            child: CustomTextfield(
+                                controller: provider.nomorKolomController,
+                                label: "Nomor Kolom",
+                                errorText: provider.errorMessage[SubmitBarangDto.kolomNomorKolom]
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      const VerticalFormSpacing(),
+
+                      CustomTextfield(
+                        controller: provider.minStockController,
+                        label: "Min. Stock",
+                        errorText: provider.errorMessage[SubmitBarangDto.kolomMinStock],
+                        inputType: TextInputType.number,
+                      ),
+
+                      const VerticalFormSpacing(),
+
+                      CustomTextfield(
+                        controller: provider.lastMonthStockController,
+                        label: "Last Month Stock",
+                        errorText: provider.errorMessage[SubmitBarangDto.kolomLastMonthStock],
+                        inputType: TextInputType.number,
+                      ),
+
+                      const VerticalFormSpacing(),
+
+                      CustomTextfield(
+                        controller: provider.stockSekarangController,
+                        label: "Stock Sekarang",
+                        errorText: provider.errorMessage[SubmitBarangDto.kolomStockSekarang],
+                        inputType: TextInputType.number,
+                        onChanged: provider.updateAmount,
+                      ),
+
+                      const VerticalFormSpacing(),
+
+                      CustomTextfield(
+                        controller: provider.unitPriceController,
+                        label: "Unit Price",
+                        errorText: provider.errorMessage[SubmitBarangDto.kolomUnitPrice],
+                        inputType: TextInputType.number,
+                        onChanged: provider.updateAmount,
+                      ),
+
+                      const VerticalFormSpacing(),
+
+                      DisabledTextField(
+                        label: "Amount",
+                        value: provider.amount,
+                        errorMessage: null,
+                      ),
+
+                      const VerticalFormSpacing(),
+
+                      CustomTextfield(
+                        controller: provider.uomController,
+                        label: "UOM",
+                        errorText: provider.errorMessage[SubmitBarangDto.kolomUom],
+                      ),
+                    ],
                   );
                 }
               )
