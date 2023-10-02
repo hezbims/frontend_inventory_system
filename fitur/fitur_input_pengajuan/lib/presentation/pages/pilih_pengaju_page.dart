@@ -1,9 +1,9 @@
 import 'package:common/domain/extension/media_query_data_extension.dart';
 import 'package:common/presentation/api_loader/api_loader.dart';
+import 'package:dependencies/get_it.dart';
 import 'package:dependencies/provider.dart';
 import 'package:common/presentation/textfield/search_app_bar.dart';
 import 'package:common/presentation/button/tambah_sesuatu_button.dart';
-import 'package:common/data/repository/pengaju_repository_impl.dart';
 import 'package:common/domain/model/pengaju.dart';
 import 'package:fitur_input_pengajuan/presentation/component/pilih_pengaju/pengaju_card.dart';
 import 'package:fitur_input_pengajuan/presentation/component/pilih_pengaju/show_buat_pengaju_dialog.dart';
@@ -15,13 +15,8 @@ class PilihPengajuPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isPemasok = ModalRoute.of(context)?.settings.arguments as bool;
-
     return ChangeNotifierProvider(
-      create: (context) => PilihPengajuProvider(
-        repository: PengajuRepositoryImpl(),
-        isPemasok: isPemasok,
-      ),
+      create: (context) => GetIt.I.get<PilihPengajuProvider>(),
       child: Consumer<PilihPengajuProvider>(
         builder: (context , provider , child){
           WidgetsBinding.instance.addPostFrameCallback(
@@ -33,7 +28,7 @@ class PilihPengajuPage extends StatelessWidget {
             appBar: SearchAppBar(
               controller: provider.searchController,
               focusNode: provider.searchFocusNode,
-              placeholder: "Cari nama ${isPemasok ? 'pemasok' : 'group'}",
+              placeholder: "Cari nama ${provider.isPemasok ? 'pemasok' : 'group'}",
             ),
             body: ApiLoader<List<Pengaju>>(
                 apiResponse: provider.filteredGroupResponse,
@@ -61,11 +56,11 @@ class PilihPengajuPage extends StatelessWidget {
                         top: 16,
                         right: 24 + MediaQuery.of(context).maxHorizontalPadding,
                         child: TambahSesuatuButton(
-                            label: "Tambah ${isPemasok ? 'pemasok' : 'group'} baru",
+                            label: "Tambah ${provider.isPemasok ? 'pemasok' : 'group'} baru",
                             onTap: () async {
                               final result = await showBuatPengajuDialog(
                                 context: context,
-                                isPemasok: isPemasok,
+                                isPemasok: provider.isPemasok,
                               );
 
                               if (result != null){

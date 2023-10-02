@@ -8,10 +8,11 @@ import 'package:flutter/material.dart';
 class PilihPengajuProvider extends ChangeNotifier {
   final GetSortedGroupUseCase _getSortedGroupUseCase;
   final _groupFilter = GetFilteredGroupUseCase();
+  final bool isPemasok;
 
   PilihPengajuProvider({
     required IPengajuRepository repository,
-    required bool isPemasok,
+    required this.isPemasok,
   }) : _getSortedGroupUseCase = GetSortedGroupUseCase(
         repository: repository,
         isPemasok: isPemasok,
@@ -30,20 +31,20 @@ class PilihPengajuProvider extends ChangeNotifier {
     }
   }
 
-  Future<ApiResponse>? _getSortedGroupResponse;
-  Future<ApiResponse> get getSortedGroupResponse {
-    _getSortedGroupResponse ??= _getSortedGroupUseCase.get();
-    return _getSortedGroupResponse!;
+  Future<ApiResponse>? __getSortedGroupResponse;
+  Future<ApiResponse> get _getSortedGroupResponse {
+    __getSortedGroupResponse ??= _getSortedGroupUseCase.get();
+    return __getSortedGroupResponse!;
   }
   Future<ApiResponse> get filteredGroupResponse {
     return _groupFilter.filter(
-      apiResponse: getSortedGroupResponse,
+      apiResponse: _getSortedGroupResponse,
       keyword: searchController.text,
     );
   }
 
   void refresh(){
-    _getSortedGroupResponse = _getSortedGroupUseCase.get();
+    __getSortedGroupResponse = _getSortedGroupUseCase.get();
     notifyListeners();
   }
 

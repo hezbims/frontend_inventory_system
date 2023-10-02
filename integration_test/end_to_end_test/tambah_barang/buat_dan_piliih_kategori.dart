@@ -29,11 +29,11 @@ Future<void> inputDanPilihKategori({
 
   final KategoriDialogProvider provider = GetIt.I.get();
   await waitUntilApiResponseComplete(() => provider.submitResponse);
-
   await tester.pumpAndSettle(shortTimePump);
 
   final PilihKategoriProvider pilihKategoriProvider = GetIt.I.get();
   await pilihKategoriProvider.getFilteredKategori();
+  await tester.pump();
 
   await tester.tap(find.text(namaKategori));
   await tester.pumpAndSettle();

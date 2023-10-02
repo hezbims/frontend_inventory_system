@@ -2,7 +2,7 @@ import 'package:common/presentation/dialog/simple_text_field_dialog.dart';
 import 'package:common/response/api_response.dart';
 import 'package:dependencies/get_it.dart';
 import 'package:dependencies/provider.dart';
-import 'package:fitur_input_pengajuan/page_setup/buat_pengaju_dialog_dependency_setup.dart';
+import 'package:fitur_input_pengajuan/dependency_setup/buat_pengaju_dialog_dependency_setup.dart';
 import 'package:fitur_input_pengajuan/presentation/provider/pilih_pengaju/buat_pengaju_provider.dart';
 import 'package:flutter/material.dart';
 
