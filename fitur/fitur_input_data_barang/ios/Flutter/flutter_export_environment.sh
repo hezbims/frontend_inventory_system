@@ -1,7 +1,7 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
 export "FLUTTER_ROOT=C:\Users\hezbi\Documents\Flutter\FlutterSDK\flutter"
-export "FLUTTER_APPLICATION_PATH=C:\Users\hezbi\Documents\PROJECT_PANASONIC\stock_barang\stock_bu_fan\fitur\fitur_input_data_barang"
+export "FLUTTER_APPLICATION_PATH=C:\Users\hezbi\Documents\PROJECT_PANASONIC\Inventory_Fan\Inventory_Frontend\fitur\fitur_input_data_barang"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_TARGET=lib\main.dart"
 export "FLUTTER_BUILD_DIR=build"

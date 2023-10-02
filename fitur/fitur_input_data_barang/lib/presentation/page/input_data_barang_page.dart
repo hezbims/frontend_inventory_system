@@ -1,5 +1,4 @@
 import 'package:common/domain/extension/media_query_data_extension.dart';
-import 'package:common/domain/model/barang.dart';
 import 'package:common/domain/model/kategori.dart';
 import 'package:common/presentation/bottom_navbar/submit_card.dart';
 import 'package:common/presentation/button/disabled_submit_button.dart';
@@ -10,8 +9,8 @@ import 'package:common/presentation/textfield/dropdown_page_chooser.dart';
 import 'package:common/presentation/textfield/style/spacing.dart';
 import 'package:common/response/api_response.dart';
 import 'package:common/constant/routes/routes.dart';
+import 'package:dependencies/get_it.dart';
 import 'package:dependencies/provider.dart';
-import 'package:fitur_input_data_barang/data/repository/submit_barang_repository_impl.dart';
 import 'package:fitur_input_data_barang/domain/model/submit_barang_dto.dart';
 import 'package:fitur_input_data_barang/presentation/provider/input_data_barang_provider.dart';
 import 'package:flutter/material.dart';
@@ -23,16 +22,8 @@ class InputDataBarangPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Barang? initialData;
-    try {
-      initialData = ModalRoute.of(context)?.settings.arguments as Barang;
-    } catch (_) { }
-
     return ChangeNotifierProvider(
-      create: (context) => InputDataBarangProvider(
-        initialData: initialData,
-        repository: SubmitBarangRepositoryImpl(),
-      ),
+      create: (context) => GetIt.I.get<InputDataBarangProvider>(),
       child: Consumer<InputDataBarangProvider>(
         builder: (context , provider , child){
           if (provider.submitResponse is ApiResponseSuccess){
@@ -44,7 +35,7 @@ class InputDataBarangPage extends StatelessWidget {
               appBar: AppBar(
                 forceMaterialTransparency: true,
                 scrolledUnderElevation: 0,
-                title: Text("${initialData == null ? "Tambah" : "Edit"} Data Barang"),
+                title: Text("${!provider.isEditing ? "Tambah" : "Edit"} Data Barang"),
                 centerTitle: true,
                 leading: BackButton(
                   onPressed: (){
@@ -57,7 +48,7 @@ class InputDataBarangPage extends StatelessWidget {
                   late Widget button;
 
                   // kareana initial datanya gak ada berarti tambah barang
-                  if (initialData == null){
+                  if (!provider.isEditing){
                     button = SubmitButton(onTap: provider.submit);
                   }
                   // kalo lagi ngedit, gunain button yang disabled

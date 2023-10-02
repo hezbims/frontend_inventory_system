@@ -17,6 +17,7 @@ import 'package:common/presentation/textfield/dropdown_page_chooser.dart';
 import 'package:common/response/api_response.dart';
 import 'package:dependencies/get_it.dart';
 import 'package:fitur_auth_guard/presentation/provider/login_provider.dart';
+import 'package:fitur_input_data_barang/presentation/provider/input_data_barang_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
@@ -25,12 +26,7 @@ import 'package:stock_bu_fan/main.dart';
 
 import '../test/testing_api_client.dart';
 
-extension DoublePump on WidgetTester {
-  Future<void> doublePump() async {
-    await pump();
-    await pump();
-  }
-
+extension WidgetTesterExtension on WidgetTester {
   Future<void> typeTextField(String textFieldLabel, String text,) async {
     final customColumnTextField = find.widgetWithText(Column, textFieldLabel);
     expect(customColumnTextField, findsOneWidget);
@@ -51,11 +47,12 @@ extension DoublePump on WidgetTester {
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  const shortTimePump = Duration(milliseconds: 200);
+  // const shortTimePump = Duration(milliseconds: 200);
 
   Future<void> waitUntilApiResponseComplete(
-    ApiResponse Function() getApiResponse,
+    ApiResponse? Function() getApiResponse,
   ) async {
+    await Future.delayed(const Duration(milliseconds: 200));
     while (getApiResponse() is ApiResponseLoading){
       await Future.delayed(const Duration(milliseconds: 500));
     }
@@ -74,22 +71,25 @@ void main() {
       required String namaKategori,
       required WidgetTester tester,
   }) async {
+    // entah kenapa kalo tanpa pump and settle, dropdown kategori bisa didapat
+    // tapi pas di tap, enggak navigate
+    await tester.pumpAndSettle();
     await tester.tap(find.byType(DropdownPageChooser));
 
-    await tester.pumpAndSettle(shortTimePump);
+    await tester.pumpAndSettle();
 
     await tester.tap(find.byType(TambahSesuatuButton));
-    await tester.pumpAndSettle(shortTimePump);
+    await tester.pumpAndSettle();
 
     await tester.enterText(find.byType(TextField).last, namaKategori);
     await tester.tap(find.byType(SubmitButton));
 
     final KategoriDialogProvider provider = GetIt.I.get();
-    await waitUntilApiResponseComplete(() => provider.submitResponse!);
+    await waitUntilApiResponseComplete(() => provider.submitResponse);
 
-    await tester.pumpAndSettle(shortTimePump);
+    await tester.pumpAndSettle();
     await tester.tap(find.text(namaKategori));
-    await tester.pumpAndSettle(shortTimePump);
+    await tester.pumpAndSettle();
   }
 
   Future<void> inputBarang({
@@ -97,12 +97,9 @@ void main() {
     required WidgetTester tester,
   }) async {
     await tester.tap(find.byType(FloatingActionButton));
-    await tester.pumpAndSettle(shortTimePump);
+    await tester.pumpAndSettle();
 
     await tester.typeTextField('Nama', data.nama);
-    // entah kenapa kalo enggak di pump and settle, dropdown kategori bisa didapat
-    // tapi pas di tap enggak navigate
-    await tester.pumpAndSettle();
     await inputDanPilihKategori(
       namaKategori : data.kategori.nama,
       tester: tester,
@@ -120,6 +117,9 @@ void main() {
     await tester.dragUntilVisible(submitButtonFinder, find.byType(ListView), const Offset(0, -50));
     await tester.tap(submitButtonFinder);
 
+    final provider = GetIt.I.get<InputDataBarangProvider>();
+    await waitUntilApiResponseComplete(() => provider.submitResponse);
+    await tester.pumpAndSettle();
   }
 
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
@@ -138,14 +138,10 @@ void main() {
 
     await tester.tap(find.byType(SubmitButton));
     final loginProvider = GetIt.I.get<LoginProvider>();
-    await Future.delayed(const Duration(milliseconds: 200) , () async {
-      while(loginProvider.loginResponse is ApiResponseLoading) {
-        await tester.pump(const Duration(milliseconds: 500));
-      }
-    });
+    await waitUntilApiResponseComplete(() => loginProvider.loginResponse);
 
     // load home screen setelah navigate
-    await tester.pumpAndSettle(shortTimePump);
+    await tester.pumpAndSettle();
 
     // Mencoba input barang baru
     await inputBarang(
@@ -166,6 +162,25 @@ void main() {
         uom: 'Liter',
       ),
       tester: tester
+    );
+    await inputBarang(
+        data: Barang(
+          id: -1,
+          kodeBarang: "",
+          nama: 'Barang 2',
+          minStock: 2,
+          rak: Rak(
+              nomorRak: 2,
+              nomorLaci: 3,
+              nomorKolom: 5
+          ),
+          stockSekarang: 20,
+          lastMonthStock: 10,
+          unitPrice: 3000,
+          kategori: Kategori(id: -1, nama: 'Kategori 2'),
+          uom: 'Pc',
+        ),
+        tester: tester
     );
   });
 }

@@ -11,9 +11,11 @@ import 'package:flutter/cupertino.dart';
 class InputDataBarangProvider extends ChangeNotifier {
   final ISubmitBarangRepository _repository;
   final Barang? _initialData;
+  bool get isEditing => _initialData != null;
+
   InputDataBarangProvider({
     required ISubmitBarangRepository repository,
-    Barang? initialData,
+    required Barang? initialData,
   }) :
       _repository = repository,
       _initialData = initialData,
