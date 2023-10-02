@@ -27,7 +27,10 @@ import 'package:stock_bu_fan/main.dart';
 import '../test/testing_api_client.dart';
 
 extension WidgetTesterExtension on WidgetTester {
-  Future<void> typeTextField(String textFieldLabel, String text,) async {
+  Future<void> typeTextField({
+    required String textFieldLabel,
+    required String input,
+  }) async {
     final customColumnTextField = find.widgetWithText(Column, textFieldLabel);
     expect(customColumnTextField, findsOneWidget);
 
@@ -39,7 +42,7 @@ extension WidgetTesterExtension on WidgetTester {
     final scrollable = find.byType(ListView);
 
     await dragUntilVisible(textField, scrollable, const Offset(0, -50));
-    await enterText(textField, text);
+    await enterText(textField, input);
 
   }
 }
@@ -99,19 +102,46 @@ void main() {
     await tester.tap(find.byType(FloatingActionButton));
     await tester.pumpAndSettle();
 
-    await tester.typeTextField('Nama', data.nama);
+    await tester.typeTextField(
+        textFieldLabel: 'Nama',
+        input: data.nama
+    );
     await inputDanPilihKategori(
       namaKategori : data.kategori.nama,
       tester: tester,
     );
-    await tester.typeTextField('Nomor Rak', data.rak.nomorRak.toString());
-    await tester.typeTextField('Nomor Laci', data.rak.nomorLaci.toString());
-    await tester.typeTextField('Nomor Kolom', data.rak.nomorKolom.toString());
-    await tester.typeTextField('Min. Stock', data.minStock.toString());
-    await tester.typeTextField('Last Month Stock', data.lastMonthStock.toString());
-    await tester.typeTextField('Stock Sekarang', data.stockSekarang.toString());
-    await tester.typeTextField('Unit Price', data.unitPrice.toString());
-    await tester.typeTextField('UOM', data.uom);
+    await tester.typeTextField(
+        textFieldLabel: 'Nomor Rak',
+        input: data.rak.nomorRak.toString()
+    );
+    await tester.typeTextField(
+        textFieldLabel: 'Nomor Laci',
+        input: data.rak.nomorLaci.toString()
+    );
+    await tester.typeTextField(
+        textFieldLabel: 'Nomor Kolom',
+        input: data.rak.nomorKolom.toString()
+    );
+    await tester.typeTextField(
+        textFieldLabel: 'Min. Stock',
+        input: data.minStock.toString()
+    );
+    await tester.typeTextField(
+        textFieldLabel: 'Last Month Stock',
+        input: data.lastMonthStock.toString()
+    );
+    await tester.typeTextField(
+        textFieldLabel: 'Stock Sekarang',
+        input: data.stockSekarang.toString()
+    );
+    await tester.typeTextField(
+        textFieldLabel: 'Unit Price',
+        input: data.unitPrice.toString()
+    );
+    await tester.typeTextField(
+        textFieldLabel: 'UOM',
+        input: data.uom
+    );
 
     final submitButtonFinder = find.byType(SubmitButton);
     await tester.dragUntilVisible(submitButtonFinder, find.byType(ListView), const Offset(0, -50));
@@ -122,46 +152,45 @@ void main() {
     await tester.pumpAndSettle();
   }
 
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    setupMainDependencyInjection();
-
+  Future<void> login({
+    required WidgetTester tester,
+    required String username,
+    required String password,
+  }) async {
     final userProvider = GetIt.I.get<UserProvider>();
-
-    await prepareDatabase();
-
-    await tester.pumpWidget(const MyApp());
-
     await userProvider.getUserResponse;
     await tester.pump();
-    await tester.enterText(find.byType(TextField).first, 'admin');
-    await tester.enterText(find.byType(TextField).last, '123');
+    await tester.enterText(find.byType(TextField).first, username);
+    await tester.enterText(find.byType(TextField).last, password);
 
     await tester.tap(find.byType(SubmitButton));
     final loginProvider = GetIt.I.get<LoginProvider>();
     await waitUntilApiResponseComplete(() => loginProvider.loginResponse);
+  }
 
+  Future<void> inputDuaBarang({required WidgetTester tester}) async {
     // load home screen setelah navigate
     await tester.pumpAndSettle();
 
     // Mencoba input barang baru
     await inputBarang(
-      data: Barang(
-        id: -1,
-        kodeBarang: "",
-        nama: 'Barang 1',
-        minStock: 2,
-        rak: Rak(
-          nomorRak: 2,
-          nomorLaci: 3,
-          nomorKolom: 4
+        data: Barang(
+          id: -1,
+          kodeBarang: "",
+          nama: 'Barang 1',
+          minStock: 2,
+          rak: Rak(
+              nomorRak: 2,
+              nomorLaci: 3,
+              nomorKolom: 4
+          ),
+          stockSekarang: 25,
+          lastMonthStock: 10,
+          unitPrice: 2500,
+          kategori: Kategori(id: -1, nama: 'Kategori 1'),
+          uom: 'Liter',
         ),
-        stockSekarang: 25,
-        lastMonthStock: 10,
-        unitPrice: 2500,
-        kategori: Kategori(id: -1, nama: 'Kategori 1'),
-        uom: 'Liter',
-      ),
-      tester: tester
+        tester: tester
     );
     await inputBarang(
         data: Barang(
@@ -182,5 +211,25 @@ void main() {
         ),
         tester: tester
     );
+  }
+
+  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+    setupMainDependencyInjection();
+    await prepareDatabase();
+
+    await tester.pumpWidget(const MyApp());
+
+    await login(tester: tester , username: 'admin' , password: '123');
+    await inputDuaBarang(tester: tester);
+
+    await tester.tap(find.text('Akun'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Logout'));
+
+    // await tester.tap(find.text('Transaksi'));
+    // await tester.pumpAndSettle();
+    //
+    // await tester.tap(find.byType(FloatingActionButton));
+    // await tester.pumpAndSettle();
   });
 }
