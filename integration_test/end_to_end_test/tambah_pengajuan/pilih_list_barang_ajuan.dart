@@ -20,4 +20,7 @@ Future<void> pilihListBarangAjuan({
   for (var barangAjuan in listBarangAjuan) {
     await pilihSebuahBarangAjuan(tester: tester, barang: barangAjuan);
   }
+
+  await tester.pageBack();
+  await tester.pumpAndSettle();
 }

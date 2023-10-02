@@ -5,7 +5,7 @@ import '../extension_and_utils/cusom_widget_tester_extension.dart';
 import 'buat_pengaju_baru_lalu_pilih.dart';
 import 'pilih_list_barang_ajuan.dart';
 
-Future<void> inputkanDataPengajuanKeForm({
+Future<void> inputkanSemuaDataPengajuan({
   required WidgetTester tester,
   required Pengajuan data,
 }) async {

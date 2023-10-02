@@ -36,7 +36,10 @@ void main() {
     await login(tester: tester, username: 'hezbi', password: '123');
     await navigateToPengajuanPage(tester: tester);
     await tambahPengajuanDariNonAdminCase(tester: tester);
-
+    await navigateToSettingAkunPage(tester: tester);
+    await logout(tester: tester);
+    await login(tester: tester, username: 'admin', password: '123');
+    await navigateToPengajuanPage(tester: tester);
 
   });
 }
