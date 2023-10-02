@@ -33,6 +33,9 @@ class PilihBarangProvider extends ChangeNotifier {
   // Kenapa return valuenya BarangPreview?, ini gak seberapa penting
   // tapi yang penting adalah bahwa pageRequestProcess ini asynchronous
   Future<BarangPreview?> _pageRequestProcess = Future.value(null);
+  // getter ini hanya khusus untuk testing
+  Future<BarangPreview?> get pageRequestProcess =>
+    _pageRequestProcess;
   Future<BarangPreview?> _processPageRequest(int pageNumber) async{
     final apiResponse = await _barangRepository.getStockBarang(
         pageNumber ,

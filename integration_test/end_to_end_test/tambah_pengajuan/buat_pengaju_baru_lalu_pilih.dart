@@ -45,6 +45,5 @@ Future<void> buatPengajuBaruLaluPilih({
   await tester.pump();
 
   await tester.tap(find.widgetWithText(Card, pengaju.nama));
-  await tester.pump();
-  await Future.delayed(const Duration(seconds: 5));
+  await tester.pumpAndSettle();
 }
