@@ -11,8 +11,6 @@ import 'package:common/constant/routes/routes.dart';
 import 'package:dependencies/get_it.dart';
 import 'package:dependencies/provider.dart';
 import 'package:common/domain/model/pengaju.dart';
-import 'package:fitur_input_pengajuan/domain/model/pengajuan.dart';
-import 'package:fitur_input_pengajuan/domain/repository/i_submit_pengajuan_repository.dart';
 import 'package:fitur_input_pengajuan/presentation/component/main_form/clock_field.dart';
 import 'package:fitur_input_pengajuan/presentation/component/main_form/barang_field.dart';
 import 'package:fitur_input_pengajuan/presentation/component/main_form/date_field.dart';
@@ -20,21 +18,14 @@ import 'package:fitur_input_pengajuan/presentation/provider/main_form/main_form_
 import 'package:flutter/material.dart';
 
 class MainForm extends StatelessWidget {
-  final Pengajuan initialData;
   const MainForm({
     super.key,
-    required this.initialData,
   });
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-        create: (context) =>
-          MainFormProvider(
-            user: GetIt.I.get(),
-            initialData: initialData,
-            repository: GetIt.I.get<ISubmitPengajuanRepository>(),
-          ),
+        create: (context) => GetIt.I.get<MainFormProvider>(),
         child: Consumer<MainFormProvider>(
           builder: (context, provider, child) {
             if (provider.submitResponse is ApiResponseSuccess) {
@@ -131,7 +122,7 @@ class MainForm extends StatelessWidget {
                               Routes.fiturPilihGroupRoute,
                               arguments: false,
                             );
-                            debugPrint(groupPicked.toString());
+
                             if (groupPicked is Pengaju) {
                               provider.onChangeGroup(groupPicked);
                             }

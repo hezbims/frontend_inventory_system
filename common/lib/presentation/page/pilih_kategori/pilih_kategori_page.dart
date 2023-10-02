@@ -1,9 +1,9 @@
-import 'package:common/data/repository/kategori_repository_impl.dart';
 import 'package:common/domain/extension/media_query_data_extension.dart';
 import 'package:common/domain/model/kategori.dart';
 import 'package:common/presentation/api_loader/api_loader.dart';
 import 'package:common/presentation/button/tambah_sesuatu_button.dart';
-import 'package:common/presentation/dependency_setup/kategori_dialog_dependency_setup.dart';
+import 'package:common/presentation/dependency_setup/buat_kategori_dialog_dependency_setup.dart';
+import 'package:dependencies/get_it.dart';
 import 'package:dependencies/provider.dart';
 import 'package:common/presentation/card/kategori_card.dart';
 import 'package:common/presentation/page/pilih_kategori/pilih_kategori_provider.dart';
@@ -16,9 +16,7 @@ class PilihKategoriPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => PilihKategoriProvider(
-          repository: KategoriRepositoryImpl(),
-      ),
+      create: (context) => GetIt.I.get<PilihKategoriProvider>(),
       child: Consumer<PilihKategoriProvider>(
         builder: (context , provider , child){
           WidgetsBinding.instance.addPostFrameCallback(
@@ -68,7 +66,7 @@ class PilihKategoriPage extends StatelessWidget {
                               final result = await showDialog(
                                   context: context,
                                   builder: (context){
-                                    return KategoriDialogDependencySetup();
+                                    return BuatKategoriDialogDependencySetup();
                                   }
                               );
 

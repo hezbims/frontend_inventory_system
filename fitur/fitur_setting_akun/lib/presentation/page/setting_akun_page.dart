@@ -5,7 +5,6 @@ import 'package:common/presentation/textfield/style/spacing.dart';
 import 'package:common/constant/routes/routes.dart';
 import 'package:dependencies/get_it.dart';
 import 'package:dependencies/provider.dart';
-import 'package:fitur_setting_akun/data/repository/setting_akun_repository_impl.dart';
 import 'package:fitur_setting_akun/presentation/component/buat_akun_baru_dialog.dart';
 import 'package:fitur_setting_akun/presentation/component/loader_overlay.dart';
 import 'package:fitur_setting_akun/presentation/component/setting_akun_item.dart';
@@ -18,9 +17,7 @@ class SettingAkunPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (BuildContext context) => SettingAkunProvider(
-        repository: SettingAkunRepositoryImpl()
-      ),
+      create: (BuildContext context) => GetIt.I.get<SettingAkunProvider>(),
       child: Consumer<SettingAkunProvider>(
         builder: (context , provider , child) {
           if (provider.logoutSuccess){

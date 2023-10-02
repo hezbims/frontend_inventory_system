@@ -5,9 +5,9 @@ import 'package:common/presentation/textfield/search_app_bar.dart';
 import 'package:common/presentation/button/tambah_sesuatu_button.dart';
 import 'package:common/data/repository/pengaju_repository_impl.dart';
 import 'package:common/domain/model/pengaju.dart';
-import 'package:fitur_input_pengajuan/presentation/component/pilih_group/group_card.dart';
-import 'package:fitur_input_pengajuan/presentation/component/pilih_group/show_buat_group_dialog.dart';
-import 'package:fitur_input_pengajuan/presentation/provider/pilih_group/pilih_group_provider.dart';
+import 'package:fitur_input_pengajuan/presentation/component/pilih_pengaju/pengaju_card.dart';
+import 'package:fitur_input_pengajuan/presentation/component/pilih_pengaju/show_buat_pengaju_dialog.dart';
+import 'package:fitur_input_pengajuan/presentation/provider/pilih_pengaju/pilih_pengaju_provider.dart';
 import 'package:flutter/material.dart';
 
 class PilihPengajuPage extends StatelessWidget {
@@ -18,11 +18,11 @@ class PilihPengajuPage extends StatelessWidget {
     final isPemasok = ModalRoute.of(context)?.settings.arguments as bool;
 
     return ChangeNotifierProvider(
-      create: (context) => PilihGroupProvider(
+      create: (context) => PilihPengajuProvider(
         repository: PengajuRepositoryImpl(),
         isPemasok: isPemasok,
       ),
-      child: Consumer<PilihGroupProvider>(
+      child: Consumer<PilihPengajuProvider>(
         builder: (context , provider , child){
           WidgetsBinding.instance.addPostFrameCallback(
             (_) {
@@ -47,7 +47,7 @@ class PilihPengajuPage extends StatelessWidget {
                           horizontal: MediaQuery.of(context).maxHorizontalPadding
                         ),
                         itemBuilder: (context , index){
-                          return GroupCard(
+                          return PengajuCard(
                             group: listGroup[index],
                           );
                         },
@@ -63,7 +63,7 @@ class PilihPengajuPage extends StatelessWidget {
                         child: TambahSesuatuButton(
                             label: "Tambah ${isPemasok ? 'pemasok' : 'group'} baru",
                             onTap: () async {
-                              final result = await showBuatGroupDialog(
+                              final result = await showBuatPengajuDialog(
                                 context: context,
                                 isPemasok: isPemasok,
                               );

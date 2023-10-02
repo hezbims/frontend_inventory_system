@@ -5,10 +5,10 @@ import 'package:dependencies/get_it.dart';
 import 'package:dependencies/provider.dart';
 import 'package:fitur_input_pengajuan/domain/model/barang_transaksi.dart';
 import 'package:fitur_input_pengajuan/domain/model/pengajuan.dart';
-import 'package:fitur_input_pengajuan/domain/repository/i_submit_pengajuan_repository.dart';
 import 'package:fitur_input_pengajuan/presentation/component/common/transaksi_barang_bottom_sheet.dart';
 import 'package:fitur_input_pengajuan/presentation/component/main_form/barang_field.dart';
 import 'package:fitur_input_pengajuan/presentation/pages/main_form.dart';
+import 'package:fitur_input_pengajuan/presentation/provider/main_form/main_form_provider.dart';
 import 'package:fitur_input_pengajuan/presentation/provider/pilih_barang/bottom_sheet_barang_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -34,20 +34,27 @@ void main() {
       'ketika tipe pengaju diubah menjadi group, '
       'maka field group dan list barang juga akan tampil, ',
     (tester) async {
-      GetIt.I.registerSingleton<ISubmitPengajuanRepository>(MockSubmitPengajuanRepository());
-      GetIt.I.registerSingleton(User(token: '', username: '', isAdmin: true, id: 1));
+      final user = User(token: '', username: '', isAdmin: true, id: 1);
+      final initialPengajuan = Pengajuan(
+        id: null,
+        tanggal: DateTime.now(),
+        pengaju: null,
+        status: null,
+      );
+
+      GetIt.I.registerSingleton(
+        MainFormProvider(
+          repository: MockSubmitPengajuanRepository(),
+          initialData: initialPengajuan,
+          user: user,
+        ),
+      );
+
       await tester.pumpWidget(
-        MaterialApp(
+        const MaterialApp(
           home: Directionality(
             textDirection: TextDirection.ltr,
-              child: MainForm(
-                initialData: Pengajuan(
-                  id: null,
-                  tanggal: DateTime.now(),
-                  pengaju: null,
-                  status: null,
-                ),
-              ),
+              child: MainForm(),
           ),
         ),
       );
