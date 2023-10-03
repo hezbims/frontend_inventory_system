@@ -47,7 +47,7 @@ class LihatStockBarangPage extends StatelessWidget {
                   );
 
                   if (result != null){
-                    provider.pagingController.refresh();
+                    provider.tryApiCall();
                   }
                 },
                 child: const Icon(Icons.add),

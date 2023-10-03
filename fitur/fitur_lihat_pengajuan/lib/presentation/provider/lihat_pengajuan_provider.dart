@@ -2,12 +2,13 @@ import 'package:common/data/repository/notification_repository_impl.dart';
 import 'package:common/domain/model/pengaju.dart';
 import 'package:common/domain/repository/i_notification_repository.dart';
 import 'package:common/response/api_response.dart';
+import 'package:common/utils/disposable_change_notifier.dart';
 import 'package:dependencies/infinite_scroll_pagination.dart';
 import 'package:fitur_lihat_pengajuan/domain/model/pengajuan_preview.dart';
 import 'package:fitur_lihat_pengajuan/domain/repository/i_lihat_pengajuan_repository.dart';
 import 'package:flutter/material.dart';
 
-class LihatPengajuanProvider extends ChangeNotifier {
+class LihatPengajuanProvider extends DisposableChangeNotifier {
   final ILihatPengajuanRepository _repository;
   final INotificationRepository _notifRepo;
   LihatPengajuanProvider({
@@ -54,7 +55,9 @@ class LihatPengajuanProvider extends ChangeNotifier {
     if (!_isRefreshing){
       _isRefreshing = true;
       await _pageRequestProcess;
-      pagingController.refresh();
+      if (canUseResource) {
+        pagingController.refresh();
+      }
       _isRefreshing = false;
     }
   }

@@ -11,17 +11,21 @@ import 'package:integration_test/integration_test.dart';
 import 'package:stock_bu_fan/dependency_injection/setup_di.dart';
 import 'package:stock_bu_fan/main.dart';
 
+import 'bottom_navigation/to_laporan.dart';
 import 'bottom_navigation/to_pengajuan.dart';
 import 'bottom_navigation/to_setting_akun.dart';
 import 'extension_and_utils/prepare_database.dart';
+import 'lihat_pdf_laporan/lihat_pdf_laporan.dart';
 import 'login/login.dart';
 import 'setting_akun/logout.dart';
 import 'tambah_barang/input_dua_barang_case.dart';
 import 'tambah_pengajuan/tambah_pengajuan_dari_non_admin_case.dart';
+import 'terima_pengajuan/terima_pengajuan.dart';
 
 // Bakal ngegunain production environment
 void main() {
-  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+  final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+  binding.testTextInput.register();
 
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     setupMainDependencyInjection();
@@ -40,6 +44,8 @@ void main() {
     await logout(tester: tester);
     await login(tester: tester, username: 'admin', password: '123');
     await navigateToPengajuanPage(tester: tester);
-
+    await terimaPengajuan(tester: tester);
+    await navigateToLaporan(tester: tester);
+    await lihatPdfLaporan(tester: tester , binding: binding);
   });
 }

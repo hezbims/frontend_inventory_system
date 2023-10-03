@@ -1,8 +1,7 @@
 import 'package:common/presentation/api_loader/default_error_widget.dart';
 import 'package:common/constant/themes/theme_color.dart';
+import 'package:dependencies/get_it.dart';
 import 'package:dependencies/provider.dart';
-import 'package:fitur_buat_laporan/data/repository/get_data_laporan_repository_impl.dart';
-import 'package:fitur_buat_laporan/domain/model/generate_pdf_parameter_dto.dart';
 import 'package:fitur_buat_laporan/presentation/provider/preview_laporan_provider.dart';
 import 'package:fitur_buat_laporan/presentation/utils/generate_pdf.dart';
 import 'package:flutter/material.dart';
@@ -14,14 +13,8 @@ class PreviewLaporanPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO : Buat test untuk mastiin parameter pasti ke pass
-    final param = ModalRoute.of(context)?.settings.arguments as GeneratePdfParameterDto;
-
     return ChangeNotifierProvider(
-      create: (context) => PreviewLaporanProvder(
-        repository: GetDataLaporanRepositoryImpl(),
-        param: param,
-      ),
+      create: (context) => GetIt.I.get<PreviewLaporanProvder>(),
       child: Consumer<PreviewLaporanProvder>(
         builder: (context , provider , child) {
           return Scaffold(
@@ -31,22 +24,22 @@ class PreviewLaporanPage extends StatelessWidget {
               scrolledUnderElevation: 0,
             ),
             body:
-            PdfPreview(
-              onError: (context , error){
-                return DefaultErrorWidget(
-                  onTap: provider.refresh,
-                  errorMessage: error.toString(),
-                );
-              },
-              initialPageFormat: PdfPageFormat.a4,
-              build: (pageFormat) async {
-                return generatePdf (
-                  pageFormat: pageFormat,
-                  period: provider.period,
-                  apiResponse: await provider.dataLaporanResponse
-                );
-              }
-            ),
+              PdfPreview(
+                onError: (context , error){
+                  return DefaultErrorWidget(
+                    onTap: provider.refresh,
+                    errorMessage: error.toString(),
+                  );
+                },
+                initialPageFormat: PdfPageFormat.a4,
+                build: (pageFormat) async {
+                  return generatePdf (
+                    pageFormat: pageFormat,
+                    period: provider.period,
+                    apiResponse: await provider.dataLaporanResponse
+                  );
+                }
+              ),
           );
         }
       ),

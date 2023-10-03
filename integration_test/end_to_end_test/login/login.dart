@@ -14,7 +14,7 @@ Future<void> login({
 }) async {
   final userProvider = GetIt.I.get<UserProvider>();
   await userProvider.getUserResponse;
-  await tester.pump();
+  await tester.pumpAndSettle();
   await tester.enterText(find.byType(TextField).first, username);
   await tester.enterText(find.byType(TextField).last, password);
 

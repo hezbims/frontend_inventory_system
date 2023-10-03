@@ -1,11 +1,12 @@
 import 'package:common/domain/repository/i_barang_repository.dart';
 import 'package:common/response/api_response.dart';
+import 'package:common/utils/disposable_change_notifier.dart';
 import 'package:dependencies/infinite_scroll_pagination.dart';
 import 'package:fitur_input_pengajuan/domain/model/barang_preview.dart';
 import 'package:fitur_input_pengajuan/domain/model/barang_transaksi.dart';
 import 'package:flutter/material.dart';
 
-class PilihBarangProvider extends ChangeNotifier {
+class PilihBarangProvider extends DisposableChangeNotifier {
   final IBarangRepository _barangRepository;
   final bool isPemasukan;
   Function(BarangPreview)? showBottomSheet;
@@ -25,7 +26,9 @@ class PilihBarangProvider extends ChangeNotifier {
     if (!_isTryingRefresh){
       _isTryingRefresh = true;
       await _pageRequestProcess;
-      pagingController.refresh();
+      if (canUseResource) {
+        pagingController.refresh();
+      }
       _isTryingRefresh = false;
     }
   }

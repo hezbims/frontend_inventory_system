@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import '../../../test/testing_api_client.dart';
+import 'testing_api_client.dart';
 
 Future<void> prepareDatabase() async {
   final testApiClient = TestingApiClient();

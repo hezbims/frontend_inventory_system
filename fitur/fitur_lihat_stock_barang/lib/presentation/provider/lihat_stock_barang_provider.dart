@@ -4,11 +4,12 @@ import 'package:common/domain/model/barang.dart';
 import 'package:common/domain/model/kategori.dart';
 import 'package:common/domain/repository/i_barang_repository.dart';
 import 'package:common/response/api_response.dart';
+import 'package:common/utils/disposable_change_notifier.dart';
 import 'package:fitur_lihat_stock_barang/domain/use_case/get_barang_paginate_use_case.dart';
 import 'package:flutter/material.dart';
 import 'package:dependencies/infinite_scroll_pagination.dart';
 
-class LihatStockBarangProvider extends ChangeNotifier {
+class LihatStockBarangProvider extends DisposableChangeNotifier {
   final GetBarangPaginateUseCase _barangPaginator;
   LihatStockBarangProvider({
     required IBarangRepository repository,
@@ -23,7 +24,9 @@ class LihatStockBarangProvider extends ChangeNotifier {
     if (!_isTryApiCall) {
       _isTryApiCall = true;
       await _waitListener();
-      pagingController.refresh();
+      if (canUseResource) {
+        pagingController.refresh();
+      }
       _isTryApiCall = false;
     }
   }

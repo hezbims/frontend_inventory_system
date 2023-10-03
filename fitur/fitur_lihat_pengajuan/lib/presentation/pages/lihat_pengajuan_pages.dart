@@ -68,7 +68,7 @@ class LihatPengajuanPages extends StatelessWidget {
                   );
 
                   if (result != null){
-                    provider.pagingController.refresh();
+                    provider.tryRefresh();
                   }
                 },
                 child: const Icon(Icons.add),
@@ -91,14 +91,14 @@ class LihatPengajuanPages extends StatelessWidget {
                       );
 
                       if (result != null){
-                        provider.pagingController.refresh();
+                        provider.tryRefresh();
                       }
                     },
                   );
                 },
                 firstPageErrorIndicatorBuilder: (context){
                   return DefaultErrorWidget(
-                    onTap: provider.pagingController.refresh,
+                    onTap: provider.tryRefresh,
                     errorMessage: provider.pagingController.error.toString(),
                   );
                 }
