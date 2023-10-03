@@ -21,8 +21,9 @@ class UserProvider extends ChangeNotifier {
   /// karena token yang didapat dari variabel ini akan direfresh setiap
   /// aplikasi mulai berjalan. masa dari token yang baru saja didapatkan adalah
   /// 1 bulan.
-  Future<ApiResponse> get getUserResponse =>
-    _getUserResponse ??= _getUser();
+  Future<ApiResponse> get getUserResponse {
+    return _getUserResponse ??= _getUser();
+  }
   Future<ApiResponse> _getUser() async {
     final response = await _repository.getUser();
     if (response is ApiResponseSuccess<User> || response is ApiResponseFailed){

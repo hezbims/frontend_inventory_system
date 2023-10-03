@@ -24,7 +24,7 @@ abstract class ApiRequestProcessor {
             false
         );
       } else {
-        debugPrint("api request processor failed : ${response.body}");
+        debugPrint("api request processor failed(${response.statusCode}) : ${response.body}");
         return ApiResponseFailed(
           error: getErrorMessageFromBody == null ?
             DefaultMessageMapper.getMessageFromBody(response.body) :
@@ -33,7 +33,7 @@ abstract class ApiRequestProcessor {
         );
       }
     } catch (e) {
-      debugPrint("api request processor failed : $e");
+      debugPrint("api request unknown fail : $e");
       return ApiResponseFailed(
         error: "$repositoryName : $e",
       );

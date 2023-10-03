@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:common/domain/model/user.dart';
 import 'package:common/presentation/provider/user_provider.dart';
 import 'package:common/presentation/api_loader/default_error_widget.dart';
@@ -19,25 +21,21 @@ class RouteGuard extends StatelessWidget {
         return FutureBuilder(
           future: provider.getUserResponse,
           builder: (context , snapshot){
-            if (snapshot.hasData){
+            if (snapshot.connectionState == ConnectionState.done){
               final data = snapshot.data!;
 
               if (data is ApiResponseFailed){
-                // berarti gagal tersambung ke server
-                if (data.statusCode == null){
+                // Local token tidak valid
+                if (data.statusCode == HttpStatus.unauthorized){
+                  return LoginDependencySetup();
+                }
+                else {
                   return Scaffold(
                     body: DefaultErrorWidget(
                       onTap: provider.refresh,
                       errorMessage: data.error.toString(),
                     ),
                   );
-                }
-                // Berarti local token (dari shared-pref) sekarang enggak valid
-                else if (data.statusCode == 401){
-                  return LoginDependencySetup();
-                }
-                else {
-                  throw Exception('Get Current User ngedapetin status yang enggak diketahui');
                 }
               }
               else if (data is ApiResponseSuccess<User>){
