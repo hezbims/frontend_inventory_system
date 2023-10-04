@@ -1,6 +1,7 @@
 import 'package:common/constant/enums/status_pengajuan.dart';
 import 'package:common/domain/model/pengaju.dart';
 import 'package:common/domain/model/user.dart';
+import 'package:common/presentation/button/cancel_button.dart';
 import 'package:common/presentation/dependency_setup/get_it_dependency_setup.dart';
 import 'package:common/presentation/textfield/custom_textfield.dart';
 import 'package:dependencies/get_it.dart';
@@ -54,6 +55,50 @@ void main(){
 
       expect(find.text('Keterangan : $newKeterangan'), findsOneWidget);
       expect(find.text('Quantity : $newQuantity'), findsOneWidget);
+    }
+  );
+
+  testWidgets(
+    'Diberikan sebuah main form dengan dua buah barang ajuan '
+    'ketika tombol tong sampah terakhir di klik, '
+    'maka barang terakhir akan hilang ',
+    (tester) async {
+      await tester.pumpWidget(siapkanMainFormDenganDuaBarangAjuan());
+
+      await tester.ensureVisible(find.byIcon(Icons.delete).last);
+      await tester.pumpAndSettle();
+      await tester.tap(
+          find.byIcon(Icons.delete).last,
+      );
+      await tester.pump();
+
+      expect(find.text('barang-2'), findsNothing);
+    }
+  );
+
+  // ngatasin bug sebelumnya yang gak bisa ngedit dua kali
+  testWidgets(
+    'Diberikan sebuah main form '
+    'ketika user mencoba klik edit barang pertama '
+    'lalu cancel '
+    'lalu coba edit pertama lagi '
+    'lalu cancel lagi '
+    'maka semua proses berjalan tanpa error dan barang tetap tidak teredit',
+    (tester) async {
+      await tester.pumpWidget(siapkanMainFormDenganDuaBarangAjuan());
+
+      await tester.tap(find.byIcon(Icons.edit).first);
+      await tester.pumpAndSettle();
+      await tester.tap(find.byType(CancelButton));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byIcon(Icons.edit).first);
+      await tester.pumpAndSettle();
+      await tester.tap(find.byType(CancelButton));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Keterangan : ket-1'), findsOneWidget);
+      expect(find.text('Quantity : 9'), findsOneWidget);
     }
   );
 }
