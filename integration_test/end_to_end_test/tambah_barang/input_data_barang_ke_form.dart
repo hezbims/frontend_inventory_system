@@ -1,12 +1,11 @@
 import 'package:common/domain/model/barang.dart';
 import 'package:common/presentation/button/submit_button.dart';
-import 'package:dependencies/get_it.dart';
-import 'package:fitur_input_data_barang/presentation/provider/input_data_barang_provider.dart';
+import 'package:fitur_input_data_barang/presentation/page/input_data_barang_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../extension_and_utils/cusom_widget_tester_extension.dart';
-import '../extension_and_utils/wait_api_response_until_complete.dart';
+import '../extension_and_utils/wait_until_disappear.dart';
 import 'buat_dan_piliih_kategori.dart';
 
 Future<void> inputDataBarangKeForm({
@@ -61,7 +60,10 @@ Future<void> inputDataBarangKeForm({
   await tester.dragUntilVisible(submitButtonFinder, find.byType(ListView), const Offset(0, -50));
   await tester.tap(submitButtonFinder);
 
-  final provider = GetIt.I.get<InputDataBarangProvider>();
-  await waitUntilApiResponseComplete(() => provider.submitResponse);
-  await tester.pumpAndSettle();
+  await tester.waitUntilDisappear(
+    find.descendant(
+      of: find.byType(InputDataBarangPage),
+      matching: find.byType(CircularProgressIndicator)
+    )
+  );
 }
