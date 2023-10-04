@@ -13,7 +13,7 @@ import 'package:fitur_input_pengajuan/presentation/provider/pilih_barang/bottom_
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../mock/mock.dart';
+import '../mock/mock_submit_pengajuan_repository.dart';
 
 void main() {
   late BarangTransaksi dummyBarangTransaksi;
@@ -95,8 +95,9 @@ void main() {
       expect(find.byType(ListBarangFormField), findsOneWidget);
   } , tags: [TestTags.fastTest]);
 
-  testWidgets('ketika bottom sheet pertama kali dibuka, maka need focus, '
-      'namun yang kedua maka tidak perlu focus' , (tester) async {
+  testWidgets(
+      'ketika bottom sheet pertama kali dibuka, maka need focus, '
+      'namun kalo pindah ke field keterangan, maka focusnya tetep di keterangan ' , (tester) async {
 
     final bottomSheetProvider = BottomSheetBarangProvider();
     await tester.pumpWidget(

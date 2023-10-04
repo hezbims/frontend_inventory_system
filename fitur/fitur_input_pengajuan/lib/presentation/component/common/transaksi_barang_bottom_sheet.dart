@@ -74,6 +74,7 @@ class TransaksiBarangBottomSheet extends StatelessWidget {
               label: "Keterangan",
               errorText: null,
               minLines: 3,
+              onSubmit: (_) => trySubmit(),
             ),
 
             const VerticalFormSpacing(),
