@@ -8,7 +8,7 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
-import 'package:stock_bu_fan/dependency_injection/setup_di.dart';
+import 'package:stock_bu_fan/dependency_injection/setup_main_dependency_injection.dart';
 import 'package:stock_bu_fan/main.dart';
 
 import 'bottom_navigation/to_laporan.dart';

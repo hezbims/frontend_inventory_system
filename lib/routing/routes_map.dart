@@ -1,6 +1,6 @@
 import 'package:common/presentation/dependency_setup/pilih_kategori_dependency_setup.dart';
 import 'package:common/constant/routes/routes.dart';
-import 'package:fitur_auth_guard/dependency_setup/login_dependency_setup.dart';
+import 'package:fitur_auth_guard/presentation/page/login_screen.dart';
 import 'package:fitur_buat_laporan/presentation/page/pilih_bulan_tahun_page.dart';
 import 'package:fitur_buat_laporan/presentation/page/preview_laporan_page.dart';
 import 'package:fitur_input_data_barang/dependency_setup/input_data_barang_dependency_setup.dart';
@@ -51,9 +51,5 @@ final Map<String , Widget Function(RouteSettings)> routesMap = {
       const PreviewLaporanPage(),
   Routes.settingAkunRoute : (settings) =>
       SettingAkunPageDependencySetup(),
-  Routes.loginRoute : (settings) => GetItDependencySetup(
-      setup: (){},
-      disposeFunction: (){},
-      page: LoginDependencySetup()
-  ),
+  Routes.loginRoute : (settings) => const LoginScreen(),
 };

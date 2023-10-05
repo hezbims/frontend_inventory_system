@@ -5,7 +5,7 @@ import 'package:common/presentation/provider/user_provider.dart';
 import 'package:common/presentation/api_loader/default_error_widget.dart';
 import 'package:common/response/api_response.dart';
 import 'package:dependencies/provider.dart';
-import 'package:fitur_auth_guard/dependency_setup/login_dependency_setup.dart';
+import 'package:fitur_auth_guard/presentation/page/login_screen.dart';
 import 'package:flutter/material.dart';
 
 class RouteGuard extends StatelessWidget {
@@ -27,7 +27,7 @@ class RouteGuard extends StatelessWidget {
               if (data is ApiResponseFailed){
                 // Local token tidak valid
                 if (data.statusCode == HttpStatus.unauthorized){
-                  return LoginDependencySetup();
+                  return LoginScreen();
                 }
                 else {
                   return Scaffold(
