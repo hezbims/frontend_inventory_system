@@ -5,15 +5,14 @@ import 'package:common/domain/model/kategori.dart';
 import 'package:common/domain/repository/i_barang_repository.dart';
 import 'package:common/response/api_response.dart';
 import 'package:common/utils/disposable_change_notifier.dart';
-import 'package:fitur_lihat_stock_barang/domain/use_case/get_barang_paginate_use_case.dart';
 import 'package:flutter/material.dart';
 import 'package:dependencies/infinite_scroll_pagination.dart';
 
 class LihatStockBarangProvider extends DisposableChangeNotifier {
-  final GetBarangPaginateUseCase _barangPaginator;
+  final IBarangRepository _repository;
   LihatStockBarangProvider({
     required IBarangRepository repository,
-  }) : _barangPaginator = GetBarangPaginateUseCase(repository: repository) {
+  }) : _repository = repository {
     pagingController.addPageRequestListener(_performApiCall);
   }
 
@@ -43,9 +42,8 @@ class LihatStockBarangProvider extends DisposableChangeNotifier {
   void _performApiCall(int pageNumber) async {
     _listenerIsProcessing = true;
     try {
-      final apiResponse = await _barangPaginator.fetch(
-        pageNumber: pageNumber,
-        keyword: namaController.text,
+      final apiResponse = await _repository.getStockBarang(
+        pageNumber, namaController.text,
       );
 
       if (apiResponse is ApiResponseSuccess<List<Barang>>) {

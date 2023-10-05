@@ -19,9 +19,7 @@ class LihatStockBarangPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => LihatStockBarangProvider(
-        repository: GetIt.I.get(),
-      ),
+      create: (context) => GetIt.I.get<LihatStockBarangProvider>(),
       child: Consumer<LihatStockBarangProvider>(
         builder: (context , provider , child) {
           return Scaffold(

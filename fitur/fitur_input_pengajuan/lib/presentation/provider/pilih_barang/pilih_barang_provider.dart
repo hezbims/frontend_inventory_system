@@ -4,18 +4,21 @@ import 'package:common/utils/disposable_change_notifier.dart';
 import 'package:dependencies/infinite_scroll_pagination.dart';
 import 'package:fitur_input_pengajuan/domain/model/barang_preview.dart';
 import 'package:fitur_input_pengajuan/domain/model/barang_transaksi.dart';
+import 'package:fitur_input_pengajuan/domain/use_case/get_barang_preview_use_case.dart';
 import 'package:flutter/material.dart';
 
 class PilihBarangProvider extends DisposableChangeNotifier {
-  final IBarangRepository _barangRepository;
+  final GetBarangPreviewUseCase _getBarangPreviewUseCase;
   final bool isPemasukan;
   Function(BarangPreview)? showBottomSheet;
 
   PilihBarangProvider({
-    required this.isPemasukan,
     required IBarangRepository barangRepository,
+    required this.isPemasukan,
     required this.choosenBarang,
-  }) : _barangRepository = barangRepository {
+  }) : _getBarangPreviewUseCase = GetBarangPreviewUseCase(
+      repository: barangRepository
+  ) {
     pagingController.addPageRequestListener((pageNumber) {
         _pageRequestProcess = _processPageRequest(pageNumber);
     });
@@ -40,9 +43,9 @@ class PilihBarangProvider extends DisposableChangeNotifier {
   Future<BarangPreview?> get pageRequestProcess =>
     _pageRequestProcess;
   Future<BarangPreview?> _processPageRequest(int pageNumber) async{
-    final apiResponse = await _barangRepository.getStockBarang(
-        pageNumber ,
-        searchBarangController.text
+    final apiResponse = await _getBarangPreviewUseCase(
+        pageNumber: pageNumber,
+        keyword: searchBarangController.text,
     );
 
     if (apiResponse is ApiResponseSuccess<List<BarangPreview>>){
