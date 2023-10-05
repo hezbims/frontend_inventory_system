@@ -1,8 +1,15 @@
 import 'package:dependencies/get_it.dart';
 import 'package:fitur_input_pengajuan/presentation/arg_model/main_form_to_pilih_barang_arg.dart';
 import 'package:fitur_input_pengajuan/presentation/provider/pilih_barang/pilih_barang_provider.dart';
+import 'package:fitur_input_pengajuan/presentation/provider/pilih_pengaju/pilih_pengaju_provider.dart';
 
 void fiturInputPengajuanDi(){
+  GetIt.I.registerFactoryParam(
+    (bool isPemasok , _) => PilihPengajuProvider(
+    repository: GetIt.I.get(),
+    isPemasok: isPemasok
+    )
+  );
   GetIt.I.registerFactoryParam(
     (MainFormToPilihBarangArg arg, param2) => PilihBarangProvider(
       barangRepository: GetIt.I.get(),

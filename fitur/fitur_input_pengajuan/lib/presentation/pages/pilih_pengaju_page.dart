@@ -15,8 +15,10 @@ class PilihPengajuPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isPemasok = ModalRoute.of(context)?.settings.arguments as bool;
+
     return ChangeNotifierProvider(
-      create: (context) => GetIt.I.get<PilihPengajuProvider>(),
+      create: (context) => GetIt.I.get<PilihPengajuProvider>(param1: isPemasok),
       child: Consumer<PilihPengajuProvider>(
         builder: (context , provider , child){
           WidgetsBinding.instance.addPostFrameCallback(

@@ -1,10 +1,13 @@
-import 'package:common/data/repository/pengaju_repository_impl.dart';
 import 'package:common/domain/model/pengaju.dart';
+import 'package:common/domain/repository/i_pengaju_repository.dart';
 import 'package:common/response/api_response.dart';
 import 'package:flutter/material.dart';
 
 class FilterPengajuProvider extends ChangeNotifier {
-  final _repository = PengajuRepositoryImpl();
+  final IPengajuRepository _repository;
+  FilterPengajuProvider({
+    required IPengajuRepository repository
+  }) : _repository = repository;
 
   String _tipePengaju = 'Group';
   String get tipePengaju => _tipePengaju;
