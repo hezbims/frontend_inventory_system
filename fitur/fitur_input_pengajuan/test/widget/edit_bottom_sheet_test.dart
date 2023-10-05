@@ -1,4 +1,5 @@
 import 'package:common/constant/enums/status_pengajuan.dart';
+import 'package:common/constant/test_tags/test_tags.dart';
 import 'package:common/domain/model/pengaju.dart';
 import 'package:common/domain/model/user.dart';
 import 'package:common/presentation/button/cancel_button.dart';
@@ -55,7 +56,7 @@ void main(){
 
       expect(find.text('Keterangan : $newKeterangan'), findsOneWidget);
       expect(find.text('Quantity : $newQuantity'), findsOneWidget);
-    }
+    } , tags: [TestTags.fastTest]
   );
 
   testWidgets(
@@ -73,7 +74,7 @@ void main(){
       await tester.pump();
 
       expect(find.text('barang-2'), findsNothing);
-    }
+    } , tags: [TestTags.fastTest]
   );
 
   // ngatasin bug sebelumnya yang gak bisa ngedit dua kali
@@ -99,7 +100,7 @@ void main(){
 
       expect(find.text('Keterangan : ket-1'), findsOneWidget);
       expect(find.text('Quantity : 9'), findsOneWidget);
-    }
+    } , tags: [TestTags.fastTest]
   );
 
   testWidgets(
@@ -126,7 +127,7 @@ void main(){
         find.widgetWithText(BarangQuantityIncrementer , "Quantity tidak valid"),
         findsOneWidget
       );
-    }
+    } , tags: [TestTags.fastTest]
   );
 }
 
