@@ -28,14 +28,15 @@ class BarangCard extends StatelessWidget {
 
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(barang.nama),
+                Expanded(child: Text(barang.nama)),
 
                 Text("Current stock : ${barang.stockSekarang}"),
               ],
             ),
 
-            Text(barang.id.toString()),
+            // Text(barang.id.toString()),
 
             const SizedBox(height: 24,),
 
