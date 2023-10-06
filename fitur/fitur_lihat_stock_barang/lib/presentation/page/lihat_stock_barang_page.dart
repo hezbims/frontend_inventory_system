@@ -36,7 +36,7 @@ class LihatStockBarangPage extends StatelessWidget {
             ),
             floatingActionButton: Padding(
               padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).maxHorizontalPadding,
+                horizontal: MediaQuery.of(context).phoneLandscapePadding,
               ),
               child: FloatingActionButton(
                 onPressed: () async {
@@ -57,7 +57,7 @@ class LihatStockBarangPage extends StatelessWidget {
             body: PagedListView<int , Barang>.separated(
               padding: EdgeInsets.symmetric(
                 vertical: 24,
-                horizontal: MediaQuery.of(context).maxHorizontalPadding,
+                horizontal: MediaQuery.of(context).phoneLandscapePadding,
               ),
               pagingController: provider.pagingController,
               builderDelegate: PagedChildBuilderDelegate(

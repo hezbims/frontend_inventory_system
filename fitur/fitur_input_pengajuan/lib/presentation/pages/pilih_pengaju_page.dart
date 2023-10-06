@@ -41,7 +41,7 @@ class PilihPengajuPage extends StatelessWidget {
                       ListView.separated(
                         padding: EdgeInsets.symmetric(
                           vertical: 48,
-                          horizontal: MediaQuery.of(context).maxHorizontalPadding
+                          horizontal: MediaQuery.of(context).phoneLandscapePadding
                         ),
                         itemBuilder: (context , index){
                           return PengajuCard(
@@ -56,7 +56,7 @@ class PilihPengajuPage extends StatelessWidget {
 
                       Positioned(
                         top: 16,
-                        right: 24 + MediaQuery.of(context).maxHorizontalPadding,
+                        right: 24 + MediaQuery.of(context).phoneLandscapePadding,
                         child: TambahSesuatuButton(
                             label: "Tambah ${provider.isPemasok ? 'pemasok' : 'group'} baru",
                             onTap: () async {

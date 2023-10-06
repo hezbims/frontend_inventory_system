@@ -61,7 +61,7 @@ class PilihListBarangPage extends StatelessWidget {
                   return PagedListView.separated(
                     padding: EdgeInsets.symmetric(
                       vertical: 36,
-                      horizontal: MediaQuery.of(context).maxHorizontalPadding,
+                      horizontal: MediaQuery.of(context).phoneLandscapePadding,
                     ),
                     pagingController: provider.pagingController,
                     builderDelegate: PagedChildBuilderDelegate(

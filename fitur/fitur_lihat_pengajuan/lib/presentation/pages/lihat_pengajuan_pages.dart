@@ -57,7 +57,7 @@ class LihatPengajuanPages extends StatelessWidget {
             ),
             floatingActionButton: Padding(
               padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).maxHorizontalPadding,
+                horizontal: MediaQuery.of(context).phoneLandscapePadding,
               ),
               child: FloatingActionButton(
                 onPressed: () async {
@@ -74,7 +74,7 @@ class LihatPengajuanPages extends StatelessWidget {
             ),
             body: PagedListView.separated(
               padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).maxHorizontalPadding,
+                horizontal: MediaQuery.of(context).phoneLandscapePadding,
                 vertical: 24,
               ),
               pagingController: provider.pagingController,

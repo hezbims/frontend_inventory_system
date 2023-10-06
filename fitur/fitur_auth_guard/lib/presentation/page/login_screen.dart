@@ -43,7 +43,7 @@ class LoginScreen extends StatelessWidget {
 
               return Padding(
                 padding: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).maxHorizontalPadding,
+                  horizontal: MediaQuery.of(context).phonePotraitPadding,
                 ),
                 child: Card(
                   elevation: 8,

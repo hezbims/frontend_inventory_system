@@ -3,7 +3,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 extension MediaQueryDataExtension on MediaQueryData {
-  double get maxHorizontalPadding {
+  double get phoneLandscapePadding {
     return max(24, (size.width - 720) / 2);
+  }
+  double get phonePotraitPadding {
+    return max(24 , (size.width - 312) / 2);
   }
 }

@@ -34,7 +34,7 @@ class PilihKategoriPage extends StatelessWidget {
                 apiResponse: provider.getFilteredKategori(),
                 onRefresh: provider.onRefreshKategori,
                 builder: (listKategori) {
-                  final horizontalPaddingSize = MediaQuery.of(context).maxHorizontalPadding;
+                  final horizontalPaddingSize = MediaQuery.of(context).phoneLandscapePadding;
                   return Stack(
                     children: [
                       ListView.separated(

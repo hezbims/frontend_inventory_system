@@ -138,7 +138,7 @@ class MainForm extends StatelessWidget {
 
                   return ListView.separated(
                     padding: EdgeInsets.symmetric(
-                        horizontal: MediaQuery.of(context).maxHorizontalPadding,
+                        horizontal: MediaQuery.of(context).phoneLandscapePadding,
                         vertical: 36
                     ),
                     itemBuilder: (context , index){
