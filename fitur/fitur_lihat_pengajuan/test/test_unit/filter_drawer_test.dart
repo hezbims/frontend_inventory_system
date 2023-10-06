@@ -1,16 +1,13 @@
 
 import 'package:common/constant/test_tags/test_tags.dart';
-import 'package:common/domain/model/pengaju.dart';
-import 'package:common/response/api_response.dart';
 import 'package:dependencies/provider.dart';
 import 'package:fitur_lihat_pengajuan/presentation/component/filter_pengaju/choosen_pengaju_field.dart';
 import 'package:fitur_lihat_pengajuan/presentation/pages/filter_pengaju_drawer.dart';
 import 'package:fitur_lihat_pengajuan/presentation/provider/filter_pengaju_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart';
 
-import '../mock/mock_pengaju_repository.dart';
+import '../mock/prepare_mock_pengaju_repository.dart';
 
 void main(){
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -21,21 +18,7 @@ void main(){
     'lalu ketika suatu pengaju dipilih, '
     'maka ia akan tampil sebagai yang dipilih pada card yang sudah ditentukan, ',
   (tester) async {
-    final mockRepo = MockPengajuRepository();
-    when(() => mockRepo.getPengaju(false)).thenAnswer(
-      (invocation) async => ApiResponseSuccess(data : [
-        Pengaju(nama: 'grup-1', id: 1, isPemasok: false),
-        Pengaju(nama: 'grup-2', id: 2, isPemasok: false),
-        Pengaju(nama: 'grup-3', id: 3, isPemasok: false),
-      ]),
-    );
-    when(() => mockRepo.getPengaju(true)).thenAnswer(
-      (invocation) async => ApiResponseSuccess(data : [
-        Pengaju(nama: 'pemasok-1', id: 4, isPemasok: true),
-        Pengaju(nama: 'pemasok-2', id: 5, isPemasok: true),
-        Pengaju(nama: 'pemasok-3', id: 6, isPemasok: true),
-      ]),
-    );
+    final mockRepo = prepareMockPengajuRepository();
 
     await tester.pumpWidget(
       MaterialApp(
