@@ -5,7 +5,8 @@ test_dirs = [
     #'',
     #"common",
     r"fitur\fitur_auth_guard",
-    r"fitur\fitur_input_pengajuan"
+    r"fitur\fitur_input_pengajuan",
+    r"fitur\fitur_lihat_pengajuan"
 ]
 
 for test_dir in test_dirs:

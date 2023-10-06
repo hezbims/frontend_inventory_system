@@ -32,6 +32,8 @@ class BarangCard extends StatelessWidget {
               children: [
                 Expanded(child: Text(barang.nama)),
 
+                const SizedBox(width: 4,),
+
                 Text("Current stock : ${barang.stockSekarang}"),
               ],
             ),

@@ -7,7 +7,6 @@ import 'package:common/constant/routes/routes.dart';
 import 'package:dependencies/get_it.dart';
 import 'package:dependencies/infinite_scroll_pagination.dart';
 import 'package:dependencies/provider.dart';
-import 'package:fitur_lihat_pengajuan/data/repository/lihat_pengajuan_repository_impl.dart';
 import 'package:fitur_lihat_pengajuan/domain/model/pengajuan_preview.dart';
 import 'package:fitur_lihat_pengajuan/presentation/component/pengajuan_card.dart';
 import 'package:fitur_lihat_pengajuan/presentation/pages/filter_pengaju_drawer.dart';
@@ -23,9 +22,7 @@ class LihatPengajuanPages extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => LihatPengajuanProvider(
-            repository: LihatPengajuanRepositoryImpl(),
-          ),
+          create: (context) => GetIt.I.get<LihatPengajuanProvider>(),
         ),
 
         ChangeNotifierProvider(
