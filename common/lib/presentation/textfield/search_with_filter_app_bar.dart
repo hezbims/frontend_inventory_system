@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class SearchWithFilterAppBar extends StatelessWidget implements PreferredSizeWidget{
   final String label;
   final String? hintText;
-  final void Function() onFilterPressed;
+  final void Function(BuildContext) onFilterPressed;
   final void Function(String) onValueChange;
   final TextEditingController searchController;
 
@@ -34,7 +34,7 @@ class SearchWithFilterAppBar extends StatelessWidget implements PreferredSizeWid
         ),
         actions: [
           IconButton(
-            onPressed: onFilterPressed,
+            onPressed: () => onFilterPressed(context),
             icon: const Icon(Icons.filter_alt , size: 32,)
           ),
 

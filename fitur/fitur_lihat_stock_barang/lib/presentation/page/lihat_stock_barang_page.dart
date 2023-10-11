@@ -23,13 +23,12 @@ class LihatStockBarangPage extends StatelessWidget {
       child: Consumer<LihatStockBarangProvider>(
         builder: (context , provider , child) {
           return Scaffold(
-            key: provider.scaffoldKey,
             endDrawerEnableOpenDragGesture: false,
             endDrawer: const FilterDrawer(),
             appBar: SearchWithFilterAppBar(
               label: "Cari nama barang",
-              onFilterPressed: (){
-                provider.scaffoldKey.currentState?.openEndDrawer();
+              onFilterPressed: (context){
+                Scaffold.of(context).openEndDrawer();
               },
               searchController: provider.namaController,
               onValueChange: (newValue) => provider.tryApiCall(),

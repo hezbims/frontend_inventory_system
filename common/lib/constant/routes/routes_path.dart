@@ -1,5 +1,6 @@
 import 'package:common/constant/query_param/key/query_params_key_buat_laporan.dart';
 import 'package:common/constant/routes/routes_name.dart';
+import 'package:flutter/material.dart';
 
 abstract class RoutesPath {
   static const initialRoute = '/';
@@ -13,9 +14,21 @@ abstract class RoutesPath {
   static const lihatPengajuanPath = "/${RoutesName.lihatPengajuanName}";
   static const fiturLihatPengajuanIndex = 2;
 
-  static const inputDataPengajuanPath = "$lihatPengajuanPath/${RoutesName.inputDataPengajuanName}";
-  static const inputListBarangPath = "$inputDataPengajuanPath/${RoutesName.inputListBarangName}";
-  static const pilihPengajuPath = "$lihatPengajuanPath/${RoutesName.pilihPengajuName}";
+  static String inputDataPengajuanPath({required int idPengajuan}){
+    return "$lihatPengajuanPath/${RoutesName.inputDataPengajuanName}/$idPengajuan";
+  }
+  static String inputListBarangPath({
+    required BuildContext context
+  }) {
+    final currentPath = ModalRoute.of(context)?.settings.name;
+    return "$currentPath/${RoutesName.inputListBarangName}";
+  }
+  static String pilihPengajuPath({
+    required BuildContext context,
+  }){
+    final currentPath = ModalRoute.of(context)?.settings.name;
+    return "$currentPath/${RoutesName.pilihPengajuName}";
+  }
 
   static const buatLaporanPath = "/${RoutesName.buatLaporanName}";
   static String previewPdfPath({
@@ -23,8 +36,8 @@ abstract class RoutesPath {
     required int tahun,
   }) {
     return "$buatLaporanPath/${RoutesName.previewPdfName}?"
-          "${QueryParamKeys.bulan}=$bulan&"
-          "${QueryParamKeys.tahun}=$tahun";
+        "${QueryParamKeys.bulan}=$bulan&"
+        "${QueryParamKeys.tahun}=$tahun";
   }
   static const buatLaporanIndex = 1;
 
@@ -32,4 +45,5 @@ abstract class RoutesPath {
 
   static const settingAkunPath = '/${RoutesName.settingAkunName}';
   static const settingAkunIndex = 3;
+
 }

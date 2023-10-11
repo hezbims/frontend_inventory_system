@@ -73,9 +73,6 @@ class LihatStockBarangProvider extends DisposableChangeNotifier {
 
   final PagingController<int , Barang> pagingController = PagingController(firstPageKey: 1);
 
-
-  final scaffoldKey = GlobalKey<ScaffoldState>();
-
   final namaController = TextEditingController();
   Kategori? _kategori;
   Kategori? get kategori => _kategori;

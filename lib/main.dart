@@ -1,5 +1,4 @@
 import 'package:common/presentation/provider/user_provider.dart';
-import 'package:common/constant/routes/routes_path.dart';
 import 'package:dependencies/get_it.dart';
 import 'package:dependencies/provider.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +30,6 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             title: 'Flutter Demo',
             theme: customThemeData,
-            initialRoute: RoutesPath.initialRoute,
             onGenerateRoute: onGenerateRoute,
           );
         }

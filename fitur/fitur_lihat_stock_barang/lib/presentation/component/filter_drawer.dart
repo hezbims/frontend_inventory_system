@@ -28,7 +28,7 @@ class FilterDrawer extends StatelessWidget {
             children: [
               IconButton(
                 onPressed: (){
-                  provider.scaffoldKey.currentState?.closeEndDrawer();
+                  Scaffold.of(context).closeEndDrawer();
                 }, icon: const Icon(Icons.close)
               ),
 

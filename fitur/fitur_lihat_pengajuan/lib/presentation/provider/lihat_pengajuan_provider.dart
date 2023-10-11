@@ -70,8 +70,6 @@ class LihatPengajuanProvider extends DisposableChangeNotifier {
     }
   }
 
-  final scaffoldKey = GlobalKey<ScaffoldState>();
-
   @override
   void dispose(){
     pagingController.dispose();

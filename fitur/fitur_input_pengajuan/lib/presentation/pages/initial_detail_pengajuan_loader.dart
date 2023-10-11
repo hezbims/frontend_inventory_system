@@ -7,17 +7,17 @@ import 'package:fitur_input_pengajuan/presentation/provider/main_form/get_detail
 import 'package:flutter/material.dart';
 
 class InitialDetailPengajuanLoader extends StatelessWidget {
+  final int idPengajuan;
   const InitialDetailPengajuanLoader({
+    required this.idPengajuan,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    final idPengajuan = ModalRoute.of(context)?.settings.arguments as int?;
-
     return ChangeNotifierProvider(
       create: (context) => GetDetailPengajuanProvider(
-        id: idPengajuan,
+        id: idPengajuan == 0 ? null : idPengajuan,
         repository: GetDetailPengajuanRepositoryImpl(),
       ),
       child: Consumer<GetDetailPengajuanProvider>(

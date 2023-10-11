@@ -35,7 +35,7 @@ class ListBarangFormField extends StatelessWidget {
           label: "Tambah barang",
           onTap: () async {
             final result = await Navigator.of(context).pushNamed(
-              RoutesPath.inputListBarangPath,
+              RoutesPath.inputListBarangPath(context: context),
               arguments: MainFormToPilihBarangArg(
                 initialList: provider.listBarangTransaksi,
                 isPemasukan: provider.isPemasukan!

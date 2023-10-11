@@ -32,12 +32,11 @@ class LihatPengajuanPage extends StatelessWidget {
       child: Consumer<LihatPengajuanProvider>(
         builder: (context , provider , child) {
           return Scaffold(
-            key: provider.scaffoldKey,
             appBar: SearchWithFilterAppBar(
               label: "Cari transaksi ",
               hintText: "ex : TRXI20220914001",
-              onFilterPressed: (){
-                provider.scaffoldKey.currentState?.openEndDrawer();
+              onFilterPressed: (context){
+                Scaffold.of(context).openEndDrawer();
               },
               searchController: provider.searchController,
               onValueChange: (_) => provider.tryRefresh(),
@@ -62,7 +61,7 @@ class LihatPengajuanPage extends StatelessWidget {
               child: FloatingActionButton(
                 onPressed: () async {
                   final result = await Navigator.of(context).pushNamed(
-                    RoutesPath.inputDataPengajuanPath
+                    RoutesPath.inputDataPengajuanPath(idPengajuan: 0),
                   );
 
                   if (result != null){
@@ -84,7 +83,7 @@ class LihatPengajuanPage extends StatelessWidget {
                     pengajuan: pengajuan,
                     onTap: () async {
                       final result = await Navigator.of(context).pushNamed(
-                        RoutesPath.inputDataPengajuanPath,
+                        RoutesPath.inputDataPengajuanPath(idPengajuan: pengajuan.id),
                         arguments: pengajuan.id,
                       );
 
