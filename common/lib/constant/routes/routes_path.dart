@@ -1,3 +1,4 @@
+import 'package:common/constant/query_param/key/query_params_key_buat_laporan.dart';
 import 'package:common/constant/routes/routes_name.dart';
 
 abstract class RoutesPath {
@@ -17,7 +18,14 @@ abstract class RoutesPath {
   static const pilihPengajuPath = "$lihatPengajuanPath/${RoutesName.pilihPengajuName}";
 
   static const buatLaporanPath = "/${RoutesName.buatLaporanName}";
-  static const previewPdfPath = "$buatLaporanPath/${RoutesName.previewPdfName}";
+  static String previewPdfPath({
+    required int bulan,
+    required int tahun,
+  }) {
+    return "$buatLaporanPath/${RoutesName.previewPdfName}?"
+          "${QueryParamKeys.bulan}=$bulan&"
+          "${QueryParamKeys.tahun}=$tahun";
+  }
   static const buatLaporanIndex = 1;
 
   static const loginPath = '/${RoutesName.loginName}';

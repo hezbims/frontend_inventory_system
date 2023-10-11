@@ -1,15 +1,18 @@
+import 'package:common/constant/query_param/key/query_params_key_buat_laporan.dart';
 import 'package:common/constant/routes/routes_name.dart';
 import 'package:common/constant/routes/routes_path.dart';
 import 'package:fitur_auth_guard/presentation/page/login_screen.dart';
 import 'package:fitur_auth_guard/presentation/route_guard.dart';
 import 'package:fitur_buat_laporan/presentation/page/pilih_bulan_tahun_page.dart';
+import 'package:fitur_buat_laporan/presentation/page/preview_laporan_page.dart';
 import 'package:fitur_lihat_pengajuan/presentation/pages/lihat_pengajuan_pages.dart';
 import 'package:fitur_lihat_stock_barang/presentation/page/lihat_stock_barang_page.dart';
 import 'package:fitur_setting_akun/dependency_setup/setting_akun_page_dependency_setup.dart';
 import 'package:flutter/material.dart';
 
 Route<dynamic>? onGenerateRoute(RouteSettings settings){
-  final urlPathSegments = Uri.parse(settings.name!).pathSegments;
+  final uri = Uri.parse(settings.name!);
+  final urlPathSegments = uri.pathSegments;
   final pathLength = urlPathSegments.length;
 
   debugPrint('Route name : ${settings.name}, segment : $urlPathSegments');
@@ -46,7 +49,16 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings){
     }
   }
   else if (pathLength == 2){
-
+    switch (urlPathSegments.last){
+      case RoutesName.previewPdfName:
+        nextPage = PreviewLaporanPage(
+          tahun: int.parse(uri.queryParameters[QueryParamKeys.tahun]!),
+          bulan: int.parse(uri.queryParameters[QueryParamKeys.bulan]!),
+        );
+        break;
+      default:
+        throw Exception('Unknown route path : ${settings.name}');
+    }
   }
 
 

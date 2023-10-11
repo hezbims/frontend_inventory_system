@@ -10,15 +10,20 @@ import 'package:pdf/pdf.dart';
 import 'package:printing/printing.dart';
 
 class PreviewLaporanPage extends StatelessWidget {
-  const PreviewLaporanPage({super.key});
+  final int tahun;
+  final int bulan;
+  const PreviewLaporanPage({
+    super.key,
+    required this.tahun,
+    required this.bulan,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final arg = ModalRoute.of(context)?.settings.arguments
-      as GeneratePdfParameterDto;
-
     return ChangeNotifierProvider(
-      create: (context) => GetIt.I.get<PreviewLaporanProvder>(param1: arg),
+      create: (context) => GetIt.I.get<PreviewLaporanProvder>(
+        param1: GeneratePdfParameterDto(month: bulan, year: tahun)
+      ),
       child: Consumer<PreviewLaporanProvder>(
         builder: (context , provider , child) {
           return Scaffold(

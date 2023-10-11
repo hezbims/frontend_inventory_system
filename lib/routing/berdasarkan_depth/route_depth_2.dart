@@ -11,7 +11,7 @@ final Map<String , dynamic Function(RouteSettings)> routeDepth2 = {
     }
     return InputDataBarangDependencySetup(settings: settings);
   },
-  RoutesName.previewPdfName : (settings) => const PreviewLaporanPage(),
+  RoutesName.previewPdfName : (settings) => const PreviewLaporanPage(bulan: 20,tahun: 2,),
   RoutesName.inputDataPengajuanName : (settings) =>
       InputDataPengajuanPageSetup(),
 };

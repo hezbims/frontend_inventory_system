@@ -31,12 +31,12 @@ class PilihBulanTahunProvider extends ChangeNotifier {
   final yearController = TextEditingController(
     text: DateTime.now().year.toString()
   );
-  int? get _year => int.tryParse(yearController.text);
+  int? get year => int.tryParse(yearController.text);
   String? yearError;
 
   bool goNext = false;
   void submit(){
-    if (_year != null){
+    if (year != null){
       yearError = null;
       goNext = true;
     }
@@ -148,6 +148,6 @@ class PilihBulanTahunProvider extends ChangeNotifier {
 
   GeneratePdfParameterDto get pdfParameter => GeneratePdfParameterDto(
     month: _choosenMonth.intValue,
-    year: _year!
+    year: year!
   );
 }

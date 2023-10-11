@@ -33,8 +33,10 @@ class PilihTahunBulanPage extends StatelessWidget {
                 (_) {
                   provider.goNext = false;
                   Navigator.of(context).pushNamed(
-                    RoutesPath.previewPdfPath,
-                    arguments: provider.pdfParameter,
+                    RoutesPath.previewPdfPath(
+                      bulan: provider.choosenMonth.intValue,
+                      tahun: provider.year!
+                    ),
                   );
                 }
               );
