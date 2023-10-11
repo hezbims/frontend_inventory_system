@@ -7,25 +7,28 @@ import 'package:common/presentation/textfield/custom_dropdown_menu.dart';
 import 'package:common/presentation/textfield/dropdown_page_chooser.dart';
 import 'package:common/presentation/textfield/style/spacing.dart';
 import 'package:common/response/api_response.dart';
-import 'package:common/constant/routes/routes_path.dart';
 import 'package:dependencies/get_it.dart';
 import 'package:dependencies/provider.dart';
 import 'package:common/domain/model/pengaju.dart';
+import 'package:fitur_input_pengajuan/domain/model/pengajuan.dart';
 import 'package:fitur_input_pengajuan/presentation/component/main_form/clock_field.dart';
 import 'package:fitur_input_pengajuan/presentation/component/main_form/barang_field.dart';
 import 'package:fitur_input_pengajuan/presentation/component/main_form/date_field.dart';
+import 'package:fitur_input_pengajuan/presentation/pages/pilih_pengaju_page.dart';
 import 'package:fitur_input_pengajuan/presentation/provider/main_form/main_form_provider.dart';
 import 'package:flutter/material.dart';
 
 class MainForm extends StatelessWidget {
+  final Pengajuan initialData;
   const MainForm({
     super.key,
+    required this.initialData,
   });
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-        create: (context) => GetIt.I.get<MainFormProvider>(),
+        create: (context) => GetIt.I.get<MainFormProvider>(param1: initialData),
         child: Consumer<MainFormProvider>(
           builder: (context, provider, child) {
             if (provider.submitResponse is ApiResponseSuccess) {
@@ -100,10 +103,14 @@ class MainForm extends StatelessWidget {
                         value: provider.pemasok?.nama ?? "",
                         errorMessage: provider.pemasokError,
                         onTap: () async {
-                          final pemasokPicked = await Navigator.of(
-                              context).pushNamed(
-                            RoutesPath.pilihPengajuPath(context: context),
-                            arguments: true,
+                          // Warning, jangan pernah push page ini dengan named route!!!
+                          // hal ini untuk keselamatan data ketika refresh
+                          final pemasokPicked = await Navigator.of(context)
+                            .push(
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                  const PilihPengajuPage(isPemasok: true),
+                            ),
                           );
                           if (pemasokPicked is Pengaju) {
                             provider.onChangePemasok(pemasokPicked);
@@ -118,10 +125,13 @@ class MainForm extends StatelessWidget {
                           value: provider.group?.nama ?? "",
                           errorMessage: provider.groupError,
                           onTap: () async {
-                            final groupPicked = await Navigator.of(context).pushNamed(
-                              RoutesPath.pilihPengajuPath(context: context),
-                              arguments: false,
-                            );
+                            final groupPicked = await Navigator.of(context)
+                              .push(
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                    const PilihPengajuPage(isPemasok: false),
+                                ),
+                              );
 
                             if (groupPicked is Pengaju) {
                               provider.onChangeGroup(groupPicked);

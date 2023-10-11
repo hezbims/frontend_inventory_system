@@ -49,6 +49,7 @@ class PilihBarangProvider extends DisposableChangeNotifier {
     );
 
     if (apiResponse is ApiResponseSuccess<List<BarangPreview>>){
+      debugPrint('isnext data exist : ${apiResponse.isNextDataExist}');
       if (apiResponse.isNextDataExist){
         pagingController.appendPage(apiResponse.data!, pageNumber + 1);
       }

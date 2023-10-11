@@ -15,7 +15,7 @@ abstract class RoutesPath {
   static const fiturLihatPengajuanIndex = 2;
 
   static String inputDataPengajuanPath({required int idPengajuan}){
-    return "$lihatPengajuanPath/${RoutesName.inputDataPengajuanName}/$idPengajuan";
+    return "$lihatPengajuanPath/$idPengajuan";
   }
   static String inputListBarangPath({
     required BuildContext context

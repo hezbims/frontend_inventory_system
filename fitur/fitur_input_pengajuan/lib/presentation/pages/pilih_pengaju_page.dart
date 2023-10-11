@@ -11,12 +11,14 @@ import 'package:fitur_input_pengajuan/presentation/provider/pilih_pengaju/pilih_
 import 'package:flutter/material.dart';
 
 class PilihPengajuPage extends StatelessWidget {
-  const PilihPengajuPage({super.key});
+  final bool isPemasok;
+  const PilihPengajuPage({
+    super.key,
+    required this.isPemasok,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final bool isPemasok = ModalRoute.of(context)?.settings.arguments as bool;
-
     return ChangeNotifierProvider(
       create: (context) => GetIt.I.get<PilihPengajuProvider>(param1: isPemasok),
       child: Consumer<PilihPengajuProvider>(

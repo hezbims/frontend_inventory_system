@@ -1,3 +1,4 @@
+import 'package:common/domain/model/barang.dart';
 import 'package:common/domain/repository/i_barang_repository.dart';
 import 'package:common/response/api_response.dart';
 import 'package:fitur_input_pengajuan/data/mapper/get_barang_preview_mapper.dart';
@@ -13,16 +14,22 @@ class GetBarangPreviewUseCase {
     required int pageNumber,
     required String keyword
   }) async {
-    final listBarangResponse = await _repository.getStockBarang(
+    var listBarangResponse = await _repository.getStockBarang(
         pageNumber, keyword
     );
 
     if (listBarangResponse is ApiResponseFailed){
       return listBarangResponse;
     }
+
+    listBarangResponse = listBarangResponse as ApiResponseSuccess<List<Barang>>;
+
     final listBarangPreview = _mapper.fromListBarangToListBarangPreview(
-        (listBarangResponse as ApiResponseSuccess).data
+      listBarangResponse.data!,
     );
-    return ApiResponseSuccess(data: listBarangPreview);
+    return ApiResponseSuccess(
+      data: listBarangPreview,
+      isNextDataExist: listBarangResponse.isNextDataExist
+    );
   }
 }

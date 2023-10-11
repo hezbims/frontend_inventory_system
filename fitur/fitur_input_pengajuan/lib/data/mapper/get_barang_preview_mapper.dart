@@ -3,7 +3,7 @@ import 'package:fitur_input_pengajuan/domain/model/barang_preview.dart';
 
 class GetBarangPreviewMapper {
   List<BarangPreview> fromListBarangToListBarangPreview(
-    List<Barang> listBarang,
+    List<Barang> listBarang
   ){
     return listBarang.map((barang) =>
       BarangPreview(

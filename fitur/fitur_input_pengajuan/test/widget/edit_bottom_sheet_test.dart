@@ -165,6 +165,6 @@ class MockMainFormDependencySetup extends GetItDependencySetup{
     disposeFunction: (){
       GetIt.I.unregister<MainFormProvider>();
     },
-    page: const MainForm(),
+    page: MainForm(),
   );
 }

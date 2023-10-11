@@ -6,7 +6,6 @@ import 'package:fitur_auth_guard/presentation/route_guard.dart';
 import 'package:fitur_buat_laporan/presentation/page/pilih_bulan_tahun_page.dart';
 import 'package:fitur_buat_laporan/presentation/page/preview_laporan_page.dart';
 import 'package:fitur_input_pengajuan/presentation/pages/initial_detail_pengajuan_loader.dart';
-import 'package:fitur_input_pengajuan/presentation/pages/pilih_pengaju_page.dart';
 import 'package:fitur_lihat_pengajuan/presentation/pages/lihat_pengajuan_pages.dart';
 import 'package:fitur_lihat_stock_barang/presentation/page/lihat_stock_barang_page.dart';
 import 'package:fitur_setting_akun/dependency_setup/setting_akun_page_dependency_setup.dart';
@@ -19,7 +18,7 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings){
 
   debugPrint('Route name : ${settings.name}, segment : $urlPathSegments');
 
-  late Widget nextPage;
+  Widget? nextPage;
   String nextUrl = settings.name!;
   bool needRouteGuard = true;
 
@@ -59,56 +58,31 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings){
         );
         break;
       default:
-        throw Exception('Unknown route path : ${settings.name}');
-    }
-  }
-  else if (pathLength == 3){
-    if (urlPathSegments[1] == RoutesName.inputDataPengajuanName) {
-      nextPage = InitialDetailPengajuanLoader(
-        idPengajuan: int.parse(urlPathSegments.last),
-      );
-    }
-    // else if (urlPathSegments.last == RoutesName.pilihKategoriName) {
-    //
-    // }
-    else {
-      throw Exception('Unknown route path : ${settings.name}');
-    }
-  }
-  else if (pathLength == 4){
-    switch (urlPathSegments.last) {
-      case RoutesName.pilihPengajuName:
-        if (settings.arguments == null){
-          int idPengajuan = int.parse(urlPathSegments[pathLength - 2]);
-          nextUrl = "/${urlPathSegments.sublist(0 , pathLength - 1).join('/')}";
-          nextPage = InitialDetailPengajuanLoader(idPengajuan: idPengajuan);
+        if (urlPathSegments.first == RoutesName.lihatPengajuanName){
+          nextPage = InitialDetailPengajuanLoader(
+            idPengajuan: int.parse(urlPathSegments.last),
+          );
         }
         else {
-          nextPage = const PilihPengajuPage();
+          throw Exception('Unknown route path : ${settings.name}');
         }
-        break;
-      default:
-        throw Exception('Unknown route path : ${settings.name}');
     }
   }
-  // else if (pathLength == 4){
-  //
-  // }
   else {
     throw Exception('Unknown route path : ${settings.name}');
   }
 
-
   settings = RouteSettings(
-    name: nextUrl,
-    arguments: settings.arguments
+      name: nextUrl,
+      arguments: settings.arguments
   );
-  if (needRouteGuard){
+  if (needRouteGuard) {
     nextPage = RouteGuard(displayedPage: nextPage);
   }
 
   return MaterialPageRoute(
-    builder: (context) => nextPage,
+    builder: (context) => nextPage!,
     settings: settings,
   );
+
 }
