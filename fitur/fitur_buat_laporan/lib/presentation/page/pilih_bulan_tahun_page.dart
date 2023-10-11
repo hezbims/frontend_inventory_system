@@ -5,7 +5,7 @@ import 'package:common/presentation/button/submit_button.dart';
 import 'package:common/presentation/textfield/custom_dropdown_menu.dart';
 import 'package:common/presentation/textfield/custom_textfield.dart';
 import 'package:common/presentation/textfield/style/spacing.dart';
-import 'package:common/constant/routes/routes.dart';
+import 'package:common/constant/routes/routes_path.dart';
 import 'package:dependencies/provider.dart';
 import 'package:fitur_buat_laporan/data/repository/get_data_laporan_repository_impl.dart';
 import 'package:fitur_buat_laporan/domain/model/month.dart';
@@ -20,7 +20,7 @@ class PilihTahunBulanPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: const StockBottomNavBar(
-        currentIndex: Routes.fiturBuatLaporanIndex
+        currentIndex: RoutesPath.buatLaporanIndex
       ),
       body: ChangeNotifierProvider(
         create: (context) => PilihBulanTahunProvider(
@@ -33,7 +33,7 @@ class PilihTahunBulanPage extends StatelessWidget {
                 (_) {
                   provider.goNext = false;
                   Navigator.of(context).pushNamed(
-                    Routes.previewLaporanRoute,
+                    RoutesPath.previewPdfPath,
                     arguments: provider.pdfParameter,
                   );
                 }

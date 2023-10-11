@@ -7,7 +7,7 @@ import 'package:common/presentation/textfield/custom_dropdown_menu.dart';
 import 'package:common/presentation/textfield/dropdown_page_chooser.dart';
 import 'package:common/presentation/textfield/style/spacing.dart';
 import 'package:common/response/api_response.dart';
-import 'package:common/constant/routes/routes.dart';
+import 'package:common/constant/routes/routes_path.dart';
 import 'package:dependencies/get_it.dart';
 import 'package:dependencies/provider.dart';
 import 'package:common/domain/model/pengaju.dart';
@@ -102,7 +102,7 @@ class MainForm extends StatelessWidget {
                         onTap: () async {
                           final pemasokPicked = await Navigator.of(
                               context).pushNamed(
-                            Routes.fiturPilihGroupRoute,
+                            RoutesPath.pilihPengajuPath,
                             arguments: true,
                           );
                           if (pemasokPicked is Pengaju) {
@@ -119,7 +119,7 @@ class MainForm extends StatelessWidget {
                           errorMessage: provider.groupError,
                           onTap: () async {
                             final groupPicked = await Navigator.of(context).pushNamed(
-                              Routes.fiturPilihGroupRoute,
+                              RoutesPath.pilihPengajuPath,
                               arguments: false,
                             );
 

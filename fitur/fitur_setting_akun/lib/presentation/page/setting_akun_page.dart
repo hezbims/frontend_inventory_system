@@ -2,7 +2,7 @@ import 'package:common/constant/themes/custom_sizing.dart';
 import 'package:common/domain/model/user.dart';
 import 'package:common/presentation/bottom_navbar/stock_bottom_navbar.dart';
 import 'package:common/presentation/textfield/style/spacing.dart';
-import 'package:common/constant/routes/routes.dart';
+import 'package:common/constant/routes/routes_path.dart';
 import 'package:dependencies/get_it.dart';
 import 'package:dependencies/provider.dart';
 import 'package:fitur_setting_akun/presentation/component/buat_akun_baru_dialog.dart';
@@ -23,14 +23,14 @@ class SettingAkunPage extends StatelessWidget {
           if (provider.logoutSuccess){
             WidgetsBinding.instance.addPostFrameCallback(
               (timeStamp) {
-                Navigator.of(context).pushReplacementNamed(Routes.loginRoute);
+                Navigator.of(context).pushReplacementNamed(RoutesPath.loginPath);
               }
             );
           }
           return LoaderOverlay(
             isLoading: provider.isLoading,
             child: Scaffold(
-              bottomNavigationBar: StockBottomNavBar(currentIndex: Routes.settingAkunIndex),
+              bottomNavigationBar: StockBottomNavBar(currentIndex: RoutesPath.settingAkunIndex),
               body: Center(
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(maxWidth: CustomSizing.maxLayoutWidth),

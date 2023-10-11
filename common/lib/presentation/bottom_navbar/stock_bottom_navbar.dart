@@ -1,4 +1,4 @@
-import 'package:common/constant/routes/routes.dart';
+import 'package:common/constant/routes/routes_path.dart';
 import 'package:flutter/material.dart';
 
 class StockBottomNavBar extends StatelessWidget {
@@ -20,17 +20,17 @@ class StockBottomNavBar extends StatelessWidget {
         }
         String? nextRoute;
         switch (index){
-          case Routes.fiturLihatStockBarangIndex:
-            nextRoute = Routes.fiturLihatStockBarangRoute;
+          case RoutesPath.lihatStockBarangIndex:
+            nextRoute = RoutesPath.lihatStockBarangPath;
             break;
-          case Routes.fiturLihatPengajuanIndex:
-            nextRoute = Routes.fiturLihatPengajuanRoute;
+          case RoutesPath.fiturLihatPengajuanIndex:
+            nextRoute = RoutesPath.lihatPengajuanPath;
             break;
-          case Routes.fiturBuatLaporanIndex:
-            nextRoute = Routes.fiturBuatLaporanRoute;
+          case RoutesPath.buatLaporanIndex:
+            nextRoute = RoutesPath.buatLaporanPath;
             break;
-          case Routes.settingAkunIndex:
-            nextRoute = Routes.settingAkunRoute;
+          case RoutesPath.settingAkunIndex:
+            nextRoute = RoutesPath.settingAkunPath;
             break;
         }
 

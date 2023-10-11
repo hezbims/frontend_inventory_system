@@ -6,7 +6,7 @@ import 'package:common/presentation/textfield/custom_textfield.dart';
 import 'package:common/presentation/textfield/password_textfield.dart';
 import 'package:common/presentation/textfield/style/spacing.dart';
 import 'package:common/response/api_response.dart';
-import 'package:common/constant/routes/routes.dart';
+import 'package:common/constant/routes/routes_path.dart';
 import 'package:dependencies/get_it.dart';
 import 'package:dependencies/provider.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +36,7 @@ class LoginScreen extends StatelessWidget {
                 onLoginSuccess(loginResponse.data!);
                 WidgetsBinding.instance.addPostFrameCallback(
                   (_) {
-                    Navigator.of(context).pushReplacementNamed(Routes.initialRoute);
+                    Navigator.of(context).pushReplacementNamed(RoutesPath.initialRoute);
                   }
                 );
               }

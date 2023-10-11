@@ -1,12 +1,10 @@
 import 'package:common/presentation/provider/user_provider.dart';
-import 'package:common/constant/routes/routes.dart';
+import 'package:common/constant/routes/routes_path.dart';
 import 'package:dependencies/get_it.dart';
 import 'package:dependencies/provider.dart';
 import 'package:flutter/material.dart';
-import 'package:fitur_auth_guard/presentation/route_guard.dart';
-import 'package:fitur_auth_guard/presentation/page/route_not_found_page.dart';
 import 'package:stock_bu_fan/dependency_injection/setup_main_dependency_injection.dart';
-import 'package:stock_bu_fan/routing/routes_map.dart';
+import 'package:stock_bu_fan/routing/on_generate_route.dart';
 import 'package:stock_bu_fan/theme/custom_theme_data.dart';
 
 void main() {
@@ -33,23 +31,8 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             title: 'Flutter Demo',
             theme: customThemeData,
-            initialRoute: Routes.initialRoute,
-            onGenerateRoute: (settings){
-              late Widget nextPage;
-              if (!routesMap.containsKey(settings.name)){
-                nextPage = const RouteNotFoundPage();
-              }
-              else {
-                nextPage = RouteGuard(
-                    displayedPage: routesMap[settings.name]!(settings),
-                );
-              }
-
-              return MaterialPageRoute(
-                builder: (context) => nextPage,
-                settings: settings,
-              );
-            },
+            initialRoute: RoutesPath.initialRoute,
+            onGenerateRoute: onGenerateRoute,
           );
         }
       ),

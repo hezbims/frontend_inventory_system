@@ -3,7 +3,7 @@ import 'package:common/presentation/api_loader/default_error_widget.dart';
 import 'package:common/presentation/bottom_navbar/stock_bottom_navbar.dart';
 import 'package:common/presentation/textfield/search_with_filter_app_bar.dart';
 import 'package:common/presentation/textfield/style/spacing.dart';
-import 'package:common/constant/routes/routes.dart';
+import 'package:common/constant/routes/routes_path.dart';
 import 'package:dependencies/get_it.dart';
 import 'package:dependencies/infinite_scroll_pagination.dart';
 import 'package:dependencies/provider.dart';
@@ -14,8 +14,8 @@ import 'package:fitur_lihat_pengajuan/presentation/provider/filter_pengaju_provi
 import 'package:fitur_lihat_pengajuan/presentation/provider/lihat_pengajuan_provider.dart';
 import 'package:flutter/material.dart';
 
-class LihatPengajuanPages extends StatelessWidget {
-  const LihatPengajuanPages({Key? key}) : super(key: key);
+class LihatPengajuanPage extends StatelessWidget {
+  const LihatPengajuanPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +53,7 @@ class LihatPengajuanPages extends StatelessWidget {
               }
             },
             bottomNavigationBar: const StockBottomNavBar(
-              currentIndex: Routes.fiturLihatPengajuanIndex,
+              currentIndex: RoutesPath.fiturLihatPengajuanIndex,
             ),
             floatingActionButton: Padding(
               padding: EdgeInsets.symmetric(
@@ -62,7 +62,7 @@ class LihatPengajuanPages extends StatelessWidget {
               child: FloatingActionButton(
                 onPressed: () async {
                   final result = await Navigator.of(context).pushNamed(
-                    Routes.fiturInputDataPengajuanRoute
+                    RoutesPath.inputDataPengajuanPath
                   );
 
                   if (result != null){
@@ -84,7 +84,7 @@ class LihatPengajuanPages extends StatelessWidget {
                     pengajuan: pengajuan,
                     onTap: () async {
                       final result = await Navigator.of(context).pushNamed(
-                        Routes.fiturInputDataPengajuanRoute,
+                        RoutesPath.inputDataPengajuanPath,
                         arguments: pengajuan.id,
                       );
 

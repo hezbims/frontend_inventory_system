@@ -30,7 +30,7 @@ void main(){
 
       await tester.pumpWidget(
         const MaterialApp(
-          home: LihatPengajuanPages(),
+          home: LihatPengajuanPage(),
         ),
       );
       await tester.pump();

@@ -1,5 +1,5 @@
 import 'package:common/presentation/textfield/style/text_style.dart';
-import 'package:common/constant/routes/routes.dart';
+import 'package:common/constant/routes/routes_path.dart';
 import 'package:dependencies/provider.dart';
 import 'package:fitur_input_pengajuan/domain/model/barang_transaksi.dart';
 import 'package:common/presentation/button/tambah_sesuatu_button.dart';
@@ -35,7 +35,7 @@ class ListBarangFormField extends StatelessWidget {
           label: "Tambah barang",
           onTap: () async {
             final result = await Navigator.of(context).pushNamed(
-              Routes.fiturInputListBarangRoute,
+              RoutesPath.inputListBarangPath,
               arguments: MainFormToPilihBarangArg(
                 initialList: provider.listBarangTransaksi,
                 isPemasukan: provider.isPemasukan!
