@@ -27,7 +27,9 @@ void main() {
   final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   binding.testTextInput.register();
 
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+  /// Pastikan terhubung ke kabel USB, pilih device anda pada android studio,
+  /// Pastikan server laravel, mysql, dan websocket sudah menyala dan bisa diakses
+  testWidgets('End to End Test', (WidgetTester tester) async {
     setupMainDependencyInjection();
     await prepareDatabase();
 

@@ -36,20 +36,18 @@ class PilihBarangProvider extends DisposableChangeNotifier {
     }
   }
 
-  // Kenapa return valuenya BarangPreview?, ini gak seberapa penting
-  // tapi yang penting adalah bahwa pageRequestProcess ini asynchronous
-  Future<BarangPreview?> _pageRequestProcess = Future.value(null);
-  // getter ini hanya khusus untuk testing
-  Future<BarangPreview?> get pageRequestProcess =>
+  Future<void> _pageRequestProcess = Future.value(null);
+  Future<void> get pageRequestProcess =>
     _pageRequestProcess;
-  Future<BarangPreview?> _processPageRequest(int pageNumber) async{
+  Future<void> _processPageRequest(int pageNumber) async{
     final apiResponse = await _getBarangPreviewUseCase(
         pageNumber: pageNumber,
         keyword: searchBarangController.text,
     );
 
+    if (!canUseResource){ return; }
+
     if (apiResponse is ApiResponseSuccess<List<BarangPreview>>){
-      debugPrint('isnext data exist : ${apiResponse.isNextDataExist}');
       if (apiResponse.isNextDataExist){
         pagingController.appendPage(apiResponse.data!, pageNumber + 1);
       }
@@ -59,7 +57,6 @@ class PilihBarangProvider extends DisposableChangeNotifier {
           if (showBottomSheet != null) {
             showBottomSheet!(apiResponse.data!.first);
           }
-          return apiResponse.data!.first;
         }
       }
     }
@@ -69,7 +66,6 @@ class PilihBarangProvider extends DisposableChangeNotifier {
     else {
       throw Exception("Kesalahan di pilih barang provider");
     }
-    return null;
   }
 
   final pagingController = PagingController<int , BarangPreview>(firstPageKey: 1);
