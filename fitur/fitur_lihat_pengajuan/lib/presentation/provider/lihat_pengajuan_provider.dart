@@ -35,6 +35,10 @@ class LihatPengajuanProvider extends DisposableChangeNotifier {
       idPengaju: _filterPengaju?.id,
     );
 
+    if (!canUseResource){
+      return;
+    }
+
     if (response is ApiResponseSuccess){
       if (response.isNextDataExist){
         pagingController.appendPage(response.data, pageNumber + 1);

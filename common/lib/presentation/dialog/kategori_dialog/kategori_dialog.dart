@@ -5,8 +5,8 @@ import 'package:dependencies/get_it.dart';
 import 'package:dependencies/provider.dart';
 import 'package:flutter/material.dart';
 
-class KategoriDialog extends StatelessWidget {
-  const KategoriDialog({super.key});
+class BuatKategoriDialog extends StatelessWidget {
+  const BuatKategoriDialog({super.key});
 
   @override
   Widget build(BuildContext context) {

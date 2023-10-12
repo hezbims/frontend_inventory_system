@@ -5,6 +5,7 @@ import 'package:fitur_auth_guard/presentation/page/login_screen.dart';
 import 'package:fitur_auth_guard/presentation/route_guard.dart';
 import 'package:fitur_buat_laporan/presentation/page/pilih_bulan_tahun_page.dart';
 import 'package:fitur_buat_laporan/presentation/page/preview_laporan_page.dart';
+import 'package:fitur_input_data_barang/presentation/page/detail_barang_loader.dart';
 import 'package:fitur_input_pengajuan/presentation/pages/initial_detail_pengajuan_loader.dart';
 import 'package:fitur_lihat_pengajuan/presentation/pages/lihat_pengajuan_pages.dart';
 import 'package:fitur_lihat_stock_barang/presentation/page/lihat_stock_barang_page.dart';
@@ -50,22 +51,24 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings){
     }
   }
   else if (pathLength == 2){
-    switch (urlPathSegments.last){
-      case RoutesName.previewPdfName:
-        nextPage = PreviewLaporanPage(
-          tahun: int.parse(uri.queryParameters[QueryParamKeys.tahun]!),
-          bulan: int.parse(uri.queryParameters[QueryParamKeys.bulan]!),
-        );
-        break;
-      default:
-        if (urlPathSegments.first == RoutesName.lihatPengajuanName){
-          nextPage = InitialDetailPengajuanLoader(
-            idPengajuan: int.parse(urlPathSegments.last),
-          );
-        }
-        else {
-          throw Exception('Unknown route path : ${settings.name}');
-        }
+    if (urlPathSegments.last == RoutesName.previewPdfName){
+      nextPage = PreviewLaporanPage(
+        tahun: int.parse(uri.queryParameters[QueryParamKeys.tahun]!),
+        bulan: int.parse(uri.queryParameters[QueryParamKeys.bulan]!),
+      );
+    }
+    else if (urlPathSegments.first == RoutesName.lihatPengajuanName){
+      nextPage = InitialDetailPengajuanLoader(
+        idPengajuan: int.parse(urlPathSegments.last),
+      );
+    }
+    else if (urlPathSegments.first == RoutesName.lihatStockBarangName){
+      nextPage = DetailBarangLoader(
+        idBarang: int.tryParse(urlPathSegments.last),
+      );
+    }
+    else {
+      throw Exception('Unknown route path : ${settings.name}');
     }
   }
   else {

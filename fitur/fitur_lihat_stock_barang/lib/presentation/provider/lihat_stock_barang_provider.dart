@@ -46,6 +46,8 @@ class LihatStockBarangProvider extends DisposableChangeNotifier {
         pageNumber, namaController.text,
       );
 
+      if (!canUseResource){ return; }
+
       if (apiResponse is ApiResponseSuccess<List<Barang>>) {
         if (apiResponse.isNextDataExist) {
           pagingController.appendPage(

@@ -1,18 +1,27 @@
 import 'package:common/constant/url/common_url.dart';
-import 'package:common/domain/model/rak.dart';
+import 'package:common/domain/repository/i_token_manager.dart';
+import 'package:dependencies/get_it.dart';
 import 'package:dependencies/http.dart';
 
 class BarangApiClient {
-  Future<Response> getBarang(int pageNumber , String keyword){
+  final ITokenManager _tokenManager;
+  BarangApiClient({
+    ITokenManager? tokenManager,
+  }) : _tokenManager = tokenManager ?? GetIt.I.get();
+
+  Future<Response> getBarang(int pageNumber , String keyword) async {
     final getBarangUrl = "${CommonUrl.baseApiUrl}/barang/all?page=$pageNumber&keyword=$keyword";
-    return get(Uri.parse(getBarangUrl));
+    return get(
+      Uri.parse(getBarangUrl),
+      headers: await _tokenManager.getTokenizedHeader(),
+    );
   }
 
-  Future<Response> cekRak(Rak rak){
-    final cekRakUrl = "${CommonUrl.baseApiUrl}/rak/check";
-    return post(
-      Uri.parse(cekRakUrl),
-      body: rak.toJson(),
+  Future<Response> getDetailBarang({required int id}) async {
+    final url = "${CommonUrl.baseApiUrl}/barang/detail/$id";
+    return get(
+      Uri.parse(url),
+      headers: await _tokenManager.getTokenizedHeader(),
     );
   }
 }

@@ -1,9 +1,9 @@
 import 'package:common/domain/model/kategori.dart';
 import 'package:common/presentation/button/submit_button.dart';
+import 'package:common/presentation/page/pilih_kategori/pilih_kategori_page.dart';
 import 'package:common/presentation/textfield/custom_dropdown_menu.dart';
 import 'package:common/presentation/textfield/dropdown_page_chooser.dart';
 import 'package:common/presentation/textfield/style/spacing.dart';
-import 'package:common/constant/routes/routes_path.dart';
 import 'package:dependencies/provider.dart';
 import 'package:fitur_lihat_stock_barang/presentation/provider/lihat_stock_barang_provider.dart';
 import 'package:flutter/material.dart';
@@ -39,8 +39,10 @@ class FilterDrawer extends StatelessWidget {
                 value: provider.kategori?.nama ?? "",
                 errorMessage: null,
                 onTap: () async {
-                  final result = await Navigator.of(context).pushNamed(
-                    RoutesPath.pilihKategoriPath
+                  final result = await Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const PilihKategoriPage()
+                    ),
                   );
 
                   if (result is Kategori){

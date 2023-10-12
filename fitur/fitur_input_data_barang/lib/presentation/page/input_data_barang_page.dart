@@ -1,14 +1,15 @@
 import 'package:common/domain/extension/media_query_data_extension.dart';
+import 'package:common/domain/model/barang.dart';
 import 'package:common/domain/model/kategori.dart';
 import 'package:common/presentation/bottom_navbar/submit_card.dart';
 import 'package:common/presentation/button/disabled_submit_button.dart';
 import 'package:common/presentation/button/submit_button.dart';
+import 'package:common/presentation/page/pilih_kategori/pilih_kategori_page.dart';
 import 'package:common/presentation/textfield/custom_textfield.dart';
 import 'package:common/presentation/textfield/disabled_textfield.dart';
 import 'package:common/presentation/textfield/dropdown_page_chooser.dart';
 import 'package:common/presentation/textfield/style/spacing.dart';
 import 'package:common/response/api_response.dart';
-import 'package:common/constant/routes/routes_path.dart';
 import 'package:dependencies/get_it.dart';
 import 'package:dependencies/provider.dart';
 import 'package:fitur_input_data_barang/domain/model/submit_barang_dto.dart';
@@ -16,14 +17,18 @@ import 'package:fitur_input_data_barang/presentation/provider/input_data_barang_
 import 'package:flutter/material.dart';
 
 class InputDataBarangPage extends StatelessWidget {
+  final Barang? initialBarang;
   const InputDataBarangPage({
     super.key,
+    required this.initialBarang,
   });
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => GetIt.I.get<InputDataBarangProvider>(),
+      create: (context) => GetIt.I.get<InputDataBarangProvider>(
+        param1: initialBarang,
+      ),
       child: Consumer<InputDataBarangProvider>(
         builder: (context , provider , child){
           if (provider.submitResponse is ApiResponseSuccess){
@@ -80,8 +85,11 @@ class InputDataBarangPage extends StatelessWidget {
                           value: provider.kategori?.nama,
                           errorMessage: provider.errorMessage[SubmitBarangDto.kolomIdKategori],
                           onTap: () async {
-                            final result = await Navigator.of(context).pushNamed(
-                                RoutesPath.pilihKategoriPath
+                            final result = await Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                  const PilihKategoriPage()
+                              ),
                             );
 
                             if (result is Kategori){

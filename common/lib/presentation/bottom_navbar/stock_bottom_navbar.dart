@@ -35,7 +35,10 @@ class StockBottomNavBar extends StatelessWidget {
         }
 
         if (nextRoute != null){
-          Navigator.of(context).pushReplacementNamed(nextRoute);
+          Navigator.of(context)
+            .pushNamedAndRemoveUntil(
+              nextRoute, (Route<dynamic> route) => false
+          );
         }
       },
       items: const [

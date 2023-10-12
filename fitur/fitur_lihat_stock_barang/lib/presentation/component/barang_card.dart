@@ -65,8 +65,7 @@ class BarangCard extends StatelessWidget {
                   child: OutlinedButton(
                     onPressed: () {
                       Navigator.of(context).pushNamed(
-                        RoutesPath.inputDataBarangPath,
-                        arguments: barang,
+                        RoutesPath.inputDataBarangPath(barang.id),
                       );
                     },
                     child: const Text("Edit")

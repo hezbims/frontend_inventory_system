@@ -2,7 +2,7 @@ import 'package:common/domain/extension/media_query_data_extension.dart';
 import 'package:common/domain/model/kategori.dart';
 import 'package:common/presentation/api_loader/api_loader.dart';
 import 'package:common/presentation/button/tambah_sesuatu_button.dart';
-import 'package:common/presentation/dependency_setup/buat_kategori_dialog_dependency_setup.dart';
+import 'package:common/presentation/dialog/kategori_dialog/kategori_dialog.dart';
 import 'package:dependencies/get_it.dart';
 import 'package:dependencies/provider.dart';
 import 'package:common/presentation/card/kategori_card.dart';
@@ -66,7 +66,7 @@ class PilihKategoriPage extends StatelessWidget {
                               final result = await showDialog(
                                   context: context,
                                   builder: (context){
-                                    return BuatKategoriDialogDependencySetup();
+                                    return const BuatKategoriDialog();
                                   }
                               );
 

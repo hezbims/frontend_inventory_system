@@ -40,7 +40,7 @@ class LihatStockBarangPage extends StatelessWidget {
               child: FloatingActionButton(
                 onPressed: () async {
                   final result = await Navigator.of(context).pushNamed(
-                      RoutesPath.inputDataBarangPath
+                      RoutesPath.inputDataBarangPath('add')
                   );
 
                   if (result != null){

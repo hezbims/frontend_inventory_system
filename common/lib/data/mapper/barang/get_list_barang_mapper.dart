@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:common/domain/model/barang.dart';
 
-abstract class GetBarangMapper {
+abstract class GetListBarangMapper {
   static List<Barang> getListBarangFromBody(String body){
     final jsonBody = jsonDecode(body);
     final List<Map<String , dynamic>> jsonList = jsonBody['data'].cast<Map<String , dynamic>>();
