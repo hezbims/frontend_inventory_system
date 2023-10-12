@@ -19,7 +19,7 @@ import 'package:fitur_input_pengajuan/presentation/provider/main_form/main_form_
 import 'package:flutter/material.dart';
 
 class MainForm extends StatelessWidget {
-  final Pengajuan initialData;
+  final Pengajuan? initialData;
   const MainForm({
     super.key,
     required this.initialData,

@@ -33,7 +33,7 @@ void fiturInputPengajuanDi(){
     () => SubmitPengajuanRepositoryImpl()
   );
   GetIt.I.registerFactoryParam(
-    (Pengajuan initialData, param2) => MainFormProvider(
+    (Pengajuan? initialData, param2) => MainFormProvider(
       user: GetIt.I.get(),
       initialData: initialData,
       repository: GetIt.I.get(),

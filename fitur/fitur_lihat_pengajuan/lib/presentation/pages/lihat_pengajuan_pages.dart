@@ -61,7 +61,7 @@ class LihatPengajuanPage extends StatelessWidget {
               child: FloatingActionButton(
                 onPressed: () async {
                   final result = await Navigator.of(context).pushNamed(
-                    RoutesPath.inputDataPengajuanPath(idPengajuan: 0),
+                    RoutesPath.inputDataPengajuanPath(idPengajuan: 'add'),
                   );
 
                   if (result != null){

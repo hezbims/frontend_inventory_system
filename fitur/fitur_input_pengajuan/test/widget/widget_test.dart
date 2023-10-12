@@ -54,7 +54,7 @@ void main() {
         const MaterialApp(
           home: Directionality(
             textDirection: TextDirection.ltr,
-              child: MainForm(),
+              child: MainForm(initialData: null,),
           ),
         ),
       );

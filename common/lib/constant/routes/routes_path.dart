@@ -13,7 +13,7 @@ abstract class RoutesPath {
   static const lihatPengajuanPath = "/${RoutesName.lihatPengajuanName}";
   static const fiturLihatPengajuanIndex = 2;
 
-  static String inputDataPengajuanPath({required int idPengajuan}){
+  static String inputDataPengajuanPath({required Object idPengajuan}){
     return "$lihatPengajuanPath/$idPengajuan";
   }
 

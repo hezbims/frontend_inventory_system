@@ -1,5 +1,4 @@
 import 'package:common/response/api_response.dart';
-import 'package:fitur_input_pengajuan/domain/model/pengajuan.dart';
 import 'package:fitur_input_pengajuan/domain/repository/i_get_detail_pengajuan_repository.dart';
 import 'package:flutter/material.dart';
 
@@ -16,14 +15,7 @@ class GetDetailPengajuanProvider extends ChangeNotifier {
   Future<ApiResponse> getDetailPengajuanResponse(){
     if (_id == null){
       return Future.value(
-        ApiResponseSuccess(
-          data: Pengajuan(
-            id: null,
-            tanggal: DateTime.now(),
-            pengaju: null,
-            status: null,
-          )
-        )
+        ApiResponseSuccess(data: null)
       );
     }
     return _getDetailPengajuanResponse ??= _repository.getDetailPengajuan(_id!);

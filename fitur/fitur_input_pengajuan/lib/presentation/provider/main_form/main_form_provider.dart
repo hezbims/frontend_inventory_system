@@ -18,18 +18,22 @@ class MainFormProvider extends ChangeNotifier {
 
   MainFormProvider({
     required User user,
-    required Pengajuan initialData,
+    required Pengajuan? initialData,
     required ISubmitPengajuanRepository repository,
   })  : _user = user,
-    status = initialData.status,
+    status = initialData?.status,
     _repository = repository,
-    _id = initialData.id,
-    tanggal = initialData.tanggal,
-    jam = TimeOfDay.fromDateTime(initialData.tanggal),
-    isPemasukan = initialData.pengaju?.isPemasok,
-    _group = initialData.pengaju?.isPemasok == false ? initialData.pengaju : null,
-    _pemasok = initialData.pengaju?.isPemasok == true ? initialData.pengaju : null,
-    listBarangTransaksi = initialData.listBarangTransaksi;
+    _id = initialData?.id,
+    tanggal = initialData?.tanggal ?? DateTime.now(),
+    jam = initialData?.tanggal != null ?
+            TimeOfDay.fromDateTime(initialData!.tanggal) :
+            TimeOfDay.now(),
+    isPemasukan = initialData?.pengaju?.isPemasok,
+    _group = initialData?.pengaju?.isPemasok == false ?
+                initialData?.pengaju : null,
+    _pemasok = initialData?.pengaju?.isPemasok == true ?
+                  initialData?.pengaju : null,
+    listBarangTransaksi = initialData?.listBarangTransaksi ?? [];
 
   DateTime tanggal;
   TimeOfDay jam;

@@ -7,7 +7,7 @@ import 'package:fitur_input_pengajuan/presentation/provider/main_form/get_detail
 import 'package:flutter/material.dart';
 
 class InitialDetailPengajuanLoader extends StatelessWidget {
-  final int idPengajuan;
+  final int? idPengajuan;
   const InitialDetailPengajuanLoader({
     required this.idPengajuan,
     super.key,
@@ -17,7 +17,7 @@ class InitialDetailPengajuanLoader extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => GetDetailPengajuanProvider(
-        id: idPengajuan == 0 ? null : idPengajuan,
+        id: idPengajuan,
         repository: GetDetailPengajuanRepositoryImpl(),
       ),
       child: Consumer<GetDetailPengajuanProvider>(
@@ -25,7 +25,7 @@ class InitialDetailPengajuanLoader extends StatelessWidget {
             return ApiLoader(
               apiResponse: provider.getDetailPengajuanResponse(),
               onRefresh: provider.refresh,
-              builder: (Pengajuan initialData) {
+              builder: (Pengajuan? initialData) {
                 return MainForm(initialData: initialData,);
               },
               useScaffold: true,

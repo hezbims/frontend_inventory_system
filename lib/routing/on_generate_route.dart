@@ -59,7 +59,7 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings){
     }
     else if (urlPathSegments.first == RoutesName.lihatPengajuanName){
       nextPage = InitialDetailPengajuanLoader(
-        idPengajuan: int.parse(urlPathSegments.last),
+        idPengajuan: int.tryParse(urlPathSegments.last),
       );
     }
     else if (urlPathSegments.first == RoutesName.lihatStockBarangName){
