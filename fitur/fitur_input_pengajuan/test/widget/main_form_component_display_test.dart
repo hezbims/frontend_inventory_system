@@ -1,11 +1,13 @@
 import 'package:common/constant/test_tags/test_tags.dart';
 import 'package:common/domain/model/user.dart';
 import 'package:common/presentation/textfield/custom_dropdown_menu.dart';
+import 'package:common/presentation/textfield/custom_textfield.dart';
 import 'package:dependencies/get_it.dart';
 import 'package:fitur_input_pengajuan/domain/model/barang_transaksi.dart';
 import 'package:fitur_input_pengajuan/domain/model/pengajuan.dart';
 import 'package:fitur_input_pengajuan/presentation/component/common/transaksi_barang_bottom_sheet.dart';
 import 'package:fitur_input_pengajuan/presentation/component/main_form/barang_field.dart';
+import 'package:fitur_input_pengajuan/presentation/component/pilih_barang/barang_quantity_incrementer.dart';
 import 'package:fitur_input_pengajuan/presentation/pages/main_form.dart';
 import 'package:fitur_input_pengajuan/presentation/provider/main_form/main_form_provider.dart';
 import 'package:fitur_input_pengajuan/presentation/provider/pilih_barang/bottom_sheet_barang_provider.dart';
@@ -96,12 +98,11 @@ void main() {
   } , tags: [TestTags.fastTest]);
 
   testWidgets(
-      'ketika bottom sheet pertama kali dibuka, maka need focus, '
-      'namun kalo pindah ke field keterangan, maka focusnya tetep di keterangan ' , (tester) async {
-
-
-    final provider = BottomSheetBarangProvider();
-    GetIt.I.registerSingleton(provider);
+    'ketika bottom sheet pertama kali dibuka, maka focusnya ada di quantity, '
+    'namun kalo tap ke field keterangan, '
+    'maka focusnya tetep di keterangan ' ,
+    (tester) async {
+    GetIt.I.registerFactory(() => BottomSheetBarangProvider());
 
     await tester.pumpWidget(
       MaterialApp(
@@ -116,11 +117,29 @@ void main() {
       ),
     );
 
-    expect(provider.quantityFocusNode.hasFocus, isTrue);
+    final quantityFocus = FocusScope.of(
+      tester.element(
+        find.descendant(
+          of: find.byType(BarangQuantityIncrementer),
+          matching: find.byType(TextField),
+        )
+      )
+    ).hasFocus;
+    expect(quantityFocus, isTrue);
 
     final keteranganField = find.byType(TextField).last;
+    
     await tester.tap(keteranganField);
-    expect(provider.quantityFocusNode.hasFocus, isFalse);
+    
+    final keteraganHasFocus = FocusScope.of(
+      tester.element(
+        find.descendant(
+          of: find.widgetWithText(CustomTextfield, 'Keterangan'),
+          matching: find.byType(TextField)
+        )
+      )
+    ).hasFocus;
+    expect(keteraganHasFocus, isTrue);
   } , tags: [TestTags.fastTest]);
 }
 

@@ -1,6 +1,5 @@
 
 
-import 'package:common/constant/test_tags/test_tags.dart';
 import 'package:common/data/repository/token_manager.dart';
 import 'package:common/domain/repository/i_token_manager.dart';
 import 'package:common/presentation/button/submit_button.dart';
@@ -33,7 +32,6 @@ void main(){
       );
       //expect(find.text(text), findsOneWidget);
     },
-    tags: [TestTags.fastTest],
   );
 }
 
