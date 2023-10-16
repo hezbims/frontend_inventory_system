@@ -40,7 +40,15 @@ class MainForm extends StatelessWidget {
               appBar: AppBar(
                 scrolledUnderElevation: 0,
                 centerTitle: true,
-                title: const Text("Form Input Transaksi"),
+                title: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text("Form Input Transaksi"),
+                    if (provider.status != null)
+                      StatusMiniCard(status: provider.status!),
+                  ],
+                ),
                 actions: [
                   if (provider.status != null)
                     Align(
@@ -48,8 +56,9 @@ class MainForm extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.only(
                             left: 8, right: 24),
-                        child: StatusMiniCard(
-                          status: provider.status!,
+                        child: IconButton(
+                          onPressed: (){},
+                          icon: const Icon(Icons.delete , color: Colors.red,)
                         ),
                       ),
                     )

@@ -25,10 +25,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:stock_bu_fan/main.dart';
 
-import 'common/mock/mock_barang_repository.dart';
-import 'common/mock/mock_user_repository.dart';
-import 'fitur_auth_guard/fake/fake_post_login_dto.dart';
-import 'fitur_auth_guard/mock/mock_login_api_client.dart';
+import '../common/mock/mock_barang_repository.dart';
+import '../common/mock/mock_user_repository.dart';
+import '../fitur_auth_guard/fake/fake_post_login_dto.dart';
+import '../fitur_auth_guard/mock/mock_login_api_client.dart';
 
 
 void main() {
