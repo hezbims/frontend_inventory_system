@@ -49,7 +49,10 @@ void main(){
     maka user akan kembali ke halaman sebelumnya
   ''', (tester) async {
     when(() => repository.deletePengajuan(any())).thenAnswer(
-      (invocation) => Future.value(ApiResponseSuccess()),
+      (invocation) => Future.delayed(
+        const Duration(seconds: 2),
+        () => ApiResponseSuccess(),
+      ),
     );
 
     await tester.pumpWidget(
@@ -68,8 +71,14 @@ void main(){
     );
     await tester.pumpAndSettle();
     await tester.tap(find.widgetWithText(DialogButton, 'Ya'));
-    await tester.pumpAndSettle();
+    await tester.pump();
+    expect(find.byType(CircularProgressIndicator), findsOneWidget);
 
+    while (find.byType(CircularProgressIndicator).evaluate().isNotEmpty){
+      await tester.pump(const Duration(milliseconds: 500));
+    }
+
+    await tester.pumpAndSettle();
     expect(find.byType(MainForm), findsNothing);
   } , tags: [TestTags.fastTest]);
 

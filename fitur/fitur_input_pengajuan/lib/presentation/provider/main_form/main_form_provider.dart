@@ -119,7 +119,6 @@ class MainFormProvider extends ChangeNotifier {
         );
 
         if (submitResponse is ApiResponseFailed){
-          debugPrint("test submit response ${(submitResponse as ApiResponseFailed).error}");
           Fluttertoast.showToast(
             msg: (submitResponse as ApiResponseFailed).error.toString(),
             toastLength: Toast.LENGTH_LONG,
@@ -142,6 +141,7 @@ class MainFormProvider extends ChangeNotifier {
     }
     _deletePengajuanResponse = ApiResponseLoading();
     notifyListeners();
+
     _deletePengajuanResponse = await _repository.deletePengajuan(_id!);
     notifyListeners();
   }

@@ -6,7 +6,7 @@ import 'package:common/constant/routes/routes_path.dart';
 import 'package:dependencies/get_it.dart';
 import 'package:dependencies/provider.dart';
 import 'package:fitur_setting_akun/presentation/component/buat_akun_baru_dialog.dart';
-import 'package:fitur_setting_akun/presentation/component/loader_overlay.dart';
+import 'package:common/presentation/loader_overlay/loader_overlay.dart';
 import 'package:fitur_setting_akun/presentation/component/setting_akun_item.dart';
 import 'package:fitur_setting_akun/presentation/provider/setting_akun_provider.dart';
 import 'package:flutter/material.dart';
