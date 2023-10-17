@@ -14,6 +14,7 @@ import 'package:fitur_input_pengajuan/domain/model/pengajuan.dart';
 import 'package:fitur_input_pengajuan/presentation/component/main_form/clock_field.dart';
 import 'package:fitur_input_pengajuan/presentation/component/main_form/barang_field.dart';
 import 'package:fitur_input_pengajuan/presentation/component/main_form/date_field.dart';
+import 'package:fitur_input_pengajuan/presentation/component/main_form/delete_pengajuan_dialog.dart';
 import 'package:fitur_input_pengajuan/presentation/pages/pilih_pengaju_page.dart';
 import 'package:fitur_input_pengajuan/presentation/provider/main_form/main_form_provider.dart';
 import 'package:flutter/material.dart';
@@ -51,15 +52,14 @@ class MainForm extends StatelessWidget {
                 ),
                 actions: [
                   if (provider.status != null)
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            left: 8, right: 24),
-                        child: IconButton(
-                          onPressed: (){},
-                          icon: const Icon(Icons.delete , color: Colors.red,)
-                        ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 8, right: 24),
+                      child: IconButton(
+                        onPressed: (){
+                          DeletePengajuanDialog(context: context).show();
+                        },
+                        icon: const Icon(Icons.delete , color: Colors.red,)
                       ),
                     )
                 ],
