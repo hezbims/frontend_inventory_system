@@ -134,6 +134,32 @@ class MainFormProvider extends ChangeNotifier {
     }
   }
 
+  ApiResponse? _deletePengajuanResponse;
+  ApiResponse? get deletePengajuanResponse => _deletePengajuanResponse;
+  void deletePengajuan() async {
+    if (_deletePengajuanResponse is ApiResponseLoading){
+      return;
+    }
+    _deletePengajuanResponse = ApiResponseLoading();
+    notifyListeners();
+    _deletePengajuanResponse = await _repository.deletePengajuan(_id!);
+    notifyListeners();
+  }
+  bool canDeletePengajuan() {
+    // Ini berarti kita sedang enggak ada di proses edit
+    if (_id == null){
+      return false;
+    }
+    // Admin bisa ngedit pengajuan dengan bagaimanapun
+    if (_user.isAdmin) {
+      return true;
+    }
+
+    // Ketika kamu adalah user non admin
+
+    return status == StatusPengajuan.menunggu;
+  }
+
   bool canSubmit(){
     if (tipePengajuanError != null ||
         pemasokError != null ||

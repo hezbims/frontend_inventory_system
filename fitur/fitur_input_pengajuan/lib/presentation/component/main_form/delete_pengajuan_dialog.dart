@@ -12,13 +12,13 @@ class DeletePengajuanDialog extends Alert {
       DialogButton(
         color: Colors.red,
         child: const Text('Tidak' , style: TextStyle(color: Colors.white),),
-        onPressed: () => Navigator.of(context).pop()
+        onPressed: () => Navigator.of(context).pop(false)
       ),
 
       DialogButton(
         color: primaryColor,
         child: const Text('Ya' , style: TextStyle(color: Colors.white),),
-        onPressed: () => Navigator.of(context).pop()
+        onPressed: () => Navigator.of(context).pop(true)
       ),
     ]
   );

@@ -3,4 +3,5 @@ import 'package:fitur_input_pengajuan/domain/model/pengajuan.dart';
 
 abstract class ISubmitPengajuanRepository {
   Future<ApiResponse> submitData(Pengajuan data);
+  Future<ApiResponse> deletePengajuan(int idPengajuan);
 }

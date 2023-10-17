@@ -2,7 +2,7 @@ import 'package:common/presentation/button/submit_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../extension_and_utils/wait_until_disappear.dart';
+import 'package:common/utils/tester_wait_until_disappear.dart';
 
 Future<void> login({
   required WidgetTester tester,

@@ -16,4 +16,11 @@ class SubmitPengajuanRepositoryImpl implements ISubmitPengajuanRepository {
     );
   }
 
+  @override
+  Future<ApiResponse> deletePengajuan(int idPengajuan) {
+    return ApiRequestProcessor.process(
+      apiRequest: _apiClient.deletePengajuan(idPengajuan),
+    );
+  }
+
 }

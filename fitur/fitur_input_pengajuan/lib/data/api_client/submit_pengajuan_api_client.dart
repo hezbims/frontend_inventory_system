@@ -18,4 +18,13 @@ class SubmitPengajuanApiClient {
       body: body
     );
   }
+
+  Future<Response> deletePengajuan(int idPengajuan) async {
+    final url = "${CommonUrl.baseApiUrl}/pengejuan/delete/$idPengajuan";
+
+    return delete(
+      Uri.parse(url),
+      headers: await _tokenManager.getTokenizedHeader(),
+    );
+  }
 }

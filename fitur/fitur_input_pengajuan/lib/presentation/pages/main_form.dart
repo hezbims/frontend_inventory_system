@@ -7,6 +7,7 @@ import 'package:common/presentation/textfield/custom_dropdown_menu.dart';
 import 'package:common/presentation/textfield/dropdown_page_chooser.dart';
 import 'package:common/presentation/textfield/style/spacing.dart';
 import 'package:common/response/api_response.dart';
+import 'package:common/utils/pop_on_post_frame.dart';
 import 'package:dependencies/get_it.dart';
 import 'package:dependencies/provider.dart';
 import 'package:common/domain/model/pengaju.dart';
@@ -32,11 +33,13 @@ class MainForm extends StatelessWidget {
         create: (context) => GetIt.I.get<MainFormProvider>(param1: initialData),
         child: Consumer<MainFormProvider>(
           builder: (context, provider, child) {
-            if (provider.submitResponse is ApiResponseSuccess) {
-              WidgetsBinding.instance.addPostFrameCallback(
-                (_) => Navigator.of(context).pop(true),
-              );
+            if (
+              provider.submitResponse is ApiResponseSuccess ||
+              provider.deletePengajuanResponse is ApiResponseSuccess
+            ) {
+              context.popOnPostFrame(true);
             }
+
             return Scaffold(
               appBar: AppBar(
                 scrolledUnderElevation: 0,
@@ -51,13 +54,19 @@ class MainForm extends StatelessWidget {
                   ],
                 ),
                 actions: [
-                  if (provider.status != null)
+                  if (provider.canDeletePengajuan())
                     Padding(
                       padding: const EdgeInsets.only(
                           left: 8, right: 24),
                       child: IconButton(
-                        onPressed: (){
-                          DeletePengajuanDialog(context: context).show();
+                        onPressed: () async {
+                          final willDelete = await DeletePengajuanDialog(
+                              context: context
+                          ).show();
+
+                          if (willDelete == true){
+                            provider.deletePengajuan();
+                          }
                         },
                         icon: const Icon(Icons.delete , color: Colors.red,)
                       ),
