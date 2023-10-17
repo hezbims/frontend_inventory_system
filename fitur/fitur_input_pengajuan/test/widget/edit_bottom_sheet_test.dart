@@ -8,6 +8,7 @@ import 'package:dependencies/get_it.dart';
 import 'package:fitur_input_pengajuan/domain/model/barang_transaksi.dart';
 import 'package:fitur_input_pengajuan/domain/model/pengajuan.dart';
 import 'package:fitur_input_pengajuan/domain/repository/i_submit_pengajuan_repository.dart';
+import 'package:fitur_input_pengajuan/presentation/component/main_form/barang_transaksi_card.dart';
 import 'package:fitur_input_pengajuan/presentation/component/pilih_barang/barang_quantity_incrementer.dart';
 import 'package:fitur_input_pengajuan/presentation/pages/main_form.dart';
 import 'package:fitur_input_pengajuan/presentation/provider/main_form/main_form_provider.dart';
@@ -87,11 +88,14 @@ void main(){
     (tester) async {
       await tester.pumpWidget(siapkanMainFormDenganDuaBarangAjuan());
 
-      await tester.ensureVisible(find.byIcon(Icons.delete).last);
-      await tester.pump();
-      await tester.tap(
-          find.byIcon(Icons.delete).last,
+      final lastItemDeleteIcon = find.descendant(
+          of: find.widgetWithText(BarangTransaksiCard, 'barang-2'),
+          matching: find.byIcon(Icons.delete)
       );
+
+      await tester.ensureVisible(lastItemDeleteIcon);
+      await tester.pump();
+      await tester.tap(lastItemDeleteIcon);
       await tester.pump();
 
       expect(find.text('barang-2'), findsNothing);

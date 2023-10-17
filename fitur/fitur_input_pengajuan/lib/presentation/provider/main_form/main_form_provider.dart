@@ -212,7 +212,7 @@ class MainFormProvider extends ChangeNotifier {
   }
 
   bool get useDisabledButton{
-    if (!_user.isAdmin && status == StatusPengajuan.diterima){
+    if (!_user.isAdmin && status != StatusPengajuan.menunggu){
       return true;
     }
     return false;
