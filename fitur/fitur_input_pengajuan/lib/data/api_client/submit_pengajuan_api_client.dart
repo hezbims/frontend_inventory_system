@@ -20,7 +20,7 @@ class SubmitPengajuanApiClient {
   }
 
   Future<Response> deletePengajuan(int idPengajuan) async {
-    final url = "${CommonUrl.baseApiUrl}/pengejuan/delete/$idPengajuan";
+    final url = "${CommonUrl.baseApiUrl}/pengajuan/delete/$idPengajuan";
 
     return delete(
       Uri.parse(url),
