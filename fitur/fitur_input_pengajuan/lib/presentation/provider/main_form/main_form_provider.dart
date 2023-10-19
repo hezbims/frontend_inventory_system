@@ -212,6 +212,9 @@ class MainFormProvider extends ChangeNotifier {
   }
 
   bool get useDisabledButton{
+    if (_id == null){
+      return false;
+    }
     if (!_user.isAdmin && status != StatusPengajuan.menunggu){
       return true;
     }
