@@ -1,0 +1,6 @@
+# melos_managed_dependency_overrides: common,dependencies
+dependency_overrides:
+  common:
+    path: ..\\..\\common
+  dependencies:
+    path: ..\\..\\dependencies

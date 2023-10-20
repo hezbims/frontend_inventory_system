@@ -1,0 +1,20 @@
+# melos_managed_dependency_overrides: common,dependencies,fitur_auth_guard,fitur_buat_laporan,fitur_input_data_barang,fitur_input_pengajuan,fitur_lihat_pengajuan,fitur_lihat_stock_barang,fitur_setting_akun
+dependency_overrides:
+  common:
+    path: common
+  dependencies:
+    path: dependencies
+  fitur_auth_guard:
+    path: fitur\\fitur_auth_guard
+  fitur_buat_laporan:
+    path: fitur\\fitur_buat_laporan
+  fitur_input_data_barang:
+    path: fitur\\fitur_input_data_barang
+  fitur_input_pengajuan:
+    path: fitur\\fitur_input_pengajuan
+  fitur_lihat_pengajuan:
+    path: fitur\\fitur_lihat_pengajuan
+  fitur_lihat_stock_barang:
+    path: fitur\\fitur_lihat_stock_barang
+  fitur_setting_akun:
+    path: fitur\\fitur_setting_akun

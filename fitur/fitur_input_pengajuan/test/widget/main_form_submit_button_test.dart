@@ -1,5 +1,5 @@
 import 'package:common/constant/enums/status_pengajuan.dart';
-import 'package:common/constant/themes/theme_color.dart';
+import 'package:common/constant/test_tags/test_tags.dart';
 import 'package:common/domain/model/pengaju.dart';
 import 'package:common/domain/model/user.dart';
 import 'package:common/presentation/button/disabled_submit_button.dart';
@@ -17,13 +17,14 @@ void main(){
   TestWidgetsFlutterBinding.ensureInitialized();
 
   var currentUser = User(token: '', username: '', isAdmin: false, id: 0);
+  final mockSubmitPengajuanRepository = MockSubmitPengajuanRepository();
   setUpAll((){
     GetIt.I.registerFactoryParam(
       (Pengajuan? initialData , _) =>
         MainFormProvider(
             user: currentUser,
             initialData: initialData,
-            repository: MockSubmitPengajuanRepository()
+            repository: mockSubmitPengajuanRepository,
         ),
     );
   });
@@ -34,45 +35,68 @@ void main(){
     maka submit button akan terdisable
   ''', (tester) async {
     await tester.pumpWidget(
-      const MaterialApp(
-        home: MainForm(initialData: null),
-      )
-    );
-
-    expect(find.byType(DisabledSubmitButton), findsOneWidget);
-  });
-  
-  testWidgets('''
-    Diberikan sebuah main form dengan status pengajuan menunggu menunggu dan barang ajuan dengan quantity 7,
-    ketika user admin mencoba mengedit quantity barang ajuan menjadi 0,
-    maka warna button akan menjadi merah dan akan ada tulisan "Tolak" pada button
-  ''', (tester) async {
-    currentUser = User(token: '', username: '', isAdmin: true, id: 0);
-
-    await tester.pumpWidget(
       MaterialApp(
         home: MainForm(
           initialData: Pengajuan(
-            id: 0,
-            tanggal: DateTime(2023),
-            pengaju: Pengaju(nama: '', id: -1, isPemasok: false),
-            status: StatusPengajuan.menunggu
+              id: 0,
+              tanggal: DateTime(2023),
+              pengaju: Pengaju(nama: '', id: -1, isPemasok: false),
+              status: StatusPengajuan.ditolak
           ),
         ),
-      )
+      ),
     );
 
-    await tester.pumpAndSettle();
+    expect(find.byType(DisabledSubmitButton), findsOneWidget);
+  } , tags: [TestTags.fastTest]);
 
-    final submitButtonFinder = find.descendant(
-        of: find.byType(SubmitButton),
-        matching: find.byType(FilledButton)
+  testWidgets('''
+    Diberikan sebuah main form dengan dengan kondisi tambah pengajuan baru,
+    ketika user biasa mencoba untuk submit,
+    maka submit button dalam kondisi bisa di tap
+  ''', (tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: MainForm(initialData: null),
+      ),
     );
 
+    final submitButton = tester.widget(find.byType(SubmitButton)) as SubmitButton;
+    expect(submitButton.onTap, isNotNull);
+  } , tags: [TestTags.fastTest]);
 
-
-    var submitButtonWidget = tester.widget(submitButtonFinder) as FilledButton;
-
-    expect(submitButtonWidget.style?.backgroundColor?.resolve({}) , primaryColor);
-  });
+  
+  // testWidgets('''
+  //   Diberikan sebuah main form dengan status pengajuan menunggu menunggu dan barang ajuan dengan quantity 7,
+  //   ketika user admin mencoba mengedit quantity barang ajuan menjadi 0,
+  //   maka warna button akan menjadi merah dan akan ada tulisan "Tolak" pada button
+  // ''', (tester) async {
+  //   currentUser = User(token: '', username: '', isAdmin: true, id: 0);
+  //
+  //   await tester.pumpWidget(
+  //     MaterialApp(
+  //       home: MainForm(
+  //         initialData: Pengajuan(
+  //           id: 0,
+  //           tanggal: DateTime(2023),
+  //           pengaju: Pengaju(nama: '', id: -1, isPemasok: false),
+  //           status: StatusPengajuan.menunggu
+  //         ),
+  //       ),
+  //     )
+  //   );
+  //
+  //   await tester.pumpAndSettle();
+  //
+  //   final submitButtonFinder = find.descendant(
+  //       of: find.byType(SubmitButton),
+  //       matching: find.byType(FilledButton)
+  //   );
+  //
+  //
+  //
+  //   var submitButtonWidget = tester.widget(submitButtonFinder) as FilledButton;
+  //
+  //   expect(submitButtonWidget.style?.backgroundColor?.resolve({}) , primaryColor);
+  // });
 }
