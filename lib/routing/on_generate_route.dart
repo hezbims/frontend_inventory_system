@@ -17,8 +17,6 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings){
   final urlPathSegments = uri.pathSegments;
   final pathLength = urlPathSegments.length;
 
-  debugPrint('Route name : ${settings.name}, segment : $urlPathSegments');
-
   Widget? nextPage;
   String nextUrl = settings.name!;
   bool needRouteGuard = true;

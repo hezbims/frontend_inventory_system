@@ -1,3 +1,4 @@
+
 import 'package:common/data/repository/notification_repository_impl.dart';
 import 'package:common/domain/model/pengaju.dart';
 import 'package:common/domain/repository/i_notification_repository.dart';
@@ -19,9 +20,16 @@ class LihatPengajuanProvider extends DisposableChangeNotifier {
     pagingController.addPageRequestListener((pageNumber) {
       _pageRequestProcess = _requestPage(pageNumber);
     });
-    _notifRepo.newPengajuanNotification().listen((event) {
-      tryRefresh();
-    });
+    // _notifRepo.newPengajuanNotification().listen((event) {
+    //   tryRefresh();
+    // });
+
+    _notifRepo.testSse()
+      .then((stream) =>
+        stream.listen((value) =>
+          debugPrint('Mendapatkan data dari stream : $value'),
+        )
+      );
   }
 
   final searchController = TextEditingController();
