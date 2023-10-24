@@ -15,7 +15,7 @@ abstract class CommonUrl {
     // return __env!;
 
     // Sementara ini, gunakan selalu testing environment
-    return __env ??= TestingEnv();
+    return __env ??= ReleaseEnv();
   }
 
   static String? _baseApiUrl;
