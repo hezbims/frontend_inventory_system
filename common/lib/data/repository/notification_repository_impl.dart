@@ -86,6 +86,6 @@ class NotificationRepositoryImpl implements INotificationRepository {
     debugPrint("Response status code : ${response.statusCode}");
 
 
-    return response.stream.map((event) => utf8.decode(event));
+    return response.stream.map((data) => utf8.decode(data));
   }
 }

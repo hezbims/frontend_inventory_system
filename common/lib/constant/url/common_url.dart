@@ -1,21 +1,21 @@
-
 import 'package:common/constant/url/env/i_env.dart';
-import 'package:common/constant/url/env/local_env.dart';
-import 'package:common/constant/url/env/production_env.dart';
-import 'package:flutter/foundation.dart';
+import 'package:common/constant/url/env/testing_env.dart';
 
 abstract class CommonUrl {
   static IEnv? __env;
   static IEnv get _env {
-    if (__env == null){
-      if (!kReleaseMode && kIsWeb){
-        __env = LocalEnv();
-      }
-      else {
-        __env = ProductionEnv();
-      }
-    }
-    return __env!;
+    // if (__env == null){
+    //   if (!kReleaseMode && kIsWeb){
+    //     __env = LocalEnv();
+    //   }
+    //   else {
+    //     __env = TestingEnv();
+    //   }
+    // }
+    // return __env!;
+
+    // Sementara ini, gunakan selalu testing environment
+    return __env ??= TestingEnv();
   }
 
   static String? _baseApiUrl;
