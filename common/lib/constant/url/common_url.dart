@@ -1,5 +1,5 @@
 import 'package:common/constant/url/env/i_env.dart';
-import 'package:common/constant/url/env/testing_env.dart';
+import 'package:common/constant/url/env/release_env.dart';
 
 abstract class CommonUrl {
   static IEnv? __env;
