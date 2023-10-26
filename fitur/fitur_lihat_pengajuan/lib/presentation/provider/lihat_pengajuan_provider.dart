@@ -23,8 +23,15 @@ class LihatPengajuanProvider extends DisposableChangeNotifier {
     //   tryRefresh();
     // });
 
-    _notifRepo.getNewPengajuanEvent().listen((event) {
-      debugPrint('Dapat SSE :\n$event');
+    _notifRepo.getNewPengajuanEvent().listen((event) async {
+
+      final response = await _notifRepo.acknowledgeNewPengajuan();
+      if (response is ApiResponseFailed){
+        debugPrint('gagal mengacknowledge');
+      }
+      else {
+        tryRefresh();
+      }
     });
   }
 

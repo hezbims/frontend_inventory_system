@@ -4,9 +4,12 @@ import 'dart:convert';
 import 'dart:html';
 
 import 'package:common/constant/url/common_url.dart';
+import 'package:common/data/api_client/pengajuan_event_api_client.dart';
+import 'package:common/data/api_request_proccessor/api_request_proccessor.dart';
 import 'package:common/data/mapper/pengajuan/new_pengajuan_event_mapper.dart';
 import 'package:common/domain/model/user.dart';
 import 'package:common/domain/repository/i_notification_repository.dart';
+import 'package:common/response/api_response.dart';
 import 'package:dependencies/get_it.dart';
 import 'package:dependencies/http.dart';
 import 'package:dependencies/web_socket_channel.dart';
@@ -14,6 +17,7 @@ import 'package:flutter/foundation.dart';
 
 class NotificationRepositoryImpl implements INotificationRepository {
   final _mapper = NewPengajuanEventMapper();
+  final _apiClient = PengajuanEventApiClient();
 
   @override
   Stream newPengajuanNotification() {
@@ -69,15 +73,20 @@ class NotificationRepositoryImpl implements INotificationRepository {
 
     int progress = 0;
     _httpRequest?.onProgress.listen((event) {
-      final data = _httpRequest?.responseText!.substring(progress);
-      progress += data?.length ?? 0;
+      final textStream = _httpRequest?.responseText!.substring(progress);
+      debugPrint("Ada event! : $textStream");
+      progress += textStream?.length ?? 0;
 
-      if (data != null) {
-        _streamController?.add(_mapper.parseData(data));
+      if (textStream != null) {
+        final parsedData = _mapper.parseData(textStream);
+        if (parsedData != null) {
+          _streamController?.add(parsedData);
+        }
       }
     });
 
     _httpRequest?.onError.listen((event) {
+      _httpRequest?.abort();
       _streamController?.addError(
         _httpRequest?.responseText ?? _httpRequest?.status ?? 'Unknown error',
       );
@@ -98,12 +107,22 @@ class NotificationRepositoryImpl implements INotificationRepository {
     final response = Client().send(request);
     response.asStream().listen((event) {
       event.stream.listen((value) {
-        final stringValue = utf8.decode(value);
-        _streamController?.add(_mapper.parseData(stringValue));
+        final textStream = utf8.decode(value);
+        final parsedData = _mapper.parseData(textStream);
+        if (parsedData != null) {
+          _streamController?.add(parsedData);
+        }
       });
     });
 
     return _streamController!.stream;
+  }
+
+  @override
+  Future<ApiResponse> acknowledgeNewPengajuan(){
+    return ApiRequestProcessor.process(
+      apiRequest: _apiClient.acknowledgePengajuan()
+    );
   }
 
   @override
