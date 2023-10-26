@@ -1,4 +1,3 @@
-
 import 'package:common/data/repository/notification_repository_impl.dart';
 import 'package:common/domain/model/pengaju.dart';
 import 'package:common/domain/repository/i_notification_repository.dart';
@@ -24,12 +23,9 @@ class LihatPengajuanProvider extends DisposableChangeNotifier {
     //   tryRefresh();
     // });
 
-    _notifRepo.testSse()
-      .then((stream) =>
-        stream.listen((value) =>
-          debugPrint('Mendapatkan data dari stream : $value'),
-        )
-      );
+    _notifRepo.getNewPengajuanEvent().listen((event) {
+      debugPrint('Dapat SSE :\n$event');
+    });
   }
 
   final searchController = TextEditingController();
@@ -84,6 +80,7 @@ class LihatPengajuanProvider extends DisposableChangeNotifier {
 
   @override
   void dispose(){
+    _notifRepo.dispose();
     pagingController.dispose();
     searchController.dispose();
     super.dispose();

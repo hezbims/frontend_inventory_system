@@ -2,5 +2,6 @@
 
 abstract class INotificationRepository{
   Stream newPengajuanNotification();
-  Future<Stream<String>> testSse();
+  Stream<int> getNewPengajuanEvent();
+  void dispose();
 }

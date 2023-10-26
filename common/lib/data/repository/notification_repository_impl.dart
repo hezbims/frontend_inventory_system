@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'dart:html';
 
 import 'package:common/constant/url/common_url.dart';
+import 'package:common/data/mapper/pengajuan/new_pengajuan_event_mapper.dart';
 import 'package:common/domain/model/user.dart';
 import 'package:common/domain/repository/i_notification_repository.dart';
 import 'package:dependencies/get_it.dart';
@@ -12,19 +13,19 @@ import 'package:dependencies/web_socket_channel.dart';
 import 'package:flutter/foundation.dart';
 
 class NotificationRepositoryImpl implements INotificationRepository {
-  final _wsChannel = WebSocketChannel.connect(
-      Uri.parse(CommonUrl.webSocketUrl)
-  );
+  final _mapper = NewPengajuanEventMapper();
 
   @override
   Stream newPengajuanNotification() {
+    final wsChannel = WebSocketChannel.connect(
+        Uri.parse(CommonUrl.webSocketUrl)
+    );
+
     final User user = GetIt.I.get();
-
-
     final channelSubscribe = user.isAdmin ?
     "pengajuan-baru-channel" : "pengajuan-responded-${user.id}";
 
-    _wsChannel.sink.add(
+    wsChannel.sink.add(
       jsonEncode({
         "event": "pusher:subscribe",
         "data": {
@@ -33,59 +34,81 @@ class NotificationRepositoryImpl implements INotificationRepository {
       }),
     );
 
-    return _wsChannel.stream;
+    return wsChannel.stream;
   }
 
+  StreamController<int>? _streamController;
+  HttpRequest? _httpRequest;
+
   @override
-  Future<Stream<String>> testSse() async {
-    const url = "http://localhost:3000/test-sse";
+  Stream<int> getNewPengajuanEvent() {
+
+    final url = "${CommonUrl.baseApiUrl}/pengajuan/event";
+    final user = GetIt.I.get<User>();
+
     final headers = {
-      'accpet' : "text/event-stream",
-      "Cache-Control" :  "no-cache"
+      "authorization" : "Bearer ${user.token}",
+      "accept" : "text/event-stream",
+      "Cache-Control" : "no-cache"
     };
+
     if (kIsWeb) { return _webSse(url , headers: headers); }
     else { return _mobileSse(url , headers: headers); }
   }
 
-  Stream<String> _webSse(String path , {Map<String, String>? headers}){
-    final httpRequest = HttpRequest();
-    final streamController = StreamController<String>();
+  Stream<int> _webSse(String url , {Map<String, String>? headers}){
+    _streamController?.close();
+    _streamController = StreamController();
 
-    httpRequest.open("GET", path);
+    _httpRequest = HttpRequest();
+
+    _httpRequest?.open("GET", url);
     headers?.forEach((key, value) {
-      httpRequest.setRequestHeader(key, value);
+      _httpRequest?.setRequestHeader(key, value);
     });
 
     int progress = 0;
-    httpRequest.addEventListener('progress', (event) {
-      final data = httpRequest.responseText!.substring(progress);
-      progress += data.length;
-      streamController.add(data);
+    _httpRequest?.onProgress.listen((event) {
+      final data = _httpRequest?.responseText!.substring(progress);
+      progress += data?.length ?? 0;
+
+      if (data != null) {
+        _streamController?.add(_mapper.parseData(data));
+      }
     });
-    httpRequest.addEventListener('loadend', (event) {
-      httpRequest.abort();
-      streamController.close();
-    });
-    httpRequest.addEventListener('error', (event) {
-      streamController.addError(
-        httpRequest.responseText ?? httpRequest.status ?? 'err',
+
+    _httpRequest?.onError.listen((event) {
+      _streamController?.addError(
+        _httpRequest?.responseText ?? _httpRequest?.status ?? 'Unknown error',
       );
     });
-    httpRequest.send();
-    return streamController.stream;
+    _httpRequest?.send();
+    return _streamController!.stream;
   }
 
-  Future<Stream<String>> _mobileSse(String path , {Map<String , String>? headers}) async {
+  Stream<int> _mobileSse(String url , {Map<String , String>? headers}) {
+    _streamController?.close();
+    _streamController = StreamController();
+
     final request = Request(
-        'GET', Uri.parse(path));
+        'GET', Uri.parse(url));
     headers?.forEach((key, value) {
       request.headers[key] = value;
     });
-    debugPrint('Mau manggil SSE');
-    final response = await Client().send(request);
-    debugPrint("Response status code : ${response.statusCode}");
+    final response = Client().send(request);
+    response.asStream().listen((event) {
+      event.stream.listen((value) {
+        final stringValue = utf8.decode(value);
+        _streamController?.add(_mapper.parseData(stringValue));
+      });
+    });
 
+    return _streamController!.stream;
+  }
 
-    return response.stream.map((data) => utf8.decode(data));
+  @override
+  void dispose(){
+    _httpRequest?.abort();
+    _streamController?.close();
   }
 }
