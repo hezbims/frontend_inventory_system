@@ -3,7 +3,7 @@ import 'package:common/constant/url/env/i_env.dart';
 class ReleaseEnv implements IEnv {
   @override
   // tag_python_script_ganti_current_ip
-  String get serverHost => '192.168.186.100';
+  String get serverHost => '192.168.205.100';
 
   @override
   // tag_python_script_ganti_dengan_laravel_port

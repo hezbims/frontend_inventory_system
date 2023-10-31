@@ -1,6 +1,3 @@
-
-import 'package:flutter/material.dart';
-
 class NewPengajuanEventMapper {
   int? parseData(String eventText){
     final data = eventText.trim().split('\n')[1];
