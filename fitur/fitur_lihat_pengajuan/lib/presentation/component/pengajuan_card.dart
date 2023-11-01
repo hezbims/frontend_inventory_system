@@ -1,4 +1,3 @@
-import 'package:common/constant/themes/custom_font_weight.dart';
 import 'package:common/constant/themes/theme_color.dart';
 import 'package:common/presentation/card/status_mini_card.dart';
 import 'package:fitur_lihat_pengajuan/domain/model/pengajuan_preview.dart';
@@ -36,8 +35,7 @@ class PengajuanCard extends StatelessWidget {
             ),
             Text(
               pengajuan.kodeTransaksi,
-              style: TextStyle(
-                fontWeight: CustomFontWeight.light,
+              style: const TextStyle(
                 fontSize: 10,
               ),
             ),
@@ -82,9 +80,8 @@ class PengajuanCard extends StatelessWidget {
 
                 Text(
                   "${pengajuan.username}  ",
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 10,
-                    fontWeight: CustomFontWeight.extraLight,
                     fontStyle: FontStyle.italic,
                   ),
                 ),

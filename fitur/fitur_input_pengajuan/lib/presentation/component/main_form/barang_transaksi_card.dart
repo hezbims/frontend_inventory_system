@@ -31,17 +31,20 @@ class BarangTransaksiCard extends StatelessWidget {
                     _barangTransaksi.namaBarang,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                   Text(
                     "Quantity : ${_barangTransaksi.quantity}",
                     style: const TextStyle(
-                      fontWeight: FontWeight.w300,
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
                   Text(
                     "Keterangan : ${_barangTransaksi.keterangan ?? "-"}",
                     style: const TextStyle(
-                      fontWeight: FontWeight.w200
+                      fontWeight: FontWeight.w300
                     ),
                   ),
                 ],

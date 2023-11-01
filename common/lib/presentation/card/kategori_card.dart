@@ -1,5 +1,4 @@
 import 'package:common/domain/model/kategori.dart';
-import 'package:dependencies/google_fonts.dart';
 import 'package:flutter/material.dart';
 
 class KategoriCard extends StatelessWidget {
@@ -22,8 +21,8 @@ class KategoriCard extends StatelessWidget {
           child: Center(
             child: Text(
               kategori.nama,
-              style: GoogleFonts.inter(
-                fontWeight: FontWeight.w500,
+              style: const TextStyle(
+                fontWeight: FontWeight.w500
               ),
             ),
           ),

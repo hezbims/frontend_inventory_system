@@ -1,11 +1,9 @@
-import 'package:dependencies/google_fonts.dart';
 import 'package:flutter/material.dart';
 
-final smallText = GoogleFonts.inter(
-  textStyle: const TextStyle(
+const smallText = TextStyle(
+    fontFamily: 'Inter',
     fontSize: 11,
-  )
-);
+  );
 
 const diterimaStatusTextColor = Color(0xFF0D6705);
 const menungguStatusTextColor = Color(0xFF644E00);

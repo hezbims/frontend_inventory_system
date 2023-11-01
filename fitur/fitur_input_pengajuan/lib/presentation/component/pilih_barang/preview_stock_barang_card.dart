@@ -1,4 +1,3 @@
-import 'package:dependencies/google_fonts.dart';
 import 'package:fitur_input_pengajuan/domain/model/barang_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:common/constant/themes/custom_font_weight.dart';
@@ -28,15 +27,15 @@ class PreviewStockBarangCard extends StatelessWidget {
                   Expanded(child: Text(barang.nama,)),
                   Text(
                     "Kode : ${barang.kodeBarang}" ,
-                    style: GoogleFonts.inter(
-                      fontWeight: CustomFontWeight.light,
+                    style: TextStyle(
+                      fontWeight: CustomFontWeight.light
                     ),
                   ),
                 ],
               ),
               Text(
                 "Current stock : ${barang.currentStock}",
-                style: GoogleFonts.inter(
+                style: TextStyle(
                   fontWeight: CustomFontWeight.light,
                 ),
               )

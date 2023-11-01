@@ -1,5 +1,4 @@
 import 'package:common/constant/themes/custom_font_weight.dart';
-import 'package:dependencies/google_fonts.dart';
 import 'package:flutter/material.dart';
 
 class FilterPengajuDrawerHeader extends StatelessWidget {
@@ -14,11 +13,9 @@ class FilterPengajuDrawerHeader extends StatelessWidget {
         Expanded(
           child: Text(
             'Filter Pengaju',
-            style: GoogleFonts.inter(
-                textStyle: TextStyle(
-                  fontWeight: CustomFontWeight.semiBold,
-                  fontSize: 18,
-                )
+            style: TextStyle(
+              fontWeight: CustomFontWeight.semiBold,
+              fontSize: 18,
             ),
             textAlign: TextAlign.center,
           ),
