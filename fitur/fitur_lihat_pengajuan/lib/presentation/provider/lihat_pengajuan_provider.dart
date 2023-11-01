@@ -1,11 +1,11 @@
-import 'package:common/data/repository/notification_repository_impl.dart';
 import 'package:common/domain/model/pengaju.dart';
-import 'package:common/domain/repository/i_notification_repository.dart';
 import 'package:common/response/api_response.dart';
 import 'package:common/utils/disposable_change_notifier.dart';
 import 'package:dependencies/infinite_scroll_pagination.dart';
+import 'package:fitur_lihat_pengajuan/data/repository/notification_repository_impl.dart';
 import 'package:fitur_lihat_pengajuan/domain/model/pengajuan_preview.dart';
 import 'package:fitur_lihat_pengajuan/domain/repository/i_lihat_pengajuan_repository.dart';
+import 'package:fitur_lihat_pengajuan/domain/repository/i_notification_repository.dart';
 import 'package:flutter/material.dart';
 
 class LihatPengajuanProvider extends DisposableChangeNotifier {
@@ -19,19 +19,9 @@ class LihatPengajuanProvider extends DisposableChangeNotifier {
     pagingController.addPageRequestListener((pageNumber) {
       _pageRequestProcess = _requestPage(pageNumber);
     });
-    // _notifRepo.newPengajuanNotification().listen((event) {
-    //   tryRefresh();
-    // });
 
     _notifRepo.getNewPengajuanEvent().listen((event) async {
-
-      final response = await _notifRepo.acknowledgeNewPengajuan();
-      if (response is ApiResponseFailed){
-        debugPrint('gagal mengacknowledge');
-      }
-      else {
-        tryRefresh();
-      }
+      tryRefresh();
     });
   }
 
