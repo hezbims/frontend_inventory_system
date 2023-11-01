@@ -70,7 +70,6 @@ class NotificationRepositoryImpl implements INotificationRepository {
     return _streamController.stream;
   }
 
-  @override
   Future<ApiResponse> acknowledgeNewPengajuan(){
     return ApiRequestProcessor.process(
       apiRequest: _apiClient.acknowledgePengajuan()

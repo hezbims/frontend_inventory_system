@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../mock/prepare_mock_lihat_pengajuan_repository.dart';
+import '../mock/prepare_mock_notif_repo.dart';
 import '../mock/prepare_mock_pengaju_repository.dart';
 
 void main(){
@@ -25,7 +26,10 @@ void main(){
         FilterPengajuProvider(repository: prepareMockPengajuRepository())
       );
       GetIt.I.registerSingleton(
-        LihatPengajuanProvider(repository: prepareMockLihatPengajuanRepository())
+        LihatPengajuanProvider(
+          lihatPengajuanRepo: prepareMockLihatPengajuanRepository(),
+          notifRepo: prepareMockNotifRepo(),
+        ),
       );
 
       await tester.pumpWidget(
