@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:html';
-import 'dart:collection';
+import 'package:common/utils/pair.dart';
 
 class WebSseClient {
   final _eventStreamController = StreamController<String>();
@@ -9,7 +9,7 @@ class WebSseClient {
   
   WebSseClient(){
     _httpRetryStream.stream.listen((event) {
-      _tryHttpRequest(url)
+      _tryHttpRequest(event.first , headers: event.second);
     });
   }
   void dispose(){
@@ -31,24 +31,21 @@ class WebSseClient {
       final textStream = _httpRequest?.responseText!.substring(progress);
       progress += textStream?.length ?? 0;
 
-      if (textStream != null) {
-        _eventStreamController.add(textStream);
-        // final parsedData = _mapper.parseData(textStream);
-        // if (parsedData != null) {
-        //   _streamController?.add(parsedData);
-        // }
-      }
+      if (textStream != null) { _eventStreamController.add(textStream); }
     });
 
     _httpRequest?.onError.listen((event) {
       _httpRequest?.abort();
-      _httpRetryStream.add(true);
+      Future.delayed(
+        const Duration(seconds: 10),
+        () => _httpRetryStream.add(Pair(url, headers))
+      );
     });
     _httpRequest?.send();
   }
 
-  Stream<String> getWebSse(String url , { Map<String , String>? headers }) {
-    _httpRetryStream.add(true);
+  Stream<String> getSse(String url , { Map<String , String>? headers }) {
+    _httpRetryStream.add(Pair(url, headers));
     return _eventStreamController.stream;
   }
 }

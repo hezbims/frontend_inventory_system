@@ -26,4 +26,6 @@ abstract class CommonUrl {
   static String get webSocketUrl =>
     _webSocketUrl ??= 'ws://${_env.serverHost}:${_env.websocketPort}/app/${_env.pusherAppKey}';
 
+
+
 }
