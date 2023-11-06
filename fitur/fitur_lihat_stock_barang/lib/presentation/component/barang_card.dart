@@ -54,9 +54,9 @@ class BarangCard extends StatelessWidget {
                   flex: 2,
                   child: Text(
                     "Rak :\n"
-                    "R${barang.rak.nomorRak}-"
-                    "${barang.rak.nomorLaci}-"
-                    "${barang.rak.nomorKolom}"
+                    "R${barang.nomorRak}-"
+                    "${barang.nomorLaci}-"
+                    "${barang.nomorKolom}"
                   )
                 ),
                 const SizedBox(width: 4,),

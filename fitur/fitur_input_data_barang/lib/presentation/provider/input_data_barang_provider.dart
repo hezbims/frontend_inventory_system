@@ -24,13 +24,13 @@ class InputDataBarangProvider extends ChangeNotifier {
       ),
       _kategori = initialData?.kategori,
       nomorRakController = TextEditingController(
-        text: initialData?.rak.nomorRak.toString() ?? ""
+        text: initialData?.nomorRak.toString() ?? ""
       ),
       nomorLaciController = TextEditingController(
-        text: initialData?.rak.nomorLaci.toString() ?? ""
+        text: initialData?.nomorLaci.toString() ?? ""
       ),
       nomorKolomController = TextEditingController(
-        text: initialData?.rak.nomorKolom.toString() ?? ""
+        text: initialData?.nomorKolom.toString() ?? ""
       ),
       minStockController = TextEditingController(
         text: initialData?.minStock.toString() ?? ""

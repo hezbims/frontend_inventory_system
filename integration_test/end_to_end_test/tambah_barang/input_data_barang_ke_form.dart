@@ -25,15 +25,15 @@ Future<void> inputDataBarangKeForm({
   );
   await tester.typeTextField(
       textFieldLabel: 'Nomor Rak',
-      input: data.rak.nomorRak.toString()
+      input: data.nomorRak.toString()
   );
   await tester.typeTextField(
       textFieldLabel: 'Nomor Laci',
-      input: data.rak.nomorLaci.toString()
+      input: data.nomorLaci.toString()
   );
   await tester.typeTextField(
       textFieldLabel: 'Nomor Kolom',
-      input: data.rak.nomorKolom.toString()
+      input: data.nomorKolom.toString()
   );
   await tester.typeTextField(
       textFieldLabel: 'Min. Stock',

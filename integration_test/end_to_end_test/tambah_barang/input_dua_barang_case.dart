@@ -1,6 +1,5 @@
 import 'package:common/domain/model/barang.dart';
 import 'package:common/domain/model/kategori.dart';
-import 'package:common/domain/model/rak.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'input_data_barang_ke_form.dart';
@@ -13,11 +12,9 @@ Future<void> inputDuaBarang({required WidgetTester tester}) async {
         kodeBarang: "",
         nama: 'Barang 1',
         minStock: 2,
-        rak: Rak(
-            nomorRak: 2,
-            nomorLaci: 3,
-            nomorKolom: 4
-        ),
+        nomorRak: 2,
+        nomorLaci: 3,
+        nomorKolom: 4,
         stockSekarang: 25,
         lastMonthStock: 10,
         unitPrice: 2500,
@@ -32,11 +29,9 @@ Future<void> inputDuaBarang({required WidgetTester tester}) async {
         kodeBarang: "",
         nama: 'Barang 2',
         minStock: 2,
-        rak: Rak(
-            nomorRak: 2,
-            nomorLaci: 3,
-            nomorKolom: 5
-        ),
+        nomorRak: 2,
+        nomorLaci: 3,
+        nomorKolom: 5,
         stockSekarang: 20,
         lastMonthStock: 10,
         unitPrice: 3000,
