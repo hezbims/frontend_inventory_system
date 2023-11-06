@@ -72,7 +72,7 @@ void main() {
         final mockBarangRepository = MockBarangRepository();
         when(() => mockBarangRepository.getStockBarang(any(), any()))
           .thenAnswer((_) async {
-            final tokenizedHeader = await tokenManager.getTokenizedHeader();
+            final tokenizedHeader = await tokenManager.getLocalStorageTokenizedHeader();
             if (tokenizedHeader['token'] == token){
               return ApiResponseSuccess(data: []);
             }

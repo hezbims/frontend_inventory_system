@@ -9,17 +9,20 @@ class PengajuApiClient {
     ITokenManager? tokenManager,
   }) : _tokenManager = tokenManager ?? TokenManagerImpl();
 
-  Future<Response> getPengaju(bool isPemasok){
+  Future<Response> getPengaju(bool isPemasok) async {
     final url = "${CommonUrl.baseApiUrl}/pengaju/get?is_pemasok=${isPemasok ? 1 : 0}";
 
-    return get(Uri.parse(url));
+    return get(
+      Uri.parse(url),
+      headers: _tokenManager.getCurrentSessionTokenizedHeader(),
+    );
   }
 
   Future<Response> createPengaju(String body) async {
     final url = "${CommonUrl.baseApiUrl}/pengaju/add";
     return post(
       Uri.parse(url),
-      headers: await _tokenManager.getTokenizedHeader(),
+      headers: _tokenManager.getCurrentSessionTokenizedHeader(),
       body: body,
     );
   }

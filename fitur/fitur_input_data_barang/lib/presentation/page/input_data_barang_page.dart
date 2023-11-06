@@ -1,6 +1,7 @@
 import 'package:common/domain/extension/media_query_data_extension.dart';
 import 'package:common/domain/model/barang.dart';
 import 'package:common/domain/model/kategori.dart';
+import 'package:common/domain/model/user.dart';
 import 'package:common/presentation/bottom_navbar/submit_card.dart';
 import 'package:common/presentation/button/disabled_submit_button.dart';
 import 'package:common/presentation/button/submit_button.dart';
@@ -52,11 +53,9 @@ class InputDataBarangPage extends StatelessWidget {
                 builder: (context) {
                   late Widget button;
 
-                  // kareana initial datanya gak ada berarti tambah barang
-                  if (!provider.isEditing){
+                  if (GetIt.I.get<User>().isAdmin){
                     button = SubmitButton(onTap: provider.submit);
                   }
-                  // kalo lagi ngedit, gunain button yang disabled
                   else {
                     button = const DisabledSubmitButton();
                   }

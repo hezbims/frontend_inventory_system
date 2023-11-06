@@ -9,18 +9,11 @@ class SubmitBarangRepositoryImpl implements ISubmitBarangRepository {
   final _apiClient = SubmitBarangApiClient();
   final _mapper = SubmitBarangMapper();
   @override
-  Future<ApiResponse> addNewBarang(SubmitBarangDto barang) {
+  Future<ApiResponse> submitDataBarang(SubmitBarangDto barang) {
     return ApiRequestProcessor.process(
       apiRequest: _apiClient.submit(barang),
       getErrorMessageFromBody: _mapper.getAllError,
     );
   }
 
-  @override
-  Future<ApiResponse> editBarang(SubmitBarangDto barang) {
-    return ApiRequestProcessor.process(
-      apiRequest: _apiClient.edit(barang),
-    );
-  }
-  
 }

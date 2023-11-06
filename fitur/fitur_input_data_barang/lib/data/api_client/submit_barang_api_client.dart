@@ -19,17 +19,7 @@ class SubmitBarangApiClient {
     return post(
       Uri.parse(url),
       body: jsonEncode(barang.json),
-      headers: await _tokenManager.getTokenizedHeader(),
-    );
-  }
-
-  Future<Response> edit(SubmitBarangDto submit) async {
-    final url = "${CommonUrl.baseApiUrl}/barang/edit/${submit.json['id']}";
-
-    return put(
-      Uri.parse(url),
-      body: submit.json,
-      headers: await _tokenManager.getTokenizedHeader(),
+      headers: _tokenManager.getCurrentSessionTokenizedHeader(),
     );
   }
 }

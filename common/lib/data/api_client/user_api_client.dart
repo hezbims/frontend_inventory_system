@@ -10,7 +10,7 @@ class UserApiClient {
 
     return get(
         Uri.parse(url),
-        headers: await tokenManager.getTokenizedHeader()
+        headers: await tokenManager.getLocalStorageTokenizedHeader()
     );
   }
 }

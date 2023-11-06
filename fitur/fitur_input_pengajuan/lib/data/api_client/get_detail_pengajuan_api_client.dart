@@ -14,7 +14,7 @@ class GetDetailPengajuanApiClient {
 
     return get(
       Uri.parse(url),
-      headers: await _tokenManager.getTokenizedHeader(),
+      headers: _tokenManager.getCurrentSessionTokenizedHeader(),
     );
   }
 }

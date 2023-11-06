@@ -14,7 +14,7 @@ class SubmitPengajuanApiClient {
 
     return post(
       Uri.parse(url),
-      headers: await _tokenManager.getTokenizedHeader(),
+      headers: _tokenManager.getCurrentSessionTokenizedHeader(),
       body: body
     );
   }
@@ -24,7 +24,7 @@ class SubmitPengajuanApiClient {
 
     return delete(
       Uri.parse(url),
-      headers: await _tokenManager.getTokenizedHeader(),
+      headers: _tokenManager.getCurrentSessionTokenizedHeader(),
     );
   }
 }

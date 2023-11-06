@@ -13,7 +13,7 @@ class BarangApiClient {
     final getBarangUrl = "${CommonUrl.baseApiUrl}/barang/all?page=$pageNumber&keyword=$keyword";
     return get(
       Uri.parse(getBarangUrl),
-      headers: await _tokenManager.getTokenizedHeader(),
+      headers: _tokenManager.getCurrentSessionTokenizedHeader(),
     );
   }
 
@@ -21,7 +21,7 @@ class BarangApiClient {
     final url = "${CommonUrl.baseApiUrl}/barang/detail/$id";
     return get(
       Uri.parse(url),
-      headers: await _tokenManager.getTokenizedHeader(),
+      headers: _tokenManager.getCurrentSessionTokenizedHeader(),
     );
   }
 }

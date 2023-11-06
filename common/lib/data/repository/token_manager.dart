@@ -1,6 +1,8 @@
 import 'dart:io';
 
+import 'package:common/domain/model/user.dart';
 import 'package:common/domain/repository/i_token_manager.dart';
+import 'package:dependencies/get_it.dart';
 import 'package:dependencies/shared_preference.dart';
 
 class TokenManagerImpl implements ITokenManager {
@@ -13,19 +15,13 @@ class TokenManagerImpl implements ITokenManager {
   final _tokenKey = 'token';
   SharedPreferences? _pref;
   @override
-  Future<Map<String , String>> getTokenizedHeader() async {
+  Future<Map<String , String>> getLocalStorageTokenizedHeader() async {
     _pref ??= await SharedPreferences.getInstance();
-
     final token = _pref!.get(_tokenKey);
 
-    return {
-      HttpHeaders.authorizationHeader : "Bearer $token",
-      HttpHeaders.acceptHeader : 'application/json',
-      HttpHeaders.contentTypeHeader : 'application/json',
-    };
+    return _constructTokenizedHeader(token.toString());
   }
 
-  // TODO : pasttin token di set sehabis login dan pas ngedapetin current user di repository
   @override
   Future<void> setToken(String token) async {
     _pref ??= await SharedPreferences.getInstance();
@@ -38,5 +34,18 @@ class TokenManagerImpl implements ITokenManager {
     _pref ??= await SharedPreferences.getInstance();
 
     await _pref!.remove(_tokenKey);
+  }
+
+  @override
+  Map<String, String> getCurrentSessionTokenizedHeader() {
+    return _constructTokenizedHeader(GetIt.I.get<User>().token);
+  }
+
+  Map<String , String> _constructTokenizedHeader(String token){
+    return {
+      HttpHeaders.authorizationHeader : "Bearer $token",
+      HttpHeaders.acceptHeader : 'application/json',
+      HttpHeaders.contentTypeHeader : 'application/json',
+    };
   }
 }

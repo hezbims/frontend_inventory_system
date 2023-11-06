@@ -14,7 +14,6 @@ class SubmitBarangMapper {
       SubmitBarangDto.kolomNomorRak : errors[SubmitBarangDto.kolomNomorRak]?[0],
       SubmitBarangDto.kolomNomorLaci : errors[SubmitBarangDto.kolomNomorLaci]?[0],
       SubmitBarangDto.kolomNomorKolom : errors[SubmitBarangDto.kolomNomorKolom]?[0],
-      SubmitBarangDto.kolomCreateRak : errors[SubmitBarangDto.kolomCreateRak]?[0],
       SubmitBarangDto.kolomLastMonthStock : errors[SubmitBarangDto.kolomLastMonthStock]?[0],
       SubmitBarangDto.kolomStockSekarang : errors[SubmitBarangDto.kolomStockSekarang]?[0],
       SubmitBarangDto.kolomUnitPrice : errors[SubmitBarangDto.kolomUnitPrice]?[0],

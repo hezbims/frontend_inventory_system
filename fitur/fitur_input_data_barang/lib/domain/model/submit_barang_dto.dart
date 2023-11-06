@@ -20,7 +20,6 @@ class SubmitBarangDto {
         kolomNomorRak : nomorRak,
         kolomNomorLaci : nomorLaci,
         kolomNomorKolom : nomorKolom,
-        kolomCreateRak : "",
         kolomStockSekarang : stockSekarang,
         kolomLastMonthStock : lastMonthStock,
         kolomUnitPrice : unitPrice,
@@ -33,7 +32,6 @@ class SubmitBarangDto {
   static const kolomMinStock = 'min_stock';
   static const kolomNomorRak = 'nomor_rak';
   static const kolomNomorLaci = 'nomor_laci';
-  static const kolomCreateRak = 'create_rak';
   static const kolomNomorKolom = 'nomor_kolom';
   static const kolomStockSekarang = 'stock_sekarang';
   static const kolomLastMonthStock = 'last_month_stock';

@@ -21,7 +21,7 @@ class LihatPengajuanApiClient {
 
     return get(
       Uri.parse(url),
-      headers: await _tokenManager.getTokenizedHeader(),
+      headers: await _tokenManager.getLocalStorageTokenizedHeader(),
     );
   }
 }

@@ -16,7 +16,7 @@ class PengajuanEventApiClient {
     final url = "${CommonUrl.baseApiUrl}/pengajuan/ack";
     return post(
       Uri.parse(url),
-      headers: await _tokenManager.getTokenizedHeader(),
+      headers: _tokenManager.getCurrentSessionTokenizedHeader(),
     );
   }
 }

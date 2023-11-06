@@ -5,7 +5,6 @@ import 'package:common/constant/json_field/kategori_field.dart';
 import 'package:common/constant/json_field/rak_field.dart';
 import 'package:fitur_buat_laporan/domain/model/data_laporan.dart';
 import 'package:fitur_buat_laporan/domain/model/transaksi_barang_summary.dart';
-import 'package:flutter/material.dart';
 
 class GetDataLaporanMapper {
   List<DataLaporan> fromBodyToListDataLaporan(String body){
@@ -16,14 +15,12 @@ class GetDataLaporanMapper {
       (json) => DataLaporan(
         namaKategori: json[KategoriField.nama],
         barang: json[KategoriField.barang].map(
-          (jsonBarang) {
-            debugPrint(json[BarangField.kodeBarang].toString());
-            debugPrint(json[BarangField.nama].toString());
-            return TransaksiBarangSummary(
+          (jsonBarang) =>
+            TransaksiBarangSummary(
               kodeBarang: jsonBarang[BarangField.kodeBarang],
-              nomorRak: jsonBarang[BarangField.rak][RakField.nomorRak],
-              nomorLaci: jsonBarang[BarangField.rak][RakField.nomorLaci],
-              nomorKolom: jsonBarang[BarangField.rak][RakField.nomorKolom],
+              nomorRak: jsonBarang[RakField.nomorRak],
+              nomorLaci: jsonBarang[RakField.nomorLaci],
+              nomorKolom: jsonBarang[RakField.nomorKolom],
               namaBarang: jsonBarang[BarangField.nama],
               uom: jsonBarang[BarangField.uom],
               minStock: jsonBarang[BarangField.minStock],
@@ -33,8 +30,7 @@ class GetDataLaporanMapper {
               totalKeluar: jsonBarang[BarangField.totalKeluar],
               unitPrice: jsonBarang[BarangField.unitPrice],
               amount: jsonBarang[BarangField.amount],
-            );
-            }
+            ),
         ).cast<TransaksiBarangSummary>().toList()
       ),
     ).cast<DataLaporan>().toList();
