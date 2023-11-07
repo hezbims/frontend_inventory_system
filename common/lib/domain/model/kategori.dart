@@ -22,4 +22,9 @@ class Kategori {
       _kolomNama : nama,
     };
   }
+
+  @override
+  String toString(){
+    return nama;
+  }
 }

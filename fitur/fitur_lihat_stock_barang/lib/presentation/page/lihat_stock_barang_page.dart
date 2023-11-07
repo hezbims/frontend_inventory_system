@@ -9,7 +9,8 @@ import 'package:dependencies/infinite_scroll_pagination.dart';
 import 'package:dependencies/provider.dart';
 import 'package:common/domain/model/barang.dart';
 import 'package:fitur_lihat_stock_barang/presentation/component/barang_card.dart';
-import 'package:fitur_lihat_stock_barang/presentation/component/filter_drawer.dart';
+import 'package:fitur_lihat_stock_barang/presentation/component/kategori_filter_drawer.dart';
+import 'package:fitur_lihat_stock_barang/presentation/provider/kategori_filter_provider.dart';
 import 'package:fitur_lihat_stock_barang/presentation/provider/lihat_stock_barang_provider.dart';
 import 'package:flutter/material.dart';
 
@@ -18,13 +19,20 @@ class LihatStockBarangPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => GetIt.I.get<LihatStockBarangProvider>(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => GetIt.I.get<LihatStockBarangProvider>()
+        ),
+        ChangeNotifierProvider(
+          create: (context) =>  GetIt.I.get<KategoriFilterProvider>(),
+        ),
+      ],
       child: Consumer<LihatStockBarangProvider>(
         builder: (context , provider , child) {
           return Scaffold(
             endDrawerEnableOpenDragGesture: false,
-            endDrawer: const FilterDrawer(),
+            endDrawer: const KategoriFilterDrawer(),
             appBar: SearchWithFilterAppBar(
               label: "Cari nama barang",
               onFilterPressed: (context){

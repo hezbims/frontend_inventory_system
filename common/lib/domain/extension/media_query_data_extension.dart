@@ -9,4 +9,7 @@ extension MediaQueryDataExtension on MediaQueryData {
   double get phonePotraitPadding {
     return max(24 , (size.width - 312) / 2);
   }
+  double get maxDrawerWidth {
+    return min(288 , size.width * 4 / 5);
+  }
 }

@@ -1,5 +1,4 @@
-import 'dart:math';
-
+import 'package:common/domain/extension/media_query_data_extension.dart';
 import 'package:dependencies/provider.dart';
 import 'package:fitur_lihat_pengajuan/presentation/component/filter_pengaju/choosen_pengaju_field.dart';
 import 'package:fitur_lihat_pengajuan/presentation/component/filter_pengaju/filter_pengaju_drawer_header.dart';
@@ -17,7 +16,7 @@ class FilterPengajuDrawer extends StatelessWidget {
       builder: (context , provider , child) {
         return ConstrainedBox(
           constraints: BoxConstraints(
-            maxWidth: min(288 , MediaQuery.of(context).size.width * 4 / 5),
+            maxWidth: MediaQuery.of(context).maxDrawerWidth,
             maxHeight: MediaQuery.of(context).size.height,
           ),
           child: Drawer(

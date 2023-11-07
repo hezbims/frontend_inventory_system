@@ -3,7 +3,6 @@ import 'package:common/constant/enums/status_pengajuan.dart';
 import 'package:fitur_input_pengajuan/domain/model/barang_transaksi.dart';
 import 'package:common/domain/model/pengaju.dart';
 import 'package:fitur_input_pengajuan/domain/model/pengajuan.dart';
-import 'package:flutter/material.dart';
 
 class GetDetailPengajuanMapper {
   Pengajuan fromBodyToDetailPengajuan(String body){
@@ -22,13 +21,11 @@ class GetDetailPengajuanMapper {
       }
     ).toList().cast<BarangTransaksi>();
 
-    final dateTime = DateTime.fromMillisecondsSinceEpoch(
-      data['created_at'],
-    );
-
     return Pengajuan(
       id: data['id'],
-      tanggal: dateTime,
+      tanggal: DateTime.fromMillisecondsSinceEpoch(
+        data['created_at'],
+      ),
       pengaju: Pengaju(
         nama: data['pengaju']['nama'],
         id: data['pengaju']['id'],
