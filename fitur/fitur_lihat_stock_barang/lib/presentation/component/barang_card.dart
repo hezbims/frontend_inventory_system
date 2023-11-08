@@ -1,4 +1,5 @@
 import 'package:common/constant/themes/custom_font_weight.dart';
+import 'package:common/constant/themes/status_colors.dart';
 import 'package:common/domain/model/barang.dart';
 import 'package:common/constant/routes/routes_path.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,10 @@ class BarangCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
       ),
       elevation: 8,
+      color: getColorByCurrentStockAndMinStock(
+        minStock: barang.minStock,
+        currentStock: barang.stockSekarang,
+      ),
       child: Container(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -84,5 +89,14 @@ class BarangCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Color? getColorByCurrentStockAndMinStock({
+    required int minStock,
+    required int currentStock,
+  }){
+    if (currentStock <= 0){ return ditolakStatusContainerColor; }
+    if (currentStock < minStock){ return menungguStatusContainerColor; }
+    return null;
   }
 }
