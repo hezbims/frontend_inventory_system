@@ -79,8 +79,10 @@ class LihatStockBarangProvider extends DisposableChangeNotifier {
   final searchController = TextEditingController();
   int _idChoosenKategori = 0;
   void setChoosenIdKategori(int newIdKategori) {
-    _idChoosenKategori = newIdKategori;
-    tryRefreshPagination();
+    if (newIdKategori != _idChoosenKategori) {
+      _idChoosenKategori = newIdKategori;
+      tryRefreshPagination();
+    }
   }
 
 
