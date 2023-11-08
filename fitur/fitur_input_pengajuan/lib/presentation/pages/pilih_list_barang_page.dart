@@ -1,14 +1,13 @@
-import 'package:common/domain/extension/media_query_data_extension.dart';
 import 'package:common/presentation/bottom_navbar/submit_card.dart';
 import 'package:dependencies/fluttertoast.dart';
 import 'package:dependencies/get_it.dart';
-import 'package:dependencies/infinite_scroll_pagination.dart';
 import 'package:dependencies/provider.dart';
 import 'package:fitur_input_pengajuan/domain/model/barang_transaksi.dart';
 import 'package:fitur_input_pengajuan/domain/model/barang_preview.dart';
 import 'package:fitur_input_pengajuan/presentation/arg_model/main_form_to_pilih_barang_arg.dart';
 import 'package:fitur_input_pengajuan/presentation/component/common/transaksi_barang_bottom_sheet.dart';
-import 'package:fitur_input_pengajuan/presentation/component/pilih_barang/preview_stock_barang_card.dart';
+import 'package:fitur_input_pengajuan/presentation/component/pilih_barang/done_card.dart';
+import 'package:fitur_input_pengajuan/presentation/component/pilih_barang/list_barang_paginator.dart';
 import 'package:common/presentation/textfield/search_app_bar.dart';
 import 'package:fitur_input_pengajuan/presentation/provider/pilih_barang/pilih_barang_provider.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +43,7 @@ class PilihListBarangPage extends StatelessWidget {
                     Navigator.of(context).pop(provider.choosenBarang);
                   },
                 ),
-                onValueChange: (_) => provider.tryRefresh(),
+                onValueChange: (_) => provider.tryRefreshPagination(),
                 onSubmit: (_) => provider.searchBarangFocusNode.requestFocus(),
               ),
               body: Builder(
@@ -56,41 +55,13 @@ class PilihListBarangPage extends StatelessWidget {
                     );
                   };
 
-                  return PagedListView.separated(
-                    padding: EdgeInsets.symmetric(
-                      vertical: 36,
-                      horizontal: MediaQuery.of(context).phoneLandscapePadding,
-                    ),
-                    pagingController: provider.pagingController,
-                    builderDelegate: PagedChildBuilderDelegate(
-                      itemBuilder: (context , BarangPreview item , index){
-                        return PreviewStockBarangCard(
-                          barang: item,
-                          onTap: (){
-                            tryShowBottomSheet(context: context, barang: item);
-                          },
-                        );
-                      },
-                    ),
-                    separatorBuilder: (context , index){
-                      return const SizedBox(height: 10,);
-                    },
+                  return ListBarangPaginator(
+                    provider: provider,
+                    tryShowBottomSheet: tryShowBottomSheet
                   );
                 }
               ),
-              bottomNavigationBar: SubmitCard(
-                button: OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 28),
-                  ),
-                  onPressed: () => popDone(context),
-                  child: Consumer<PilihBarangProvider>(
-                    builder: (context , provider , child) {
-                      return Text('Done (${provider.choosenBarang.length})',);
-                    }
-                  )
-                ),
-              ),
+              bottomNavigationBar: DoneCard(popDone: popDone),
             ),
           );
         }
@@ -111,7 +82,7 @@ class PilihListBarangPage extends StatelessWidget {
     required BuildContext context,
     required BarangPreview barang,
   }) async {
-    final provider = Provider.of<PilihBarangProvider>(context , listen : false);
+    final provider = context.read<PilihBarangProvider>();
     if (barang.currentStock == 0 &&
         !provider.isPemasukan) {
       Fluttertoast.showToast(msg: "Barang sudah habis!", timeInSecForIosWeb: 4);

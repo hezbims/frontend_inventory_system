@@ -25,7 +25,7 @@ class PilihBarangProvider extends DisposableChangeNotifier {
   }
 
   bool _isTryingRefresh = false;
-  void tryRefresh() async {
+  void tryRefreshPagination() async {
     if (!_isTryingRefresh){
       _isTryingRefresh = true;
       await _pageRequestProcess;
