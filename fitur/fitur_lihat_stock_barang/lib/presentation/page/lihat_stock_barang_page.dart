@@ -27,7 +27,8 @@ class LihatStockBarangPage extends StatelessWidget {
       child: Builder(
         builder: (context) {
           final stockBarangProvider = context.read<LihatStockBarangProvider>();
-          // Mengobserve perubahanan apabila notifylistener dipanggil pada kategori filter provider
+
+          // Mengobserve perubahanan apabila notifylistener dipanggil pada KategoriFilterProvider
           context.select<KategoriFilterProvider , void>(
             (kategoriFilterProvider) =>
               stockBarangProvider.setChoosenIdKategori(

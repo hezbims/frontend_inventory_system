@@ -1,3 +1,4 @@
+import 'package:common/constant/themes/custom_font_weight.dart';
 import 'package:common/domain/model/barang.dart';
 import 'package:common/constant/routes/routes_path.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,13 @@ class BarangCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Kode : ${barang.kodeBarang}"),
+            Text(
+              barang.nama ,
+              style: TextStyle(
+                fontWeight: CustomFontWeight.medium,
+                fontSize: 18,
+              ),
+            ),
 
             const SizedBox(height: 10),
 
@@ -30,7 +37,7 @@ class BarangCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(child: Text(barang.nama)),
+                Expanded(child: Text("Kode : ${barang.kodeBarang}"),),
 
                 const SizedBox(width: 4,),
 
