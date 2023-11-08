@@ -29,9 +29,7 @@ class PilihBarangProvider extends DisposableChangeNotifier {
     if (!_isTryingRefresh){
       _isTryingRefresh = true;
       await _pageRequestProcess;
-      if (canUseResource) {
-        pagingController.refresh();
-      }
+      if (canUseResource) { pagingController.refresh(); }
       _isTryingRefresh = false;
     }
   }
@@ -73,7 +71,7 @@ class PilihBarangProvider extends DisposableChangeNotifier {
   final searchBarangController = TextEditingController();
   final searchBarangFocusNode = FocusNode();
   var _needRequestFocus = true;
-  void requestFocus(){
+  void tryRequestFocus(){
     if (_needRequestFocus){
       _needRequestFocus = false;
       searchBarangFocusNode.requestFocus();
@@ -83,6 +81,7 @@ class PilihBarangProvider extends DisposableChangeNotifier {
   List<BarangTransaksi> choosenBarang = [];
   void addNewBarangTransaksi(final BarangTransaksi newBarangTransaksi){
     choosenBarang = [...choosenBarang , newBarangTransaksi];
+    notifyListeners();
   }
   bool thisBarangAlreadyTaken(BarangPreview barang){
     return choosenBarang.any((element) => element.idBarang == barang.id);

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:stock_bu_fan/theme/custom_filled_button_theme.dart';
 import 'package:stock_bu_fan/theme/custom_floating_action_button_theme.dart';
 import 'package:stock_bu_fan/theme/custom_input_decoration_theme.dart';
+import 'package:stock_bu_fan/theme/custom_outlined_button_theme.dart';
 import 'package:stock_bu_fan/theme/custom_search_bar_theme.dart';
 
 final customThemeData = ThemeData(
@@ -15,5 +16,6 @@ final customThemeData = ThemeData(
   fontFamily: 'Inter',
   filledButtonTheme: CustomFilledButtonTheme(),
   floatingActionButtonTheme: const CustomFloatingActionButtonTheme(),
+  outlinedButtonTheme: CustomOutlinedButtonTheme(),
   searchBarTheme: CustomSearchBarTheme(),
 );

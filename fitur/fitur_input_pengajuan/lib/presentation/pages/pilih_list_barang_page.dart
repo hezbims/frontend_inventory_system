@@ -1,4 +1,5 @@
 import 'package:common/domain/extension/media_query_data_extension.dart';
+import 'package:common/presentation/bottom_navbar/submit_card.dart';
 import 'package:dependencies/fluttertoast.dart';
 import 'package:dependencies/get_it.dart';
 import 'package:dependencies/infinite_scroll_pagination.dart';
@@ -23,18 +24,16 @@ class PilihListBarangPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => GetIt.I.get<PilihBarangProvider>(param1: arg,),
-      child: Consumer<PilihBarangProvider>(
-        builder: (context , provider , child) {
+      child: Builder(
+        builder: (context) {
+          final provider = context.read<PilihBarangProvider>();
           WidgetsBinding.instance.addPostFrameCallback(
-            (_) {
-              provider.requestFocus();
-            }
+            (_) => provider.tryRequestFocus(),
           );
+
           return WillPopScope(
-            onWillPop: () async {
-              Navigator.of(context).pop(provider.choosenBarang);
-              return false;
-            },
+            onWillPop: () async =>
+              popDone(context),
             child: Scaffold(
               appBar: SearchAppBar(
                 controller: provider.searchBarangController,
@@ -52,8 +51,8 @@ class PilihListBarangPage extends StatelessWidget {
                 builder: (context) {
                   provider.showBottomSheet = (barang) {
                     tryShowBottomSheet(
-                        context: context,
-                        barang: barang,
+                      context: context,
+                      barang: barang,
                     );
                   };
 
@@ -79,11 +78,33 @@ class PilihListBarangPage extends StatelessWidget {
                   );
                 }
               ),
+              bottomNavigationBar: SubmitCard(
+                button: OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 28),
+                  ),
+                  onPressed: () => popDone(context),
+                  child: Consumer<PilihBarangProvider>(
+                    builder: (context , provider , child) {
+                      return Text('Done (${provider.choosenBarang.length})',);
+                    }
+                  )
+                ),
+              ),
             ),
           );
         }
       ),
     );
+  }
+
+  bool popDone(
+    BuildContext context
+  ){
+    Navigator.of(context).pop(
+      context.read<PilihBarangProvider>().choosenBarang,
+    );
+    return false;
   }
 
   void tryShowBottomSheet({
