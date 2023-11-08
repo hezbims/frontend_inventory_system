@@ -23,6 +23,7 @@ class KategoriFilterProvider extends ChangeNotifier {
   void setChoosenKategori(Kategori? newKategori){
     if (newKategori != null && newKategori.id != _choosenKategori.id){
       _choosenKategori = newKategori;
+      notifyListeners();
     }
   }
 

@@ -9,7 +9,7 @@ class SettingAkunApiClient {
 
     return delete(
       Uri.parse(url),
-      headers: await _tokenManager.getLocalStorageTokenizedHeader()
+      headers: _tokenManager.getCurrentSessionTokenizedHeader()
     );
   }
 }

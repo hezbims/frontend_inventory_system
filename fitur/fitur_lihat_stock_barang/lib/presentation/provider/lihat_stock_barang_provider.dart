@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:common/domain/model/barang.dart';
-import 'package:common/domain/model/kategori.dart';
 import 'package:common/domain/repository/i_barang_repository.dart';
 import 'package:common/response/api_response.dart';
 import 'package:common/utils/disposable_change_notifier.dart';
@@ -16,17 +15,17 @@ class LihatStockBarangProvider extends DisposableChangeNotifier {
     pagingController.addPageRequestListener(_performApiCall);
   }
 
-  void tryApiCall() async {
+  void tryRefreshPagination() async {
     // make sure api call ini cuma dipanggil sekali aja,
     // karena tryApiCall ini asynchronous, ada kemungkinan _waitListener dipanggil
     // berkali-kali kalo gak ada penanda proses tryApiCall() udah selesai atau belum
-    if (!_isTryApiCall) {
-      _isTryApiCall = true;
+    if (!_isTryingToRefreshPagination) {
+      _isTryingToRefreshPagination = true;
       await _waitListener();
       if (canUseResource) {
         pagingController.refresh();
       }
-      _isTryApiCall = false;
+      _isTryingToRefreshPagination = false;
     }
   }
 
@@ -36,14 +35,16 @@ class LihatStockBarangProvider extends DisposableChangeNotifier {
     }
   }
 
-  bool _isTryApiCall = false;
+  bool _isTryingToRefreshPagination = false;
   bool _listenerIsProcessing = false;
 
   void _performApiCall(int pageNumber) async {
     _listenerIsProcessing = true;
     try {
       final apiResponse = await _repository.getStockBarang(
-        pageNumber, namaController.text,
+        pageNumber: pageNumber,
+        keyword: searchController.text,
+        idKategori: _idChoosenKategori,
       );
 
       if (!canUseResource){ return; }
@@ -75,27 +76,17 @@ class LihatStockBarangProvider extends DisposableChangeNotifier {
 
   final PagingController<int , Barang> pagingController = PagingController(firstPageKey: 1);
 
-  final namaController = TextEditingController();
-  Kategori? _kategori;
-  Kategori? get kategori => _kategori;
-  void onKategoriChange(Kategori? value) {
-    if (value != null) {
-      _kategori = value;
-      notifyListeners();
-    }
+  final searchController = TextEditingController();
+  int _idChoosenKategori = 0;
+  void setChoosenIdKategori(int newIdKategori) {
+    _idChoosenKategori = newIdKategori;
+    tryRefreshPagination();
   }
 
-  String _nomorRak = "Semua";
-  String get nomorRak => _nomorRak;
-  void onNomorRakChange(String? value) {
-    if (value != null) {
-      _nomorRak = value;
-    }
-  }
 
   @override
   void dispose(){
-    namaController.dispose();
+    searchController.dispose();
     pagingController.dispose();
     super.dispose();
   }

@@ -15,7 +15,9 @@ class GetBarangPreviewUseCase {
     required String keyword
   }) async {
     var listBarangResponse = await _repository.getStockBarang(
-        pageNumber, keyword
+      pageNumber: pageNumber,
+      keyword: keyword,
+      idKategori: 0,
     );
 
     if (listBarangResponse is ApiResponseFailed){

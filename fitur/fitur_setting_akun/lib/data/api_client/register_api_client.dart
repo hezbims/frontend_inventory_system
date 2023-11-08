@@ -17,7 +17,7 @@ class RegisterApiClient {
         'username' : data.username,
         'password' : data.password,
       }),
-      headers: await _tokenManager.getLocalStorageTokenizedHeader(),
+      headers: _tokenManager.getCurrentSessionTokenizedHeader(),
     );
   }
 }

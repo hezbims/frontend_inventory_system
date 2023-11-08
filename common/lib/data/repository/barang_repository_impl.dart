@@ -11,9 +11,17 @@ class BarangRepositoryImpl implements IBarangRepository {
   final _apiClient = BarangApiClient();
 
   @override
-  Future<ApiResponse> getStockBarang(int pageNumber , String keyword) {
+  Future<ApiResponse> getStockBarang({
+    required int pageNumber,
+    required String keyword,
+    required int idKategori
+  }) {
     return ApiRequestProcessor.process(
-      apiRequest: _apiClient.getBarang(pageNumber , keyword),
+      apiRequest: _apiClient.getBarang(
+        pageNumber: pageNumber ,
+        keyword: keyword,
+        idKategori: idKategori,
+      ),
       getModelFromBody: GetListBarangMapper.getListBarangFromBody,
       isPagination: true,
     );

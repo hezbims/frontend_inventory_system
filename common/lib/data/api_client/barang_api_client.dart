@@ -9,8 +9,15 @@ class BarangApiClient {
     ITokenManager? tokenManager,
   }) : _tokenManager = tokenManager ?? GetIt.I.get();
 
-  Future<Response> getBarang(int pageNumber , String keyword) async {
-    final getBarangUrl = "${CommonUrl.baseApiUrl}/barang/all?page=$pageNumber&keyword=$keyword";
+  Future<Response> getBarang({
+    required int pageNumber,
+    required String keyword,
+    required int idKategori,
+  }) async {
+    final getBarangUrl = "${CommonUrl.baseApiUrl}/barang/all?"
+        "page=$pageNumber&"
+        "keyword=$keyword&"
+        "id_kategori=$idKategori";
     return get(
       Uri.parse(getBarangUrl),
       headers: _tokenManager.getCurrentSessionTokenizedHeader(),
