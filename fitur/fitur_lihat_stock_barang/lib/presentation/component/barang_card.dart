@@ -13,16 +13,18 @@ class BarangCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
+    return Container(
+      decoration: BoxDecoration(
+
+        color: getColorByCurrentStockAndMinStock(
+          minStock: barang.minStock,
+          currentStock: barang.stockSekarang,
+        ),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(width: 0.2),
       ),
-      elevation: 8,
-      color: getColorByCurrentStockAndMinStock(
-        minStock: barang.minStock,
-        currentStock: barang.stockSekarang,
-      ),
-      child: Container(
+
+      child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -91,12 +93,12 @@ class BarangCard extends StatelessWidget {
     );
   }
 
-  Color? getColorByCurrentStockAndMinStock({
+  Color getColorByCurrentStockAndMinStock({
     required int minStock,
     required int currentStock,
   }){
     if (currentStock <= 0){ return ditolakStatusContainerColor; }
     if (currentStock < minStock){ return menungguStatusContainerColor; }
-    return null;
+    return Colors.white;
   }
 }
