@@ -115,6 +115,6 @@ class BarangCard extends StatelessWidget {
   }){
     if (currentStock <= 0){ return const Color.fromARGB(255 , 255, 209, 209); }
     if (currentStock < minStock){ return const Color.fromARGB(255, 250, 255, 209); }
-    return Colors.white;
+    return const Color.fromARGB(255, 249, 249, 249);
   }
 }
