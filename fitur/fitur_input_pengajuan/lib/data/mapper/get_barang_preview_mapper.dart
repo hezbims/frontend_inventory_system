@@ -10,8 +10,10 @@ class GetBarangPreviewMapper {
         id: barang.id,
         kodeBarang: barang.kodeBarang,
         nama: barang.nama,
-        currentStock: barang.stockSekarang
-      )
+        currentStock: barang.stockSekarang,
+        kategori: barang.kategori.nama,
+        rak: 'R${barang.nomorRak}-${barang.nomorLaci}-${barang.nomorKolom}',
+      ),
     ).toList();
   }
 }

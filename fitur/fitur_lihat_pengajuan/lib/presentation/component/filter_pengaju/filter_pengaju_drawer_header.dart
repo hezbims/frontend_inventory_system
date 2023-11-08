@@ -10,7 +10,7 @@ class FilterPengajuDrawerHeader extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         const SizedBox(width: 24,),
-        Expanded(
+        const Expanded(
           child: Text(
             'Filter Pengaju',
             style: TextStyle(
