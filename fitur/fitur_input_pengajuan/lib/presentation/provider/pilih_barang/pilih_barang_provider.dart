@@ -8,7 +8,6 @@ import 'package:fitur_input_pengajuan/domain/use_case/get_barang_preview_use_cas
 import 'package:flutter/material.dart';
 
 class PilihBarangProvider extends DisposableChangeNotifier {
-  final GetBarangPreviewUseCase _getBarangPreviewUseCase;
   final bool isPemasukan;
   Function(BarangPreview)? showBottomSheet;
 
@@ -24,19 +23,17 @@ class PilihBarangProvider extends DisposableChangeNotifier {
     });
   }
 
-  bool _isTryingRefresh = false;
-  void tryRefreshPagination() async {
-    if (!_isTryingRefresh){
-      _isTryingRefresh = true;
-      await _pageRequestProcess;
-      if (canUseResource) { pagingController.refresh(); }
-      _isTryingRefresh = false;
-    }
-  }
+
+  /*
+    -------- PAGINATION SECTION  ---------
+   */
+  final pagingController = PagingController<int , BarangPreview>(firstPageKey: 1);
 
   Future<void> _pageRequestProcess = Future.value(null);
   Future<void> get pageRequestProcess =>
     _pageRequestProcess;
+  final GetBarangPreviewUseCase _getBarangPreviewUseCase;
+
   Future<void> _processPageRequest(int pageNumber) async{
     final apiResponse = await _getBarangPreviewUseCase(
         pageNumber: pageNumber,
@@ -65,10 +62,24 @@ class PilihBarangProvider extends DisposableChangeNotifier {
       throw Exception("Kesalahan di pilih barang provider");
     }
   }
+  bool _isTryingRefresh = false;
+  void tryRefreshPagination() async {
+    if (!_isTryingRefresh){
+      _isTryingRefresh = true;
+      await _pageRequestProcess;
+      if (canUseResource) { pagingController.refresh(); }
+      _isTryingRefresh = false;
+    }
+  }
 
-  final pagingController = PagingController<int , BarangPreview>(firstPageKey: 1);
 
+
+  /// Controller dari search bar
   final searchBarangController = TextEditingController();
+
+  /*
+    -------- FOCUS NODE SECTION  ---------
+   */
   final searchBarangFocusNode = FocusNode();
   var _needRequestFocus = true;
   void tryRequestFocus(){
@@ -78,6 +89,9 @@ class PilihBarangProvider extends DisposableChangeNotifier {
     }
   }
 
+  /*
+    MENGATUR BARANG-BARANG YANG DIPILIH OLEH USER
+   */
   List<BarangTransaksi> choosenBarang = [];
   void addNewBarangTransaksi(final BarangTransaksi newBarangTransaksi){
     choosenBarang = [...choosenBarang , newBarangTransaksi];

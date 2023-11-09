@@ -1,4 +1,3 @@
-import 'package:common/presentation/bottom_navbar/submit_card.dart';
 import 'package:dependencies/fluttertoast.dart';
 import 'package:dependencies/get_it.dart';
 import 'package:dependencies/provider.dart';
