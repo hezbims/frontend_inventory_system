@@ -3,7 +3,7 @@ import 'package:dependencies/provider.dart';
 import 'package:fitur_input_pengajuan/domain/model/barang_transaksi.dart';
 import 'package:common/presentation/button/tambah_sesuatu_button.dart';
 import 'package:fitur_input_pengajuan/presentation/arg_model/main_form_to_pilih_barang_arg.dart';
-import 'package:fitur_input_pengajuan/presentation/pages/pilih_list_barang_page.dart';
+import 'package:fitur_input_pengajuan/presentation/pages/pilih_barang_page.dart';
 import 'package:fitur_input_pengajuan/presentation/provider/main_form/main_form_provider.dart';
 import 'package:flutter/material.dart';
 
@@ -36,7 +36,7 @@ class ListBarangFormField extends StatelessWidget {
           onTap: () async {
             final result = await Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => PilihListBarangPage(
+                builder: (context) => PilihBarangPage(
                   arg: MainFormToPilihBarangArg(
                     initialList: provider.listBarangTransaksi,
                     isPemasukan: provider.isPemasukan!

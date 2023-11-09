@@ -1,6 +1,6 @@
 import 'package:common/presentation/button/tambah_sesuatu_button.dart';
 import 'package:fitur_input_pengajuan/domain/model/barang_transaksi.dart';
-import 'package:fitur_input_pengajuan/presentation/pages/pilih_list_barang_page.dart';
+import 'package:fitur_input_pengajuan/presentation/pages/pilih_barang_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -15,7 +15,7 @@ Future<void> pilihListBarangAjuan({
 
   await tester.waitUntilDisappear(
     find.descendant(
-      of: find.byType(PilihListBarangPage),
+      of: find.byType(PilihBarangPage),
       matching: find.byType(CircularProgressIndicator)
     ),
   );

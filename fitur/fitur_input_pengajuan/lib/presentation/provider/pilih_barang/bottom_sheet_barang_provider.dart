@@ -10,7 +10,6 @@ class BottomSheetBarangProvider extends ChangeNotifier {
   final keteranganController = TextEditingController();
 
   String? quantityError;
-
   BottomSheetBarangProvider();
 
   void onIncrease(){

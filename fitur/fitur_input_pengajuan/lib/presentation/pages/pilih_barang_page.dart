@@ -11,9 +11,9 @@ import 'package:common/presentation/textfield/search_app_bar.dart';
 import 'package:fitur_input_pengajuan/presentation/provider/pilih_barang/pilih_barang_provider.dart';
 import 'package:flutter/material.dart';
 
-class PilihListBarangPage extends StatelessWidget {
+class PilihBarangPage extends StatelessWidget {
   final MainFormToPilihBarangArg arg;
-  const PilihListBarangPage({
+  const PilihBarangPage({
     super.key,
     required this.arg,
   });
@@ -82,6 +82,8 @@ class PilihListBarangPage extends StatelessWidget {
     required BarangPreview barang,
   }) async {
     final provider = context.read<PilihBarangProvider>();
+    if (provider.isBottomSheetShowing){ return; }
+
     if (barang.currentStock == 0 &&
         !provider.isPemasukan) {
       Fluttertoast.showToast(msg: "Barang sudah habis!", timeInSecForIosWeb: 4);
@@ -92,6 +94,7 @@ class PilihListBarangPage extends StatelessWidget {
       return;
     }
 
+    provider.showingBottomSheet();
     final result = await showModalBottomSheet(
         context: context,
         builder: (context) {
@@ -106,6 +109,7 @@ class PilihListBarangPage extends StatelessWidget {
           );
         }
     );
+    provider.doneShowingBottomSheet();
     provider.searchBarangFocusNode.requestFocus();
 
     if (result is BarangTransaksi) {

@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 
 class PilihBarangProvider extends DisposableChangeNotifier {
   final bool isPemasukan;
-  Function(BarangPreview)? showBottomSheet;
 
   PilihBarangProvider({
     required IBarangRepository barangRepository,
@@ -22,7 +21,6 @@ class PilihBarangProvider extends DisposableChangeNotifier {
         _pageRequestProcess = _processPageRequest(pageNumber);
     });
   }
-
 
   /*
     -------- PAGINATION SECTION  ---------
@@ -72,6 +70,14 @@ class PilihBarangProvider extends DisposableChangeNotifier {
     }
   }
 
+  /*
+       ------------- BOTTOM SHEET SECTION --------
+   */
+  Function(BarangPreview)? showBottomSheet;
+  bool _isBottomSheetShowing = false;
+  bool get isBottomSheetShowing => _isBottomSheetShowing;
+  void showingBottomSheet() => _isBottomSheetShowing = true;
+  void doneShowingBottomSheet() => _isBottomSheetShowing = false;
 
 
   /// Controller dari search bar
