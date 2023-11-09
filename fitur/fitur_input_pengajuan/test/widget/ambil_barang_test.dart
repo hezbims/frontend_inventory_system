@@ -15,20 +15,6 @@ import 'package:mocktail/mocktail.dart';
 import '../mock/mock_barang_repository.dart';
 
 void main(){
-  setUpAll((){
-    final mockBarangRepository = prepareMockBarangRepository();
-    GetIt.I.registerFactoryParam(
-      (MainFormToPilihBarangArg arg , _) =>
-        PilihBarangProvider(
-          barangRepository: mockBarangRepository,
-          isPemasukan: arg.isPemasukan,
-          choosenBarang: arg.initialList,
-        ),
-    );
-    GetIt.I.registerFactory(
-      () => BottomSheetBarangProvider()
-    );
-  });
   testWidgets(
     "Ketika user mengetikkan suatu keyword, "
     "lalu barang yang dicari hanya terdapat satu barang, "
@@ -56,7 +42,20 @@ void main(){
     } , tags: [TestTags.fastTest]
   );
 
-
+  setUpAll((){
+    final mockBarangRepository = prepareMockBarangRepository();
+    GetIt.I.registerFactoryParam(
+          (MainFormToPilihBarangArg arg , _) =>
+          PilihBarangProvider(
+            barangRepository: mockBarangRepository,
+            isPemasukan: arg.isPemasukan,
+            choosenBarang: arg.initialList,
+          ),
+    );
+    GetIt.I.registerFactory(
+            () => BottomSheetBarangProvider()
+    );
+  });
 }
 
 MockBarangRepository prepareMockBarangRepository(){
