@@ -20,92 +20,99 @@ class TransaksiBarangBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => GetIt.I.get<BottomSheetBarangProvider>(
-        param1: _initialBarangTransaksi,
-      ),
-      child: Consumer<BottomSheetBarangProvider>(
-        builder: (context , provider , child) {
-          WidgetsBinding.instance.addPostFrameCallback(
-            (_) => provider.tryRequestFocus(),
-          );
-          void trySubmit(){
-            if (provider.canSubmit()){
-              Fluttertoast.showToast(
-                msg: "Berhasil meng${_initialBarangTransaksi.id == null ? 'ambil' : 'edit'} ${_initialBarangTransaksi.namaBarang} "
-                    "sebanyak (${provider.currentQuantity!})",
-                timeInSecForIosWeb: 3
+    return SingleChildScrollView(
+      child: Padding(
+        padding: MediaQuery.of(context).viewInsets.add(
+          const EdgeInsets.all(24),
+        ),
+        child: ChangeNotifierProvider(
+          create: (context) => GetIt.I.get<BottomSheetBarangProvider>(
+            param1: _initialBarangTransaksi,
+          ),
+          child: Consumer<BottomSheetBarangProvider>(
+            builder: (context , provider , child) {
+              WidgetsBinding.instance.addPostFrameCallback(
+                (_) => provider.tryRequestFocus(),
               );
+              void trySubmit(){
+                if (provider.canSubmit()){
+                  Fluttertoast.showToast(
+                    msg: "Berhasil meng${_initialBarangTransaksi.id == null ? 'ambil' : 'edit'} ${_initialBarangTransaksi.namaBarang} "
+                        "sebanyak (${provider.currentQuantity!})",
+                    timeInSecForIosWeb: 3
+                  );
 
-              Navigator.of(context).pop(
-                BarangTransaksi(
-                  id: _initialBarangTransaksi.id,
-                  idBarang: _initialBarangTransaksi.idBarang,
-                  namaBarang: _initialBarangTransaksi.namaBarang,
-                  quantity: provider.currentQuantity!,
-                  keterangan: provider.keteranganController.text,
-                )
+                  Navigator.of(context).pop(
+                    BarangTransaksi(
+                      id: _initialBarangTransaksi.id,
+                      idBarang: _initialBarangTransaksi.idBarang,
+                      namaBarang: _initialBarangTransaksi.namaBarang,
+                      quantity: provider.currentQuantity!,
+                      keterangan: provider.keteranganController.text,
+                    )
+                  );
+                }
+              }
+
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      _initialBarangTransaksi.namaBarang,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 24
+                      ),
+                    ),
+                  ),
+
+                  const VerticalFormSpacing(),
+
+                  BarangQuantityIncrementer(
+                    controller: provider.quantityController,
+                    errorMessage: provider.quantityError,
+                    focusNode: provider.quantityFocusNode,
+                    onSubmit: (_) => trySubmit(),
+                  ),
+
+                  const VerticalFormSpacing(),
+
+                  CustomTextfield(
+                    controller: provider.keteranganController,
+                    label: "Keterangan",
+                    errorText: null,
+                    minLines: 3,
+                    onSubmit: (_) => trySubmit(),
+                  ),
+
+                  const VerticalFormSpacing(),
+
+                  Row(
+                    children: [
+                      Expanded(
+                        child: CancelButton(
+                          onPressed: (){
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ),
+
+                      const HorizontalFormSpacing(),
+
+                      Expanded(
+                        child: SubmitButton(
+                          onTap: trySubmit
+                        ),
+                      ),
+                    ],
+                  )
+                ],
               );
             }
-          }
-
-          return ListView(
-            padding: const EdgeInsets.all(24),
-            children: [
-              Align(
-                alignment: Alignment.center,
-                child: Text(
-                  _initialBarangTransaksi.namaBarang,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 24
-                  ),
-                ),
-              ),
-
-              const VerticalFormSpacing(),
-
-              BarangQuantityIncrementer(
-                controller: provider.quantityController,
-                errorMessage: provider.quantityError,
-                focusNode: provider.quantityFocusNode,
-                onSubmit: (_) => trySubmit(),
-              ),
-
-              const VerticalFormSpacing(),
-
-              CustomTextfield(
-                controller: provider.keteranganController,
-                label: "Keterangan",
-                errorText: null,
-                minLines: 3,
-                onSubmit: (_) => trySubmit(),
-              ),
-
-              const VerticalFormSpacing(),
-
-              Row(
-                children: [
-                  Expanded(
-                    child: CancelButton(
-                      onPressed: (){
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                  ),
-
-                  const HorizontalFormSpacing(),
-
-                  Expanded(
-                    child: SubmitButton(
-                      onTap: trySubmit
-                    ),
-                  ),
-                ],
-              )
-            ],
-          );
-        }
+          ),
+        ),
       ),
     );
 

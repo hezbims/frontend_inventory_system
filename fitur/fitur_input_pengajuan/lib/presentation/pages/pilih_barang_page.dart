@@ -99,16 +99,13 @@ class PilihBarangPage extends StatelessWidget {
         context: context,
         isScrollControlled: true,
         builder: (context) {
-          return Padding(
-            padding: MediaQuery.of(context).viewInsets,
-            child: TransaksiBarangBottomSheet(
-              initialBarangTransaksi: BarangTransaksi(
-                id: null,
-                idBarang: barang.id,
-                namaBarang: barang.nama,
-                quantity: 0,
-                keterangan: null
-              ),
+          return TransaksiBarangBottomSheet(
+            initialBarangTransaksi: BarangTransaksi(
+              id: null,
+              idBarang: barang.id,
+              namaBarang: barang.nama,
+              quantity: 0,
+              keterangan: null
             ),
           );
         }

@@ -55,6 +55,7 @@ class BarangTransaksiCard extends StatelessWidget {
               onPressed: () async {
                 final newBarangTransaksi = await showModalBottomSheet(
                   context: context,
+                  isScrollControlled: true,
                   builder: (context) {
                     return TransaksiBarangBottomSheet(
                       initialBarangTransaksi: _barangTransaksi,
