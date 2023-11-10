@@ -6,6 +6,7 @@ class WebSseClient {
   final _eventStreamController = StreamController<String>();
   final _httpRetryStream = StreamController<Pair<String , Map<String , String>?>>();
   HttpRequest? _httpRequest;
+  Timer? _timer;
   
   WebSseClient(){
     _httpRetryStream.stream.listen((event) {
@@ -13,6 +14,7 @@ class WebSseClient {
     });
   }
   void dispose(){
+    _timer?.cancel();
     _eventStreamController.close();
     _httpRetryStream.close();
     _httpRequest?.abort();
@@ -36,7 +38,7 @@ class WebSseClient {
 
     _httpRequest?.onError.listen((event) {
       _httpRequest?.abort();
-      Future.delayed(
+      _timer = Timer(
         const Duration(seconds: 10),
         () => _httpRetryStream.add(Pair(url, headers))
       );
