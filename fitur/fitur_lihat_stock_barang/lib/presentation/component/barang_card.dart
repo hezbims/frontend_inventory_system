@@ -1,5 +1,5 @@
+import 'package:common/constant/themes/custom_color.dart';
 import 'package:common/constant/themes/custom_text_style.dart';
-import 'package:common/constant/themes/status_colors.dart';
 import 'package:common/domain/model/barang.dart';
 import 'package:common/constant/routes/routes_path.dart';
 import 'package:flutter/material.dart';
@@ -98,8 +98,8 @@ class BarangCard extends StatelessWidget {
     required int minStock,
     required int currentStock,
   }){
-    if (currentStock <= 0){ return dangerLightColor; }
-    if (currentStock < minStock){ return warningLightColor; }
-    return normalGreyLightColor;
+    if (currentStock <= 0){ return CustomColor.dangerLight; }
+    if (currentStock < minStock){ return CustomColor.warningLight; }
+    return CustomColor.normalGreyLight;
   }
 }

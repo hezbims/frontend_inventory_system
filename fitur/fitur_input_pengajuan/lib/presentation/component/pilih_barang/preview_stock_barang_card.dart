@@ -1,5 +1,5 @@
+import 'package:common/constant/themes/custom_color.dart';
 import 'package:common/constant/themes/custom_text_style.dart';
-import 'package:common/constant/themes/status_colors.dart';
 import 'package:fitur_input_pengajuan/domain/model/barang_preview.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +18,7 @@ class PreviewStockBarangCard extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-          color: normalGreyLightColor,
+          color: CustomColor.normalGreyLight,
           boxShadow: const [
             BoxShadow(
               offset: Offset(4 , 4),

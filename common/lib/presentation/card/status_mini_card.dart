@@ -1,4 +1,5 @@
 import 'package:common/constant/enums/status_pengajuan.dart';
+import 'package:common/constant/themes/custom_color.dart';
 import 'package:flutter/material.dart';
 
 class StatusMiniCard extends StatelessWidget {
@@ -9,7 +10,7 @@ class StatusMiniCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: status.getContainerColor(),
+          color: _getContainerColorByStatus(status),
           borderRadius: BorderRadius.circular(12)
       ),
       padding: const EdgeInsets.symmetric(
@@ -20,9 +21,35 @@ class StatusMiniCard extends StatelessWidget {
         status.name,
         style: TextStyle(
             fontSize: 10,
-            color: status.getTextColor()
+            color: _getTextColorByStatus(status),
         ),
       ),
     );
+  }
+
+  Color _getContainerColorByStatus(StatusPengajuan status){
+    switch (status){
+      case StatusPengajuan.diterima:
+        return CustomColor.goodMedium;
+      case StatusPengajuan.menunggu:
+        return CustomColor.warningMedium;
+      case StatusPengajuan.ditolak:
+        return CustomColor.dangerMedium;
+      default:
+        throw Exception('Tipe enum tidak ditemukan');
+    }
+  }
+
+  Color _getTextColorByStatus(StatusPengajuan status){
+    switch (status){
+      case StatusPengajuan.diterima:
+        return CustomColor.goodHeavy;
+      case StatusPengajuan.menunggu:
+        return CustomColor.warningHeavy;
+      case StatusPengajuan.ditolak:
+        return CustomColor.dangerHeavy;
+      default:
+        throw Exception('Tipe enum tidak ditemukan');
+    }
   }
 }
