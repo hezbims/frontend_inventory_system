@@ -3,6 +3,7 @@ import 'package:common/domain/model/barang.dart';
 import 'package:common/domain/model/kategori.dart';
 import 'package:common/response/api_response.dart';
 import 'package:dependencies/get_it.dart';
+import 'package:fitur_input_pengajuan/domain/model/barang_transaksi.dart';
 import 'package:fitur_input_pengajuan/presentation/arg_model/main_form_to_pilih_barang_arg.dart';
 import 'package:fitur_input_pengajuan/presentation/component/common/transaksi_barang_bottom_sheet.dart';
 import 'package:fitur_input_pengajuan/presentation/pages/pilih_barang_page.dart';
@@ -52,8 +53,9 @@ void main(){
             choosenBarang: arg.initialList,
           ),
     );
-    GetIt.I.registerFactory(
-            () => BottomSheetBarangProvider()
+    GetIt.I.registerFactoryParam(
+      (BarangTransaksi initialData , _) =>
+        BottomSheetBarangProvider(initialBarangTransaksi: initialData),
     );
   });
 }

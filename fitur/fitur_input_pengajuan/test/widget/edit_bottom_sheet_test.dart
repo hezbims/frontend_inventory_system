@@ -30,7 +30,10 @@ void main(){
           () => MockSubmitPengajuanRepository(),
     );
 
-    GetIt.I.registerFactory(() => BottomSheetBarangProvider());
+    GetIt.I.registerFactoryParam(
+      (BarangTransaksi initialData , _) =>
+        BottomSheetBarangProvider(initialBarangTransaksi: initialData),
+    );
 
     GetIt.I.registerFactoryParam(
           (Pengajuan? initialData , _) => MainFormProvider(

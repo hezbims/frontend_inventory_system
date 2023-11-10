@@ -1,28 +1,22 @@
+import 'package:fitur_input_pengajuan/domain/model/barang_transaksi.dart';
 import 'package:fitur_input_pengajuan/domain/use_case/quantity_validation_use_case.dart';
 import 'package:flutter/material.dart';
 
 class BottomSheetBarangProvider extends ChangeNotifier {
-  final quantityController = TextEditingController();
+  BottomSheetBarangProvider({
+    required BarangTransaksi initialBarangTransaksi,
+  }) :
+    quantityController = TextEditingController(text: initialBarangTransaksi.quantity.toString()),
+    keteranganController = TextEditingController(text: initialBarangTransaksi.keterangan);
+
+  final TextEditingController quantityController;
+  final TextEditingController keteranganController;
+
   final quantityFocusNode = FocusNode();
   final quantityValidator = QuantityValidtionUseCase();
   int? get currentQuantity => int.tryParse(quantityController.text);
 
-  final keteranganController = TextEditingController();
-
   String? quantityError;
-  BottomSheetBarangProvider();
-
-  void onIncrease(){
-    quantityController.text = (
-      (int.parse(quantityController.text)) + 1
-    ).toString();
-  }
-
-  void onDecrease(){
-    quantityController.text = (
-        (int.parse(quantityController.text)) - 1
-    ).toString();
-  }
 
   bool canSubmit(){
     quantityError = quantityValidator(

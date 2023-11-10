@@ -102,7 +102,10 @@ void main() {
     'namun kalo tap ke field keterangan, '
     'maka focusnya tetep di keterangan ' ,
     (tester) async {
-    GetIt.I.registerFactory(() => BottomSheetBarangProvider());
+    GetIt.I.registerFactoryParam(
+      (BarangTransaksi barangTransaksi , _) =>
+        BottomSheetBarangProvider(initialBarangTransaksi: barangTransaksi)
+    );
 
     await tester.pumpWidget(
       MaterialApp(

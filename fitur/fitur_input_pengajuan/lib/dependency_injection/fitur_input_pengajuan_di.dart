@@ -1,5 +1,6 @@
 import 'package:dependencies/get_it.dart';
 import 'package:fitur_input_pengajuan/data/repository/submit_pengajuan_repository_impl.dart';
+import 'package:fitur_input_pengajuan/domain/model/barang_transaksi.dart';
 import 'package:fitur_input_pengajuan/domain/model/pengajuan.dart';
 import 'package:fitur_input_pengajuan/domain/repository/i_submit_pengajuan_repository.dart';
 import 'package:fitur_input_pengajuan/presentation/arg_model/main_form_to_pilih_barang_arg.dart';
@@ -10,15 +11,6 @@ import 'package:fitur_input_pengajuan/presentation/provider/pilih_pengaju/buat_p
 import 'package:fitur_input_pengajuan/presentation/provider/pilih_pengaju/pilih_pengaju_provider.dart';
 
 void fiturInputPengajuanDi(){
-
-  // Pilih Pengaju Dependency
-  GetIt.I.registerFactoryParam(
-    (bool isPemasok , _) => PilihPengajuProvider(
-    repository: GetIt.I.get(),
-    isPemasok: isPemasok
-    )
-  );
-
   // Pilih Barang Dependency
   GetIt.I.registerFactoryParam(
     (MainFormToPilihBarangArg arg, param2) => PilihBarangProvider(
@@ -49,8 +41,17 @@ void fiturInputPengajuanDi(){
       ),
   );
 
+  // Pilih Pengaju Dependency
+  GetIt.I.registerFactoryParam(
+    (bool isPemasok , _) => PilihPengajuProvider(
+      repository: GetIt.I.get(),
+      isPemasok: isPemasok
+    )
+  );
+
   // Bottom Sheet Dependency Setup
-  GetIt.I.registerFactory(
-    () => BottomSheetBarangProvider()
+  GetIt.I.registerFactoryParam(
+    (BarangTransaksi initialData , _) =>
+      BottomSheetBarangProvider(initialBarangTransaksi: initialData)
   );
 }

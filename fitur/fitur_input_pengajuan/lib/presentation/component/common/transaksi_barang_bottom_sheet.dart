@@ -21,7 +21,9 @@ class TransaksiBarangBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => GetIt.I.get<BottomSheetBarangProvider>(),
+      create: (context) => GetIt.I.get<BottomSheetBarangProvider>(
+        param1: _initialBarangTransaksi,
+      ),
       child: Consumer<BottomSheetBarangProvider>(
         builder: (context , provider , child) {
           WidgetsBinding.instance.addPostFrameCallback(
@@ -36,13 +38,13 @@ class TransaksiBarangBottomSheet extends StatelessWidget {
               );
 
               Navigator.of(context).pop(
-                  BarangTransaksi(
-                    id: _initialBarangTransaksi.id,
-                    idBarang: _initialBarangTransaksi.idBarang,
-                    namaBarang: _initialBarangTransaksi.namaBarang,
-                    quantity: provider.currentQuantity!,
-                    keterangan: provider.keteranganController.text,
-                  )
+                BarangTransaksi(
+                  id: _initialBarangTransaksi.id,
+                  idBarang: _initialBarangTransaksi.idBarang,
+                  namaBarang: _initialBarangTransaksi.namaBarang,
+                  quantity: provider.currentQuantity!,
+                  keterangan: provider.keteranganController.text,
+                )
               );
             }
           }
