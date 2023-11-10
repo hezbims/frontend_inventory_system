@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'dart:html';
 import 'package:common/utils/pair.dart';
+import 'package:dependencies/universal_html.dart';
 
 class WebSseClient {
   final _eventStreamController = StreamController<String>();
