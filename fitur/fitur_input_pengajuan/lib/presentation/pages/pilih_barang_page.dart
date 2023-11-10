@@ -97,14 +97,18 @@ class PilihBarangPage extends StatelessWidget {
     provider.showingBottomSheet();
     final result = await showModalBottomSheet(
         context: context,
+        isScrollControlled: true,
         builder: (context) {
-          return TransaksiBarangBottomSheet(
-            initialBarangTransaksi: BarangTransaksi(
-              id: null,
-              idBarang: barang.id,
-              namaBarang: barang.nama,
-              quantity: 0,
-              keterangan: null
+          return Padding(
+            padding: MediaQuery.of(context).viewInsets,
+            child: TransaksiBarangBottomSheet(
+              initialBarangTransaksi: BarangTransaksi(
+                id: null,
+                idBarang: barang.id,
+                namaBarang: barang.nama,
+                quantity: 0,
+                keterangan: null
+              ),
             ),
           );
         }
