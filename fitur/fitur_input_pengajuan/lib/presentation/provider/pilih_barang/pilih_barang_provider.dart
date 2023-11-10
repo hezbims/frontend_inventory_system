@@ -47,9 +47,7 @@ class PilihBarangProvider extends DisposableChangeNotifier {
       else {
         pagingController.appendLastPage(apiResponse.data!);
         if (apiResponse.data?.length == 1 && pageNumber == 1){
-          if (showBottomSheet != null) {
-            showBottomSheet!(apiResponse.data!.first);
-          }
+          setBarangBottomSheet(apiResponse.data!.first);
         }
       }
     }
@@ -73,7 +71,14 @@ class PilihBarangProvider extends DisposableChangeNotifier {
   /*
        ------------- BOTTOM SHEET SECTION --------
    */
-  Function(BarangPreview)? showBottomSheet;
+  BarangPreview? _barangBottomSheet;
+  BarangPreview? get barangBottomSheet => _barangBottomSheet;
+  void setBarangBottomSheet(BarangPreview data){
+    _barangBottomSheet = data;
+    notifyListeners();
+  }
+  void doneShowBarangBottomSheet() => _barangBottomSheet = null;
+
   bool _isBottomSheetShowing = false;
   bool get isBottomSheetShowing => _isBottomSheetShowing;
   void showingBottomSheet() => _isBottomSheetShowing = true;

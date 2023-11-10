@@ -47,16 +47,18 @@ class PilihBarangPage extends StatelessWidget {
               ),
               body: Builder(
                 builder: (context) {
-                  provider.showBottomSheet = (barang) {
-                    tryShowBottomSheet(
-                      context: context,
-                      barang: barang,
-                    );
-                  };
+                  context.select<PilihBarangProvider , void>(
+                    (value){
+                      final barang = provider.barangBottomSheet;
+                      if (barang != null){
+                        provider.doneShowBarangBottomSheet();
+                        tryShowBottomSheet(context: context, barang: barang);
+                      }
+                    }
+                  );
 
                   return ListBarangPaginator(
                     provider: provider,
-                    tryShowBottomSheet: tryShowBottomSheet
                   );
                 }
               ),
