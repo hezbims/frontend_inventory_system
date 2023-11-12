@@ -39,7 +39,9 @@ class _PilihBarangScaffoldBodyState extends State<PilihBarangScaffoldBody> {
   void _tryShowBottomSheet() async {
     if (provider.isBottomSheetShowing){ return; }
 
-    final barang = provider.barangBottomSheet!;
+    final barang = provider.barangBottomSheet;
+    if (barang == null){ return; }
+
     provider.setBarangBottomSheet(null);
 
     if (barang.currentStock == 0 &&
