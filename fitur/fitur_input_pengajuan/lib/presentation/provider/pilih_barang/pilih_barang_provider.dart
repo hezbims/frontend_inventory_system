@@ -73,11 +73,10 @@ class PilihBarangProvider extends DisposableChangeNotifier {
    */
   BarangPreview? _barangBottomSheet;
   BarangPreview? get barangBottomSheet => _barangBottomSheet;
-  void setBarangBottomSheet(BarangPreview data){
+  void setBarangBottomSheet(BarangPreview? data){
     _barangBottomSheet = data;
-    notifyListeners();
+    if (data != null){ notifyListeners(); }
   }
-  void doneShowBarangBottomSheet() => _barangBottomSheet = null;
 
   bool _isBottomSheetShowing = false;
   bool get isBottomSheetShowing => _isBottomSheetShowing;
