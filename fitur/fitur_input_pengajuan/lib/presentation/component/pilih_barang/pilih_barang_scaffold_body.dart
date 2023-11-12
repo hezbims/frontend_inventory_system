@@ -72,6 +72,8 @@ class _PilihBarangScaffoldBodyState extends State<PilihBarangScaffoldBody> {
         }
     );
     provider.doneShowingBottomSheet();
+
+    // Setelah selesai memperlihatkan bottom sheet, langsung focus lagi ke search bar
     provider.searchBarangFocusNode.requestFocus();
 
     if (result is BarangTransaksi) {
