@@ -37,7 +37,9 @@ class MobileSseClient {
         response.stream.listen(
           (value) {
             final decodedText = utf8.decode(value);
-            _eventStreamController.add(decodedText);
+            if (!_eventStreamController.isClosed) {
+              _eventStreamController.add(decodedText);
+            }
           },
           onError: (error , stacktrace){
             _retryInTenSeconds(url, headers);

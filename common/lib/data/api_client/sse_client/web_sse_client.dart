@@ -33,7 +33,9 @@ class WebSseClient {
       final textStream = _httpRequest?.responseText!.substring(progress);
       progress += textStream?.length ?? 0;
 
-      if (textStream != null) { _eventStreamController.add(textStream); }
+      if (textStream != null && !_eventStreamController.isClosed) {
+        _eventStreamController.add(textStream);
+      }
     });
 
     _httpRequest?.onError.listen((event) {
