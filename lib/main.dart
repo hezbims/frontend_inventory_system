@@ -1,4 +1,5 @@
 import 'package:common/presentation/provider/user_provider.dart';
+import 'package:dependencies/flutter_dotenv.dart';
 import 'package:dependencies/get_it.dart';
 import 'package:dependencies/provider.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +7,8 @@ import 'package:stock_bu_fan/dependency_injection/setup_main_dependency_injectio
 import 'package:stock_bu_fan/routing/on_generate_route.dart';
 import 'package:stock_bu_fan/theme/custom_theme_data.dart';
 
-void main() {
+void main() async {
+  await dotenv.load();
   setupMainDependencyInjection();
   runApp(const MyApp());
 }

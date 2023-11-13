@@ -6,6 +6,7 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 
+import 'package:dependencies/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:stock_bu_fan/dependency_injection/setup_main_dependency_injection.dart';
@@ -30,6 +31,7 @@ void main() {
   /// Pastikan terhubung ke kabel USB, pilih device anda pada android studio,
   /// Pastikan server laravel, mysql, dan websocket sudah menyala dan bisa diakses
   testWidgets('End to End Test', (WidgetTester tester) async {
+    await dotenv.load();
     setupMainDependencyInjection();
     await prepareDatabase();
 
