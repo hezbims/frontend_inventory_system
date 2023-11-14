@@ -16,6 +16,8 @@ enum Month {
   const Month(this.intValue);
 
   @override
-  String toString() => name;
+  String toString() => 
+    "${name[0].toUpperCase()}"
+    "${name.substring(1)}";
 }
 
