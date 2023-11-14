@@ -9,8 +9,8 @@
 import 'package:dependencies/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
-import 'package:stock_bu_fan/dependency_injection/setup_main_dependency_injection.dart';
-import 'package:stock_bu_fan/main.dart';
+import 'package:inventory_system/dependency_injection/setup_main_dependency_injection.dart';
+import 'package:inventory_system/main.dart';
 
 import 'bottom_navigation/to_laporan.dart';
 import 'bottom_navigation/to_pengajuan.dart';

@@ -3,9 +3,9 @@ import 'package:dependencies/flutter_dotenv.dart';
 import 'package:dependencies/get_it.dart';
 import 'package:dependencies/provider.dart';
 import 'package:flutter/material.dart';
-import 'package:stock_bu_fan/dependency_injection/setup_main_dependency_injection.dart';
-import 'package:stock_bu_fan/routing/on_generate_route.dart';
-import 'package:stock_bu_fan/theme/custom_theme_data.dart';
+import 'package:inventory_system/dependency_injection/setup_main_dependency_injection.dart';
+import 'package:inventory_system/routing/on_generate_route.dart';
+import 'package:inventory_system/theme/custom_theme_data.dart';
 
 void main() async {
   await dotenv.load();
