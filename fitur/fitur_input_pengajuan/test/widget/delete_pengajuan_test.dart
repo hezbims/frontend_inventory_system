@@ -43,11 +43,11 @@ void main(){
         ),
     );
   });
-  testWidgets('''
-    Diberikan main form dengan sebuah pengajuan,
-    apabila user mengkonfirmasi proses delete pengajuan,
-    maka user akan kembali ke halaman sebelumnya
-  ''', (tester) async {
+  testWidgets(
+    "Diberikan main form dengan sebuah pengajuan, "
+    "apabila user mengkonfirmasi proses delete pengajuan, "
+    "maka user akan kembali ke halaman sebelumnya"
+  , (tester) async {
     when(() => repository.deletePengajuan(any())).thenAnswer(
       (invocation) => Future.delayed(
         const Duration(seconds: 2),
@@ -82,10 +82,10 @@ void main(){
     expect(find.byType(MainForm), findsNothing);
   } , tags: [TestTags.fastTest]);
 
-  testWidgets('''
-    Diberikan main form tanpa initial pengajuan (pengajuan baru),
-    maka tombol delete pengajuan tidak akan tampil
-  ''', (tester) async {
+  testWidgets(
+    "Diberikan main form tanpa initial pengajuan (pengajuan baru), "
+    "maka tombol delete pengajuan tidak akan tampil"
+  , (tester) async {
       await tester.pumpWidget(
         const MaterialApp(
           home: MainForm(initialData: null),
@@ -101,25 +101,26 @@ void main(){
       );
   } , tags: [TestTags.fastTest]);
 
-  testWidgets('''
-    Diberikan main form dengan status pengajuan ditolak,
-    ketika current user adalah non admin,
-    Maka tombol delete pengajuan tidak akan tampil
-  ''', (tester) async {
-    currentUser = nonAdminUser;
+  testWidgets(
+    "Diberikan main form dengan status pengajuan ditolak, "
+    "ketika current user adalah non admin, "
+    "Maka tombol delete pengajuan tidak akan tampil",
+    (tester) async {
+      currentUser = nonAdminUser;
 
-    await tester.pumpWidget(
-      MaterialApp(
-        home: MainForm(initialData: defaultPengajuan),
-      ),
-    );
+      await tester.pumpWidget(
+        MaterialApp(
+          home: MainForm(initialData: defaultPengajuan),
+        ),
+      );
 
-    expect(
-      find.descendant(
-        of: find.byType(AppBar),
-        matching: find.byIcon(Icons.delete)
-      ),
-      findsNothing
-    );
-  } , tags: [TestTags.fastTest]);
+      expect(
+        find.descendant(
+          of: find.byType(AppBar),
+          matching: find.byIcon(Icons.delete)
+        ),
+        findsNothing
+      );
+    } , tags: [TestTags.fastTest]
+  );
 }

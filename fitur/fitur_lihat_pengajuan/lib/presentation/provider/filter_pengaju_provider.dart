@@ -11,7 +11,7 @@ class FilterPengajuProvider extends ChangeNotifier {
 
   String _tipePengaju = 'Group';
   String get tipePengaju => _tipePengaju;
-  void onChangeTipeTransaksi(String? value) {
+  void onChangeTipePengaju(String? value) {
     if (value != null && value != _tipePengaju) {
       _tipePengaju = value;
       _pengajuDipilih = null;
@@ -34,7 +34,7 @@ class FilterPengajuProvider extends ChangeNotifier {
     }
     return null;
   }
-  void onChoosePengaju(Pengaju newPengaju){
+  void onChoosePengaju(Pengaju? newPengaju){
     _pengajuDipilih = newPengaju;
     notifyListeners();
   }
@@ -42,7 +42,7 @@ class FilterPengajuProvider extends ChangeNotifier {
   Future<ApiResponse>? _getListPengajuResponse;
   Future<ApiResponse> get getListPengajuResponse {
     return _getListPengajuResponse ??= _repository.getPengaju(
-      tipePengaju == listTipePengaju[0],
+      isPemasok: tipePengaju == listTipePengaju[0],
     );
   }
   void refreshListPengaju(){

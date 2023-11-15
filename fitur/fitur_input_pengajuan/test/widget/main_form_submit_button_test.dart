@@ -29,11 +29,11 @@ void main(){
     );
   });
 
-  testWidgets('''
-    Diberikan sebuah main form dengan pengajuan yang sudah ditolak,
-    ketika user, adalah user biasa,
-    maka submit button akan terdisable
-  ''', (tester) async {
+  testWidgets(
+    "Diberikan sebuah main form dengan pengajuan yang sudah ditolak, "
+    "ketika user, adalah user biasa, "
+    "maka submit button akan terdisable",
+  (tester) async {
     await tester.pumpWidget(
       MaterialApp(
         home: MainForm(
@@ -50,20 +50,21 @@ void main(){
     expect(find.byType(DisabledSubmitButton), findsOneWidget);
   } , tags: [TestTags.fastTest]);
 
-  testWidgets('''
-    Diberikan sebuah main form dengan dengan kondisi tambah pengajuan baru,
-    ketika user biasa mencoba untuk submit,
-    maka submit button dalam kondisi bisa di tap
-  ''', (tester) async {
-    await tester.pumpWidget(
-      const MaterialApp(
-        home: MainForm(initialData: null),
-      ),
-    );
+  testWidgets(
+    "Diberikan sebuah main form dengan dengan kondisi tambah pengajuan baru, "
+    "ketika user biasa mencoba untuk submit, "
+    "maka submit button dalam kondisi bisa di tap" ,
+    (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: MainForm(initialData: null),
+        ),
+      );
 
-    final submitButton = tester.widget(find.byType(SubmitButton)) as SubmitButton;
-    expect(submitButton.onTap, isNotNull);
-  } , tags: [TestTags.fastTest]);
+      final submitButton = tester.widget(find.byType(SubmitButton)) as SubmitButton;
+      expect(submitButton.onTap, isNotNull);
+    } , tags: [TestTags.fastTest]
+  );
 
   
   // testWidgets('''

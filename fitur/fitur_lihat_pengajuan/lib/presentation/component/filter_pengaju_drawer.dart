@@ -1,9 +1,11 @@
+
+
 import 'package:common/domain/extension/media_query_data_extension.dart';
+import 'package:common/domain/model/pengaju.dart';
+import 'package:common/presentation/api_loader/api_loader.dart';
+import 'package:common/presentation/textfield/custom_dropdown_menu.dart';
 import 'package:dependencies/provider.dart';
-import 'package:fitur_lihat_pengajuan/presentation/component/filter_pengaju/choosen_pengaju_field.dart';
 import 'package:fitur_lihat_pengajuan/presentation/component/filter_pengaju/filter_pengaju_drawer_header.dart';
-import 'package:fitur_lihat_pengajuan/presentation/component/filter_pengaju/list_pengaju_tersedia.dart';
-import 'package:fitur_lihat_pengajuan/presentation/component/filter_pengaju/pilih_tipe_field.dart';
 import 'package:fitur_lihat_pengajuan/presentation/provider/filter_pengaju_provider.dart';
 import 'package:flutter/material.dart';
 
@@ -27,23 +29,29 @@ class FilterPengajuDrawer extends StatelessWidget {
 
                 const SizedBox(height: 24,),
 
-                const PilihTipeField(),
-
-                const SizedBox(height: 24,),
-
-                ChoosenPengajuField(
-                  tipePengaju: provider.tipePengaju,
-                  choosenPengaju: provider.pengajuDipilih,
-                  onDeletePengaju: provider.onDeletePengajuDipilih,
+                CustomDropdownMenu(
+                  label: 'Tipe Pengaju',
+                  value: provider.tipePengaju,
+                  values: provider.listTipePengaju,
+                  onValueChange: (String? newTipePengaju) =>
+                    provider.onChangeTipePengaju(newTipePengaju),
+                  errorText: null
                 ),
 
                 const SizedBox(height: 24,),
-                
-                ListPengajuTersedia(
-                  getListPengajuResponse: provider.getListPengajuResponse,
-                  refreshListPengaju: provider.refreshListPengaju,
-                  tipePengaju: provider.tipePengaju,
-                  onChoosePengaju: provider.onChoosePengaju,
+
+                ApiLoader(
+                  apiResponse: provider.getListPengajuResponse,
+                  onRefresh: provider.refreshListPengaju,
+                  builder: (List<Pengaju> listPengaju) =>
+                    CustomDropdownMenu<Pengaju>(
+                      label: 'Nama ${provider.tipePengaju}',
+                      value: null,
+                      values: [null , ...listPengaju],
+                      onValueChange: (Pengaju? choosenPengaju) =>
+                        provider.onChoosePengaju(choosenPengaju),
+                      errorText: null
+                    ),
                 ),
               ],
             ),

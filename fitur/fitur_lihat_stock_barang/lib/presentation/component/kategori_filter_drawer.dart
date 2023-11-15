@@ -35,7 +35,7 @@ class KategoriFilterDrawer extends StatelessWidget {
                   IconButton(
                     onPressed: (){
                       Scaffold.of(context).closeEndDrawer();
-                    }, icon: const Icon(Icons.done_outline_sharp),
+                    }, icon: const Icon(Icons.arrow_forward),
                   ),
                 ],
               ),

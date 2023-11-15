@@ -1,6 +1,6 @@
 {
-    "name": "stock_bu_fan",
-    "short_name": "stock_bu_fan",
+    "name": "Inventory System",
+    "short_name": "Inventory System",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

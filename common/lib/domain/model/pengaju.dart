@@ -8,4 +8,7 @@ class Pengaju {
     required this.id,
     required this.isPemasok,
   });
+
+  @override
+  String toString() => nama;
 }

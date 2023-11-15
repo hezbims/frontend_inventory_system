@@ -32,7 +32,7 @@ class PilihTipeField extends StatelessWidget {
                 ),
               ),
           ).toList(),
-          onChanged: provider.onChangeTipeTransaksi,
+          onChanged: provider.onChangeTipePengaju,
           decoration: const InputDecoration(
             contentPadding: EdgeInsets.symmetric(
               vertical: 16,

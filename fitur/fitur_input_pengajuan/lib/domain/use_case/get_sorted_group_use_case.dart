@@ -12,7 +12,7 @@ class GetSortedGroupUseCase {
 
   Future<ApiResponse> get() async {
     try {
-      final apiResponse = await _repository.getPengaju(_isPemasok);
+      final apiResponse = await _repository.getPengaju(isPemasok: _isPemasok);
       if (apiResponse is ApiResponseSuccess<List<Pengaju>>){
         final data = apiResponse.data!;
         final sortedData = data..sort(

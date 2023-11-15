@@ -9,7 +9,7 @@ import 'package:dependencies/infinite_scroll_pagination.dart';
 import 'package:dependencies/provider.dart';
 import 'package:fitur_lihat_pengajuan/domain/model/pengajuan_preview.dart';
 import 'package:fitur_lihat_pengajuan/presentation/component/pengajuan_card.dart';
-import 'package:fitur_lihat_pengajuan/presentation/pages/filter_pengaju_drawer.dart';
+import 'package:fitur_lihat_pengajuan/presentation/component/filter_pengaju_drawer.dart';
 import 'package:fitur_lihat_pengajuan/presentation/provider/filter_pengaju_provider.dart';
 import 'package:fitur_lihat_pengajuan/presentation/provider/lihat_pengajuan_provider.dart';
 import 'package:flutter/material.dart';

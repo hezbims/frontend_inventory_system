@@ -1,8 +1,8 @@
-
 import 'package:common/constant/test_tags/test_tags.dart';
+import 'package:common/domain/model/pengaju.dart';
+import 'package:common/presentation/textfield/custom_dropdown_menu.dart';
 import 'package:dependencies/provider.dart';
-import 'package:fitur_lihat_pengajuan/presentation/component/filter_pengaju/choosen_pengaju_field.dart';
-import 'package:fitur_lihat_pengajuan/presentation/pages/filter_pengaju_drawer.dart';
+import 'package:fitur_lihat_pengajuan/presentation/component/filter_pengaju_drawer.dart';
 import 'package:fitur_lihat_pengajuan/presentation/provider/filter_pengaju_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -15,8 +15,8 @@ void main(){
   testWidgets(
     'Diberikan tampilan drawer filter pengaju, '
     'ketika tipe pengaju dipilih menjadi pemasok, '
-    'lalu ketika suatu pengaju dipilih, '
-    'maka ia akan tampil sebagai yang dipilih pada card yang sudah ditentukan, ',
+    'maka di dropdown pilih pengaju, '
+    'hanya pemasok-pemasok yang keluar',
   (tester) async {
     final mockRepo = prepareMockPengajuRepository();
 
@@ -28,20 +28,28 @@ void main(){
         ),
       ),
     );
-    await tester.tap(find.byType(DropdownButtonFormField<String>));
+
+    // Milih tipe pengaju
+    final dropdownTipePengaju = find.byType(CustomDropdownMenu<String>);
+    expect(dropdownTipePengaju, findsOneWidget);
+    await tester.tap(dropdownTipePengaju);
     await tester.pump();
     await tester.tap(find.text('Pemasok'));
     await tester.pumpAndSettle();
 
-    await tester.tap(find.text('pemasok-2'));
-    await tester.pump();
-    expect(
-      find.descendant(
-        of: find.byType(ChoosenPengajuField),
-        matching: find.text('pemasok-2')
-      ),
-      findsOneWidget
+
+    // Cari dropdown pemilih nama pengaju
+    final dropdownNamaPengaju = find.widgetWithText(
+      CustomDropdownMenu<Pengaju>,
+      'Nama Pemasok'
     );
+    expect(dropdownNamaPengaju, findsOneWidget);
+
+    // Coba buka dropdown yang berisi nama-nama pengaju
+    await tester.tap(dropdownNamaPengaju);
+    await tester.pumpAndSettle();
+    expect(find.text('pemasok-1').last, findsOneWidget);
+    expect(find.text('pemasok-2').last, findsOneWidget);
 
   } , tags: [TestTags.fastTest]);
 }

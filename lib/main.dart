@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
         builder: (context) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            title: 'Flutter Demo',
+            title: 'Inventory System',
             theme: customThemeData,
             onGenerateRoute: onGenerateRoute,
           );
