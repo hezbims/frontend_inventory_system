@@ -61,7 +61,7 @@ class NotificationRepositoryImpl implements INotificationRepository {
       final decodedValue = _mapper.parseData(eventText);
       if (decodedValue != null){
         final ackResponse = await acknowledgeNewPengajuan();
-        if (ackResponse is ApiResponseSuccess) {
+        if (ackResponse is ApiResponseSuccess && !_streamController.isClosed) {
           _streamController.add(decodedValue);
         }
       }

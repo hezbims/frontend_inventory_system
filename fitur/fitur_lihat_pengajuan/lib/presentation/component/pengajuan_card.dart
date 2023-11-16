@@ -1,10 +1,8 @@
 import 'package:common/constant/enums/status_pengajuan.dart';
 import 'package:common/constant/themes/custom_color.dart';
 import 'package:common/constant/themes/custom_font_weight.dart';
-import 'package:common/constant/themes/theme_color.dart';
 import 'package:common/presentation/card/status_mini_card.dart';
 import 'package:fitur_lihat_pengajuan/domain/model/pengajuan_preview.dart';
-import 'package:common/constant/themes/status_colors.dart';
 import 'package:flutter/material.dart';
 
 class PengajuanCard extends StatelessWidget {
@@ -22,6 +20,8 @@ class PengajuanCard extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: _getContainerColorByStatus(pengajuan.status),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(width: 0.15),
         boxShadow: const [
           BoxShadow(
             offset: Offset(0, 4),
@@ -41,7 +41,7 @@ class PengajuanCard extends StatelessWidget {
                 child: Text(
                   pengajuan.namaPengaju,
                   style: const TextStyle(
-                    fontSize: 18,
+                    fontSize: 20,
                     fontWeight: CustomFontWeight.medium,
                   ),
                 )
@@ -55,7 +55,7 @@ class PengajuanCard extends StatelessWidget {
 
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Column(
                 mainAxisSize: MainAxisSize.min,
@@ -64,33 +64,29 @@ class PengajuanCard extends StatelessWidget {
                   Text(
                     pengajuan.kodeTransaksi,
                     style: const TextStyle(
-                      fontSize: 12,
+                      fontSize: 14,
                     ),
                   ),
 
                   Text(
                     '(${pengajuan.username})',
                     style: const TextStyle(
-                      fontWeight: CustomFontWeight.light,
                       fontSize: 12,
                     ),
                   )
                 ],
               ),
 
-              InkWell(
-                borderRadius: BorderRadius.circular(12),
-                onTap: onTap,
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(width: 0.5 , color: primaryColor),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  padding: const EdgeInsets.symmetric(horizontal: 15 , vertical: 2),
-                  child: Text(
-                    "Lihat Detail",
-                    style: smallText.copyWith(color: primaryColor),
-                  ),
+
+              OutlinedButton(
+                onPressed: onTap,
+                style: OutlinedButton.styleFrom(
+                  textStyle: const TextStyle(
+                    fontSize: 13,
+                  )
+                ),
+                child: const Text(
+                  "Lihat Detail",
                 ),
               )
             ],
