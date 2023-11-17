@@ -1,9 +1,9 @@
 import 'package:common/domain/model/barang.dart';
 import 'package:dependencies/get_it.dart';
-import 'package:fitur_input_data_barang/data/repository/submit_barang_repository_impl.dart';
-import 'package:fitur_input_data_barang/domain/repository/i_submit_barang_repository.dart';
-import 'package:fitur_input_data_barang/presentation/provider/detail_barang_provider.dart';
-import 'package:fitur_input_data_barang/presentation/provider/input_data_barang_provider.dart';
+import 'package:fitur_input_form_data_barang/data/repository/submit_barang_repository_impl.dart';
+import 'package:fitur_input_form_data_barang/domain/repository/i_submit_barang_repository.dart';
+import 'package:fitur_input_form_data_barang/presentation/provider/detail_barang_provider.dart';
+import 'package:fitur_input_form_data_barang/presentation/provider/input_data_barang_provider.dart';
 
 void fiturInputDataBarangDI(){
   GetIt.I.registerFactory<ISubmitBarangRepository>(

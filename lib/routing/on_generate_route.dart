@@ -5,7 +5,7 @@ import 'package:fitur_auth_guard/presentation/page/login_screen.dart';
 import 'package:fitur_auth_guard/presentation/route_guard.dart';
 import 'package:fitur_buat_laporan/presentation/page/pilih_bulan_tahun_page.dart';
 import 'package:fitur_buat_laporan/presentation/page/preview_laporan_page.dart';
-import 'package:fitur_input_data_barang/presentation/page/detail_barang_loader.dart';
+import 'package:fitur_input_form_data_barang/presentation/page/detail_barang_loader.dart';
 import 'package:fitur_input_pengajuan/presentation/pages/initial_detail_pengajuan_loader.dart';
 import 'package:fitur_lihat_pengajuan/presentation/pages/lihat_pengajuan_pages.dart';
 import 'package:fitur_lihat_stock_barang/presentation/page/lihat_stock_barang_page.dart';

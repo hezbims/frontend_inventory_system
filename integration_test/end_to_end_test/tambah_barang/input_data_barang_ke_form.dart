@@ -1,6 +1,6 @@
 import 'package:common/domain/model/barang.dart';
 import 'package:common/presentation/button/submit_button.dart';
-import 'package:fitur_input_data_barang/presentation/page/input_data_barang_page.dart';
+import 'package:fitur_input_form_data_barang/presentation/page/input_data_barang_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 

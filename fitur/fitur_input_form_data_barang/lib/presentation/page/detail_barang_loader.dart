@@ -3,8 +3,8 @@ import 'package:common/presentation/api_loader/default_error_widget.dart';
 import 'package:common/response/api_response.dart';
 import 'package:dependencies/get_it.dart';
 import 'package:dependencies/provider.dart';
-import 'package:fitur_input_data_barang/presentation/page/input_data_barang_page.dart';
-import 'package:fitur_input_data_barang/presentation/provider/detail_barang_provider.dart';
+import 'package:fitur_input_form_data_barang/presentation/page/input_data_barang_page.dart';
+import 'package:fitur_input_form_data_barang/presentation/provider/detail_barang_provider.dart';
 import 'package:flutter/material.dart';
 
 class DetailBarangLoader extends StatelessWidget {

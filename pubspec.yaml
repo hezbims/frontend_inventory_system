@@ -36,8 +36,8 @@ dependencies:
     path: common
   fitur_lihat_stock_barang:
     path: fitur/fitur_lihat_stock_barang
-  fitur_input_data_barang:
-    path: fitur/fitur_input_data_barang
+  fitur_input_form_data_barang:
+    path: fitur/fitur_input_form_data_barang
   fitur_lihat_pengajuan:
     path: fitur/fitur_lihat_pengajuan
   fitur_input_pengajuan:

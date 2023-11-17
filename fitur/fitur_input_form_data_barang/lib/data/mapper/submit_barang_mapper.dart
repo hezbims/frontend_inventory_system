@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:fitur_input_data_barang/domain/model/submit_barang_dto.dart';
+import 'package:fitur_input_form_data_barang/domain/model/submit_barang_dto.dart';
 
 class SubmitBarangMapper {
   Map<String , String?> getAllError(String body){

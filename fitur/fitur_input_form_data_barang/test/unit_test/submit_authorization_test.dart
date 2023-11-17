@@ -5,8 +5,8 @@ import 'package:common/domain/model/user.dart';
 import 'package:common/presentation/button/disabled_submit_button.dart';
 import 'package:common/presentation/button/submit_button.dart';
 import 'package:dependencies/get_it.dart';
-import 'package:fitur_input_data_barang/presentation/page/input_data_barang_page.dart';
-import 'package:fitur_input_data_barang/presentation/provider/input_data_barang_provider.dart';
+import 'package:fitur_input_form_data_barang/presentation/page/input_data_barang_page.dart';
+import 'package:fitur_input_form_data_barang/presentation/provider/input_data_barang_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 

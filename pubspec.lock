@@ -317,10 +317,10 @@ packages:
       relative: true
     source: path
     version: "0.0.1"
-  fitur_input_data_barang:
+  fitur_input_form_data_barang:
     dependency: "direct main"
     description:
-      path: "fitur/fitur_input_data_barang"
+      path: "fitur/fitur_input_form_data_barang"
       relative: true
     source: path
     version: "0.0.1"
