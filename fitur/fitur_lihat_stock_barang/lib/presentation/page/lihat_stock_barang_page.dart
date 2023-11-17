@@ -69,6 +69,7 @@ class LihatStockBarangPage extends StatelessWidget {
                   ),
 
                   FloatingActionButton(
+                    heroTag: 'fab-+',
                     onPressed: () async {
                       final result = await Navigator.of(context).pushNamed(
                           RoutesPath.inputDataBarangPath('add')

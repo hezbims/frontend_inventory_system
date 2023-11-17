@@ -9,4 +9,23 @@ class InputBarangByCsvProvider extends ChangeNotifier {
     _choosenFile = pickedFile?.files.single;
     notifyListeners();
   }
+
+  bool _overrideDataOnSubmit = false;
+  bool get overrideDataOnSubmit => _overrideDataOnSubmit;
+  void onChangeOverrideDataOnSubmit(bool? newValue) {
+    if (newValue != null) {
+      _overrideDataOnSubmit = newValue;
+      notifyListeners();
+    }
+  }
+
+  void Function()? get onSubmmit {
+    if (_choosenFile == null){
+      return null;
+    }
+    return _submit;
+  }
+  void _submit(){
+
+  }
 }
