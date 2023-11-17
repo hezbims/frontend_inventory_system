@@ -1,9 +1,11 @@
 import 'package:common/domain/extension/media_query_data_extension.dart';
+import 'package:common/domain/model/user.dart';
 import 'package:common/presentation/bottom_navbar/stock_bottom_navbar.dart';
 import 'package:common/presentation/textfield/search_with_filter_app_bar.dart';
 import 'package:common/constant/routes/routes_path.dart';
 import 'package:dependencies/get_it.dart';
 import 'package:dependencies/provider.dart';
+import 'package:dependencies/font_awesome_flutter.dart';
 import 'package:fitur_lihat_stock_barang/presentation/component/kategori_filter_drawer.dart';
 import 'package:fitur_lihat_stock_barang/presentation/component/list_stock_barang.dart';
 import 'package:fitur_lihat_stock_barang/presentation/provider/kategori_filter_provider.dart';
@@ -48,26 +50,13 @@ class LihatStockBarangPage extends StatelessWidget {
               onValueChange: (newValue) =>
                   stockBarangProvider.tryRefreshPagination(),
             ),
-            floatingActionButton: Padding(
+            floatingActionButton: GetIt.I.get<User>().isAdmin ? Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: MediaQuery.of(context).phoneLandscapePadding,
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  FloatingActionButton(
-                    onPressed: () async {
-                      final result = await Navigator.of(context).pushNamed(
-                          RoutesPath.inputDataBarangByCsvPath
-                      );
-
-                      if (result != null){
-                        stockBarangProvider.tryRefreshPagination();
-                      }
-                    },
-                    child: const Icon(Icons.upload_file_rounded),
-                  ),
-
                   FloatingActionButton(
                     heroTag: 'fab-+',
                     onPressed: () async {
@@ -79,11 +68,26 @@ class LihatStockBarangPage extends StatelessWidget {
                         stockBarangProvider.tryRefreshPagination();
                       }
                     },
-                    child: const Icon(Icons.add),
+                    child: const FaIcon(FontAwesomeIcons.one),
+                  ),
+
+                  const SizedBox(height: 12,),
+
+                  FloatingActionButton(
+                    onPressed: () async {
+                      final result = await Navigator.of(context).pushNamed(
+                          RoutesPath.inputDataBarangByCsvPath
+                      );
+
+                      if (result != null){
+                        stockBarangProvider.tryRefreshPagination();
+                      }
+                    },
+                    child: const FaIcon(FontAwesomeIcons.fileCsv),
                   ),
                 ],
               ),
-            ),
+            ) : null,
             bottomNavigationBar: const StockBottomNavBar(
               currentIndex: RoutesPath.lihatStockBarangIndex,
             ),
