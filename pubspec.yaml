@@ -48,6 +48,8 @@ dependencies:
     path: fitur/fitur_auth_guard
   fitur_setting_akun:
     path: fitur/fitur_setting_akun
+  fitur_input_barang_by_csv:
+    path: fitur/fitur_input_barang_by_csv
 
 
   # The following adds the Cupertino Icons font to your application.

@@ -16,4 +16,6 @@ abstract class RoutesName {
   static const loginName = 'login';
 
   static const settingAkunName = 'setting-akun';
+
+  static const inputDataByCsvName = 'input-by-csv';
 }

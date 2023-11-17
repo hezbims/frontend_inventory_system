@@ -52,17 +52,35 @@ class LihatStockBarangPage extends StatelessWidget {
               padding: EdgeInsets.symmetric(
                 horizontal: MediaQuery.of(context).phoneLandscapePadding,
               ),
-              child: FloatingActionButton(
-                onPressed: () async {
-                  final result = await Navigator.of(context).pushNamed(
-                      RoutesPath.inputDataBarangPath('add')
-                  );
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  FloatingActionButton(
+                    onPressed: () async {
+                      final result = await Navigator.of(context).pushNamed(
+                          RoutesPath.inputDataBarangByCsvPath
+                      );
 
-                  if (result != null){
-                    stockBarangProvider.tryRefreshPagination();
-                  }
-                },
-                child: const Icon(Icons.add),
+                      if (result != null){
+                        stockBarangProvider.tryRefreshPagination();
+                      }
+                    },
+                    child: const Icon(Icons.upload_file_rounded),
+                  ),
+
+                  FloatingActionButton(
+                    onPressed: () async {
+                      final result = await Navigator.of(context).pushNamed(
+                          RoutesPath.inputDataBarangPath('add')
+                      );
+
+                      if (result != null){
+                        stockBarangProvider.tryRefreshPagination();
+                      }
+                    },
+                    child: const Icon(Icons.add),
+                  ),
+                ],
               ),
             ),
             bottomNavigationBar: const StockBottomNavBar(

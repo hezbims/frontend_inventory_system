@@ -1,34 +1,26 @@
-name: dependencies
+name: fitur_input_barang_by_csv
 description: A new Flutter package project.
-version: 0.0.1
 publish_to: none
+version: 0.0.1
+homepage:
 
 environment:
-  sdk: '>=3.0.5 <4.0.0'
+  sdk: '>=3.1.0 <4.0.0'
   flutter: ">=1.17.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  provider: ^6.0.5
-  intl: ^0.18.1
-  dropdown_search: ^5.0.6
-  fluttertoast: ^8.2.2
-  file_picker: ^6.1.1
-  google_fonts: ^5.1.0
-  http: ^1.1.0
-  infinite_scroll_pagination: ^4.0.0
-  async: ^2.11.0
-  shared_preferences: ^2.2.0
-  get_it: ^7.6.2
-  web_socket_channel: ^2.4.0
-  rflutter_alert: ^2.0.7
-  universal_html: ^2.2.4
-  collection: ^1.17.2
-  flutter_dotenv: ^5.1.0
+  common:
+    path: ../../common
+  dependencies:
+    path: ../../dependencies
 
 dev_dependencies:
+  flutter_test:
+    sdk: flutter
   flutter_lints: ^2.0.0
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

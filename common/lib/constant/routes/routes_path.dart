@@ -10,6 +10,8 @@ abstract class RoutesPath {
   static String inputDataBarangPath(Object idBarang) =>
     "$lihatStockBarangPath/$idBarang";
 
+  static String inputDataBarangByCsvPath = "$lihatStockBarangPath/${RoutesName.inputDataByCsvName}";
+
   static const lihatPengajuanPath = "/${RoutesName.lihatPengajuanName}";
   static const fiturLihatPengajuanIndex = 2;
 
