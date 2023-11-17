@@ -12,12 +12,12 @@ import 'package:integration_test/integration_test.dart';
 import 'package:inventory_system/dependency_injection/setup_main_dependency_injection.dart';
 import 'package:inventory_system/main.dart';
 
+import '../page/login_test_page.dart';
 import 'bottom_navigation/to_laporan.dart';
 import 'bottom_navigation/to_pengajuan.dart';
 import 'bottom_navigation/to_setting_akun.dart';
 import 'extension_and_utils/prepare_database.dart';
 import 'lihat_pdf_laporan/lihat_pdf_laporan.dart';
-import 'login/login.dart';
 import 'setting_akun/logout.dart';
 import 'tambah_barang/input_dua_barang_case.dart';
 import 'tambah_pengajuan/tambah_pengajuan_dari_non_admin_case.dart';
@@ -36,17 +36,18 @@ void main() {
     await prepareDatabase();
 
     await tester.pumpWidget(const MyApp());
+    final loginPage = LoginPage(tester: tester);
 
-    await login(tester: tester , username: 'admin' , password: '123');
+    await loginPage.submitPasswordAndUsername(username: 'admin' , password: '123');
     await inputDuaBarang(tester: tester);
     await navigateToSettingAkunPage(tester: tester);
     await logout(tester: tester);
-    await login(tester: tester, username: 'hezbi', password: '123');
+    await loginPage.submitPasswordAndUsername(username: 'hezbi', password: '123');
     await navigateToPengajuanPage(tester: tester);
     await tambahPengajuanDariNonAdminCase(tester: tester);
     await navigateToSettingAkunPage(tester: tester);
     await logout(tester: tester);
-    await login(tester: tester, username: 'admin', password: '123');
+    await loginPage.submitPasswordAndUsername(username: 'admin', password: '123');
     await navigateToPengajuanPage(tester: tester);
     await terimaPengajuan(tester: tester);
     await navigateToLaporan(tester: tester);

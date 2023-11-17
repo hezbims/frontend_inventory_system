@@ -1,0 +1,19 @@
+{
+  "data" : [
+    {
+      "kategori" : "kategori-1",
+      "barang" : [
+        {
+          "nama" : "barang-1",
+          "min_stock" : ""
+        }
+      ]
+    },
+    {
+      "kategori" : "kategori-2",
+      "barang" : [
+
+      ]
+    }
+  ]
+}
