@@ -1,8 +1,3 @@
-import 'package:common/domain/repository/i_barang_repository.dart';
-import 'package:mockito/annotations.dart';
-
-
-@GenerateMocks([IBarangRepository])
 void main(){
   // testWidgets(
   //     'Pencet refresh, tampilan barang terefresh',
