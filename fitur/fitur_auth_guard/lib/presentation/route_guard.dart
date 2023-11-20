@@ -43,7 +43,6 @@ class RouteGuard extends StatelessWidget {
                   }
                 }
                 else if (data is ApiResponseSuccess<User>){
-                  debugPrint('loh loh loh');
                   return displayedPage;
                 }
                 else { throw Exception('Unknown Api Response Route Guard'); }

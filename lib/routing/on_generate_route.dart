@@ -12,6 +12,7 @@ import 'package:fitur_lihat_pengajuan/presentation/pages/lihat_pengajuan_pages.d
 import 'package:fitur_lihat_stock_barang/presentation/page/lihat_stock_barang_page.dart';
 import 'package:fitur_setting_akun/dependency_setup/setting_akun_page_dependency_setup.dart';
 import 'package:flutter/material.dart';
+import 'package:inventory_system/routing/route_arg.dart';
 
 Route<dynamic>? onGenerateRoute(RouteSettings settings){
   debugPrint('PATH : ${settings.name}');
@@ -77,8 +78,16 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings){
   else {
     throw Exception('Unknown route path : ${settings.name}');
   }
-  debugPrint("NEED ROUTE GUARD : $needRouteGuard");
 
+  if (settings.arguments is UseRouteGuardArg){
+    if (settings.arguments == UseRouteGuardArg.useRouteGuard){
+      needRouteGuard = true;
+    } else {
+      needRouteGuard = false;
+    }
+  }
+
+  debugPrint("NEED ROUTE GUARD : $needRouteGuard");
   settings = RouteSettings(
       name: nextUrl,
       arguments: settings.arguments
