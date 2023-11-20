@@ -36,7 +36,11 @@ class LoginScreen extends StatelessWidget {
                 onLoginSuccess(loginResponse.data!);
                 WidgetsBinding.instance.addPostFrameCallback(
                   (_) {
-                    Navigator.of(context).pushReplacementNamed(RoutesPath.initialRoute);
+                    Navigator.of(context)
+                      .pushNamedAndRemoveUntil(
+                        RoutesPath.initialRoute,
+                        (Route<dynamic> route) => false
+                      );
                   }
                 );
               }

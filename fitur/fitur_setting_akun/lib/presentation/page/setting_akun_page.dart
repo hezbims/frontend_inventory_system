@@ -23,6 +23,7 @@ class SettingAkunPage extends StatelessWidget {
           if (provider.logoutSuccess){
             WidgetsBinding.instance.addPostFrameCallback(
               (timeStamp) {
+                GetIt.I.unregister<User>();
                 Navigator.of(context).pushReplacementNamed(RoutesPath.loginPath);
               }
             );

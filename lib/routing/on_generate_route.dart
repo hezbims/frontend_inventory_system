@@ -14,6 +14,7 @@ import 'package:fitur_setting_akun/dependency_setup/setting_akun_page_dependency
 import 'package:flutter/material.dart';
 
 Route<dynamic>? onGenerateRoute(RouteSettings settings){
+  debugPrint('PATH : ${settings.name}');
   final uri = Uri.parse(settings.name!);
   final urlPathSegments = uri.pathSegments;
   final pathLength = urlPathSegments.length;
@@ -76,6 +77,7 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings){
   else {
     throw Exception('Unknown route path : ${settings.name}');
   }
+  debugPrint("NEED ROUTE GUARD : $needRouteGuard");
 
   settings = RouteSettings(
       name: nextUrl,
