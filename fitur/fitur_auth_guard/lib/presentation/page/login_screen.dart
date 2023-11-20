@@ -1,6 +1,6 @@
+
 import 'package:common/domain/extension/media_query_data_extension.dart';
 import 'package:common/domain/model/user.dart';
-import 'package:common/presentation/provider/user_provider.dart';
 import 'package:common/presentation/button/submit_button.dart';
 import 'package:common/presentation/textfield/custom_textfield.dart';
 import 'package:common/presentation/textfield/password_textfield.dart';
@@ -19,12 +19,6 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final onLoginSuccess = Provider.of<UserProvider>(
-      context,
-      listen: false
-    ).onLoginSuccess;
-
-
     return Scaffold(
       body: Center(
         child: ChangeNotifierProvider(
@@ -33,7 +27,7 @@ class LoginScreen extends StatelessWidget {
             builder: (context , provider , child) {
               final loginResponse = provider.loginResponse;
               if (loginResponse is ApiResponseSuccess<User>){
-                onLoginSuccess(loginResponse.data!);
+                GetIt.I.registerSingleton(loginResponse.data!);
                 WidgetsBinding.instance.addPostFrameCallback(
                   (_) {
                     Navigator.of(context)

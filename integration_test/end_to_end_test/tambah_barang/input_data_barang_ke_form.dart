@@ -12,7 +12,7 @@ Future<void> inputDataBarangKeForm({
   required Barang data,
   required WidgetTester tester,
 }) async {
-  await tester.tap(find.byType(FloatingActionButton));
+  await tester.tap(find.byType(FloatingActionButton).first);
   await tester.pumpAndSettle();
 
   await tester.typeTextField(

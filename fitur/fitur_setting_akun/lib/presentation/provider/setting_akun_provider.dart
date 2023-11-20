@@ -23,7 +23,6 @@ class SettingAkunProvider extends ChangeNotifier {
           timeInSecForIosWeb: 5,
         );
       }
-      debugPrint("tipe dari logout response : ${logoutResponse.runtimeType}");
       notifyListeners();
     }
   }

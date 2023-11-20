@@ -12,12 +12,12 @@ import 'package:integration_test/integration_test.dart';
 import 'package:inventory_system/dependency_injection/setup_main_dependency_injection.dart';
 import 'package:inventory_system/main.dart';
 
-import '../page/login_test_page.dart';
 import 'bottom_navigation/to_laporan.dart';
 import 'bottom_navigation/to_pengajuan.dart';
 import 'bottom_navigation/to_setting_akun.dart';
 import 'extension_and_utils/prepare_database.dart';
 import 'lihat_pdf_laporan/lihat_pdf_laporan.dart';
+import 'page/login_test_page.dart';
 import 'setting_akun/logout.dart';
 import 'tambah_barang/input_dua_barang_case.dart';
 import 'tambah_pengajuan/tambah_pengajuan_dari_non_admin_case.dart';
