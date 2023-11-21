@@ -39,7 +39,6 @@ class MyRouterDelegate extends RouterDelegate<Object> with
     var result = <Page<dynamic>>[];
     final state = provider.currentState;
     final currentUser = provider.currentUser;
-    debugPrint('State type : ${state.runtimeType}');
 
     if (currentUser is UserFetchSuccess) {
       if (state is RouteLihatPengajuanState){

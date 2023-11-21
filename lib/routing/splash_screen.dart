@@ -42,7 +42,7 @@ class SplashScreen extends StatelessWidget {
                     }
                   } else {
                     WidgetsBinding.instance.addPostFrameCallback((_) {
-                      routeStateProvider.setStateAuthenticated(
+                      routeStateProvider.onLogin(
                           (data as ApiResponseSuccess<User>).data!
                       );
                     });

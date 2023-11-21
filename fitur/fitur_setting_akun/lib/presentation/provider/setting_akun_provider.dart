@@ -11,7 +11,7 @@ class SettingAkunProvider extends ChangeNotifier {
   }) : _repository = repository;
 
   ApiResponse? logoutResponse;
-  void logout() async {
+  void tryLogout() async {
     if (!isLoading){
       logoutResponse = ApiResponseLoading();
       notifyListeners();

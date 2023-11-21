@@ -3,6 +3,7 @@ import 'package:common/domain/model/user.dart';
 import 'package:common/presentation/bottom_navbar/stock_bottom_navbar.dart';
 import 'package:common/presentation/textfield/style/spacing.dart';
 import 'package:common/constant/routes/routes_path.dart';
+import 'package:common/routing/my_route_state_provider.dart';
 import 'package:dependencies/get_it.dart';
 import 'package:dependencies/provider.dart';
 import 'package:fitur_setting_akun/presentation/component/buat_akun_baru_dialog.dart';
@@ -21,10 +22,12 @@ class SettingAkunScreen extends StatelessWidget {
       child: Consumer<SettingAkunProvider>(
         builder: (context , provider , child) {
           if (provider.logoutSuccess){
+            final routeStateProvider =
+              context.read<MyRouteStateProvider>();
             WidgetsBinding.instance.addPostFrameCallback(
               (timeStamp) {
                 GetIt.I.unregister<User>();
-                Navigator.of(context).pushReplacementNamed(RoutesPath.loginPath);
+                routeStateProvider.setStateUnauthenticated();
               }
             );
           }
@@ -55,7 +58,7 @@ class SettingAkunScreen extends StatelessWidget {
                             const VerticalFormSpacing(),
 
                             SettingAkunItem(
-                              onTap: provider.logout,
+                              onTap: provider.tryLogout,
                               icon: Icons.logout,
                               label: "Logout"
                             ),
@@ -68,7 +71,8 @@ class SettingAkunScreen extends StatelessWidget {
                               label: "Lupa password"
                             ),
 
-                            if (GetIt.I.get<User>().isAdmin) ...[
+                            if (GetIt.I.isRegistered<User>() &&
+                                GetIt.I.get<User>().isAdmin) ...[
                               const SizedBox(height: 12,),
 
                               SettingAkunItem(

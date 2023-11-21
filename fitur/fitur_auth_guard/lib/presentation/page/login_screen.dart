@@ -30,7 +30,7 @@ class LoginScreen extends StatelessWidget {
                 final MyRouteStateProvider routeStateProvider = context.read();
                 WidgetsBinding.instance.addPostFrameCallback(
                   (_) {
-                    routeStateProvider.setStateAuthenticated(
+                    routeStateProvider.onLogin(
                       loginResponse.data!,
                     );
                   }

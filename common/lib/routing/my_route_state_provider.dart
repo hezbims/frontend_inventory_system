@@ -16,9 +16,10 @@ class MyRouteStateProvider extends ChangeNotifier {
       GetIt.I.unregister<User>();
     }
     _currentUser = UserFetchFailed();
+    _currentState = RouteLoginState();
     notifyListeners();
   }
-  void setStateAuthenticated(User user){
+  void onLogin(User user){
     if (!GetIt.I.isRegistered<User>()) {
       GetIt.I.registerSingleton(user);
     }
