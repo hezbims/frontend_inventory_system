@@ -3,9 +3,14 @@ import 'package:flutter/material.dart';
 
 class LihatStockBarangPage extends Page {
 
+  const LihatStockBarangPage() : super(
+    key: const ValueKey('Lihat Stock Barang Page')
+  );
+
   @override
   Route<dynamic> createRoute(BuildContext context) {
     return MaterialPageRoute(
+      settings: this,
       builder: (context) => const LihatStockBarangScreen()
     );
   }

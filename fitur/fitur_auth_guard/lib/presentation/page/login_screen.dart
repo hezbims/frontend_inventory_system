@@ -6,7 +6,7 @@ import 'package:common/presentation/textfield/custom_textfield.dart';
 import 'package:common/presentation/textfield/password_textfield.dart';
 import 'package:common/presentation/textfield/style/spacing.dart';
 import 'package:common/response/api_response.dart';
-import 'package:common/constant/routes/routes_path.dart';
+import 'package:common/routing/my_route_state_provider.dart';
 import 'package:dependencies/get_it.dart';
 import 'package:dependencies/provider.dart';
 import 'package:flutter/material.dart';
@@ -27,14 +27,12 @@ class LoginScreen extends StatelessWidget {
             builder: (context , provider , child) {
               final loginResponse = provider.loginResponse;
               if (loginResponse is ApiResponseSuccess<User>){
-                GetIt.I.registerSingleton(loginResponse.data!);
+                final MyRouteStateProvider routeStateProvider = context.read();
                 WidgetsBinding.instance.addPostFrameCallback(
                   (_) {
-                    Navigator.of(context)
-                      .pushNamedAndRemoveUntil(
-                        RoutesPath.initialRoute,
-                        (Route<dynamic> route) => false
-                      );
+                    routeStateProvider.setStateAuthenticated(
+                      loginResponse.data!,
+                    );
                   }
                 );
               }

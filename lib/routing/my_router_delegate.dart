@@ -38,15 +38,16 @@ class MyRouterDelegate extends RouterDelegate<Object> with
   List<Page<dynamic>> _buildPages(MyRouteStateProvider provider){
     var result = <Page<dynamic>>[];
     final state = provider.currentState;
+    debugPrint('State type : ${state.runtimeType}');
     if (state.getUserResponse is UserFetchLoading) {
       result.add(const SplashPage());
     } else if (state.getUserResponse is UserFetchFailed) {
       result.add(const LoginPage());
     } else if (state.getUserResponse is UserFetchSuccess) {
       if (state is RouteLoginState) {
-        result.add(LihatStockBarangPage());
+        result.add(const LihatStockBarangPage());
       } else if (state is RouteLihatStockBarangState) {
-        result.add(LihatStockBarangPage());
+        result.add(const LihatStockBarangPage());
       } else if (state is RouteSettingAkunState) {
         result.add(SettingAkunPage());
       }

@@ -5,7 +5,7 @@ import 'package:dependencies/get_it.dart';
 import 'package:flutter/material.dart';
 
 class MyRouteStateProvider extends ChangeNotifier {
-  var _currentState = MyRouteState();
+  MyRouteState _currentState = RouteLihatStockBarangState();
   MyRouteState get currentState => _currentState;
 
   void setStateUnauthenticated(){
@@ -20,6 +20,11 @@ class MyRouteStateProvider extends ChangeNotifier {
     _currentState.setUserResponse(
       UserFetchSuccess(user: user)
     );
+    notifyListeners();
+  }
+
+  void setRouteState(MyRouteState newRouteState){
+    _currentState = newRouteState;
     notifyListeners();
   }
 }
