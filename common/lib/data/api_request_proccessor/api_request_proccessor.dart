@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:common/data/mapper/other/message_mapper.dart';
 import 'package:common/data/mapper/other/pagination_checker.dart';
 import 'package:common/response/api_response.dart';
@@ -32,6 +34,8 @@ abstract class ApiRequestProcessor {
           statusCode: response.statusCode,
         );
       }
+    } on ClientException catch(_) {
+      return ApiResponseFailed(error: 'Gagal tersambung ke server');
     } catch (e) {
       debugPrint("api request unknown fail : $e");
       return ApiResponseFailed(

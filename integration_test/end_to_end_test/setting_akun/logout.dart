@@ -1,4 +1,4 @@
-import 'package:fitur_setting_akun/presentation/page/setting_akun_page.dart';
+import 'package:fitur_setting_akun/presentation/page/setting_akun_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -9,7 +9,7 @@ Future<void> logout({required WidgetTester tester}) async {
 
   await tester.waitUntilDisappear(
     find.descendant(
-      of: find.byType(SettingAkunPage),
+      of: find.byType(SettingAkunScreen),
       matching: find.byType(CircularProgressIndicator)
     ),
   );

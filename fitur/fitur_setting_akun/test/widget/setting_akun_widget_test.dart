@@ -2,7 +2,7 @@ import 'package:common/constant/test_tags/test_tags.dart';
 import 'package:common/domain/model/user.dart';
 import 'package:dependencies/get_it.dart';
 import 'package:fitur_setting_akun/presentation/provider/setting_akun_provider.dart';
-import 'package:fitur_setting_akun/presentation/page/setting_akun_page.dart';
+import 'package:fitur_setting_akun/presentation/page/setting_akun_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -27,7 +27,7 @@ void main(){
       MaterialApp(
         home: Directionality(
           textDirection: TextDirection.ltr,
-          child: SettingAkunPage(),
+          child: SettingAkunScreen(),
         ),
       )
     );
