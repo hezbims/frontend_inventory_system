@@ -6,7 +6,7 @@ import 'package:common/response/api_response.dart';
 import 'package:dependencies/get_it.dart';
 import 'package:dependencies/rflutter_alert.dart';
 import 'package:fitur_input_pengajuan/domain/model/pengajuan.dart';
-import 'package:fitur_input_pengajuan/presentation/pages/main_form.dart';
+import 'package:fitur_input_pengajuan/presentation/pages/main_form_screen.dart';
 import 'package:fitur_input_pengajuan/presentation/provider/main_form/main_form_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -57,7 +57,7 @@ void main(){
 
     await tester.pumpWidget(
       MaterialApp(
-        home: MainForm(
+        home: MainFormScreen(
           initialData: defaultPengajuan
         ),
       ),
@@ -79,7 +79,7 @@ void main(){
     }
 
     await tester.pumpAndSettle();
-    expect(find.byType(MainForm), findsNothing);
+    expect(find.byType(MainFormScreen), findsNothing);
   } , tags: [TestTags.fastTest]);
 
   testWidgets(
@@ -88,7 +88,7 @@ void main(){
   , (tester) async {
       await tester.pumpWidget(
         const MaterialApp(
-          home: MainForm(initialData: null),
+          home: MainFormScreen(initialData: null),
         )
       );
 
@@ -110,7 +110,7 @@ void main(){
 
       await tester.pumpWidget(
         MaterialApp(
-          home: MainForm(initialData: defaultPengajuan),
+          home: MainFormScreen(initialData: defaultPengajuan),
         ),
       );
 

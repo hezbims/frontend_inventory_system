@@ -4,6 +4,7 @@ import 'package:common/routing/user_fetch_state.dart';
 import 'package:dependencies/provider.dart';
 import 'package:fitur_auth_guard/presentation/page/login_page.dart';
 import 'package:fitur_buat_laporan/presentation/page/pilih_bulan_tahun_page.dart';
+import 'package:fitur_input_pengajuan/presentation/pages/detail_pengajuan_loader_page.dart';
 import 'package:fitur_lihat_pengajuan/presentation/pages/lihat_pengajuan_page.dart';
 import 'package:fitur_lihat_stock_barang/presentation/page/lihat_stock_barang_page.dart';
 import 'package:fitur_setting_akun/presentation/page/setting_akun_page.dart';
@@ -28,6 +29,14 @@ class MyRouterDelegate extends RouterDelegate<Object> with
           pages: pages,
           onPopPage: (route , result){
             if (!route.didPop(result)) return false;
+
+            final state = provider.currentState;
+            if (state is RouteInputPengajuanState){
+              provider.setRouteState(
+                RouteLihatPengajuanState(),
+                notifyListener: false
+              );
+            }
             return true;
           },
         );
@@ -41,6 +50,8 @@ class MyRouterDelegate extends RouterDelegate<Object> with
     final currentUser = provider.currentUser;
 
     if (currentUser is UserFetchSuccess) {
+
+      // DEPTH == 1
       if (state is RouteLihatPengajuanState){
         result.add(const LihatPengajuanPage());
       } else if (state is RouteLoginState) {
@@ -51,6 +62,11 @@ class MyRouterDelegate extends RouterDelegate<Object> with
         result.add(const SettingAkunPage());
       } else if (state is RoutePilihTahunBulanLaporanState) {
         result.add(const PilihBulanTahunPage());
+      }
+      
+      // DEPTH == 2
+      if (state is RouteInputPengajuanState){
+        result.add(DetailPengajuanLoaderPage(idPengajuan: state.idPengajuan));
       }
     }
     else if (currentUser is UserFetchLoading) {

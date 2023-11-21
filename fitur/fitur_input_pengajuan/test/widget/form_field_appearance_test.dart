@@ -8,7 +8,7 @@ import 'package:fitur_input_pengajuan/domain/model/pengajuan.dart';
 import 'package:fitur_input_pengajuan/presentation/component/common/transaksi_barang_bottom_sheet.dart';
 import 'package:fitur_input_pengajuan/presentation/component/main_form/barang_field.dart';
 import 'package:fitur_input_pengajuan/presentation/component/pilih_barang/barang_quantity_incrementer.dart';
-import 'package:fitur_input_pengajuan/presentation/pages/main_form.dart';
+import 'package:fitur_input_pengajuan/presentation/pages/main_form_screen.dart';
 import 'package:fitur_input_pengajuan/presentation/provider/main_form/main_form_provider.dart';
 import 'package:fitur_input_pengajuan/presentation/provider/pilih_barang/bottom_sheet_barang_provider.dart';
 import 'package:flutter/material.dart';
@@ -56,7 +56,7 @@ void main() {
         const MaterialApp(
           home: Directionality(
             textDirection: TextDirection.ltr,
-              child: MainForm(initialData: null,),
+              child: MainFormScreen(initialData: null,),
           ),
         ),
       );

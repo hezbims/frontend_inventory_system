@@ -7,9 +7,9 @@ import 'package:fitur_input_pengajuan/presentation/component/pilih_barang/pilih_
 import 'package:fitur_input_pengajuan/presentation/provider/pilih_barang/pilih_barang_provider.dart';
 import 'package:flutter/material.dart';
 
-class PilihBarangPage extends StatelessWidget {
+class PilihBarangScreen extends StatelessWidget {
   final MainFormToPilihBarangArg arg;
-  const PilihBarangPage({
+  const PilihBarangScreen({
     super.key,
     required this.arg,
   });

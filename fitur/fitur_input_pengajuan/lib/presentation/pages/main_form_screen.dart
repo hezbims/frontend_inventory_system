@@ -17,13 +17,13 @@ import 'package:fitur_input_pengajuan/presentation/component/main_form/clock_fie
 import 'package:fitur_input_pengajuan/presentation/component/main_form/barang_field.dart';
 import 'package:fitur_input_pengajuan/presentation/component/main_form/date_field.dart';
 import 'package:fitur_input_pengajuan/presentation/component/main_form/delete_pengajuan_dialog.dart';
-import 'package:fitur_input_pengajuan/presentation/pages/pilih_pengaju_page.dart';
+import 'package:fitur_input_pengajuan/presentation/pages/pilih_pengaju_screen.dart';
 import 'package:fitur_input_pengajuan/presentation/provider/main_form/main_form_provider.dart';
 import 'package:flutter/material.dart';
 
-class MainForm extends StatelessWidget {
+class MainFormScreen extends StatelessWidget {
   final Pengajuan? initialData;
-  const MainForm({
+  const MainFormScreen({
     super.key,
     required this.initialData,
   });
@@ -130,7 +130,7 @@ class MainForm extends StatelessWidget {
                               .push(
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                    const PilihPengajuPage(isPemasok: true),
+                                    const PilihPengajuScreen(isPemasok: true),
                               ),
                             );
                             if (pemasokPicked is Pengaju) {
@@ -150,7 +150,7 @@ class MainForm extends StatelessWidget {
                                 .push(
                                   MaterialPageRoute(
                                     builder: (context) =>
-                                      const PilihPengajuPage(isPemasok: false),
+                                      const PilihPengajuScreen(isPemasok: false),
                                   ),
                                 );
 

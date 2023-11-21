@@ -1,4 +1,4 @@
-import 'package:fitur_input_pengajuan/presentation/pages/main_form.dart';
+import 'package:fitur_input_pengajuan/presentation/pages/main_form_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -13,7 +13,7 @@ Future<void> terimaPengajuan({
   await tester.tap(find.text('Terima'));
   await tester.waitUntilDisappear(
     find.descendant(
-        of: find.byType(MainForm),
+        of: find.byType(MainFormScreen),
         matching: find.byType(CircularProgressIndicator)
     ),
   );

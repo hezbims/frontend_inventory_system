@@ -27,9 +27,11 @@ class MyRouteStateProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setRouteState(MyRouteState newRouteState){
+  void setRouteState(MyRouteState newRouteState , {bool notifyListener = true}){
     _currentState = newRouteState;
-    notifyListeners();
+    if (notifyListener) {
+      notifyListeners();
+    }
   }
 }
 

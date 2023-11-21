@@ -26,7 +26,6 @@ class SettingAkunScreen extends StatelessWidget {
               context.read<MyRouteStateProvider>();
             WidgetsBinding.instance.addPostFrameCallback(
               (timeStamp) {
-                GetIt.I.unregister<User>();
                 routeStateProvider.setStateUnauthenticated();
               }
             );

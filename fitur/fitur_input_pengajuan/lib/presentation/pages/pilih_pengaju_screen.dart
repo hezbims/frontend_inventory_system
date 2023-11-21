@@ -10,9 +10,9 @@ import 'package:fitur_input_pengajuan/presentation/component/pilih_pengaju/show_
 import 'package:fitur_input_pengajuan/presentation/provider/pilih_pengaju/pilih_pengaju_provider.dart';
 import 'package:flutter/material.dart';
 
-class PilihPengajuPage extends StatelessWidget {
+class PilihPengajuScreen extends StatelessWidget {
   final bool isPemasok;
-  const PilihPengajuPage({
+  const PilihPengajuScreen({
     super.key,
     required this.isPemasok,
   });

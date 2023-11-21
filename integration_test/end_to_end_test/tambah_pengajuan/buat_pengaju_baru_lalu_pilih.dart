@@ -4,7 +4,7 @@ import 'package:common/presentation/button/tambah_sesuatu_button.dart';
 import 'package:common/presentation/textfield/custom_textfield.dart';
 import 'package:common/presentation/textfield/dropdown_page_chooser.dart';
 import 'package:fitur_input_pengajuan/presentation/component/pilih_pengaju/show_buat_pengaju_dialog.dart';
-import 'package:fitur_input_pengajuan/presentation/pages/pilih_pengaju_page.dart';
+import 'package:fitur_input_pengajuan/presentation/pages/pilih_pengaju_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -44,7 +44,7 @@ Future<void> buatPengajuBaruLaluPilih({
 
   await tester.waitUntilDisappear(
     find.descendant(
-      of: find.byType(PilihPengajuPage),
+      of: find.byType(PilihPengajuScreen),
       matching: find.byType(CircularProgressIndicator)
     ),
   );

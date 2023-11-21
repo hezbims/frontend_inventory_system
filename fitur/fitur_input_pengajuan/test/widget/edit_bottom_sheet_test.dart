@@ -10,7 +10,7 @@ import 'package:fitur_input_pengajuan/domain/model/pengajuan.dart';
 import 'package:fitur_input_pengajuan/domain/repository/i_submit_pengajuan_repository.dart';
 import 'package:fitur_input_pengajuan/presentation/component/main_form/barang_transaksi_card.dart';
 import 'package:fitur_input_pengajuan/presentation/component/pilih_barang/barang_quantity_incrementer.dart';
-import 'package:fitur_input_pengajuan/presentation/pages/main_form.dart';
+import 'package:fitur_input_pengajuan/presentation/pages/main_form_screen.dart';
 import 'package:fitur_input_pengajuan/presentation/provider/main_form/main_form_provider.dart';
 import 'package:fitur_input_pengajuan/presentation/provider/pilih_barang/bottom_sheet_barang_provider.dart';
 import 'package:flutter/material.dart';
@@ -173,6 +173,6 @@ Widget siapkanMainFormDenganDuaBarangAjuan(){
   );
 
   return MaterialApp(
-    home: MainForm(initialData: satuPengajuan),
+    home: MainFormScreen(initialData: satuPengajuan),
   );
 }
