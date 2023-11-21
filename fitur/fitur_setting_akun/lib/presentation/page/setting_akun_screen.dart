@@ -3,6 +3,7 @@ import 'package:common/domain/model/user.dart';
 import 'package:common/presentation/bottom_navbar/stock_bottom_navbar.dart';
 import 'package:common/presentation/textfield/style/spacing.dart';
 import 'package:common/constant/routes/routes_path.dart';
+import 'package:common/routing/my_route_state.dart';
 import 'package:common/routing/my_route_state_provider.dart';
 import 'package:dependencies/get_it.dart';
 import 'package:dependencies/provider.dart';
@@ -26,7 +27,9 @@ class SettingAkunScreen extends StatelessWidget {
               context.read<MyRouteStateProvider>();
             WidgetsBinding.instance.addPostFrameCallback(
               (timeStamp) {
-                routeStateProvider.setStateUnauthenticated();
+                routeStateProvider.setStateUnauthenticated(
+                  nextRouteState: RouteLihatStockBarangState()
+                );
               }
             );
           }

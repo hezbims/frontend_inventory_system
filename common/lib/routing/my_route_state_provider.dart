@@ -11,12 +11,16 @@ class MyRouteStateProvider extends ChangeNotifier {
   MyRouteState _currentState = RouteLihatStockBarangState();
   MyRouteState get currentState => _currentState;
 
-  void setStateUnauthenticated(){
+  void setStateUnauthenticated({
+    required MyRouteState? nextRouteState
+  }){
     if (GetIt.I.isRegistered<User>()) {
       GetIt.I.unregister<User>();
     }
     _currentUser = UserFetchFailed();
-    _currentState = RouteLoginState();
+    if (nextRouteState != null){
+      _currentState = nextRouteState;
+    }
     notifyListeners();
   }
   void onLogin(User user){

@@ -17,9 +17,9 @@ import 'package:fitur_input_form_data_barang/domain/model/submit_barang_dto.dart
 import 'package:fitur_input_form_data_barang/presentation/provider/input_data_barang_provider.dart';
 import 'package:flutter/material.dart';
 
-class InputDataBarangPage extends StatelessWidget {
+class InputDataBarangScreen extends StatelessWidget {
   final Barang? initialBarang;
-  const InputDataBarangPage({
+  const InputDataBarangScreen({
     super.key,
     required this.initialBarang,
   });
