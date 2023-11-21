@@ -1,31 +1,20 @@
-import 'package:common/routing/user_fetch_state.dart';
-
-class MyRouteState {
-  UserFetchState _getUserResponse;
-  UserFetchState get getUserResponse => _getUserResponse;
-  void setUserResponse(UserFetchState response){
-    _getUserResponse = response;
-  }
-  MyRouteState({
-    UserFetchState? getUserResponse
-  }) : _getUserResponse = getUserResponse ?? UserFetchLoading();
-}
+class MyRouteState {}
 
 // DEPTH 1
 class RouteLoginState extends MyRouteState{}
 
 class RouteLihatStockBarangState extends MyRouteState {
-  RouteLihatStockBarangState({super.getUserResponse});
+  RouteLihatStockBarangState();
 }
 
 class RoutePilihTahunBulanLaporanState extends MyRouteState {
-  RoutePilihTahunBulanLaporanState({super.getUserResponse});
+  RoutePilihTahunBulanLaporanState();
 }
 
 class RouteLihatPengajuanState extends MyRouteState {
-  RouteLihatPengajuanState({super.getUserResponse});
+  RouteLihatPengajuanState();
 }
 
 class RouteSettingAkunState extends MyRouteState {
-  RouteSettingAkunState({super.getUserResponse});
+  RouteSettingAkunState();
 }

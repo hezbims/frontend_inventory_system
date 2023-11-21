@@ -14,8 +14,8 @@ import 'package:fitur_lihat_pengajuan/presentation/provider/filter_pengaju_provi
 import 'package:fitur_lihat_pengajuan/presentation/provider/lihat_pengajuan_provider.dart';
 import 'package:flutter/material.dart';
 
-class LihatPengajuanPage extends StatelessWidget {
-  const LihatPengajuanPage({Key? key}) : super(key: key);
+class LihatPengajuanScreen extends StatelessWidget {
+  const LihatPengajuanScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -4,7 +4,7 @@ import 'package:common/domain/model/user.dart';
 import 'package:common/presentation/textfield/custom_dropdown_menu.dart';
 import 'package:dependencies/get_it.dart';
 import 'package:fitur_lihat_pengajuan/presentation/component/pengajuan_card.dart';
-import 'package:fitur_lihat_pengajuan/presentation/pages/lihat_pengajuan_pages.dart';
+import 'package:fitur_lihat_pengajuan/presentation/pages/lihat_pengajuan_screen.dart';
 import 'package:fitur_lihat_pengajuan/presentation/provider/filter_pengaju_provider.dart';
 import 'package:fitur_lihat_pengajuan/presentation/provider/lihat_pengajuan_provider.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +35,7 @@ void main(){
 
       await tester.pumpWidget(
         const MaterialApp(
-          home: LihatPengajuanPage(),
+          home: LihatPengajuanScreen(),
         ),
       );
       await tester.pump();

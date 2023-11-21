@@ -3,12 +3,12 @@ import 'package:common/constant/routes/routes_name.dart';
 import 'package:common/constant/routes/routes_path.dart';
 import 'package:fitur_auth_guard/presentation/page/login_screen.dart';
 import 'package:fitur_auth_guard/presentation/route_guard.dart';
-import 'package:fitur_buat_laporan/presentation/page/pilih_bulan_tahun_page.dart';
+import 'package:fitur_buat_laporan/presentation/page/pilih_bulan_tahun_screen.dart';
 import 'package:fitur_buat_laporan/presentation/page/preview_laporan_page.dart';
 import 'package:fitur_input_barang_by_csv/presentation/input_barang_by_csv_page.dart';
 import 'package:fitur_input_form_data_barang/presentation/page/detail_barang_loader.dart';
 import 'package:fitur_input_pengajuan/presentation/pages/initial_detail_pengajuan_loader.dart';
-import 'package:fitur_lihat_pengajuan/presentation/pages/lihat_pengajuan_pages.dart';
+import 'package:fitur_lihat_pengajuan/presentation/pages/lihat_pengajuan_screen.dart';
 import 'package:fitur_lihat_stock_barang/presentation/page/lihat_stock_barang_screen.dart';
 import 'package:fitur_setting_akun/dependency_setup/setting_akun_page_dependency_setup.dart';
 import 'package:flutter/material.dart';
@@ -39,10 +39,10 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings){
         nextPage = const LihatStockBarangScreen();
         break;
       case RoutesName.buatLaporanName:
-        nextPage = const PilihTahunBulanPage();
+        nextPage = const PilihBulanTahunScreen();
         break;
       case RoutesName.lihatPengajuanName:
-        nextPage = const LihatPengajuanPage();
+        nextPage = const LihatPengajuanScreen();
         break;
       case RoutesName.settingAkunName:
         nextPage = SettingAkunPageDependencySetup();

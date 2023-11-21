@@ -5,6 +5,9 @@ import 'package:dependencies/get_it.dart';
 import 'package:flutter/material.dart';
 
 class MyRouteStateProvider extends ChangeNotifier {
+  UserFetchResponse _currentUser = UserFetchLoading();
+  UserFetchResponse get currentUser => _currentUser;
+
   MyRouteState _currentState = RouteLihatStockBarangState();
   MyRouteState get currentState => _currentState;
 
@@ -12,14 +15,14 @@ class MyRouteStateProvider extends ChangeNotifier {
     if (GetIt.I.isRegistered<User>()) {
       GetIt.I.unregister<User>();
     }
-    _currentState.setUserResponse(UserFetchFailed());
+    _currentUser = UserFetchFailed();
     notifyListeners();
   }
   void setStateAuthenticated(User user){
-    GetIt.I.registerSingleton(user);
-    _currentState.setUserResponse(
-      UserFetchSuccess(user: user)
-    );
+    if (!GetIt.I.isRegistered<User>()) {
+      GetIt.I.registerSingleton(user);
+    }
+    _currentUser = UserFetchSuccess(user: user);
     notifyListeners();
   }
 
