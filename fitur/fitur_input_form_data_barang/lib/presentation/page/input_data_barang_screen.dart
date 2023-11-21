@@ -6,6 +6,7 @@ import 'package:common/presentation/bottom_navbar/submit_card.dart';
 import 'package:common/presentation/button/disabled_submit_button.dart';
 import 'package:common/presentation/button/submit_button.dart';
 import 'package:common/presentation/page/pilih_kategori/pilih_kategori_page.dart';
+import 'package:common/presentation/provider/refresh_notifier.dart';
 import 'package:common/presentation/textfield/custom_textfield.dart';
 import 'package:common/presentation/textfield/disabled_textfield.dart';
 import 'package:common/presentation/textfield/dropdown_page_chooser.dart';
@@ -33,8 +34,10 @@ class InputDataBarangScreen extends StatelessWidget {
       child: Consumer<InputDataBarangProvider>(
         builder: (context , provider , child){
           if (provider.submitResponse is ApiResponseSuccess){
+            final refreshNotifier = context.read<RefreshNotifier>();
             WidgetsBinding.instance.addPostFrameCallback((_) {
-              Navigator.of(context).pop(true);
+              refreshNotifier.notify();
+              Navigator.of(context).pop();
             });
           }
           return Scaffold(
