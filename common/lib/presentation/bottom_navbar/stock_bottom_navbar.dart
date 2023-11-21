@@ -1,4 +1,7 @@
 import 'package:common/constant/routes/routes_path.dart';
+import 'package:common/routing/my_route_state.dart';
+import 'package:common/routing/my_route_state_provider.dart';
+import 'package:dependencies/provider.dart';
 import 'package:flutter/material.dart';
 
 class StockBottomNavBar extends StatelessWidget {
@@ -10,35 +13,26 @@ class StockBottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final MyRouteStateProvider routeStateProvider = context.read();
     return BottomNavigationBar(
       currentIndex: _currentIndex,
       onTap: (index){
-        // Kalo ngetap tempat yang sama dengan destinatin sekarang, maka enggak
-        // usah lakuin apa-apa
         if (index == _currentIndex){
           return;
         }
-        String? nextRoute;
         switch (index){
           case RoutesPath.lihatStockBarangIndex:
-            nextRoute = RoutesPath.lihatStockBarangPath;
+            routeStateProvider.setRouteState(RouteLihatStockBarangState());
             break;
           case RoutesPath.fiturLihatPengajuanIndex:
-            nextRoute = RoutesPath.lihatPengajuanPath;
+            routeStateProvider.setRouteState(RouteLihatPengajuanState());
             break;
           case RoutesPath.buatLaporanIndex:
-            nextRoute = RoutesPath.buatLaporanPath;
+            routeStateProvider.setRouteState(RoutePilihTahunBulanLaporanState());
             break;
           case RoutesPath.settingAkunIndex:
-            nextRoute = RoutesPath.settingAkunPath;
+            routeStateProvider.setRouteState(RouteSettingAkunState());
             break;
-        }
-
-        if (nextRoute != null){
-          Navigator.of(context)
-            .pushNamedAndRemoveUntil(
-              nextRoute, (Route<dynamic> route) => false
-          );
         }
       },
       items: const [
