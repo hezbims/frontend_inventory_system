@@ -4,11 +4,11 @@ import 'package:common/presentation/button/disabled_submit_button.dart';
 import 'package:common/presentation/button/submit_button.dart';
 import 'package:common/presentation/card/status_mini_card.dart';
 import 'package:common/presentation/loader_overlay/loader_overlay.dart';
+import 'package:common/presentation/provider/refresh_notifier.dart';
 import 'package:common/presentation/textfield/custom_dropdown_menu.dart';
 import 'package:common/presentation/textfield/dropdown_page_chooser.dart';
 import 'package:common/presentation/textfield/style/spacing.dart';
 import 'package:common/response/api_response.dart';
-import 'package:common/utils/pop_on_post_frame.dart';
 import 'package:dependencies/get_it.dart';
 import 'package:dependencies/provider.dart';
 import 'package:common/domain/model/pengaju.dart';
@@ -38,7 +38,13 @@ class MainFormScreen extends StatelessWidget {
               provider.submitResponse is ApiResponseSuccess ||
               provider.deletePengajuanResponse is ApiResponseSuccess
             ) {
-              context.popOnPostFrame(true);
+              final refreshNotifier = context.read<RefreshNotifier>();
+              WidgetsBinding.instance.addPostFrameCallback(
+                (timeStamp) {
+                  refreshNotifier.notify();
+                  Navigator.of(context).pop();
+                }
+              );
             }
 
             return LoaderOverlay(

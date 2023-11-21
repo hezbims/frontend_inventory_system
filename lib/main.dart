@@ -1,3 +1,4 @@
+import 'package:common/presentation/provider/refresh_notifier.dart';
 import 'package:common/routing/my_route_state_provider.dart';
 import 'package:dependencies/flutter_dotenv.dart';
 import 'package:dependencies/provider.dart';
@@ -28,6 +29,9 @@ class _MyAppState extends State<MyApp> {
       providers: [
         ChangeNotifierProvider(
           create: (context) => MyRouteStateProvider()
+        ),
+        ChangeNotifierProvider(
+          create: (context) => RefreshNotifier()
         ),
       ],
       child: MaterialApp.router(
