@@ -15,7 +15,6 @@ class BarangCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final routeStateProvider = context.read<MyRouteStateProvider>();
     return Container(
       decoration: BoxDecoration(
         color: getColorByCurrentStockAndMinStock(
@@ -83,6 +82,7 @@ class BarangCard extends StatelessWidget {
                 flex: 2,
                 child: OutlinedButton(
                   onPressed: () {
+                    final routeStateProvider = context.read<MyRouteStateProvider>();
                     routeStateProvider.setRouteState(
                       RouteInputFormDataBarangState(idBarang: barang.id),
                     );
