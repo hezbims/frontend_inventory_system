@@ -1,7 +1,9 @@
 import 'package:common/constant/themes/custom_color.dart';
 import 'package:common/constant/themes/custom_text_style.dart';
 import 'package:common/domain/model/barang.dart';
-import 'package:common/constant/routes/routes_path.dart';
+import 'package:common/routing/my_route_state.dart';
+import 'package:common/routing/my_route_state_provider.dart';
+import 'package:dependencies/provider.dart';
 import 'package:flutter/material.dart';
 
 class BarangCard extends StatelessWidget {
@@ -13,6 +15,7 @@ class BarangCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final routeStateProvider = context.read<MyRouteStateProvider>();
     return Container(
       decoration: BoxDecoration(
         color: getColorByCurrentStockAndMinStock(
@@ -80,8 +83,8 @@ class BarangCard extends StatelessWidget {
                 flex: 2,
                 child: OutlinedButton(
                   onPressed: () {
-                    Navigator.of(context).pushNamed(
-                      RoutesPath.inputDataBarangPath(barang.id),
+                    routeStateProvider.setRouteState(
+                      RouteInputFormDataBarangState(idBarang: barang.id),
                     );
                   },
                   child: const Text("Edit")

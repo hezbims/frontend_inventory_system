@@ -38,6 +38,12 @@ class MyRouterDelegate extends RouterDelegate<Object> with
                 notifyListener: false
               );
             }
+            else if (state is RouteInputFormDataBarangState){
+              provider.setRouteState(
+                RouteLihatStockBarangState(),
+                notifyListener: false
+              );
+            }
             return true;
           },
         );

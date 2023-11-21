@@ -3,6 +3,8 @@ import 'package:common/domain/model/user.dart';
 import 'package:common/presentation/bottom_navbar/stock_bottom_navbar.dart';
 import 'package:common/presentation/textfield/search_with_filter_app_bar.dart';
 import 'package:common/constant/routes/routes_path.dart';
+import 'package:common/routing/my_route_state.dart';
+import 'package:common/routing/my_route_state_provider.dart';
 import 'package:dependencies/get_it.dart';
 import 'package:dependencies/provider.dart';
 import 'package:dependencies/font_awesome_flutter.dart';
@@ -37,6 +39,7 @@ class LihatStockBarangScreen extends StatelessWidget {
                 kategoriFilterProvider.choosenKategori.id
               ),
           );
+          final routeStateProvider = context.read<MyRouteStateProvider>();
 
           return Scaffold(
             endDrawerEnableOpenDragGesture: false,
@@ -59,14 +62,10 @@ class LihatStockBarangScreen extends StatelessWidget {
                 children: [
                   FloatingActionButton(
                     heroTag: 'fab-+',
-                    onPressed: () async {
-                      final result = await Navigator.of(context).pushNamed(
-                          RoutesPath.inputDataBarangPath('add')
+                    onPressed: () {
+                      routeStateProvider.setRouteState(
+                        RouteInputFormDataBarangState(idBarang: null)
                       );
-
-                      if (result != null){
-                        stockBarangProvider.tryRefreshPagination();
-                      }
                     },
                     child: const FaIcon(FontAwesomeIcons.one),
                   ),
