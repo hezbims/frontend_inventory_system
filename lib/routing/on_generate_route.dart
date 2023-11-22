@@ -4,7 +4,7 @@ import 'package:common/constant/routes/routes_path.dart';
 import 'package:fitur_auth_guard/presentation/page/login_screen.dart';
 import 'package:fitur_auth_guard/presentation/route_guard.dart';
 import 'package:fitur_buat_laporan/presentation/page/pilih_bulan_tahun_screen.dart';
-import 'package:fitur_buat_laporan/presentation/page/preview_laporan_page.dart';
+import 'package:fitur_buat_laporan/presentation/page/preview_laporan_screen.dart';
 import 'package:fitur_input_barang_by_csv/presentation/input_barang_by_csv_screen.dart';
 import 'package:fitur_input_form_data_barang/presentation/page/detail_barang_loader.dart';
 import 'package:fitur_input_pengajuan/presentation/pages/detail_pengajuan_loader.dart';
@@ -53,7 +53,7 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings){
   }
   else if (pathLength == 2){
     if (urlPathSegments.last == RoutesName.previewPdfName){
-      nextPage = PreviewLaporanPage(
+      nextPage = PreviewLaporanScreen(
         tahun: int.parse(uri.queryParameters[QueryParamKeys.tahun]!),
         bulan: int.parse(uri.queryParameters[QueryParamKeys.bulan]!),
       );

@@ -1,4 +1,4 @@
-import 'package:fitur_buat_laporan/presentation/page/preview_laporan_page.dart';
+import 'package:fitur_buat_laporan/presentation/page/preview_laporan_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
@@ -12,7 +12,7 @@ Future<void> lihatPdfLaporan({
   await tester.tap(find.text('Cetak Laporan'));
   await tester.waitUntilDisappear(
     find.descendant(
-      of: find.byType(PreviewLaporanPage),
+      of: find.byType(PreviewLaporanScreen),
       matching: find.byType(CircularProgressIndicator)
     ),
   );

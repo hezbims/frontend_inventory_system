@@ -27,6 +27,7 @@ class PilihBulanTahunProvider extends ChangeNotifier {
       _choosenMonth = newValue;
     }
   }
+  int get month => _choosenMonth.intValue;
 
   final yearController = TextEditingController(
     text: DateTime.now().year.toString()
@@ -60,12 +61,20 @@ class PilihBulanTahunProvider extends ChangeNotifier {
         downloadCSVProgress = ApiResponseLoading();
         notifyListeners();
 
-        // TODO : Tambahin validation untuk year field
-
-        downloadCSVProgress = await _repository.getDataLaporan(pdfParameter);
+        if (year == null || year! <= 0){
+          downloadCSVProgress = ApiResponseFailed(
+            error: 'Tahun yang diinputkan tidak valid'
+          );
+        }
+        else {
+          downloadCSVProgress = await _repository.getDataLaporan(
+              GeneratePdfParameterDto(month: month, year: year!)
+          );
+        }
         if (downloadCSVProgress is ApiResponseFailed) {
           Fluttertoast.showToast(
-            msg: (downloadCSVProgress as ApiResponseFailed).error.toString()
+            msg: (downloadCSVProgress as ApiResponseFailed).error.toString(),
+            timeInSecForIosWeb: 3,
           );
         }
         else if (downloadCSVProgress is ApiResponseSuccess<List<DataLaporan>>) {
@@ -145,9 +154,4 @@ class PilihBulanTahunProvider extends ChangeNotifier {
       }
     }
   }
-
-  GeneratePdfParameterDto get pdfParameter => GeneratePdfParameterDto(
-    month: _choosenMonth.intValue,
-    year: year!
-  );
 }

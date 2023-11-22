@@ -6,6 +6,8 @@ import 'package:common/presentation/textfield/custom_dropdown_menu.dart';
 import 'package:common/presentation/textfield/custom_textfield.dart';
 import 'package:common/presentation/textfield/style/spacing.dart';
 import 'package:common/constant/routes/routes_path.dart';
+import 'package:common/routing/my_route_state.dart';
+import 'package:common/routing/my_route_state_provider.dart';
 import 'package:dependencies/provider.dart';
 import 'package:fitur_buat_laporan/data/repository/get_data_laporan_repository_impl.dart';
 import 'package:fitur_buat_laporan/domain/model/month.dart';
@@ -29,16 +31,15 @@ class PilihBulanTahunScreen extends StatelessWidget {
         child: Consumer<PilihBulanTahunProvider>(
           builder: (context , provider , child) {
             if (provider.goNext){
+              provider.goNext = false;
+              final routeStateProvider = context.read<MyRouteStateProvider>();
               WidgetsBinding.instance.addPostFrameCallback(
-                (_) {
-                  provider.goNext = false;
-                  Navigator.of(context).pushNamed(
-                    RoutesPath.previewPdfPath(
-                      bulan: provider.choosenMonth.intValue,
-                      tahun: provider.year!
-                    ),
-                  );
-                }
+                (_) =>
+                  routeStateProvider.setRouteState(
+                    RoutePreviewLaporanState(
+                      bulan: provider.month, tahun: provider.year!
+                    )
+                  ),
               );
             }
             return Padding(

@@ -16,3 +16,10 @@ class RouteInputFormDataBarangState extends RouteLihatStockBarangState{
   RouteInputFormDataBarangState({required this.idBarang});
 }
 class RouteInputBarangByCsvState extends RouteLihatStockBarangState{}
+class RoutePreviewLaporanState extends RoutePilihTahunBulanLaporanState{
+  final int tahun;
+  final int bulan;
+  RoutePreviewLaporanState({
+    required this.bulan, required this.tahun,
+  });
+}
