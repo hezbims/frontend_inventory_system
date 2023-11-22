@@ -31,14 +31,6 @@ class LihatStockBarangScreen extends StatelessWidget {
       child: Builder(
         builder: (context) {
           final stockBarangProvider = context.read<LihatStockBarangProvider>();
-
-          // Mengobserve perubahanan apabila notifylistener dipanggil pada KategoriFilterProvider
-          context.select<KategoriFilterProvider , void>(
-            (kategoriFilterProvider) =>
-              stockBarangProvider.setChoosenIdKategori(
-                kategoriFilterProvider.choosenKategori.id
-              ),
-          );
           final routeStateProvider = context.read<MyRouteStateProvider>();
 
           return Scaffold(
@@ -73,15 +65,10 @@ class LihatStockBarangScreen extends StatelessWidget {
                   const SizedBox(height: 12,),
 
                   FloatingActionButton(
-                    onPressed: () async {
-                      final result = await Navigator.of(context).pushNamed(
-                          RoutesPath.inputDataBarangByCsvPath
-                      );
-
-                      if (result != null){
-                        stockBarangProvider.tryRefreshPagination();
-                      }
-                    },
+                    onPressed: () =>
+                      routeStateProvider.setRouteState(
+                        RouteInputBarangByCsvState()
+                      ),
                     child: const FaIcon(FontAwesomeIcons.fileCsv),
                   ),
                 ],

@@ -4,6 +4,7 @@ import 'package:common/routing/user_fetch_state.dart';
 import 'package:dependencies/provider.dart';
 import 'package:fitur_auth_guard/presentation/page/login_page.dart';
 import 'package:fitur_buat_laporan/presentation/page/pilih_bulan_tahun_page.dart';
+import 'package:fitur_input_barang_by_csv/presentation/input_barang_by_csv_page.dart';
 import 'package:fitur_input_form_data_barang/presentation/page/detail_barang_loader_page.dart';
 import 'package:fitur_input_pengajuan/presentation/pages/detail_pengajuan_loader_page.dart';
 import 'package:fitur_lihat_pengajuan/presentation/pages/lihat_pengajuan_page.dart';
@@ -38,7 +39,10 @@ class MyRouterDelegate extends RouterDelegate<Object> with
                 notifyListener: false
               );
             }
-            else if (state is RouteInputFormDataBarangState){
+            else if (
+              state is RouteInputFormDataBarangState ||
+              state is RouteInputBarangByCsvState
+            ){
               provider.setRouteState(
                 RouteLihatStockBarangState(),
                 notifyListener: false
@@ -74,6 +78,8 @@ class MyRouterDelegate extends RouterDelegate<Object> with
         listPages.add(DetailPengajuanLoaderPage(idPengajuan: state.idPengajuan));
       } else if (state is RouteInputFormDataBarangState) {
         listPages.add(DetailBarangLoaderPage(idBarang: state.idBarang));
+      } else if (state is RouteInputBarangByCsvState) {
+        listPages.add(const InputBarangByCsvPage());
       }
     }
     else if (currentUser is UserFetchLoading) {

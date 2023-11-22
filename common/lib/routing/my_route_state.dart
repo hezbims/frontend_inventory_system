@@ -15,3 +15,4 @@ class RouteInputFormDataBarangState extends RouteLihatStockBarangState{
   final int? idBarang;
   RouteInputFormDataBarangState({required this.idBarang});
 }
+class RouteInputBarangByCsvState extends RouteLihatStockBarangState{}

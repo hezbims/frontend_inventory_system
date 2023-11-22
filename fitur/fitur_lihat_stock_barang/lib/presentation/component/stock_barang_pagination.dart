@@ -6,6 +6,7 @@ import 'package:common/presentation/textfield/style/spacing.dart';
 import 'package:dependencies/infinite_scroll_pagination.dart';
 import 'package:dependencies/provider.dart';
 import 'package:fitur_lihat_stock_barang/presentation/component/barang_card.dart';
+import 'package:fitur_lihat_stock_barang/presentation/provider/kategori_filter_provider.dart';
 import 'package:fitur_lihat_stock_barang/presentation/provider/lihat_stock_barang_provider.dart';
 import 'package:flutter/material.dart';
 
@@ -22,6 +23,7 @@ class StockBarangPagination extends StatefulWidget {
 
 class _StockBarangPaginationState extends State<StockBarangPagination> {
   late final refreshNotifier = context.read<RefreshNotifier>();
+  late final kategoriFilterProvider = context.read<KategoriFilterProvider>();
 
   @override
   Widget build(BuildContext context) {
@@ -60,11 +62,19 @@ class _StockBarangPaginationState extends State<StockBarangPagination> {
   void initState() {
     super.initState();
     refreshNotifier.addListener(widget.provider.tryRefreshPagination);
+    kategoriFilterProvider.addListener(onChangeKategori);
+  }
+
+  void onChangeKategori(){
+    widget.provider.setChoosenIdKategori(
+      kategoriFilterProvider.choosenKategori.id
+    );
   }
 
   @override
   void dispose() {
     refreshNotifier.removeListener(widget.provider.tryRefreshPagination);
+    kategoriFilterProvider.removeListener(onChangeKategori);
     super.dispose();
   }
 }
