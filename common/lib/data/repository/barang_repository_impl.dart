@@ -4,6 +4,7 @@ import 'package:common/data/mapper/barang/get_detail_barang_mapper.dart';
 import 'package:common/data/mapper/barang/get_list_barang_mapper.dart';
 import 'package:common/domain/repository/i_barang_repository.dart';
 import 'package:common/response/api_response.dart';
+import 'package:dependencies/file_picker.dart';
 
 class BarangRepositoryImpl implements IBarangRepository {
   final _getDetailBarangMapper = GetDetailBarangMapper();
@@ -34,4 +35,17 @@ class BarangRepositoryImpl implements IBarangRepository {
       getModelFromBody: _getDetailBarangMapper.fromBodyToBarang,
     );
   }
+
+  @override
+  Future<ApiResponse> uploadBarangByExcel({
+    required PlatformFile file,
+    required bool isUpsert
+  }) {
+    return ApiRequestProcessor.process(
+      apiRequest: _apiClient.submitExcelDataBarang(
+        file: file, isUpsert: isUpsert
+      )
+    );
+  }
+
 }

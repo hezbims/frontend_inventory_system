@@ -2,7 +2,9 @@ import 'dart:math';
 
 import 'package:common/constant/themes/custom_font_weight.dart';
 import 'package:common/constant/themes/theme_color.dart';
+import 'package:common/response/api_response.dart';
 import 'package:dependencies/dotted_border.dart';
+import 'package:dependencies/get_it.dart';
 import 'package:dependencies/provider.dart';
 import 'package:fitur_input_barang_by_csv/presentation/input_barang_by_csv_provider.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +15,7 @@ class InputBarangByCsvScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => InputBarangByCsvProvider(),
+      create: (context) => GetIt.I.get<InputBarangByCsvProvider>(),
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Input Barang by CSV'),
@@ -151,7 +153,10 @@ class InputBarangByCsvScreen extends StatelessWidget {
                           ),
                         ),
                         onPressed: provider.onSubmmit,
-                        child: const Text('Submit'),
+                        child:
+                          provider.uploadByExcelResponse is ApiResponseLoading ?
+                            const CircularProgressIndicator() :
+                            const Text('Submit'),
                       ),
                     ],
                   )
