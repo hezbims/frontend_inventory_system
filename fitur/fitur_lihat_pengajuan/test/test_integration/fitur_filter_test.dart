@@ -1,8 +1,11 @@
 import 'package:common/constant/test_tags/test_tags.dart';
 import 'package:common/domain/model/pengaju.dart';
 import 'package:common/domain/model/user.dart';
+import 'package:common/presentation/provider/refresh_notifier.dart';
 import 'package:common/presentation/textfield/custom_dropdown_menu.dart';
+import 'package:common/routing/my_route_state_provider.dart';
 import 'package:dependencies/get_it.dart';
+import 'package:dependencies/provider.dart';
 import 'package:fitur_lihat_pengajuan/presentation/component/pengajuan_card.dart';
 import 'package:fitur_lihat_pengajuan/presentation/pages/lihat_pengajuan_screen.dart';
 import 'package:fitur_lihat_pengajuan/presentation/provider/filter_pengaju_provider.dart';
@@ -34,8 +37,18 @@ void main(){
       );
 
       await tester.pumpWidget(
-        const MaterialApp(
-          home: LihatPengajuanScreen(),
+        MultiProvider(
+          providers: [
+            ChangeNotifierProvider(
+              create: (context) => MyRouteStateProvider()
+            ),
+            ChangeNotifierProvider(
+              create: (context) => RefreshNotifier()
+            ),
+          ],
+          child: const MaterialApp(
+            home: LihatPengajuanScreen(),
+          ),
         ),
       );
       await tester.pump();

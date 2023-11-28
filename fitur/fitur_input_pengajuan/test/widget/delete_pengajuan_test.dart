@@ -2,8 +2,10 @@ import 'package:common/constant/enums/status_pengajuan.dart';
 import 'package:common/constant/test_tags/test_tags.dart';
 import 'package:common/domain/model/pengaju.dart';
 import 'package:common/domain/model/user.dart';
+import 'package:common/presentation/provider/refresh_notifier.dart';
 import 'package:common/response/api_response.dart';
 import 'package:dependencies/get_it.dart';
+import 'package:dependencies/provider.dart';
 import 'package:dependencies/rflutter_alert.dart';
 import 'package:fitur_input_pengajuan/domain/model/pengajuan.dart';
 import 'package:fitur_input_pengajuan/presentation/pages/main_form_screen.dart';
@@ -56,9 +58,12 @@ void main(){
     );
 
     await tester.pumpWidget(
-      MaterialApp(
-        home: MainFormScreen(
-          initialData: defaultPengajuan
+      ChangeNotifierProvider(
+        create: (context) => RefreshNotifier(),
+        child: MaterialApp(
+          home: MainFormScreen(
+            initialData: defaultPengajuan
+          ),
         ),
       ),
     );

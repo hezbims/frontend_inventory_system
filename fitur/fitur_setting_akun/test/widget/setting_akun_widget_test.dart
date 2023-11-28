@@ -1,6 +1,8 @@
 import 'package:common/constant/test_tags/test_tags.dart';
 import 'package:common/domain/model/user.dart';
+import 'package:common/routing/my_route_state_provider.dart';
 import 'package:dependencies/get_it.dart';
+import 'package:dependencies/provider.dart';
 import 'package:fitur_setting_akun/presentation/provider/setting_akun_provider.dart';
 import 'package:fitur_setting_akun/presentation/page/setting_akun_screen.dart';
 import 'package:flutter/material.dart';
@@ -24,10 +26,10 @@ void main(){
     'maka tampilan buat akun akan keliatan'
   , (tester) async {
     await tester.pumpWidget(
-      MaterialApp(
-        home: Directionality(
-          textDirection: TextDirection.ltr,
-          child: SettingAkunScreen(),
+      ChangeNotifierProvider(
+        create: (context) => MyRouteStateProvider(),
+        child: MaterialApp(
+          home: SettingAkunScreen(),
         ),
       )
     );
