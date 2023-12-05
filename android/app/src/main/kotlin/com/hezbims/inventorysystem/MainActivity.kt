@@ -1,4 +1,4 @@
-package com.pmi.stockbufan.stock_bu_fan
+package com.hezbims.inventorysystem
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -34,8 +34,8 @@ abstract class ApiRequestProcessor {
           statusCode: response.statusCode,
         );
       }
-    } on ClientException catch(_) {
-      return ApiResponseFailed(error: 'Gagal tersambung ke server');
+    } on ClientException catch(e) {
+      return ApiResponseFailed(error: 'Gagal tersambung ke server : ${e.message}');
     } catch (e) {
       debugPrint("api request unknown fail : $e");
       return ApiResponseFailed(
