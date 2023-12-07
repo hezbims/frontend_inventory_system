@@ -40,14 +40,14 @@ class _StockBarangPaginationState extends State<StockBarangPagination> {
           newPageErrorIndicatorBuilder: (context) {
             return DefaultErrorWidget(
               onTap: widget.provider.pagingController.retryLastFailedRequest,
-              errorMessage: "Gagal Tersambung",
+              errorMessage: widget.provider.pagingController.error.toString(),
             );
           },
           firstPageErrorIndicatorBuilder: (context){
             return Center(
               child: DefaultErrorWidget(
                 onTap: widget.provider.pagingController.retryLastFailedRequest,
-                errorMessage: "Gagal Tersambung",
+                errorMessage: widget.provider.pagingController.error.toString(),
               ),
             );
           }

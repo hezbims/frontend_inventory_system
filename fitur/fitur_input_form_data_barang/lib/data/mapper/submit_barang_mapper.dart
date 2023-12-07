@@ -6,7 +6,7 @@ class SubmitBarangMapper {
   Map<String , String?> getAllError(String body){
     final jsonBody = jsonDecode(body);
 
-    final errors = jsonBody['data'];
+    final errors = jsonBody['errors'];
 
     return {
       SubmitBarangDto.kolomNama : errors[SubmitBarangDto.kolomNama]?[0],

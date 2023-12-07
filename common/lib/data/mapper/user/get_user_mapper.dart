@@ -9,7 +9,7 @@ class GetUserMapper {
     return User(
       token:jsonBody['token'],
       username: jsonBody['user']['username'],
-      isAdmin: jsonBody['user']['is_admin'] == 1,
+      isAdmin: jsonBody['user']['is_admin'],
       id: jsonBody['user']['id'],
     );
   }
