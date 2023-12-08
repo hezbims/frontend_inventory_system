@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:common/presentation/provider/refresh_notifier.dart';
 import 'package:common/routing/my_route_state_provider.dart';
 import 'package:dependencies/flutter_dotenv.dart';
@@ -8,7 +10,7 @@ import 'package:inventory_system/routing/my_router_delegate.dart';
 import 'package:inventory_system/theme/custom_theme_data.dart';
 
 void main() async {
-  await dotenv.load();
+  await dotenv.load(fileName: "env_file");
   setupMainDependencyInjection();
   runApp(const MyApp());
 }

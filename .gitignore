@@ -45,7 +45,7 @@ app.*.map.json
 /test_screenshots/*
 
 # Env
-*.env
+env_file
 !.env.example
 
 # Pubspec overrides
