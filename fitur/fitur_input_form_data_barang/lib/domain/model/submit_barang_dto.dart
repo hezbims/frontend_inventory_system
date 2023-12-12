@@ -1,31 +1,47 @@
 class SubmitBarangDto {
-  final Map<String , String> json;
+  final int? id;
+  final String nama;
+  final int? minStock;
+  final int? nomorRak;
+  final int? nomorLaci;
+  final int? nomorKolom;
+  final int? stockSekarang;
+  final int? lastMonthStock;
+  final int? unitPrice;
+  final int? idKategori;
+  final String uom;
+
   SubmitBarangDto({
-    required String? id,
-    required String nama,
-    required String minStock,
-    required String nomorRak,
-    required String nomorLaci,
-    required String nomorKolom,
-    required String stockSekarang,
-    required String lastMonthStock,
-    required String unitPrice,
-    required String idKategori,
-    required String uom,
-  }) :
-      json = {
-        kolomId : id ?? "",
-        kolomNama : nama,
-        kolomMinStock : minStock,
-        kolomNomorRak : nomorRak,
-        kolomNomorLaci : nomorLaci,
-        kolomNomorKolom : nomorKolom,
-        kolomStockSekarang : stockSekarang,
-        kolomLastMonthStock : lastMonthStock,
-        kolomUnitPrice : unitPrice,
-        kolomIdKategori : idKategori,
-        kolomUom : uom,
-      };
+    required this.id,
+    required this.nama,
+    required this.minStock,
+    required this.nomorRak,
+    required this.nomorLaci,
+    required this.nomorKolom,
+    required this.stockSekarang,
+    required this.lastMonthStock,
+    required this.unitPrice,
+    required this.idKategori,
+    required this.uom,
+  });
+
+  Map<String , Object?> toJson(){
+    final Map<String , Object?>result = {
+      kolomId : id,
+      kolomNama : nama,
+      kolomMinStock : minStock,
+      kolomNomorRak : nomorRak,
+      kolomNomorLaci : nomorLaci,
+      kolomNomorKolom : nomorKolom,
+      kolomStockSekarang : stockSekarang,
+      kolomLastMonthStock : lastMonthStock,
+      kolomUnitPrice : unitPrice,
+      kolomIdKategori : idKategori,
+      kolomUom : uom,
+    };
+
+    return result;
+  }
 
   static const kolomId = "id";
   static const kolomNama = "nama";

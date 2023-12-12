@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:common/presentation/provider/refresh_notifier.dart';
 import 'package:common/routing/my_route_state_provider.dart';
 import 'package:dependencies/flutter_dotenv.dart';

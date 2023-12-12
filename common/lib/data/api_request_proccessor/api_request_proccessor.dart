@@ -26,7 +26,7 @@ abstract class ApiRequestProcessor {
             false
         );
       } else {
-        debugPrint("api request processor failed(${response.statusCode}) : ${response.body}");
+        debugPrint("api request processor responded failed(${response.statusCode}) : ${response.body}");
         return ApiResponseFailed(
           error: getErrorMessageFromBody == null ?
             DefaultMessageMapper.getMessageFromBody(response.body) :

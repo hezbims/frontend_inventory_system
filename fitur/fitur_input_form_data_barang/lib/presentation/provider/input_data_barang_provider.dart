@@ -106,16 +106,16 @@ class InputDataBarangProvider extends ChangeNotifier {
       notifyListeners();
 
       final data = SubmitBarangDto(
-        id: _initialData?.id.toString() ?? "",
+        id: _initialData?.id,
         nama: namaController.text,
-        nomorRak: nomorRakController.text,
-        nomorKolom: nomorKolomController.text,
-        nomorLaci: nomorLaciController.text,
-        minStock: minStockController.text,
-        stockSekarang: stockSekarangController.text,
-        lastMonthStock: lastMonthStockController.text,
-        unitPrice: unitPriceController.text,
-        idKategori: kategori?.id.toString() ?? "",
+        nomorRak: int.tryParse(nomorRakController.text),
+        nomorKolom: int.tryParse(nomorKolomController.text),
+        nomorLaci: int.tryParse(nomorLaciController.text),
+        minStock: int.tryParse(minStockController.text),
+        stockSekarang: int.tryParse(stockSekarangController.text),
+        lastMonthStock: int.tryParse(lastMonthStockController.text),
+        unitPrice: int.tryParse(unitPriceController.text),
+        idKategori: kategori?.id,
         uom: uomController.text,
       );
 

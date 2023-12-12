@@ -18,7 +18,7 @@ class SubmitBarangApiClient {
 
     return post(
       Uri.parse(url),
-      body: jsonEncode(barang.json),
+      body: jsonEncode(barang.toJson()),
       headers: _tokenManager.getCurrentSessionTokenizedHeader(),
     );
   }
