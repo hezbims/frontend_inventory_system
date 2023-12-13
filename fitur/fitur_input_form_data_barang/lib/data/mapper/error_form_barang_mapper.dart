@@ -10,6 +10,7 @@ class ErrorFormBarangMapper {
 
     return {
       SubmitBarangDto.kolomNama : errors[SubmitBarangDto.kolomNama]?[0],
+      SubmitBarangDto.kolomKodeBarang : errors[SubmitBarangDto.kolomKodeBarang]?[0],
       SubmitBarangDto.kolomMinStock : errors[SubmitBarangDto.kolomMinStock]?[0],
       SubmitBarangDto.kolomNomorRak : errors[SubmitBarangDto.kolomNomorRak]?[0],
       SubmitBarangDto.kolomNomorLaci : errors[SubmitBarangDto.kolomNomorLaci]?[0],
