@@ -82,6 +82,14 @@ class InputDataBarangScreen extends StatelessWidget {
 
                       const VerticalFormSpacing(),
 
+                      CustomTextfield(
+                        controller: provider.kodeBarangController,
+                        label: "Kode Barang",
+                        errorText: provider.errorMessage[SubmitBarangDto.kolomKodeBarang],
+                      ),
+
+                      const SizedBox(height: 24,),
+
                       DropdownPageChooser(
                           label: "Kategori",
                           value: provider.kategori?.nama,

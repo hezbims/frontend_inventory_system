@@ -1,4 +1,3 @@
-import 'package:common/data/api_request_proccessor/api_request_proccessor.dart';
 import 'package:common/domain/repository/i_token_manager.dart';
 import 'package:common/response/api_response.dart';
 import 'package:dependencies/get_it.dart';
@@ -10,11 +9,13 @@ class SettingAkunRepositoryImpl implements ISettingAkunRepository {
   final ITokenManager _tokenManager = GetIt.I.get();
   @override
   Future<ApiResponse> logout() async {
-    final response = await ApiRequestProcessor.process(apiRequest: _apiClient.logout());
+    // gunain yang dicomment ini, kalau logoutnya pake stateful authentication
+    // final response = await ApiRequestProcessor.process(apiRequest: _apiClient.logout());
+    final response = ApiResponseSuccess();
 
-    if (response is ApiResponseSuccess){
+    //if (response is ApiResponseSuccess){
       await _tokenManager.clearToken();
-    }
+    //}
 
     return response;
   }

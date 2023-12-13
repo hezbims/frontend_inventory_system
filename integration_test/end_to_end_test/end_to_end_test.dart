@@ -31,7 +31,7 @@ void main() {
   /// Pastikan terhubung ke kabel USB, pilih device anda pada android studio,
   /// Pastikan server laravel, mysql, dan websocket sudah menyala dan bisa diakses
   testWidgets('End to End Test', (WidgetTester tester) async {
-    await dotenv.load();
+    await dotenv.load(fileName: "env_file");
     setupMainDependencyInjection();
     await prepareDatabase();
 

@@ -23,6 +23,9 @@ class InputDataBarangProvider extends ChangeNotifier {
         text: initialData?.nama ?? ""
       ),
       _kategori = initialData?.kategori,
+      kodeBarangController = TextEditingController(
+        text: initialData?.kodeBarang.toString() ?? ""
+      ),
       nomorRakController = TextEditingController(
         text: initialData?.nomorRak.toString() ?? ""
       ),
@@ -66,6 +69,7 @@ class InputDataBarangProvider extends ChangeNotifier {
   }
 
   final TextEditingController nomorRakController;
+  final TextEditingController kodeBarangController;
   final TextEditingController nomorLaciController;
   final TextEditingController nomorKolomController;
   final TextEditingController minStockController;
@@ -108,6 +112,7 @@ class InputDataBarangProvider extends ChangeNotifier {
       final data = SubmitBarangDto(
         id: _initialData?.id,
         nama: namaController.text,
+        kodeBarang: kodeBarangController.text,
         nomorRak: int.tryParse(nomorRakController.text),
         nomorKolom: int.tryParse(nomorKolomController.text),
         nomorLaci: int.tryParse(nomorLaciController.text),
@@ -142,6 +147,7 @@ class InputDataBarangProvider extends ChangeNotifier {
   @override
   void dispose() {
     namaController.dispose();
+    kodeBarangController.dispose();
     nomorRakController.dispose();
     stockSekarangController.dispose();
     lastMonthStockController.dispose();

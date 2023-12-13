@@ -1,6 +1,7 @@
 class SubmitBarangDto {
   final int? id;
   final String nama;
+  final String kodeBarang;
   final int? minStock;
   final int? nomorRak;
   final int? nomorLaci;
@@ -14,6 +15,7 @@ class SubmitBarangDto {
   SubmitBarangDto({
     required this.id,
     required this.nama,
+    required this.kodeBarang,
     required this.minStock,
     required this.nomorRak,
     required this.nomorLaci,
@@ -29,6 +31,7 @@ class SubmitBarangDto {
     final Map<String , Object?>result = {
       kolomId : id,
       kolomNama : nama,
+      kolomKodeBarang : kodeBarang,
       kolomMinStock : minStock,
       kolomNomorRak : nomorRak,
       kolomNomorLaci : nomorLaci,
@@ -45,6 +48,7 @@ class SubmitBarangDto {
 
   static const kolomId = "id";
   static const kolomNama = "nama";
+  static const kolomKodeBarang = "kode_barang";
   static const kolomMinStock = 'min_stock';
   static const kolomNomorRak = 'nomor_rak';
   static const kolomNomorLaci = 'nomor_laci';

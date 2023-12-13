@@ -12,7 +12,7 @@ class LaporanBarangSummaryRow extends TableRow{
   }) : super(
     children: [
       Text((index + 1).toString() , style: textNormalStyle , textAlign: TextAlign.center , maxLines: 1),
-      Text(data.kodeBarang , style: textNormalStyle , textAlign: TextAlign.center , maxLines: 1),
+      Text(data.kodeBarang , style: textNormalStyle , textAlign: TextAlign.left , maxLines: 1),
       Text(data.namaBarang , style: textNormalStyle , maxLines: 1),
       Text("Rack ${data.nomorRak}" , style: textNormalStyle , textAlign: TextAlign.center , maxLines: 1),
       Text(data.uom , style: textNormalStyle , textAlign: TextAlign.center , maxLines: 1),
