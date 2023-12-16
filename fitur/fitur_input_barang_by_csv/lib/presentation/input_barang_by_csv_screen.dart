@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:common/constant/themes/custom_font_weight.dart';
-import 'package:common/constant/themes/theme_color.dart';
 import 'package:common/response/api_response.dart';
 import 'package:dependencies/dotted_border.dart';
 import 'package:dependencies/get_it.dart';
@@ -34,15 +33,14 @@ class InputBarangByCsvScreen extends StatelessWidget {
                   ),
                 ),
                 children: [
-                  const InkWell(
-                    child: Text(
-                      'Download Template',
-                      style: TextStyle(
-                        color: primaryColor,
-                        fontSize: 13,
-                        fontWeight: CustomFontWeight.medium,
+                  Row(
+                    children: [
+                      TextButton(
+                          onPressed: provider.downloadTemplate,
+                          child: const Text('Download Template')
                       ),
-                    ),
+                      const Expanded(child: SizedBox())
+                    ],
                   ),
 
                   const SizedBox(height: 8,),

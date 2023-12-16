@@ -56,4 +56,8 @@ class InputBarangByCsvProvider extends ChangeNotifier {
     _uploadByExcelResponse = response;
     notifyListeners();
   }
+
+  void downloadTemplate() async {
+    _repository.downloadCsvTemplate();
+  }
 }

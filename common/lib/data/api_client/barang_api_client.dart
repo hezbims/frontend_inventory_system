@@ -1,4 +1,6 @@
 
+import 'dart:io';
+
 import 'package:common/constant/url/common_url.dart';
 import 'package:common/domain/repository/i_token_manager.dart';
 import 'package:dependencies/file_picker.dart';
@@ -43,10 +45,21 @@ class BarangApiClient {
     request.headers.addAll(_tokenManager.getCurrentSessionTokenizedHeader());
     request.headers.addAll({'content-type' : 'multipart/form-data'});
     request.files.add(
-      MultipartFile.fromBytes('excel', file.bytes!, filename: 'excel.xlsx')
+      MultipartFile.fromBytes('csv', file.bytes!, filename: 'csv.csv')
     );
-    request.fields.addAll({'is_upsert' : isUpsert.toString()});
+    request.fields.addAll({'overwrite_by_kode_barang' : isUpsert.toString()});
 
     return Response.fromStream(await request.send());
+  }
+
+  Future<Response> downloadCsvTemplate() async {
+    final url = "${CommonUrl.baseApiUrl}/barang/csv-template-download";
+    final header = _tokenManager.getCurrentSessionTokenizedHeader();
+    header[HttpHeaders.acceptEncodingHeader] = "application/octet-stream";
+
+    return await get(
+      Uri.parse(url),
+      headers: header
+    );
   }
 }

@@ -26,7 +26,8 @@ void main(){
           home: PilihBarangScreen(
             arg: MainFormToPilihBarangArg(
               initialList: [],
-              isPemasukan: true)
+              isPemasukan: true),
+            onPopDone: (_){},
           ),
         )
       );

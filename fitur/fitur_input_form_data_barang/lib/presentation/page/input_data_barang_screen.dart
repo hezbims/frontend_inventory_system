@@ -114,9 +114,10 @@ class InputDataBarangScreen extends StatelessWidget {
                         children: [
                           Expanded(
                             child: CustomTextfield(
-                                controller: provider.nomorRakController,
-                                label: "Nomor Rak",
-                                errorText: provider.errorMessage[SubmitBarangDto.kolomNomorRak]
+                              controller: provider.nomorRakController,
+                              label: "Nomor Rak",
+                              errorText: provider.errorMessage[SubmitBarangDto.kolomNomorRak],
+                              errorMaxLines: 100,
                             ),
                           ),
 
@@ -124,9 +125,10 @@ class InputDataBarangScreen extends StatelessWidget {
 
                           Expanded(
                             child: CustomTextfield(
-                                controller: provider.nomorLaciController,
-                                label: "Nomor Laci",
-                                errorText: provider.errorMessage[SubmitBarangDto.kolomNomorLaci]
+                              controller: provider.nomorLaciController,
+                              label: "Nomor Laci",
+                              errorText: provider.errorMessage[SubmitBarangDto.kolomNomorLaci],
+                              errorMaxLines: 100,
                             ),
                           ),
 
@@ -134,9 +136,10 @@ class InputDataBarangScreen extends StatelessWidget {
 
                           Expanded(
                             child: CustomTextfield(
-                                controller: provider.nomorKolomController,
-                                label: "Nomor Kolom",
-                                errorText: provider.errorMessage[SubmitBarangDto.kolomNomorKolom]
+                              controller: provider.nomorKolomController,
+                              label: "Nomor Kolom",
+                              errorText: provider.errorMessage[SubmitBarangDto.kolomNomorKolom],
+                              errorMaxLines: 100,
                             ),
                           ),
                         ],

@@ -96,6 +96,7 @@ void main(){
               initialList: [],
               isPemasukan: true
             ),
+            onPopDone: (_){},
           ),
         ),
       );

@@ -12,4 +12,5 @@ abstract class IBarangRepository {
     required PlatformFile file,
     required bool isUpsert,
   });
+  Future<ApiResponse> downloadCsvTemplate();
 }

@@ -28,24 +28,28 @@ class MainFormProvider extends ChangeNotifier {
     jam = initialData?.tanggal != null ?
             TimeOfDay.fromDateTime(initialData!.tanggal) :
             TimeOfDay.now(),
-    isPemasukan = initialData?.pengaju?.isPemasok,
+    isPemasukan = initialData?.pengaju?.isPemasok ?? (user.isAdmin ? null : false),
     _group = initialData?.pengaju?.isPemasok == false ?
                 initialData?.pengaju : null,
     _pemasok = initialData?.pengaju?.isPemasok == true ?
                   initialData?.pengaju : null,
-    listBarangTransaksi = initialData?.listBarangTransaksi ?? [];
+    listBarangTransaksi = initialData?.listBarangTransaksi ?? [],
+    tipePengajuanList  = [ if (user.isAdmin) _pemasukanString , _pengeluaranString];
+
+  static const _pemasukanString = "Pemasukan";
+  static const _pengeluaranString = "Pengeluaran";
 
   DateTime tanggal;
   TimeOfDay jam;
   bool? isPemasukan;
-  final tipePengajuanList = const ['Pemasukan' , 'Pengeluaran'];
+  final List<String> tipePengajuanList;
   String? get currentTipePengajuan {
     if (isPemasukan == null) {
       return null;
     } else if (isPemasukan == true) {
-      return tipePengajuanList[0];
+      return tipePengajuanList.firstWhere((element) => element == _pemasukanString);
     } else {
-      return tipePengajuanList[1];
+      return tipePengajuanList.firstWhere((element) => element == _pengeluaranString);
     }
   }
 
@@ -146,7 +150,7 @@ class MainFormProvider extends ChangeNotifier {
     notifyListeners();
   }
   bool canDeletePengajuan() {
-    // Ini berarti kita sedang enggak ada di proses edit
+    // Ini berarti kita sedang buat pengajuan baru
     if (_id == null){
       return false;
     }
@@ -156,7 +160,6 @@ class MainFormProvider extends ChangeNotifier {
     }
 
     // Ketika kamu adalah user non admin
-
     return status == StatusPengajuan.menunggu;
   }
 
@@ -189,7 +192,7 @@ class MainFormProvider extends ChangeNotifier {
 
   void _onTipePengajuanChange(String? newValue){
     if (newValue != null){
-      isPemasukan = newValue == tipePengajuanList[0];
+      isPemasukan = newValue == _pemasukanString;
       notifyListeners();
     }
   }
@@ -229,6 +232,12 @@ class MainFormProvider extends ChangeNotifier {
 
 
     if (status == StatusPengajuan.menunggu && _user.isAdmin){
+      if (listBarangTransaksi.fold(0,
+              (previousValue, current) =>
+                previousValue + current.quantity) == 0
+      ){
+        return 'Tolak';
+      }
       return 'Terima';
     }
 

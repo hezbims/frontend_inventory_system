@@ -39,16 +39,13 @@ class ListBarangFormField extends StatelessWidget {
                 builder: (context) => PilihBarangScreen(
                   arg: MainFormToPilihBarangArg(
                     initialList: provider.listBarangTransaksi,
-                    isPemasukan: provider.isPemasukan!
+                    isPemasukan: provider.isPemasukan!,
                   ),
+                  onPopDone: (listBarangTransaksi) =>
+                    provider.setNewListBarang(listBarangTransaksi),
                 ),
               ),
             );
-
-
-            if (result is List<BarangTransaksi>){
-              provider.setNewListBarang(result);
-            }
           },
         ),
 

@@ -4,10 +4,8 @@ import 'package:fitur_input_pengajuan/presentation/provider/pilih_barang/pilih_b
 import 'package:flutter/material.dart';
 
 class DoneCard extends StatelessWidget {
-  final bool Function(BuildContext) popDone;
   const DoneCard({
     super.key,
-    required this.popDone,
   });
 
   @override
@@ -17,7 +15,7 @@ class DoneCard extends StatelessWidget {
           style: OutlinedButton.styleFrom(
             padding: const EdgeInsets.symmetric(vertical: 28),
           ),
-          onPressed: () => popDone(context),
+          onPressed: () => Navigator.of(context).pop(),
           child: Selector<PilihBarangProvider , int>(
             selector: (context , provider) => provider.choosenBarang.length,
             builder: (context , totalChoosenItem , child) {
