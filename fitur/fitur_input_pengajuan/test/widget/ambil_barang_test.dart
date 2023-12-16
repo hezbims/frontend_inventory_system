@@ -64,7 +64,7 @@ void main(){
 MockBarangRepository prepareMockBarangRepository(){
   final mockBarangRepository = MockBarangRepository();
   when(() =>
-      mockBarangRepository.getStockBarang(
+      mockBarangRepository.getStockBarangPaginated(
           pageNumber: 1,
           keyword: 'R26E3',
           idKategori: 0
@@ -91,7 +91,7 @@ MockBarangRepository prepareMockBarangRepository(){
   );
 
   when(
-    () => mockBarangRepository.getStockBarang(
+    () => mockBarangRepository.getStockBarangPaginated(
       pageNumber: 1,
       keyword: '',
       idKategori: 0,

@@ -134,7 +134,7 @@ void main(){
     );
 
     final mockBarangRepository = MockBarangRepository();
-    when(() => mockBarangRepository.getStockBarang(
+    when(() => mockBarangRepository.getStockBarangPaginated(
         pageNumber: 1,
         keyword: '',
         idKategori: 0

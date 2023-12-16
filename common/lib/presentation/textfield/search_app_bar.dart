@@ -51,5 +51,5 @@ class SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => const Size(CustomSizing.maxLayoutWidth, kToolbarHeight);
+  Size get preferredSize => const Size(CustomSizing.maxPhoneLandscapeWidth, kToolbarHeight);
 }

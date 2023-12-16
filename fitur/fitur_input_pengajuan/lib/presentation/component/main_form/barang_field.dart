@@ -34,7 +34,7 @@ class ListBarangFormField extends StatelessWidget {
         TambahSesuatuButton(
           label: "Tambah barang",
           onTap: () async {
-            final result = await Navigator.of(context).push(
+            Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => PilihBarangScreen(
                   arg: MainFormToPilihBarangArg(

@@ -5,7 +5,8 @@ import 'package:common/response/api_response.dart';
 import 'package:dependencies/dotted_border.dart';
 import 'package:dependencies/get_it.dart';
 import 'package:dependencies/provider.dart';
-import 'package:fitur_input_barang_by_csv/presentation/input_barang_by_csv_provider.dart';
+import 'package:fitur_input_barang_by_csv/presentation/components/confirmation_submission_dialog.dart';
+import 'package:fitur_input_barang_by_csv/presentation/provider/input_barang_by_csv_provider.dart';
 import 'package:flutter/material.dart';
 
 class InputBarangByCsvScreen extends StatelessWidget {
@@ -150,7 +151,13 @@ class InputBarangByCsvScreen extends StatelessWidget {
                             vertical: 8,
                           ),
                         ),
-                        onPressed: provider.onSubmmit,
+                        onPressed: (){
+                          ConfirmationSubmissionDialog(
+                            context: context,
+                            isOverwriteByKodeBarang: provider.overrideDataOnSubmit,
+                            onConfirmPressed: (){}
+                          ).show();
+                        },
                         child:
                           provider.uploadByExcelResponse is ApiResponseLoading ?
                             const CircularProgressIndicator() :

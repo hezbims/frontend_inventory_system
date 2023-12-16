@@ -14,7 +14,7 @@ class GetBarangPreviewUseCase {
     required int pageNumber,
     required String keyword
   }) async {
-    var listBarangResponse = await _repository.getStockBarang(
+    var listBarangResponse = await _repository.getStockBarangPaginated(
       pageNumber: pageNumber,
       keyword: keyword,
       idKategori: 0,

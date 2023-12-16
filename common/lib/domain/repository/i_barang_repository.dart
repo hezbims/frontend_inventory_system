@@ -2,7 +2,7 @@ import 'package:common/response/api_response.dart';
 import 'package:dependencies/file_picker.dart';
 
 abstract class IBarangRepository {
-  Future<ApiResponse> getStockBarang({
+  Future<ApiResponse> getStockBarangPaginated({
     required int pageNumber,
     required String keyword,
     required int idKategori,

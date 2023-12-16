@@ -13,7 +13,7 @@ class CancelButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
-      constraints: const BoxConstraints(maxWidth: CustomSizing.maxLayoutWidth),
+      constraints: const BoxConstraints(maxWidth: CustomSizing.maxPhoneLandscapeWidth),
       child: FilledButton(
         onPressed: _onPressed,
         style: const ButtonStyle(

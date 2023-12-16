@@ -14,13 +14,13 @@ class BarangRepositoryImpl implements IBarangRepository {
   final _apiClient = BarangApiClient();
 
   @override
-  Future<ApiResponse> getStockBarang({
+  Future<ApiResponse> getStockBarangPaginated({
     required int pageNumber,
     required String keyword,
     required int idKategori
   }) {
     return ApiRequestProcessor.process(
-      apiRequest: _apiClient.getBarang(
+      apiRequest: _apiClient.getBarangPaginated(
         pageNumber: pageNumber ,
         keyword: keyword,
         idKategori: idKategori,

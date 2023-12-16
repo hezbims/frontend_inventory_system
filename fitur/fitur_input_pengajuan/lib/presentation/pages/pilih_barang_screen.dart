@@ -49,7 +49,7 @@ class PilihBarangScreen extends StatelessWidget {
                 onSubmit: (_) => provider.searchBarangFocusNode.requestFocus(),
               ),
               body: const PilihBarangScaffoldBody(),
-              bottomNavigationBar: DoneCard(),
+              bottomNavigationBar: const DoneCard(),
             ),
           );
         }

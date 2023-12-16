@@ -41,7 +41,7 @@ class LihatStockBarangProvider extends DisposableChangeNotifier {
   void _performApiCall(int pageNumber) async {
     _listenerIsProcessing = true;
     try {
-      final apiResponse = await _repository.getStockBarang(
+      final apiResponse = await _repository.getStockBarangPaginated(
         pageNumber: pageNumber,
         keyword: searchController.text,
         idKategori: _idChoosenKategori,

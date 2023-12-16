@@ -39,7 +39,7 @@ class SettingAkunScreen extends StatelessWidget {
               bottomNavigationBar: StockBottomNavBar(currentIndex: RoutesPath.settingAkunIndex),
               body: Center(
                 child: ConstrainedBox(
-                  constraints: const BoxConstraints(maxWidth: CustomSizing.maxLayoutWidth),
+                  constraints: const BoxConstraints(maxWidth: CustomSizing.maxPhoneLandscapeWidth),
                   child: Padding(
                     padding: const EdgeInsets.all(36),
                     child: Card(

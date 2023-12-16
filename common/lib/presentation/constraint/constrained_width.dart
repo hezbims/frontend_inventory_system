@@ -12,7 +12,7 @@ class ConstrainedWidthCenter extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: CustomSizing.maxLayoutWidth),
+        constraints: const BoxConstraints(maxWidth: CustomSizing.maxPhoneLandscapeWidth),
         child: _child,
       ),
     );

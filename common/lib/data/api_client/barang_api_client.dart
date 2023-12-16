@@ -13,7 +13,7 @@ class BarangApiClient {
     ITokenManager? tokenManager,
   }) : _tokenManager = tokenManager ?? GetIt.I.get();
 
-  Future<Response> getBarang({
+  Future<Response> getBarangPaginated({
     required int pageNumber,
     required String keyword,
     required int idKategori,
