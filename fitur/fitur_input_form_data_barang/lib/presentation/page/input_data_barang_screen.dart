@@ -36,7 +36,7 @@ class InputDataBarangScreen extends StatelessWidget {
           if (provider.submitResponse is ApiResponseSuccess){
             final refreshNotifier = context.read<RefreshNotifier>();
             WidgetsBinding.instance.addPostFrameCallback((_) {
-              refreshNotifier.notify();
+              refreshNotifier.notifyListeners();
               Navigator.of(context).pop();
             });
           }

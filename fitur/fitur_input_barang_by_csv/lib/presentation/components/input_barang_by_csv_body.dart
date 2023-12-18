@@ -1,9 +1,14 @@
 import 'dart:math';
 import 'package:common/constant/themes/custom_font_weight.dart';
 import 'package:common/domain/extension/media_query_data_extension.dart';
+import 'package:common/presentation/provider/refresh_notifier.dart';
 import 'package:common/response/api_response.dart';
+import 'package:common/routing/my_route_state.dart';
+import 'package:common/routing/my_route_state_provider.dart';
 import 'package:dependencies/dotted_border.dart';
 import 'package:dependencies/flutter_dropzone.dart';
+import 'package:dependencies/fluttertoast.dart';
+import 'package:dependencies/provider.dart';
 import 'package:fitur_input_barang_by_csv/presentation/components/confirmation_submission_dialog.dart';
 import 'package:fitur_input_barang_by_csv/presentation/components/error_submission_dialog.dart';
 import 'package:fitur_input_barang_by_csv/presentation/provider/input_barang_by_csv_provider.dart';
@@ -22,6 +27,9 @@ class InputBarangByCsvBody extends StatefulWidget {
 }
 
 class _InputBarangByCsvBodyState extends State<InputBarangByCsvBody> {
+  late final routeStateProvider = context.read<MyRouteStateProvider>();
+  late final refreshNotifier = context.read<RefreshNotifier>();
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -205,6 +213,17 @@ class _InputBarangByCsvBodyState extends State<InputBarangByCsvBody> {
               padding: MediaQuery.of(context).phonePotraitPadding
             );
           },
+        );
+      }
+      else if (widget.provider.uploadByCsvResponse is ApiResponseSuccess){
+        Fluttertoast.showToast(
+          msg: "Berhasil mensubmit CSV!" ,
+          timeInSecForIosWeb: 4
+        );
+        refreshNotifier.notifyListeners();
+
+        routeStateProvider.setRouteState(
+          RouteLihatStockBarangState(),
         );
       }
     });

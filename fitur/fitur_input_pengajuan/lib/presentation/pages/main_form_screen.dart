@@ -41,7 +41,7 @@ class MainFormScreen extends StatelessWidget {
               final refreshNotifier = context.read<RefreshNotifier>();
               WidgetsBinding.instance.addPostFrameCallback(
                 (timeStamp) {
-                  refreshNotifier.notify();
+                  refreshNotifier.notifyListeners();
                   Navigator.of(context).pop();
                 }
               );
