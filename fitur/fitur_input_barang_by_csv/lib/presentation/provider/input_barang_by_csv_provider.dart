@@ -4,6 +4,7 @@ import 'dart:html';
 import 'package:common/domain/repository/i_barang_repository.dart';
 import 'package:common/response/api_response.dart';
 import 'package:dependencies/file_picker.dart';
+import 'package:dependencies/flutter_dropzone.dart';
 import 'package:dependencies/fluttertoast.dart';
 import 'package:flutter/foundation.dart';
 
@@ -24,16 +25,15 @@ class InputBarangByCsvProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  late  DropzoneViewController dropzoneController;
   bool _isHovering = false;
   bool get isHovering => _isHovering;
   void onHover(){
     _isHovering = true;
-    print("On Hover");
     notifyListeners();
   }
   void onLeaveHover(){
     _isHovering = false;
-    print("Leave hover");
     notifyListeners();
   }
 
@@ -74,33 +74,37 @@ class InputBarangByCsvProvider extends ChangeNotifier {
   }
 
   void Function()? get onSubmmit {
-    if (_choosenFile == null || uploadByExcelResponse is ApiResponseLoading){
+    if (_choosenFile == null || uploadByCsvResponse is ApiResponseLoading){
       return null;
     }
     return _submit;
   }
 
-  ApiResponse? _uploadByExcelResponse;
-  ApiResponse? get uploadByExcelResponse => _uploadByExcelResponse;
+  ApiResponse? _uploadByCsvResponse;
+  ApiResponse? get uploadByCsvResponse => _uploadByCsvResponse;
+
+  Map<String , List<String>>? errors;
   void _submit() async {
-    if (_uploadByExcelResponse is ApiResponseLoading) {
+    if (_uploadByCsvResponse is ApiResponseLoading) {
       return;
     }
-    _uploadByExcelResponse = ApiResponseLoading();
+    _uploadByCsvResponse = ApiResponseLoading();
     notifyListeners();
 
-    final response = await _repository.uploadBarangByExcel(
+    final response = await _repository.uploadBarangByCsv(
         file: _choosenFile!,
         isUpsert: _overrideDataOnSubmit,
     );
+
     if (response is ApiResponseFailed){
-      final errs = response.error as Map<String , List<String>>;
-      Fluttertoast.showToast(
-        msg: response.error.toString(),
-        timeInSecForIosWeb: 4
-      );
+      errors = response.error;
     }
-    _uploadByExcelResponse = response;
+    _uploadByCsvResponse = response;
+    notifyListeners();
+  }
+
+  void onDoneShowErrors(){
+    errors = null;
     notifyListeners();
   }
 

@@ -41,7 +41,7 @@ class BarangRepositoryImpl implements IBarangRepository {
   }
 
   @override
-  Future<ApiResponse> uploadBarangByExcel({
+  Future<ApiResponse> uploadBarangByCsv({
     required PlatformFile file,
     required bool isUpsert
   }) {

@@ -8,7 +8,7 @@ abstract class IBarangRepository {
     required int idKategori,
   });
   Future<ApiResponse> getDetailBarang({required int id});
-  Future<ApiResponse> uploadBarangByExcel({
+  Future<ApiResponse> uploadBarangByCsv({
     required PlatformFile file,
     required bool isUpsert,
   });
