@@ -3,10 +3,12 @@ import 'dart:math';
 import 'package:common/constant/themes/custom_font_weight.dart';
 import 'package:common/response/api_response.dart';
 import 'package:dependencies/dotted_border.dart';
+import 'package:dependencies/flutter_dropzone.dart';
 import 'package:dependencies/get_it.dart';
 import 'package:dependencies/provider.dart';
 import 'package:fitur_input_barang_by_csv/presentation/components/confirmation_submission_dialog.dart';
 import 'package:fitur_input_barang_by_csv/presentation/provider/input_barang_by_csv_provider.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class InputBarangByCsvScreen extends StatelessWidget {
@@ -46,43 +48,62 @@ class InputBarangByCsvScreen extends StatelessWidget {
 
                   const SizedBox(height: 8,),
 
-                  InkWell(
-                    onTap: provider.pickFile,
-                    child: DottedBorder(
-                      borderType: BorderType.RRect,
-                      radius: const Radius.circular(12),
-                      dashPattern: const [12 , 12],
-                      padding: const EdgeInsets.symmetric(vertical: 48),
-                      child: SizedBox(
-                        width: double.infinity,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            if (provider.choosenFile == null) ...[
-                              const Icon(
-                                Icons.add_circle_outline,
-                                size: 36,
-                              ),
-                              const SizedBox(height: 16,),
-                              const Text('Tarik atau pilih file .csv')
-                            ]
-                            else ...[
-                              const Icon(
-                                Icons.description_outlined,
-                                size: 36,
-                              ),
-                              const SizedBox(height: 16,),
-                              Text(
-                                '${provider.choosenFile?.name}, '
-                                '${(provider.choosenFile?.size ?? 0 / 1000)
-                                  .toStringAsFixed(1)}.Kb'
-                              )
-                            ],
-                          ]
+                  Stack(
+                    children: [
+                      if (kIsWeb)
+                      InkWell(
+                        onTap: provider.pickFile,
+                        child: DottedBorder(
+                          borderType: BorderType.RRect,
+                          radius: const Radius.circular(12),
+                          dashPattern: const [12 , 12],
+
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(vertical: 48),
+                            color: provider.isHovering ? Colors.black12 : null,
+                            width: double.infinity,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                if (provider.choosenFile == null) ...[
+                                  const Icon(
+                                    Icons.add_circle_outline,
+                                    size: 36,
+                                  ),
+                                  const SizedBox(height: 16,),
+                                  const Text('Tarik atau pilih file .csv')
+                                ]
+                                else ...[
+                                  const Icon(
+                                    Icons.description_outlined,
+                                    size: 36,
+                                  ),
+                                  const SizedBox(height: 16,),
+                                  Text(
+                                    '${provider.choosenFile?.name}'
+                                  )
+                                ],
+                              ]
+                            ),
+                          ),
                         ),
                       ),
-                    ),
+
+                      Positioned.fill(
+                          child: Container(
+                            color: provider.isHovering ? Color(0x4D656565): null,
+                            child: DropzoneView(
+                              mime: const ["text/csv"],
+                              onHover: provider.onHover,
+                              onLeave: provider.onLeaveHover,
+                              onDrop: (file) => provider.handleDropFile(file),
+                              onDropInvalid: provider.onDropInvalid
+                            ),
+
+                          )
+                      ),
+                    ],
                   ),
 
                   const SizedBox(height: 24,),
@@ -151,13 +172,15 @@ class InputBarangByCsvScreen extends StatelessWidget {
                             vertical: 8,
                           ),
                         ),
-                        onPressed: (){
+                        onPressed: provider.choosenFile != null &&
+                                    provider.onSubmmit != null ? (){
                           ConfirmationSubmissionDialog(
                             context: context,
+                            filename: provider.choosenFile!.name,
                             isOverwriteByKodeBarang: provider.overrideDataOnSubmit,
-                            onConfirmPressed: (){}
+                            onConfirmPressed: provider.onSubmmit!
                           ).show();
-                        },
+                        } : null,
                         child:
                           provider.uploadByExcelResponse is ApiResponseLoading ?
                             const CircularProgressIndicator() :

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 class ConfirmationSubmissionDialog extends Alert {
   ConfirmationSubmissionDialog({
     required super.context,
+    required String filename,
     required bool isOverwriteByKodeBarang,
     required void Function() onConfirmPressed,
   }) : super(
@@ -15,7 +16,7 @@ class ConfirmationSubmissionDialog extends Alert {
           "Data dengan kode barang yang sama akan ditimpa. " :
           ""
         }"
-        "Apakah anda yakin ingin mensubmit file CSV ini?",
+        "Apakah anda yakin ingin mensubmit file '$filename' ?",
     buttons: [
       DialogButton(
         color: Colors.white,
@@ -25,7 +26,10 @@ class ConfirmationSubmissionDialog extends Alert {
       ),
       DialogButton(
         color: primaryColor,
-        onPressed: onConfirmPressed,
+        onPressed: (){
+          onConfirmPressed();
+          Navigator.of(context).pop();
+        },
         child: const Text("Ya" , style: TextStyle(color: Colors.white),),
       )
     ],

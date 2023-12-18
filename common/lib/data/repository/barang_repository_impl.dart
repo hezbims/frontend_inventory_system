@@ -3,6 +3,7 @@ import 'package:common/data/api_request_proccessor/api_request_proccessor.dart';
 import 'package:common/data/mapper/barang/csv_template_saver.dart';
 import 'package:common/data/mapper/barang/get_detail_barang_mapper.dart';
 import 'package:common/data/mapper/barang/get_list_barang_mapper.dart';
+import 'package:common/data/mapper/barang/submit_csv_error_mapper.dart';
 import 'package:common/domain/repository/i_barang_repository.dart';
 import 'package:common/response/api_response.dart';
 import 'package:dependencies/file_picker.dart';
@@ -10,6 +11,7 @@ import 'package:dependencies/file_picker.dart';
 class BarangRepositoryImpl implements IBarangRepository {
   final _getDetailBarangMapper = GetDetailBarangMapper();
   final _csvTemplateSaver = CsvTemplateSaver();
+  final _submitCsvErrorMapper = SubmitCsvErrorMapper();
 
   final _apiClient = BarangApiClient();
 
@@ -46,7 +48,8 @@ class BarangRepositoryImpl implements IBarangRepository {
     return ApiRequestProcessor.process(
       apiRequest: _apiClient.submitExcelDataBarang(
         file: file, isUpsert: isUpsert
-      )
+      ),
+      getErrorMessageFromBody: _submitCsvErrorMapper.mapError
     );
   }
 

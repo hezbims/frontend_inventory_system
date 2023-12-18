@@ -40,10 +40,11 @@ class BarangApiClient {
     required PlatformFile file,
     required bool isUpsert,
   }) async {
-    final url = "${CommonUrl.baseApiUrl}/barang/submit-excel";
+    final url = "${CommonUrl.baseApiUrl}/barang/submit-csv";
     final request = MultipartRequest('POST', Uri.parse(url));
+
     request.headers.addAll(_tokenManager.getCurrentSessionTokenizedHeader());
-    request.headers.addAll({'content-type' : 'multipart/form-data'});
+    request.headers.addAll({HttpHeaders.contentTypeHeader : 'multipart/form-data'});
     request.files.add(
       MultipartFile.fromBytes('csv', file.bytes!, filename: 'csv.csv')
     );
