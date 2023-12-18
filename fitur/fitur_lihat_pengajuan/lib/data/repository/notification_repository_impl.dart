@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:common/constant/url/common_url.dart';
 import 'package:common/data/api_client/pengajuan_event_api_client.dart';
@@ -9,7 +8,7 @@ import 'package:common/data/api_request_proccessor/api_request_proccessor.dart';
 import 'package:common/domain/model/user.dart';
 import 'package:common/response/api_response.dart';
 import 'package:dependencies/get_it.dart';
-import 'package:dependencies/web_socket_channel.dart';
+import 'package:fitur_lihat_pengajuan/data/api_client/web_socket_client.dart';
 import 'package:fitur_lihat_pengajuan/data/mapper/new_pengajuan_event_mapper.dart';
 import 'package:fitur_lihat_pengajuan/domain/repository/i_notification_repository.dart';
 import 'package:flutter/foundation.dart';
@@ -19,28 +18,14 @@ class NotificationRepositoryImpl implements INotificationRepository {
   final _apiClient = PengajuanEventApiClient();
   final _mobileSseClient = MobileSseClient();
   final _webSseClient = WebSseClient();
+  final WebSocketClient _webSocketClient = WebSocketClient();
 
   @override
-  Stream newPengajuanNotification() {
-    final wsChannel = WebSocketChannel.connect(
-        Uri.parse(CommonUrl.webSocketUrl)
-    );
-
-    final User user = GetIt.I.get();
-    final channelSubscribe = user.isAdmin ?
-    "pengajuan-baru-channel" : "pengajuan-responded-${user.id}";
-
-    wsChannel.sink.add(
-      jsonEncode({
-        "event": "pusher:subscribe",
-        "data": {
-          "channel": channelSubscribe
-        }
-      }),
-    );
-
-    return wsChannel.stream;
+  Stream getWebSocketStream() {
+    return _webSocketClient.getStream();
   }
+
+
 
   final _streamController = StreamController<int>();
 
@@ -81,5 +66,6 @@ class NotificationRepositoryImpl implements INotificationRepository {
     _streamController.close();
     _webSseClient.dispose();
     _mobileSseClient.dispose();
+    _webSocketClient.dispose();
   }
 }

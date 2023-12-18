@@ -19,7 +19,7 @@ class LihatPengajuanProvider extends DisposableChangeNotifier {
       _pageRequestProcess = _requestPage(pageNumber);
     });
 
-    _notifRepo.getNewPengajuanEvent().listen((event) async {
+    _notifRepo.getWebSocketStream().listen((event) async {
       tryRefresh();
     });
   }

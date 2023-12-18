@@ -2,7 +2,7 @@
 
 
 abstract class INotificationRepository{
-  Stream newPengajuanNotification();
+  Stream getWebSocketStream();
   Stream<int> getNewPengajuanEvent();
   void dispose();
 }
