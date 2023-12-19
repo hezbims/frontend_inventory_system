@@ -34,8 +34,6 @@ class WebSocketClient {
           try {
             if (eventValue == "Please Confirm") {
               _wsChannel!.sink.add("Ready");
-            }
-            else if (eventValue == "Acknowledged") {
               _notificationStream.add(true);
             }
           } catch (_){ debugPrint("Disposed"); }

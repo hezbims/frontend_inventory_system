@@ -38,6 +38,17 @@
   </script>
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
+  <script>
+    window.flutterConfiguration = {
+      canvasKitBaseUrl: "/canvaskit/"
+    };
+  </script>
+
+  <script src="pdf.min.js"></script>
+  <script type="text/javascript">
+    pdfjsLib.GlobalWorkerOptions.workerSrc = "pdf.worker.min.js";
+  </script>
+
 </head>
 <body>
   <script>
