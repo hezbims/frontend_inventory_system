@@ -71,7 +71,7 @@ class InputDataBarangScreen extends StatelessWidget {
                   return ListView(
                     padding: EdgeInsets.symmetric(
                       vertical: 36,
-                      horizontal: MediaQuery.of(context).phoneLandscapePadding,
+                      horizontal: MediaQuery.of(context).phoneWidthLandscapePadding,
                     ),
                     children: [
                       CustomTextfield(

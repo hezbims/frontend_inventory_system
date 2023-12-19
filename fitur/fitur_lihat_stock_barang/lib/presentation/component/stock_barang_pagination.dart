@@ -30,7 +30,7 @@ class _StockBarangPaginationState extends State<StockBarangPagination> {
     return PagedListView<int , Barang>.separated(
       padding: EdgeInsets.symmetric(
         vertical: 24,
-        horizontal: MediaQuery.of(context).phoneLandscapePadding,
+        horizontal: MediaQuery.of(context).phoneWidthLandscapePadding,
       ),
       pagingController: widget.provider.pagingController,
       builderDelegate: PagedChildBuilderDelegate(

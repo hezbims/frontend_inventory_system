@@ -210,7 +210,10 @@ class _InputBarangByCsvBodyState extends State<InputBarangByCsvBody> {
           builder: (context){
             return ErrorSubmissionDialog(
               errors: errors.entries.toList(growable: false),
-              padding: MediaQuery.of(context).phonePotraitPadding
+              insetPadding: EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).phoneWidthPotraitPadding,
+                vertical: MediaQuery.of(context).phoneHeightLandscapePadding,
+              ),
             );
           },
         );

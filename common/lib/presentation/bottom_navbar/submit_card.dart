@@ -12,7 +12,7 @@ class SubmitCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(
-        horizontal: MediaQuery.of(context).phoneLandscapePadding,
+        horizontal: MediaQuery.of(context).phoneWidthLandscapePadding,
       ),
       decoration: const BoxDecoration(
           boxShadow: [

@@ -55,7 +55,7 @@ class LihatPengajuanScreen extends StatelessWidget {
             ),
             floatingActionButton: Padding(
               padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).phoneLandscapePadding,
+                horizontal: MediaQuery.of(context).phoneWidthLandscapePadding,
               ),
               child: FloatingActionButton(
                 onPressed: () async {

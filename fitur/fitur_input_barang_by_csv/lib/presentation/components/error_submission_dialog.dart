@@ -4,10 +4,9 @@ import 'package:flutter/material.dart';
 class ErrorSubmissionDialog extends Dialog {
   ErrorSubmissionDialog({
     required List<MapEntry<String , List<String>>> errors,
-    required double padding,
+    required super.insetPadding,
     super.key,
   }) : super(
-    insetPadding: EdgeInsets.all(padding),
     child:ListView.separated(
       itemBuilder: (context , index) {
         if (index == 0){

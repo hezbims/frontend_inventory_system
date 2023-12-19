@@ -18,7 +18,7 @@ class ListBarangPaginator extends StatelessWidget {
     return PagedListView.separated(
       padding: EdgeInsets.symmetric(
         vertical: 36,
-        horizontal: MediaQuery.of(context).phoneLandscapePadding,
+        horizontal: MediaQuery.of(context).phoneWidthLandscapePadding,
       ),
       pagingController: provider.pagingController,
       builderDelegate: PagedChildBuilderDelegate(

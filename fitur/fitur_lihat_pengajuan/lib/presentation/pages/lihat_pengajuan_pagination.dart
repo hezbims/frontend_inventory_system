@@ -29,7 +29,7 @@ class _LihatPengajuanPaginationState extends State<LihatPengajuanPagination> {
   Widget build(BuildContext context) {
     return PagedListView.separated(
       padding: EdgeInsets.symmetric(
-        horizontal: MediaQuery.of(context).phoneLandscapePadding,
+        horizontal: MediaQuery.of(context).phoneWidthLandscapePadding,
         vertical: 24,
       ),
       pagingController: widget.provider.pagingController,

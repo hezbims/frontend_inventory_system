@@ -47,7 +47,7 @@ class LihatStockBarangScreen extends StatelessWidget {
             ),
             floatingActionButton: GetIt.I.get<User>().isAdmin ? Padding(
               padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).phoneLandscapePadding,
+                horizontal: MediaQuery.of(context).phoneWidthLandscapePadding,
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,

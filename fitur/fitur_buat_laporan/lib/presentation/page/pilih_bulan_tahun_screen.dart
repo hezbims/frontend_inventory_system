@@ -44,7 +44,7 @@ class PilihBulanTahunScreen extends StatelessWidget {
             }
             return Padding(
               padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).phoneLandscapePadding
+                horizontal: MediaQuery.of(context).phoneWidthLandscapePadding
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
