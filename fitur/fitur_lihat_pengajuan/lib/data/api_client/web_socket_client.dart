@@ -4,6 +4,7 @@ import 'package:common/constant/url/common_url.dart';
 import 'package:common/domain/model/user.dart';
 import 'package:dependencies/get_it.dart';
 import 'package:dependencies/web_socket_channel.dart';
+import 'package:flutter/material.dart';
 
 class WebSocketClient {
   static WebSocketChannel? _wsChannel;
@@ -29,15 +30,15 @@ class WebSocketClient {
 
     _wsChannel!.stream.listen(
         (event) {
-          if (!_isDisposed) {
-            _wsChannel!.sink.add(_user.username);
-            _wsChannel!.sink.done
-              .whenComplete((){
-                if (!_notificationStream.isClosed) {
-                  _notificationStream.add(true);
-                }
-              });
-          }
+          final eventValue = event.toString();
+          try {
+            if (eventValue == "Please Confirm") {
+              _wsChannel!.sink.add("Ready");
+            }
+            else if (eventValue == "Acknowledged") {
+              _notificationStream.add(true);
+            }
+          } catch (_){ debugPrint("Disposed"); }
         },
         onDone: (){
           Future.delayed(const Duration(seconds: 5) , _tryConnectWebsocket);
