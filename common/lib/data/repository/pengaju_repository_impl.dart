@@ -1,6 +1,7 @@
 import 'package:common/data/api_request_proccessor/api_request_proccessor.dart';
 import 'package:common/data/mapper/pengaju/create_pengaju_mapper.dart';
 import 'package:common/data/mapper/pengaju/get_pengaju_mapper.dart';
+import 'package:common/data/mapper/pengaju/post_pengaju_error_mapper.dart';
 import 'package:common/domain/model/pengaju.dart';
 import 'package:common/response/api_response.dart';
 import 'package:common/data/api_client/pengaju_api_client.dart';
@@ -10,6 +11,7 @@ class PengajuRepositoryImpl implements IPengajuRepository{
   final _apiClient = PengajuApiClient();
   final _mapper = GetPengajuMapper();
   final _createPengajuMapper = CreatePengajuMapper();
+  final _postPengajuErrorMapper =PostPengajuErrorMapper();
 
   @override
   Future<ApiResponse> getPengaju({required bool isPemasok}){
@@ -24,6 +26,7 @@ class PengajuRepositoryImpl implements IPengajuRepository{
       apiRequest: _apiClient.createPengaju(
           _createPengajuMapper.fromPengajuToBody(pengaju)
       ),
+      getErrorMessageFromBody: _postPengajuErrorMapper.getErrorFromBody
     );
   }
 }

@@ -22,8 +22,10 @@ class BuatKategoriDialog extends StatelessWidget {
 
           return SimpleTextFieldDialog(
             label: "Kategori",
+            errorText: provider.postKategoriError,
             onSubmit: provider.submitResponse is ApiResponseLoading ?
-              null : provider.submit
+              null : provider.submit,
+
           );
         }
       ),

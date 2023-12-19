@@ -37,6 +37,7 @@ class BuatPengajuBaruDialog extends StatelessWidget {
           }
           return SimpleTextFieldDialog(
             label: "Nama ${provider.isPemasok ? "pemasok" : "group"}",
+            errorText: provider.namaError,
             onSubmit: provider.submitResponse is ApiResponseLoading ?
               null : provider.submit
           );

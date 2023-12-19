@@ -1,7 +1,6 @@
 import 'package:common/domain/repository/i_pengaju_repository.dart';
 import 'package:common/domain/use_cases/empty_validation_use_case.dart';
 import 'package:common/response/api_response.dart';
-import 'package:dependencies/fluttertoast.dart';
 import 'package:common/domain/model/pengaju.dart';
 import 'package:flutter/material.dart';
 
@@ -36,9 +35,7 @@ class BuatPengajuProvider extends ChangeNotifier {
         );
 
         if (submitResponse is ApiResponseFailed){
-          Fluttertoast.showToast(
-            msg: (submitResponse as ApiResponseFailed).error.toString()
-          );
+          namaError = (submitResponse as ApiResponseFailed).error.toString();
         }
       }
       else {

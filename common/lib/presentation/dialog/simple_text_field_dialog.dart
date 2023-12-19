@@ -5,11 +5,13 @@ import 'package:flutter/material.dart';
 
 class SimpleTextFieldDialog extends StatefulWidget {
   final String label;
+  final String? errorText;
   final void Function(String)? onSubmit;
   const SimpleTextFieldDialog({
     super.key,
     required this.label,
     required this.onSubmit,
+    required this.errorText,
   });
 
   @override
@@ -19,7 +21,6 @@ class SimpleTextFieldDialog extends StatefulWidget {
 class _SimpleTextFieldDialogState extends State<SimpleTextFieldDialog> {
   final textController = TextEditingController();
   final focusNode = FocusNode();
-  String? textError;
 
   @override
   void dispose() {
@@ -66,8 +67,9 @@ class _SimpleTextFieldDialogState extends State<SimpleTextFieldDialog> {
               child: CustomTextfield(
                 controller: textController,
                 label: widget.label,
-                errorText: textError,
                 focusNode: focusNode,
+                errorText: widget.errorText,
+                errorMaxLines: 20,
                 onSubmit: (_) {
                   if (trySubmit != null){
                     trySubmit!();
@@ -95,14 +97,7 @@ class _SimpleTextFieldDialogState extends State<SimpleTextFieldDialog> {
       return null;
     }
     return (){
-      if (textController.text.isEmpty){
-        setState(() {
-          textError = "Data tidak boleh kosong";
-        });
-      }
-      else {
-        widget.onSubmit!(textController.text);
-      }
+      widget.onSubmit!(textController.text);
     };
   }
 }
