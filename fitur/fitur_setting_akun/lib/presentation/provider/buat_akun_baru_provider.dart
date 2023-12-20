@@ -12,6 +12,14 @@ class BuatAkunBaruProvider extends ChangeNotifier {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
   final usernameController = TextEditingController();
+  bool _isAdmin = false;
+  bool get isAdmin => _isAdmin;
+  void onChangeCheckbox(bool? nextValue){
+    if (nextValue != null) {
+      _isAdmin = nextValue;
+      notifyListeners();
+    }
+  }
 
   Map<String , String?> errorMap = {};
 
@@ -52,6 +60,7 @@ class BuatAkunBaruProvider extends ChangeNotifier {
       RegisterDto(
         username: usernameController.text,
         password: passwordController.text,
+        isAdmin: _isAdmin,
       ),
     );
     debugPrint("register response type : ${_registerResponse.runtimeType}");
@@ -61,6 +70,8 @@ class BuatAkunBaruProvider extends ChangeNotifier {
     }
     notifyListeners();
   }
+
+
 
   @override
   void dispose(){

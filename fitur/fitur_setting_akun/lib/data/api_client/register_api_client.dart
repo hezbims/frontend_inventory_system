@@ -16,6 +16,7 @@ class RegisterApiClient {
       body: jsonEncode({
         'username' : data.username,
         'password' : data.password,
+        'is_admin' : data.isAdmin
       }),
       headers: _tokenManager.getCurrentSessionTokenizedHeader(),
     );

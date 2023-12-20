@@ -6,6 +6,6 @@ class PostPengajuErrorMapper {
   String getErrorFromBody(String body){
     final jsonBody = jsonDecode(body);
     final errorMap = jsonBody['errors'] as Map<String , dynamic>;
-    return errorMap[PengajuField.nama][0];
+    return errorMap[PengajuField.nama]?[0];
   }
 }

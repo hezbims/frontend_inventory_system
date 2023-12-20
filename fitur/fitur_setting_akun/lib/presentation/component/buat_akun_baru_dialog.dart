@@ -110,6 +110,30 @@ class BuatAkunBaruDialog extends StatelessWidget {
           }
         },
       ),
+      
+      Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(
+            children: [
+              Checkbox(
+                value: provider.isAdmin,
+                onChanged: provider.onChangeCheckbox
+              ),
+
+              Text("User ini admin")
+            ],
+          ),
+          Text(
+            provider.errorMap[UserField.isAdmin] ?? "",
+            style: TextStyle(
+              color: Colors.red,
+              fontSize: 14,
+            ),
+          )
+
+        ],
+      ),
 
       SizedBox(
         width: double.infinity,

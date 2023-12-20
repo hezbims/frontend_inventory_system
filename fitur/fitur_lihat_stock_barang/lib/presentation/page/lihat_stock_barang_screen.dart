@@ -59,7 +59,7 @@ class LihatStockBarangScreen extends StatelessWidget {
                         RouteInputFormDataBarangState(idBarang: null)
                       );
                     },
-                    child: const FaIcon(FontAwesomeIcons.one),
+                    child: const FaIcon(FontAwesomeIcons.plus),
                   ),
 
                   const SizedBox(height: 12,),

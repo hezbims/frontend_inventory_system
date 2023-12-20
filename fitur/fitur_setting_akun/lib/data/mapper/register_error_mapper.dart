@@ -9,8 +9,9 @@ class RegisterErrorMapper {
 
     // TODO : pasttiin ngeformatnya bener kalo ada null,
     return {
-      UserField.username : jsonBody['data'][UserField.username]?[0],
-      UserField.password : jsonBody['data'][UserField.password]?[0],
+      UserField.username : jsonBody['errors'][UserField.username]?[0],
+      UserField.password : jsonBody['errors'][UserField.password]?[0],
+      UserField.isAdmin : jsonBody['errors'][UserField.isAdmin]?[0],
     };
   }
 }

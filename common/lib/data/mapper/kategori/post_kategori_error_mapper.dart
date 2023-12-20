@@ -7,6 +7,6 @@ class PostKategoriErrorMapper {
     debugPrint("Kategori error body : $body");
     final jsonBody = jsonDecode(body);
     final errorMap = jsonBody['errors'] as Map<String , dynamic>;
-    return errorMap['nama'][0];
+    return errorMap['nama']?[0];
   }
 }
