@@ -1,16 +1,2 @@
-# stock_bu_fan
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# Deskripsi
+Inventory Management System yang dirancang menggunakan Flutter Web. Kodingan Backend dapat dilihat <a href=https://github.com/hezbims/Backend-Inventory-System-NET>disini</a>
