@@ -17,8 +17,8 @@ class CancelButton extends StatelessWidget {
       child: FilledButton(
         onPressed: _onPressed,
         style: const ButtonStyle(
-          backgroundColor: MaterialStatePropertyAll(Color(0xFFC5C3C3)),
-          foregroundColor: MaterialStatePropertyAll(Colors.black),
+          backgroundColor: WidgetStatePropertyAll(Color(0xFFC5C3C3)),
+          foregroundColor: WidgetStatePropertyAll(Colors.black),
         ),
         child: Text(label,)
       ),

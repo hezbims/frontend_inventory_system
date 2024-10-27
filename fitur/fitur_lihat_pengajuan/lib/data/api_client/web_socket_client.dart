@@ -27,6 +27,7 @@ class WebSocketClient {
 
     try {
       _wsChannel?.sink.add(_user.token);
+    // ignore: empty_catches
     } catch (e){}
 
     _notificationSubscription = _wsChannel!.stream.listen(
