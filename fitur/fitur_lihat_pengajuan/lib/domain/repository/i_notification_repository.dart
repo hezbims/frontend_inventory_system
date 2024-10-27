@@ -1,8 +1,7 @@
-
-
-
 abstract class INotificationRepository{
-  Stream getWebSocketStream();
-  Stream<int> getNewPengajuanEvent();
+  void observePengajuanDataVersion({
+    required void Function(int pengajuanDataVersion) onEvent,
+    required void Function() onDisconnected,
+  });
   void dispose();
 }

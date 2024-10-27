@@ -1,60 +1,51 @@
+
 import 'dart:async';
 
 import 'package:common/constant/url/common_url.dart';
 import 'package:common/domain/model/user.dart';
 import 'package:dependencies/get_it.dart';
 import 'package:dependencies/web_socket_channel.dart';
-import 'package:flutter/material.dart';
 
 class WebSocketClient {
   static WebSocketChannel? _wsChannel;
-  final _notificationStream = StreamController<bool>();
 
-  final _user = GetIt.I.get<User>();
+  final User _user = GetIt.I.get();
+  StreamSubscription<dynamic>? _notificationSubscription;
 
-  Stream getStream(){
-    _tryConnectWebsocket();
-    return _notificationStream.stream;
-  }
-
-  void _tryConnectWebsocket() async {
-    if (_isDisposed){
-      return;
-    }
+  void tryConnectWebsocket(
+    void Function(int pengajuanTableVersion) onEvent,
+    void Function() onDisconnected,
+  ) async {
 
     _wsChannel?.sink.close();
+
     _wsChannel = WebSocketChannel.connect(
       Uri.parse("${CommonUrl.webSocketUrl}/pengajuan/event"),
     );
+
     await _wsChannel!.ready;
 
-    _wsChannel!.stream.listen(
+    try {
+      _wsChannel?.sink.add(_user.token);
+    } catch (e){}
+
+    _notificationSubscription = _wsChannel!.stream.listen(
         (event) {
-          final eventValue = event.toString();
-          try {
-            if (eventValue == "Please Confirm") {
-              _wsChannel!.sink.add("Ready");
-              _notificationStream.add(true);
-            }
-          } catch (_){ debugPrint("Disposed"); }
+          onEvent(int.parse(event.toString()));
         },
         onDone: (){
-          Future.delayed(const Duration(seconds: 5) , _tryConnectWebsocket);
+          if (_wsChannel?.closeCode != _disposedStatusCode){
+            onDisconnected();
+          }
         },
-        onError: (Object error, StackTrace stackTrace) {
-          Future.delayed(const Duration(seconds: 5) , _tryConnectWebsocket);
-        }
+        cancelOnError: true,
     );
-    // NGIRIM JWT Token
-    if (!_isDisposed) {
-      _wsChannel!.sink.add(_user.token);
-    }
   }
 
-  bool _isDisposed = false;
   void dispose(){
-    _isDisposed = true;
-    _wsChannel?.sink.close();
-    _notificationStream.close();
+    _wsChannel?.sink.close(_disposedStatusCode);
+    _notificationSubscription?.cancel();
   }
+
+  static const int _disposedStatusCode = 4500;
 }

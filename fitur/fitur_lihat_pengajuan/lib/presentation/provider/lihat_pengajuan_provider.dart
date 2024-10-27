@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 class LihatPengajuanProvider extends DisposableChangeNotifier {
   final ILihatPengajuanRepository _pengajuanRepo;
   final INotificationRepository _notifRepo;
+  int _currentPengajuanDataVersion = -1;
+
   LihatPengajuanProvider({
     required ILihatPengajuanRepository lihatPengajuanRepo,
     required INotificationRepository notifRepo,
@@ -19,14 +21,22 @@ class LihatPengajuanProvider extends DisposableChangeNotifier {
       _pageRequestProcess = _requestPage(pageNumber);
     });
 
-    _notifRepo.getWebSocketStream().listen((event) async {
-      tryRefresh();
-    });
+    _notifRepo.observePengajuanDataVersion(
+      onEvent: (pengajuanDataVersion){
+        if (_currentPengajuanDataVersion == pengajuanDataVersion) {
+          return;
+        }
+
+        _currentPengajuanDataVersion = pengajuanDataVersion;
+        tryRefresh();
+      },
+      onDisconnected: (){}
+    );
   }
 
   final searchController = TextEditingController();
-
   final pagingController = PagingController<int , PengajuanPreview>(firstPageKey: 1);
+
   Future<void>? _pageRequestProcess;
   Future<void> _requestPage(int pageNumber) async {
     final response = await _pengajuanRepo.getPengajuanPreview(
