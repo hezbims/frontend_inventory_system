@@ -46,7 +46,6 @@ app.*.map.json
 
 # Env
 env_file
-!.env.example
 
 # Pubspec overrides
 **/pubspec_overrides.yaml
