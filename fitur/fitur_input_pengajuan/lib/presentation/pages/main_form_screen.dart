@@ -1,3 +1,4 @@
+import 'package:common/constant/enums/status_pengajuan.dart';
 import 'package:common/domain/extension/media_query_data_extension.dart';
 import 'package:common/presentation/bottom_navbar/submit_card.dart';
 import 'package:common/presentation/button/disabled_submit_button.dart';
@@ -84,11 +85,18 @@ class MainFormScreen extends StatelessWidget {
                   leading: const BackButton(),
                 ),
                 bottomNavigationBar: SubmitCard(
-                  button: provider.useDisabledButton ?
-                  DisabledSubmitButton(label: provider.submitButtonLabel,) :
-                  SubmitButton(
-                    onTap: provider.submit,
-                    label: provider.submitButtonLabel,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: provider.submitResponse is ApiResponseLoading ?
+                      [const CircularProgressIndicator()] :
+                      _getSubmitButtons(
+                        isAdmin: provider.user.isAdmin,
+                        currentStatus: provider.status,
+                        onSubmit: provider.submit,
+                        onTolak: provider.tolak,
+                        context: context,
+                      ),
                   ),
                 ),
                 body: Builder(
@@ -193,5 +201,56 @@ class MainFormScreen extends StatelessWidget {
           }
         )
     );
+  }
+
+  List<Widget> _getSubmitButtons({
+    required bool isAdmin,
+    required StatusPengajuan? currentStatus,
+    required void Function()? onSubmit,
+    required void Function()? onTolak,
+    required BuildContext context,
+  }){
+    if (currentStatus == null){
+      return [Expanded(child: SubmitButton(onTap: onSubmit, label: "Submit",))];
+    }
+    if (isAdmin){
+      return switch(currentStatus){
+        StatusPengajuan.menunggu => [
+          Expanded(
+            child: OutlinedButton(
+              onPressed: onTolak!,
+              style: OutlinedButton.styleFrom(
+                foregroundColor: Colors.redAccent,
+                padding: const EdgeInsets.symmetric(vertical: 24),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12,),
+                ),
+                side: const BorderSide(color: Colors.redAccent)
+            ),
+              child: const Text('Tolak', style: TextStyle(fontWeight: FontWeight.bold),),
+            ),
+          ),
+
+          const SizedBox(width: 24,),
+
+          Expanded(
+            child: SubmitButton(
+              onTap: onSubmit,
+              label: "Terima",
+            ),
+          ),
+        ],
+        StatusPengajuan.ditolak || StatusPengajuan.diterima => [
+            Expanded(child: SubmitButton(onTap: onSubmit, label: "Edit",))
+        ],
+      };
+    } else {
+      return switch(currentStatus){
+        StatusPengajuan.menunggu =>
+          [Expanded(child: SubmitButton(onTap: onSubmit, label: "Edit",))],
+        StatusPengajuan.diterima || StatusPengajuan.ditolak =>
+          [const Expanded(child: DisabledSubmitButton(label: "Edit",))],
+      };
+    }
   }
 }

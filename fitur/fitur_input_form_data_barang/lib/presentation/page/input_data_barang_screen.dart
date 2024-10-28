@@ -63,7 +63,7 @@ class InputDataBarangScreen extends StatelessWidget {
                     button = const DisabledSubmitButton();
                   }
 
-                  return SubmitCard(button: button);
+                  return SubmitCard(child: button);
                 }
               ),
               body : Builder(

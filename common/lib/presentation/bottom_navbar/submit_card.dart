@@ -2,10 +2,10 @@ import 'package:common/domain/extension/media_query_data_extension.dart';
 import 'package:flutter/material.dart';
 
 class SubmitCard extends StatelessWidget {
-  final Widget button;
+  final Widget child;
   const SubmitCard({
     super.key,
-    required this.button,
+    required this.child,
   });
 
   @override
@@ -38,7 +38,7 @@ class SubmitCard extends StatelessWidget {
               bottom: 36,
               top: 16
           ),
-          child: button,
+          child: child,
         ),
       ),
     );

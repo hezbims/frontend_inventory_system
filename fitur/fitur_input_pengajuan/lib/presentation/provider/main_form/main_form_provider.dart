@@ -13,14 +13,15 @@ class MainFormProvider extends ChangeNotifier {
   final _nullValidator = NullValidationUseCase();
   final ISubmitPengajuanRepository _repository;
   final int? _id;
-  final User _user;
+  final User user;
+  
   final StatusPengajuan? status;
 
   MainFormProvider({
-    required User user,
+    required this.user,
     required Pengajuan? initialData,
     required ISubmitPengajuanRepository repository,
-  })  : _user = user,
+  })  :
     status = initialData?.status,
     _repository = repository,
     _id = initialData?.id,
@@ -83,32 +84,32 @@ class MainFormProvider extends ChangeNotifier {
     ){
       return null;
     }
-    return _submit;
+    return (){
+      _submit(
+        submissionStatus: !user.isAdmin ? null :
+            switch(status){
+              StatusPengajuan.ditolak => StatusPengajuan.ditolak,
+              StatusPengajuan.menunggu || StatusPengajuan.diterima || null =>
+                StatusPengajuan.diterima
+            }
+      );
+    };
   }
-  void _submit() async {
+
+  void Function()? get tolak {
+    if (user.isAdmin && status == StatusPengajuan.menunggu) {
+      return (){
+        _submit(submissionStatus : StatusPengajuan.ditolak);
+      };
+    } else {
+      return null;
+    }
+  }
+
+  void _submit({required StatusPengajuan? submissionStatus}) async {
     if (submitResponse is! ApiResponseLoading) {
       submitResponse = ApiResponseLoading();
-      tipePengajuanError =
-          _nullValidator(isPemasukan, fieldName: "Tipe pengajuan");
-      if (isPemasukan == true) {
-        pemasokError = _nullValidator(_pemasok, fieldName: "Nama pemasok");
-      }
-      else if (isPemasukan == false) {
-        groupError = _nullValidator(_group, fieldName: "Group");
-      }
-      notifyListeners();
-
-      if (listBarangTransaksi.isEmpty && !_user.isAdmin){
-        _listBarangTransaksiError = "Anda harus memilih minimal satu jenis barang!";
-        Fluttertoast.showToast(
-          msg: _listBarangTransaksiError!,
-          toastLength: Toast.LENGTH_LONG,
-          timeInSecForIosWeb: 5,
-        );
-      }
-      else {
-        _listBarangTransaksiError = null;
-      }
+      _validateSubmissionForm();
 
       // kalo semua validasi lolos
       if (canSubmit()){
@@ -118,7 +119,7 @@ class MainFormProvider extends ChangeNotifier {
             tanggal: tanggal,
             pengaju: isPemasukan! ? _pemasok : _group,
             listBarangTransaksi: listBarangTransaksi,
-            status: null,
+            status: submissionStatus,
           )
         );
 
@@ -134,6 +135,30 @@ class MainFormProvider extends ChangeNotifier {
         submitResponse = null;
       }
       notifyListeners();
+    }
+  }
+
+  void _validateSubmissionForm(){
+    tipePengajuanError =
+        _nullValidator(isPemasukan, fieldName: "Tipe pengajuan");
+    if (isPemasukan == true) {
+      pemasokError = _nullValidator(_pemasok, fieldName: "Nama pemasok");
+    }
+    else if (isPemasukan == false) {
+      groupError = _nullValidator(_group, fieldName: "Group");
+    }
+    notifyListeners();
+
+    if (listBarangTransaksi.isEmpty && !user.isAdmin){
+      _listBarangTransaksiError = "Anda harus memilih minimal satu jenis barang!";
+      Fluttertoast.showToast(
+        msg: _listBarangTransaksiError!,
+        toastLength: Toast.LENGTH_LONG,
+        timeInSecForIosWeb: 5,
+      );
+    }
+    else {
+      _listBarangTransaksiError = null;
     }
   }
 
@@ -155,7 +180,7 @@ class MainFormProvider extends ChangeNotifier {
       return false;
     }
     // Admin bisa ngedit pengajuan dengan bagaimanapun
-    if (_user.isAdmin) {
+    if (user.isAdmin) {
       return true;
     }
 
@@ -218,7 +243,7 @@ class MainFormProvider extends ChangeNotifier {
     if (_id == null){
       return false;
     }
-    if (!_user.isAdmin && status != StatusPengajuan.menunggu){
+    if (!user.isAdmin && status != StatusPengajuan.menunggu){
       return true;
     }
     return false;
@@ -231,7 +256,7 @@ class MainFormProvider extends ChangeNotifier {
     }
 
 
-    if (status == StatusPengajuan.menunggu && _user.isAdmin){
+    if (status == StatusPengajuan.menunggu && user.isAdmin){
       if (listBarangTransaksi.fold(0,
               (previousValue, current) =>
                 previousValue + current.quantity) == 0

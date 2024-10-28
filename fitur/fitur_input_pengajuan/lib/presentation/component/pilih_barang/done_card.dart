@@ -11,7 +11,7 @@ class DoneCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SubmitCard(
-      button: OutlinedButton(
+      child: OutlinedButton(
           style: OutlinedButton.styleFrom(
             padding: const EdgeInsets.symmetric(vertical: 28),
           ),
