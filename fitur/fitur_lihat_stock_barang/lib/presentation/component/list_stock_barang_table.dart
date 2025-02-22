@@ -72,7 +72,7 @@ class ListStockBarangTable extends StatelessWidget {
         TableCell(child: Padding(padding: const EdgeInsets.symmetric(vertical: 12), child: Text(barang.nama))),
         TableCell(child: Padding(padding: const EdgeInsets.symmetric(vertical: 12), child: Text("R${barang.nomorRak}-${barang.nomorLaci}-${barang.nomorKolom}", textAlign: TextAlign.center,))),
         TableCell(child: Padding(padding: const EdgeInsets.symmetric(vertical: 12), child: Text("${barang.stockSekarang} ${barang.uom}", textAlign: TextAlign.center,))),
-        TableCell(child: Padding(padding: const EdgeInsets.symmetric(vertical: 12), child: Text(getBarangStatus(barang), textAlign: TextAlign.center,))),
+        TableCell(child: Padding(padding: const EdgeInsets.symmetric(vertical: 12), child: getBarangStatus(barang))),
         TableCell(child: SizedBox(
           width: 26,
           child: Center(
@@ -93,12 +93,38 @@ class ListStockBarangTable extends StatelessWidget {
     );
   }
 
-  String getBarangStatus(Barang barang){
+  Widget getBarangStatus(Barang barang){
+    final String label;
+    final Color color;
     if (barang.stockSekarang <= 0) {
-      return "Run Out";
+      label = "Run Out";
+      color = MyColors.danger1;
     } else if (barang.stockSekarang <= barang.minStock) {
-      return "Shortage";
+      label = "Shortage";
+      color = MyColors.warning1;
     }
-    return "Ok";
+    else {
+      label = "Ok";
+      color = MyColors.ok1;
+    }
+
+    return Center(
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 12, vertical: 4,
+        ),
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(5),
+        ),
+        child: Text(
+          label,
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+            fontWeight: FontWeight.w300,
+          ),
+        ),
+      ),
+    );
   }
 }
