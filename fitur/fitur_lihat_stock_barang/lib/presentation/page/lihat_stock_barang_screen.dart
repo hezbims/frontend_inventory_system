@@ -20,6 +20,8 @@ class LihatStockBarangScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final searchKey = GlobalKey();
+
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
@@ -61,13 +63,15 @@ class LihatStockBarangScreen extends StatelessWidget {
 
                     const SizedBox(width: 48,),
 
-                    const SizedBox(
+                    SizedBox(
                       width: 480,
                       child: TextField(
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           label: Text("Search Product"),
                           suffixIcon: Icon(Icons.search),
                         ),
+                        key: searchKey,
+                        onChanged: stockBarangProvider.changeSearchQuery,
                       ),
                     ),
 

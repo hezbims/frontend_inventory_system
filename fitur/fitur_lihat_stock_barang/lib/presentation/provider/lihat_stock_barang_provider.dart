@@ -37,6 +37,11 @@ class LihatStockBarangProvider extends ChangeNotifier {
   ApiResponse _listBarangResponse = ApiResponseLoading();
   ApiResponse get listBarangResponse => _listBarangResponse;
 
+  void changeSearchQuery(String newSearchQuery){
+    _filterState = _filterState.copyWith(searchKeyword: newSearchQuery);
+    refreshListBarang();
+  }
+
   void setChoosenIdKategori(int newIdKategori) {
     if (newIdKategori != _filterState.categoryId) {
       _filterState = _filterState.copyWith(categoryId: newIdKategori);
