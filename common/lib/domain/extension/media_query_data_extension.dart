@@ -19,4 +19,9 @@ extension MediaQueryDataExtension on MediaQueryData {
   double get maxDrawerWidth {
     return min(288 , size.width * 4 / 5);
   }
+  EdgeInsets get desktopPadding {
+    return EdgeInsets.symmetric(
+        horizontal: max(24 , (size.width - 1000) / 2)
+    );
+  }
 }

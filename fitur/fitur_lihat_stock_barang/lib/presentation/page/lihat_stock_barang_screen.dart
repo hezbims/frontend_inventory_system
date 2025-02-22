@@ -1,15 +1,16 @@
+
 import 'package:common/domain/extension/media_query_data_extension.dart';
-import 'package:common/domain/model/user.dart';
-import 'package:common/presentation/bottom_navbar/stock_bottom_navbar.dart';
-import 'package:common/presentation/textfield/search_with_filter_app_bar.dart';
-import 'package:common/constant/routes/routes_path.dart';
-import 'package:common/routing/my_route_state.dart';
+import 'package:common/domain/model/barang.dart';
+import 'package:common/presentation/api_loader/response_loader.dart';
+import 'package:common/presentation/color/my_colors.dart';
+import 'package:common/presentation/pagination/page_number_ui_controller.dart';
+import 'package:common/presentation/tab_navbar/main_tab_nav_bar.dart';
+import 'package:common/response/api_response.dart';
 import 'package:common/routing/my_route_state_provider.dart';
 import 'package:dependencies/get_it.dart';
 import 'package:dependencies/provider.dart';
-import 'package:dependencies/font_awesome_flutter.dart';
-import 'package:fitur_lihat_stock_barang/presentation/component/kategori_filter_drawer.dart';
-import 'package:fitur_lihat_stock_barang/presentation/component/stock_barang_pagination.dart';
+import 'package:fitur_lihat_stock_barang/presentation/component/list_stock_barang_table.dart';
+import 'package:fitur_lihat_stock_barang/presentation/component/scroll_or_fill_column_wrapper.dart';
 import 'package:fitur_lihat_stock_barang/presentation/provider/kategori_filter_provider.dart';
 import 'package:fitur_lihat_stock_barang/presentation/provider/lihat_stock_barang_provider.dart';
 import 'package:flutter/material.dart';
@@ -30,54 +31,100 @@ class LihatStockBarangScreen extends StatelessWidget {
       ],
       child: Builder(
         builder: (context) {
-          final stockBarangProvider = context.read<LihatStockBarangProvider>();
+          final stockBarangProvider = context.watch<LihatStockBarangProvider>();
           final routeStateProvider = context.read<MyRouteStateProvider>();
 
           return Scaffold(
-            endDrawerEnableOpenDragGesture: false,
-            endDrawer: const KategoriFilterDrawer(),
-            appBar: SearchWithFilterAppBar(
-              label: "Cari nama barang",
-              onFilterPressed: (context){
-                Scaffold.of(context).openEndDrawer();
-              },
-              searchController: stockBarangProvider.searchController,
-              onValueChange: (newValue) =>
-                  stockBarangProvider.tryRefreshPagination(),
-            ),
-            floatingActionButton: GetIt.I.get<User>().isAdmin ? Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).phoneWidthLandscapePadding,
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  FloatingActionButton(
-                    heroTag: 'fab-+',
-                    onPressed: () {
-                      routeStateProvider.setRouteState(
-                        RouteInputFormDataBarangState(idBarang: null)
-                      );
-                    },
-                    child: const FaIcon(FontAwesomeIcons.plus),
-                  ),
+            appBar: AppBar(title: const Text("company name"),),
+            body: ScrollOrFillColumnWrapper(
+              padding: MediaQuery.of(context).desktopPadding,
+              isFillMaxSize: stockBarangProvider.listBarangResponse is! ApiResponseSuccess,
+              children: [
+                const SizedBox(height: 48,),
 
-                  const SizedBox(height: 12,),
+                const MainTabNavBar(),
 
-                  FloatingActionButton(
-                    onPressed: () =>
-                      routeStateProvider.setRouteState(
-                        RouteInputBarangByCsvState()
+                const SizedBox(height: 64,),
+
+                Row(
+                  children: [
+                    FilledButton(
+                      onPressed: (){
+
+                      },
+                      style: FilledButton.styleFrom(
+                          backgroundColor: MyColors.primary2
                       ),
-                    child: const FaIcon(FontAwesomeIcons.fileCsv),
-                  ),
-                ],
-              ),
-            ) : null,
-            bottomNavigationBar: const StockBottomNavBar(
-              currentIndex: RoutesPath.lihatStockBarangIndex,
+                      child: const Text("Add New Product"),
+                    ),
+
+                    const SizedBox(width: 48,),
+
+                    const SizedBox(
+                      width: 480,
+                      child: TextField(
+                        decoration: InputDecoration(
+                          label: Text("Search Product"),
+                          suffixIcon: Icon(Icons.search),
+                        ),
+                      ),
+                    ),
+
+                    const SizedBox(width: 8,),
+
+                    IconButton(
+                        onPressed: (){
+
+                        },
+                        icon: const Icon(Icons.filter_list)
+                    ),
+
+                    const SizedBox(width: 8,),
+
+                    IconButton(
+                        onPressed: (){
+
+                        },
+                        icon: const Icon(Icons.print)
+                    ),
+
+                    Expanded(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          PageNumberUiController(
+                            pageNumber: stockBarangProvider.filterState.pageNumber,
+                            onClickForward: stockBarangProvider.onClickForwardPage,
+                            onClickBackward: stockBarangProvider.onClickBackwardPage,
+                            onClickFirst: stockBarangProvider.onClickToFirstPage,
+                            onClickLatest: stockBarangProvider.onClickToLatestPage,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+
+                const SizedBox(height: 16,),
+
+                ResponseLoader(
+                  apiResponse: stockBarangProvider.listBarangResponse,
+                  onRefresh: stockBarangProvider.refreshListBarang,
+                  builder: (BuildContext context, List<Barang> data){
+                    return ListStockBarangTable(
+                        pageNumber: stockBarangProvider.filterState.pageNumber,
+                        listBarang: data
+                    );
+                  },
+                  loadingBuilder: (BuildContext context, Widget defaultLoadingBuilder) {
+                    return Expanded(child: Center(child: defaultLoadingBuilder));
+                  },
+                  errorBuilder: (BuildContext context, Widget defaultErrorBuilder){
+                    return Expanded(child: Center(child: defaultErrorBuilder));
+                  },
+                )
+              ]
             ),
-            body: StockBarangPagination(provider: stockBarangProvider),
           );
         }
       ),

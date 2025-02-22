@@ -1,4 +1,4 @@
-abstract class ApiResponse {}
+sealed class ApiResponse {}
 
 class ApiResponseSuccess<T> implements ApiResponse {
   final T? data;
