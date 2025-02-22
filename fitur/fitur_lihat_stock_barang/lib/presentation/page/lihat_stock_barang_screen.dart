@@ -53,7 +53,8 @@ class LihatStockBarangScreen extends StatelessWidget {
 
                       },
                       style: FilledButton.styleFrom(
-                          backgroundColor: MyColors.primary2
+                        backgroundColor: MyColors.primary3,
+                        padding: const EdgeInsets.all(20),
                       ),
                       child: const Text("Add New Product"),
                     ),
