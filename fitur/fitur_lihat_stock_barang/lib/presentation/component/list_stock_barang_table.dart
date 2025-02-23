@@ -7,10 +7,12 @@ class ListStockBarangTable extends StatelessWidget {
   final List<Barang> listBarang;
   final int startIndex;
   final List<double> columnWidths = [60, 400, 135, 138, 155, 112];
+  final void Function(int) onClickEdit;
 
   ListStockBarangTable({
     required int pageNumber,
     required this.listBarang,
+    required this.onClickEdit,
     super.key,
   }) : startIndex = (pageNumber - 1) * 50 + 1;
 
@@ -77,7 +79,9 @@ class ListStockBarangTable extends StatelessWidget {
           width: 26,
           child: Center(
             child: FilledButton(
-              onPressed: (){},
+              onPressed: (){
+                onClickEdit(barang.id);
+              },
               style: FilledButton.styleFrom(
                 backgroundColor: MyColors.primary4,
                 padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 4),

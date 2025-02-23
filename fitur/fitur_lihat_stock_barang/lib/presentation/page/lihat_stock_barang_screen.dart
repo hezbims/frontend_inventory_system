@@ -4,8 +4,10 @@ import 'package:common/domain/model/barang.dart';
 import 'package:common/presentation/api_loader/response_loader.dart';
 import 'package:common/presentation/color/my_colors.dart';
 import 'package:common/presentation/pagination/page_number_ui_controller.dart';
+import 'package:common/presentation/provider/refresh_notifier_listener.dart';
 import 'package:common/presentation/tab_navbar/main_tab_nav_bar.dart';
 import 'package:common/response/api_response.dart';
+import 'package:common/routing/my_route_state.dart';
 import 'package:common/routing/my_route_state_provider.dart';
 import 'package:dependencies/get_it.dart';
 import 'package:dependencies/provider.dart';
@@ -31,7 +33,10 @@ class LihatStockBarangScreen extends StatelessWidget {
           create: (context) =>  GetIt.I.get<KategoriFilterProvider>(),
         ),
       ],
-      child: Builder(
+      child: RefreshNotifierListener(
+        listener: (context){
+          context.read<LihatStockBarangProvider>().refreshListBarang();
+        },
         builder: (context) {
           final stockBarangProvider = context.watch<LihatStockBarangProvider>();
           final routeStateProvider = context.read<MyRouteStateProvider>();
@@ -52,7 +57,9 @@ class LihatStockBarangScreen extends StatelessWidget {
                   children: [
                     FilledButton(
                       onPressed: (){
-
+                        routeStateProvider.setRouteState(RouteInputFormDataBarangState(
+                          idBarang: null
+                        ));
                       },
                       style: FilledButton.styleFrom(
                         backgroundColor: MyColors.primary3,
@@ -118,6 +125,9 @@ class LihatStockBarangScreen extends StatelessWidget {
                   builder: (BuildContext context, List<Barang> data){
                     return ListStockBarangTable(
                         pageNumber: stockBarangProvider.filterState.pageNumber,
+                        onClickEdit: (idBarang){
+                          routeStateProvider.setRouteState(RouteInputFormDataBarangState(idBarang: idBarang));
+                        },
                         listBarang: data
                     );
                   },
