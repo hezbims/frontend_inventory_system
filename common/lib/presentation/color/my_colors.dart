@@ -10,4 +10,6 @@ abstract class MyColors {
   static const danger1 = Color(0xFFFFC9CA);
   static const ok1 = Color(0xFFC1FFDD);
   static const warning1 = Color(0xFFF4FFA4);
+
+  static const disabled1 = Color(0xFF9F9D9D);
 }

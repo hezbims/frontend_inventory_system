@@ -1,29 +1,27 @@
 
 import 'package:common/domain/helper/my_debouncer_helper.dart';
-import 'package:common/domain/repository/i_barang_repository.dart';
-import 'package:common/response/api_response.dart';
-import 'package:fitur_lihat_stock_barang/presentation/model/filter_state.dart';
+import 'package:common/domain/model/page_result.dart';
+import 'package:common/domain/model/response_wrapper.dart';
+import 'package:fitur_lihat_stock_barang/domain/model/filter_state.dart';
+import 'package:fitur_lihat_stock_barang/domain/model/preview_barang.dart';
+import 'package:fitur_lihat_stock_barang/domain/use_case/get_preview_stock_barang.dart';
 import 'package:flutter/material.dart';
 
 class LihatStockBarangProvider extends ChangeNotifier {
-  final IBarangRepository _repository;
-  final _debouncer = MyLatestQueueDebouncerHelper<ApiResponse>();
+  final GetPreviewStockBarang _getPreviewStockBarang;
+  final _debouncer = MyLatestQueueDebouncerHelper<ResponseWrapper<PageResult<PreviewBarang>, Object>>();
   LihatStockBarangProvider({
-    required IBarangRepository repository,
-  }) : _repository = repository {
+    required GetPreviewStockBarang getPreviewStockBarang,
+  }) : _getPreviewStockBarang = getPreviewStockBarang {
     refreshListBarang();
   }
 
   void refreshListBarang() async {
     _debouncer.run(
       process: (){
-        _listBarangResponse = ApiResponseLoading();
+        _listBarangResponse = ResponseLoading();
         notifyListeners();
-        return _repository.getStockBarangPaginated(
-            pageNumber: _filterState.pageNumber,
-            keyword: _filterState.searchKeyword,
-            idKategori: _filterState.categoryId
-        );
+        return _getPreviewStockBarang.execute(_filterState);
       },
       onDone: (response){
         _listBarangResponse = response;
@@ -34,11 +32,30 @@ class LihatStockBarangProvider extends ChangeNotifier {
 
   FilterState _filterState = FilterState.init();
   FilterState get filterState => _filterState;
-  ApiResponse _listBarangResponse = ApiResponseLoading();
-  ApiResponse get listBarangResponse => _listBarangResponse;
+  ResponseWrapper<PageResult<PreviewBarang>, Object> _listBarangResponse = ResponseLoading();
+  ResponseWrapper<PageResult<PreviewBarang>, Object> get listBarangResponse => _listBarangResponse;
+
+  bool get hasNextPage {
+    final currentResponse = _listBarangResponse;
+    return switch(currentResponse){
+      ResponseSucceed() => currentResponse.data.links.nextPage != null,
+      ResponseFailed() || ResponseLoading() => false,
+    };
+  }
+
+  bool get hasPrevPage {
+    final currentResponse = _listBarangResponse;
+    return switch(currentResponse){
+      ResponseSucceed() => currentResponse.data.links.prevPage != null,
+      ResponseFailed() || ResponseLoading() => false,
+    };
+  }
 
   void changeSearchQuery(String newSearchQuery){
-    _filterState = _filterState.copyWith(searchKeyword: newSearchQuery);
+    _filterState = _filterState.copyWith(
+      searchKeyword: newSearchQuery,
+      pageNumber: 1,
+    );
     refreshListBarang();
   }
 
@@ -50,21 +67,28 @@ class LihatStockBarangProvider extends ChangeNotifier {
 
   void onClickForwardPage(){
     _filterState = _filterState.copyWith(pageNumber: _filterState.pageNumber + 1);
-    notifyListeners();
+    refreshListBarang();
   }
 
   void onClickBackwardPage(){
     _filterState = _filterState.copyWith(pageNumber: _filterState.pageNumber - 1);
-    notifyListeners();
+    refreshListBarang();
   }
 
   void onClickToLatestPage(){
-    // _filterState = _filterState.copyWith(pageNumber: _filterState.pageNumber + 1);
-    // notifyListeners();
+    final currentResponse = _listBarangResponse;
+    if (currentResponse is ResponseSucceed<PageResult<PreviewBarang>, Object>) {
+      _filterState = _filterState.copyWith(
+          pageNumber: currentResponse.data.links.lastPage);
+      refreshListBarang();
+    }
   }
 
   void onClickToFirstPage(){
-    // _filterState = _filterState.copyWith(pageNumber: _filterState.pageNumber + 1);
-    // notifyListeners();
+    final currentResponse = _listBarangResponse;
+    if (currentResponse is ResponseSucceed<PageResult<PreviewBarang>, Object>) {
+      _filterState = _filterState.copyWith(pageNumber: 1);
+      refreshListBarang();
+    }
   }
 }

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:common/data/mapper/other/message_mapper.dart';
 import 'package:common/data/mapper/other/pagination_checker.dart';
+import 'package:common/domain/model/response_wrapper.dart';
 import 'package:common/response/api_response.dart';
 import 'package:dependencies/http.dart';
 import 'package:flutter/material.dart';
@@ -43,5 +44,30 @@ abstract class ApiRequestProcessor {
       );
     }
 
+  }
+
+  static Future<ResponseWrapper<ModelType, ErrorType>> processV2<ModelType , ErrorType>({
+    required final Future<Response> apiRequest,
+    required final ModelType Function(String) getModelFromBody,
+    final ErrorType? Function(String)? getErrorMessageFromBody,
+    final String? repositoryName,
+  }) async {
+    try {
+      final response = await apiRequest;
+      if (response.statusCode < 300) {
+        return ResponseSucceed(data: getModelFromBody(response.body),);
+      } else {
+        debugPrint("api request processor responded failed(${response.statusCode}) : ${response.body}");
+        return ResponseFailed(
+          error: getErrorMessageFromBody != null ?
+            getErrorMessageFromBody(response.body) : null,
+        );
+      }
+    } on ClientException catch(e) {
+      return ResponseFailed(message: 'Failed to connect to server : ${e.message}');
+    } catch (e) {
+      debugPrint("api request unknown fail : $e");
+      return ResponseFailed(message: "$repositoryName : $e",);
+    }
   }
 }

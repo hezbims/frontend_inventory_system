@@ -28,6 +28,27 @@ class BarangApiClient {
     );
   }
 
+  Future<Response> getBarangPaginatedV2({
+    required int? pageNumber,
+    required String? keyword,
+    required int? idKategori,
+  }) async {
+    String getBarangUrl = "${CommonUrl.baseApiUrl}/barang?";
+    if (pageNumber != null) {
+      getBarangUrl += "page=$pageNumber&";
+    }
+    if (keyword != null) {
+      getBarangUrl += "keyword=$keyword&";
+    }
+    if (idKategori != null) {
+      getBarangUrl += "id_kategori=$idKategori";
+    }
+    return get(
+      Uri.parse(getBarangUrl),
+      headers: _tokenManager.getCurrentSessionTokenizedHeader(),
+    );
+  }
+
   Future<Response> getDetailBarang({required int id}) async {
     final url = "${CommonUrl.baseApiUrl}/barang/detail/$id";
     return get(

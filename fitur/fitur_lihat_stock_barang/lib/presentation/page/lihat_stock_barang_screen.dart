@@ -1,16 +1,17 @@
 
 import 'package:common/domain/extension/media_query_data_extension.dart';
-import 'package:common/domain/model/barang.dart';
-import 'package:common/presentation/api_loader/response_loader.dart';
+import 'package:common/domain/model/page_result.dart';
+import 'package:common/domain/model/response_wrapper.dart';
+import 'package:common/presentation/api_loader/response_builder.dart';
 import 'package:common/presentation/color/my_colors.dart';
 import 'package:common/presentation/pagination/page_number_ui_controller.dart';
 import 'package:common/presentation/provider/refresh_notifier_listener.dart';
 import 'package:common/presentation/tab_navbar/main_tab_nav_bar.dart';
-import 'package:common/response/api_response.dart';
 import 'package:common/routing/my_route_state.dart';
 import 'package:common/routing/my_route_state_provider.dart';
 import 'package:dependencies/get_it.dart';
 import 'package:dependencies/provider.dart';
+import 'package:fitur_lihat_stock_barang/domain/model/preview_barang.dart';
 import 'package:fitur_lihat_stock_barang/presentation/component/list_stock_barang_table.dart';
 import 'package:fitur_lihat_stock_barang/presentation/component/scroll_or_fill_column_wrapper.dart';
 import 'package:fitur_lihat_stock_barang/presentation/provider/kategori_filter_provider.dart';
@@ -45,7 +46,7 @@ class LihatStockBarangScreen extends StatelessWidget {
             appBar: AppBar(title: const Text("company name"),),
             body: ScrollOrFillColumnWrapper(
               padding: MediaQuery.of(context).desktopPadding,
-              isFillMaxSize: stockBarangProvider.listBarangResponse is! ApiResponseSuccess,
+              isFillMaxSize: stockBarangProvider.listBarangResponse is! ResponseSucceed,
               children: [
                 const SizedBox(height: 48,),
 
@@ -105,7 +106,9 @@ class LihatStockBarangScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           PageNumberUiController(
-                            pageNumber: stockBarangProvider.filterState.pageNumber,
+                            currentPage: stockBarangProvider.filterState.pageNumber,
+                            hasNextPage: stockBarangProvider.hasNextPage,
+                            hasPrevPage: stockBarangProvider.hasPrevPage,
                             onClickForward: stockBarangProvider.onClickForwardPage,
                             onClickBackward: stockBarangProvider.onClickBackwardPage,
                             onClickFirst: stockBarangProvider.onClickToFirstPage,
@@ -119,16 +122,16 @@ class LihatStockBarangScreen extends StatelessWidget {
 
                 const SizedBox(height: 16,),
 
-                ResponseLoader(
+                ResponseBuilder<PageResult<PreviewBarang>, Object>(
                   apiResponse: stockBarangProvider.listBarangResponse,
                   onRefresh: stockBarangProvider.refreshListBarang,
-                  builder: (BuildContext context, List<Barang> data){
+                  builder: (BuildContext context, PageResult<PreviewBarang> pageData){
                     return ListStockBarangTable(
                         pageNumber: stockBarangProvider.filterState.pageNumber,
                         onClickEdit: (idBarang){
                           routeStateProvider.setRouteState(RouteInputFormDataBarangState(idBarang: idBarang));
                         },
-                        listBarang: data
+                        listBarang: pageData.listData,
                     );
                   },
                   loadingBuilder: (BuildContext context, Widget defaultLoadingBuilder) {

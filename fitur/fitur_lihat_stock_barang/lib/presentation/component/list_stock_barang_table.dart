@@ -1,10 +1,10 @@
-import 'package:common/domain/model/barang.dart';
 import 'package:common/presentation/color/my_colors.dart';
 import 'package:dependencies/collection.dart';
+import 'package:fitur_lihat_stock_barang/domain/model/preview_barang.dart';
 import 'package:flutter/material.dart';
 
 class ListStockBarangTable extends StatelessWidget {
-  final List<Barang> listBarang;
+  final List<PreviewBarang> listBarang;
   final int startIndex;
   final List<double> columnWidths = [60, 400, 135, 138, 155, 112];
   final void Function(int) onClickEdit;
@@ -64,17 +64,17 @@ class ListStockBarangTable extends StatelessWidget {
     );
   }
 
-  TableRow buildDataRow(int index, Barang barang){
+  TableRow buildDataRow(int index, PreviewBarang barang){
     return TableRow(
       decoration: BoxDecoration(
         color: index % 2 == 0 ? Colors.white :MyColors.background1,
       ),
       children: [
         TableCell(child: Padding(padding: const EdgeInsets.symmetric(vertical: 12), child: Text("${index + startIndex}", textAlign: TextAlign.center,))),
-        TableCell(child: Padding(padding: const EdgeInsets.symmetric(vertical: 12), child: Text(barang.nama))),
-        TableCell(child: Padding(padding: const EdgeInsets.symmetric(vertical: 12), child: Text("R${barang.nomorRak}-${barang.nomorLaci}-${barang.nomorKolom}", textAlign: TextAlign.center,))),
-        TableCell(child: Padding(padding: const EdgeInsets.symmetric(vertical: 12), child: Text("${barang.stockSekarang} ${barang.uom}", textAlign: TextAlign.center,))),
-        TableCell(child: Padding(padding: const EdgeInsets.symmetric(vertical: 12), child: getBarangStatus(barang))),
+        TableCell(child: Padding(padding: const EdgeInsets.symmetric(vertical: 12), child: Text(barang.name))),
+        TableCell(child: Padding(padding: const EdgeInsets.symmetric(vertical: 12), child: Text(barang.location, textAlign: TextAlign.center,))),
+        TableCell(child: Padding(padding: const EdgeInsets.symmetric(vertical: 12), child: Text(barang.quantity, textAlign: TextAlign.center,))),
+        TableCell(child: Padding(padding: const EdgeInsets.symmetric(vertical: 12), child: getBarangStatus(barang.status))),
         TableCell(child: SizedBox(
           width: 26,
           child: Center(
@@ -97,19 +97,22 @@ class ListStockBarangTable extends StatelessWidget {
     );
   }
 
-  Widget getBarangStatus(Barang barang){
+  Widget getBarangStatus(BarangStockStatus status){
     final String label;
     final Color color;
-    if (barang.stockSekarang <= 0) {
-      label = "Run Out";
-      color = MyColors.danger1;
-    } else if (barang.stockSekarang <= barang.minStock) {
-      label = "Shortage";
-      color = MyColors.warning1;
-    }
-    else {
-      label = "Ok";
-      color = MyColors.ok1;
+    switch(status){
+      case BarangStockStatus.runOut:
+        label = "Run Out";
+        color = MyColors.danger1;
+        break;
+      case BarangStockStatus.shortage:
+        label = "Shortage";
+        color = MyColors.warning1;
+        break;
+      case BarangStockStatus.ok:
+        label = "Ok";
+        color = MyColors.ok1;
+        break;
     }
 
     return Center(
