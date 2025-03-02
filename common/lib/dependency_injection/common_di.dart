@@ -1,3 +1,4 @@
+import 'package:common/data/api_client/inventory_system_http_client.dart';
 import 'package:common/data/repository/barang_repository_impl.dart';
 import 'package:common/data/repository/kategori_repository_impl.dart';
 import 'package:common/data/repository/pengaju_repository_impl.dart';
@@ -11,6 +12,8 @@ import 'package:common/presentation/page/pilih_kategori/pilih_kategori_provider.
 import 'package:dependencies/get_it.dart';
 
 void commonDi(){
+  GetIt.I.registerSingleton(InventorySystemHttpClient());
+
   // Token Manager
   GetIt.I.registerSingleton<ITokenManager>(TokenManagerImpl());
 

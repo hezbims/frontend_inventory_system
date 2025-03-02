@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:common/domain/model/pengaju.dart';
 import 'package:common/response/api_response.dart';
 import 'package:common/utils/disposable_change_notifier.dart';
@@ -11,6 +13,7 @@ class LihatPengajuanProvider extends DisposableChangeNotifier {
   final ILihatPengajuanRepository _pengajuanRepo;
   final INotificationRepository _notifRepo;
   int _currentPengajuanDataVersion = -1;
+  StreamSubscription<int>? _notifSubscription;
 
   LihatPengajuanProvider({
     required ILihatPengajuanRepository lihatPengajuanRepo,
@@ -21,17 +24,13 @@ class LihatPengajuanProvider extends DisposableChangeNotifier {
       _pageRequestProcess = _requestPage(pageNumber);
     });
 
-    _notifRepo.observePengajuanDataVersion(
-      onEvent: (pengajuanDataVersion){
-        if (_currentPengajuanDataVersion == pengajuanDataVersion) {
-          return;
-        }
-
-        _currentPengajuanDataVersion = pengajuanDataVersion;
-        tryRefresh();
-      },
-      onDisconnected: (){}
-    );
+    _notifSubscription = _notifRepo.getSseTransaction().listen((transactionsVersion){
+      if (transactionsVersion == _currentPengajuanDataVersion) {
+        return;
+      }
+      _currentPengajuanDataVersion = transactionsVersion;
+      tryRefresh();
+    });
   }
 
   final searchController = TextEditingController();
@@ -85,7 +84,8 @@ class LihatPengajuanProvider extends DisposableChangeNotifier {
   }
 
   @override
-  void dispose(){
+  void dispose() async {
+    await _notifSubscription?.cancel();
     _notifRepo.dispose();
     pagingController.dispose();
     searchController.dispose();
