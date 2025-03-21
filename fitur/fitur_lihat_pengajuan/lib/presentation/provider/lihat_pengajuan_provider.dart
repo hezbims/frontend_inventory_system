@@ -39,7 +39,7 @@ class LihatPengajuanProvider extends DisposableChangeNotifier {
     });
   }
 
-  void fetchTransactionPage(GetTransactionsRequest request){
+  void fetchTransactionPage(GetTransactionsRequest _){
     _debouncer.run(process: () async {
       final transactionResponse = await _transactionRepo
           .getTransactionPreviews(request: request);
@@ -53,11 +53,21 @@ class LihatPengajuanProvider extends DisposableChangeNotifier {
             pageItems.add(HeaderItem());
           }
 
-          pageItems.addAll(transactionResponse.data.transactions.map((transaction) =>
-            DataItem(transaction)));
+          final Iterable<DataItem> transactionDatas = transactionResponse
+            .data.transactions.map((transaction) => DataItem(transaction));
+          final TransactionPreview? lastTransaction = transactionDatas.lastOrNull?.data;
+
+          pageItems.addAll(transactionDatas);
           
           _pageEvent = PageDataArrive(data: pageItems, isLast: isLast);
           _isFirstPage = false;
+
+          if (lastTransaction != null) {
+            _request.setNextPageKey(
+              lastUpdate: lastTransaction.lastUpdate,
+              lastId: lastTransaction.id);
+          }
+
           tryNotifyListener();
           break;
         case ResponseFailed<TransactionPreviews, Object>():
@@ -72,6 +82,9 @@ class LihatPengajuanProvider extends DisposableChangeNotifier {
 
   PageEvent<List<TransactionPageItem>>? _pageEvent;
   PageEvent<List<TransactionPageItem>>? get pageEvent => _pageEvent;
+  final GetTransactionsRequest _request = GetTransactionsRequest();
+  GetTransactionsRequest get request => _request;
+
   void tryRefresh(){
     _debouncer.run(process: () async {
       _isFirstPage = true;
@@ -88,6 +101,14 @@ class LihatPengajuanProvider extends DisposableChangeNotifier {
     try { notifyListeners(); } catch (_) {}
   }
 
+  void setNewSearchKeyword(String newSearchKeyword){
+    if (
+      newSearchKeyword.length > 2 || _request.searchKeyword.length > 2
+    ) {
+      _request.setSearchKeyword(newSearchKeyword);
+      tryRefresh();
+    }
+  }
 
   Pengaju? _filterPengaju;
   void setFilterPengaju(Pengaju? newFilterPengaju){

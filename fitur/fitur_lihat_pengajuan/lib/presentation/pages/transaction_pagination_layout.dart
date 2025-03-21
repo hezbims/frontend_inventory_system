@@ -10,22 +10,22 @@ import 'package:fitur_lihat_pengajuan/presentation/model/transaction_page_item.d
 import 'package:fitur_lihat_pengajuan/presentation/provider/lihat_pengajuan_provider.dart';
 import 'package:flutter/material.dart';
 
-class TransactionPagination extends StatefulWidget {
+class TransactionPaginationLayout extends StatefulWidget {
   final LihatPengajuanProvider provider;
-  const TransactionPagination({
+  const TransactionPaginationLayout({
     required this.provider,
     super.key
   });
 
   @override
-  State<TransactionPagination> createState() => _TransactionPaginationState();
+  State<TransactionPaginationLayout> createState() => _TransactionPaginationLayoutState();
 }
 
-class _TransactionPaginationState extends State<TransactionPagination> {
+class _TransactionPaginationLayoutState extends State<TransactionPaginationLayout> {
   final GlobalKey globalKey = GlobalKey();
   
   final pagingController = PagingController<GetTransactionsRequest, TransactionPageItem>(
-      firstPageKey: GetTransactionsRequest.getDefault());
+      firstPageKey: GetTransactionsRequest());
 
 
   @override
@@ -46,11 +46,8 @@ class _TransactionPaginationState extends State<TransactionPagination> {
       case PageDataArrive<List<TransactionPageItem>>():
         final TransactionPageItem lastData = pageEvent.data.last;
         final nextKey = switch(lastData){
-          HeaderItem() => GetTransactionsRequest.getDefault(),
-          DataItem() => GetTransactionsRequest(
-            lastUpdate: lastData.data.lastUpdate, 
-            lastId: lastData.data.id,
-          ),
+          HeaderItem() => GetTransactionsRequest(),
+          DataItem() => widget.provider.request,
         };
         
         if (pageEvent.isLast) {
@@ -60,7 +57,7 @@ class _TransactionPaginationState extends State<TransactionPagination> {
         }
         break;
       case PageError<List<TransactionPageItem>>():
-        pagingController.error = pageEvent.message;
+        pagingController.error = pageEvent.message ?? "Unknown error";
         break;
       case PageRefreshRequest<List<TransactionPageItem>>():
         pagingController.refresh();
@@ -145,10 +142,11 @@ class _TransactionPaginationState extends State<TransactionPagination> {
               child: TextField(
                 decoration: const InputDecoration(
                   label: Text("Search Transaction"),
+                  hintText: "Min. 3 Character",
                   suffixIcon: Icon(Icons.search),
                 ),
                 key: globalKey,
-                onChanged: (_){},
+                onChanged: widget.provider.setNewSearchKeyword,
               ),
             ),
 
@@ -165,7 +163,7 @@ class _TransactionPaginationState extends State<TransactionPagination> {
               child: Align(
                 alignment: Alignment.centerRight,
                 child: IconButton(
-                    onPressed: (){},
+                    onPressed: widget.provider.tryRefresh,
                     icon: const Icon(Icons.refresh)
                 ),
               ),

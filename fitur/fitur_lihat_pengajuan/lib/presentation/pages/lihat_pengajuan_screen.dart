@@ -1,7 +1,7 @@
 import 'package:common/domain/extension/media_query_data_extension.dart';
 import 'package:dependencies/get_it.dart';
 import 'package:dependencies/provider.dart';
-import 'package:fitur_lihat_pengajuan/presentation/pages/transaction_pagination.dart';
+import 'package:fitur_lihat_pengajuan/presentation/pages/transaction_pagination_layout.dart';
 import 'package:fitur_lihat_pengajuan/presentation/provider/filter_pengaju_provider.dart';
 import 'package:fitur_lihat_pengajuan/presentation/provider/lihat_pengajuan_provider.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +38,7 @@ class _LihatPengajuanScreenState extends State<LihatPengajuanScreen> {
               padding: MediaQuery.of(context).desktopPadding,
               child: SizedBox(
                 width: 1000,
-                child: TransactionPagination(provider: provider))
+                child: TransactionPaginationLayout(provider: provider))
             );
           }
         )

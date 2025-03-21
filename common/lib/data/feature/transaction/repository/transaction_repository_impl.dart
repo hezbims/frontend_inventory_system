@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:common/data/api_client/inventory_system_http_client.dart';
 import 'package:common/data/api_request_proccessor/api_request_proccessor.dart';
 import 'package:common/data/feature/transaction/mapper/transaction_mapper.dart';
@@ -17,18 +19,22 @@ class TransactionRepositoryImpl implements ITransactionRepository {
   Future<ResponseWrapper<TransactionPreviews, Object>> getTransactionPreviews({
       required final GetTransactionsRequest request
   }) async {
-    String endpoint = "pengajuan?";
+    final Map<String, String?> queryParams = HashMap();
     if (request.lastId != null) {
-      endpoint += "last_id=${request.lastId}&";
+      queryParams["last_id"] = request.lastId.toString();
     }
     if (request.lastUpdate != null) {
-      endpoint += "last_update=${request.lastUpdate}&";
+      queryParams["last_update"] = request.lastUpdate.toString();
     }
+    if (request.searchKeyword.length  > 2){
+      queryParams["search_keyword"] = request.searchKeyword.toString();
+    }
+    Uri uri = Uri(path: "pengajuan", queryParameters: queryParams);
 
     return ApiRequestProcessor.processV2(
         apiRequest: _httpClient.doRequest(
           method: HttpMethod.get,
-          endpoint: endpoint,
+          endpoint: uri.toString(),
         ),
         getModelFromBody: TransactionMapper.getTransactionPreviews
     );
