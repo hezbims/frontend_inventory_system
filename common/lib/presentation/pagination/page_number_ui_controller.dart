@@ -1,4 +1,4 @@
-import 'package:common/presentation/color/my_colors.dart';
+import 'package:common/presentation/styling/color/my_colors.dart';
 import 'package:flutter/material.dart';
 
 class PageNumberUiController extends StatelessWidget {

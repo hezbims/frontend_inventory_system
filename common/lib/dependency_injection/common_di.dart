@@ -1,8 +1,10 @@
 import 'package:common/data/api_client/inventory_system_http_client.dart';
+import 'package:common/data/feature/transaction/repository/transaction_repository_impl.dart';
 import 'package:common/data/repository/barang_repository_impl.dart';
 import 'package:common/data/repository/kategori_repository_impl.dart';
 import 'package:common/data/repository/pengaju_repository_impl.dart';
 import 'package:common/data/repository/token_manager.dart';
+import 'package:common/domain/feature/transaction/repository/i_transaction_repository.dart';
 import 'package:common/domain/repository/i_barang_repository.dart';
 import 'package:common/domain/repository/i_kategori_repository.dart';
 import 'package:common/domain/repository/i_pengaju_repository.dart';
@@ -30,6 +32,9 @@ void commonDi(){
       kategoriRepository: GetIt.I.get(),
     )
   );
+  GetIt.I.registerFactory<ITransactionRepository>(() =>
+      TransactionRepositoryImpl(httpClient: GetIt.I.get()));
+
   GetIt.I.registerFactory(
     () => PilihKategoriProvider(repository: GetIt.I.get())
   );

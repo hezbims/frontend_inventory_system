@@ -1,20 +1,20 @@
 import 'package:common/domain/extension/media_query_data_extension.dart';
-import 'package:common/presentation/bottom_navbar/stock_bottom_navbar.dart';
-import 'package:common/presentation/textfield/search_with_filter_app_bar.dart';
-import 'package:common/constant/routes/routes_path.dart';
-import 'package:common/routing/my_route_state.dart';
-import 'package:common/routing/my_route_state_provider.dart';
-import 'package:dependencies/font_awesome_flutter.dart';
 import 'package:dependencies/get_it.dart';
 import 'package:dependencies/provider.dart';
-import 'package:fitur_lihat_pengajuan/presentation/component/filter_pengaju_drawer.dart';
-import 'package:fitur_lihat_pengajuan/presentation/pages/lihat_pengajuan_pagination.dart';
+import 'package:fitur_lihat_pengajuan/presentation/pages/transaction_pagination.dart';
 import 'package:fitur_lihat_pengajuan/presentation/provider/filter_pengaju_provider.dart';
 import 'package:fitur_lihat_pengajuan/presentation/provider/lihat_pengajuan_provider.dart';
 import 'package:flutter/material.dart';
 
-class LihatPengajuanScreen extends StatelessWidget {
+class LihatPengajuanScreen extends StatefulWidget {
   const LihatPengajuanScreen({Key? key}) : super(key: key);
+
+  @override
+  State<LihatPengajuanScreen> createState() => _LihatPengajuanScreenState();
+}
+
+class _LihatPengajuanScreenState extends State<LihatPengajuanScreen> {
+
 
   @override
   Widget build(BuildContext context) {
@@ -28,49 +28,21 @@ class LihatPengajuanScreen extends StatelessWidget {
           create: (context) => GetIt.I.get<FilterPengajuProvider>(),
         ),
       ],
-      child: Consumer<LihatPengajuanProvider>(
-        builder: (context , provider , child) {
-          final routeStateProvider = context.read<MyRouteStateProvider>();
-          return Scaffold(
-            appBar: SearchWithFilterAppBar(
-              label: "Cari transaksi ",
-              hintText: "ex : TRXI20220914001",
-              onFilterPressed: (context){
-                Scaffold.of(context).openEndDrawer();
-              },
-              searchController: provider.searchController,
-              onValueChange: (_) => provider.tryRefresh(),
-            ),
-            endDrawer: const FilterPengajuDrawer(),
-            onEndDrawerChanged: (isOpened){
-              if (!isOpened){
-                final filterProvider = Provider.of<FilterPengajuProvider>(
-                  context,
-                  listen: false
-                );
-                provider.setFilterPengaju(filterProvider.pengajuDipilih);
-              }
-            },
-            bottomNavigationBar: const StockBottomNavBar(
-              currentIndex: RoutesPath.fiturLihatPengajuanIndex,
-            ),
-            floatingActionButton: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).phoneWidthLandscapePadding,
-              ),
-              child: FloatingActionButton(
-                onPressed: () async {
-                  routeStateProvider.setRouteState(
-                    RouteInputPengajuanState(idPengajuan: null)
-                  );
-                },
-                child:  const FaIcon(FontAwesomeIcons.plus),
-              ),
-            ),
-            body: LihatPengajuanPagination(provider: provider),
-          );
-        }
-      ),
+      child: Scaffold(
+        appBar: AppBar(title: const Text("company name"),),
+        body: Builder(
+          builder: (context) {
+            final provider = context.read<LihatPengajuanProvider>();
+            return SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              padding: MediaQuery.of(context).desktopPadding,
+              child: SizedBox(
+                width: 1000,
+                child: TransactionPagination(provider: provider))
+            );
+          }
+        )
+      )
     );
   }
 }

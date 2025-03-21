@@ -1,4 +1,4 @@
-import 'package:common/presentation/color/my_colors.dart';
+import 'package:common/presentation/styling/color/my_colors.dart';
 import 'package:dependencies/collection.dart';
 import 'package:fitur_lihat_stock_barang/domain/model/preview_barang.dart';
 import 'package:flutter/material.dart';

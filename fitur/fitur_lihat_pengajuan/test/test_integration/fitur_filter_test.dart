@@ -9,11 +9,8 @@ import 'package:dependencies/provider.dart';
 import 'package:fitur_lihat_pengajuan/presentation/component/pengajuan_card.dart';
 import 'package:fitur_lihat_pengajuan/presentation/pages/lihat_pengajuan_screen.dart';
 import 'package:fitur_lihat_pengajuan/presentation/provider/filter_pengaju_provider.dart';
-import 'package:fitur_lihat_pengajuan/presentation/provider/lihat_pengajuan_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import '../mock/prepare_mock_lihat_pengajuan_repository.dart';
-import '../mock/prepare_mock_notif_repo.dart';
 import '../mock/prepare_mock_pengaju_repository.dart';
 
 void main(){
@@ -29,12 +26,13 @@ void main(){
       GetIt.I.registerSingleton(
         FilterPengajuProvider(repository: prepareMockPengajuRepository())
       );
-      GetIt.I.registerSingleton(
-        LihatPengajuanProvider(
-          lihatPengajuanRepo: prepareMockLihatPengajuanRepository(),
-          notifRepo: prepareMockNotifRepo(),
-        ),
-      );
+      // TODO : betulin test ini
+      // GetIt.I.registerSingleton(
+      //   LihatPengajuanProvider(
+      //     lihatPengajuanRepo: prepareMockLihatPengajuanRepository(),
+      //     notifRepo: prepareMockNotifRepo(),
+      //   ),
+      // );
 
       await tester.pumpWidget(
         MultiProvider(

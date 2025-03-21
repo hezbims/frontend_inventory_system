@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 
 class LihatStockBarangProvider extends ChangeNotifier {
   final GetPreviewStockBarang _getPreviewStockBarang;
-  final _debouncer = MyLatestQueueDebouncerHelper<ResponseWrapper<PageResult<PreviewBarang>, Object>>();
+  final _debouncer = MyLatestQueueDebouncerHelper();
   LihatStockBarangProvider({
     required GetPreviewStockBarang getPreviewStockBarang,
   }) : _getPreviewStockBarang = getPreviewStockBarang {

@@ -48,19 +48,19 @@ abstract class ApiRequestProcessor {
 
   static Future<ResponseWrapper<ModelType, ErrorType>> processV2<ModelType , ErrorType>({
     required final Future<Response> apiRequest,
-    required final ModelType Function(String) getModelFromBody,
-    final ErrorType? Function(String)? getErrorMessageFromBody,
+    required final ModelType Function(Response) getModelFromBody,
+    final ErrorType? Function(Response)? getErrorMessageFromBody,
     final String? repositoryName,
   }) async {
     try {
       final response = await apiRequest;
       if (response.statusCode < 300) {
-        return ResponseSucceed(data: getModelFromBody(response.body),);
+        return ResponseSucceed(data: getModelFromBody(response),);
       } else {
         debugPrint("api request processor responded failed(${response.statusCode}) : ${response.body}");
         return ResponseFailed(
           error: getErrorMessageFromBody != null ?
-            getErrorMessageFromBody(response.body) : null,
+            getErrorMessageFromBody(response) : null,
         );
       }
     } on ClientException catch(e) {

@@ -1,18 +1,19 @@
-class MyLatestQueueDebouncerHelper<T> {
-  Future<T> Function()? latestPendingProcess;
-  Future<T>? onGoingProcess;
+class MyLatestQueueDebouncerHelper {
+  Future Function()? _latestPendingProcess;
+  Future? _onGoingProcess;
 
-  void run({
+  void run<T>({
     required Future<T> Function() process,
-    required void Function(T) onDone,
+    void Function(T)? onDone,
   }) async {
-    latestPendingProcess = process;
-    await onGoingProcess;
-    if (latestPendingProcess != process) {
+    _latestPendingProcess = process;
+    await _onGoingProcess;
+    if (_latestPendingProcess != process) {
       return;
     }
     
-    onGoingProcess = process();
-    onGoingProcess?.then(onDone);
+    _onGoingProcess = process();
+
+    _onGoingProcess?.then((result){onDone?.call(result);});
   }
 }
