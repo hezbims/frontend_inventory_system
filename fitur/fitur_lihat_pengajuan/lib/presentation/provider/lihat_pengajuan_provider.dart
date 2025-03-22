@@ -20,7 +20,7 @@ class LihatPengajuanProvider extends DisposableChangeNotifier {
   int _currentServerPengajuanDataVersion = -1;
   bool get shouldDisplayRefreshToast =>
     !_isFirstPage &&
-    (_currentClientPengajuanDataVersion != _currentServerPengajuanDataVersion);
+    (_currentClientPengajuanDataVersion < _currentServerPengajuanDataVersion);
 
   StreamSubscription<int>? _notifSubscription;
 
