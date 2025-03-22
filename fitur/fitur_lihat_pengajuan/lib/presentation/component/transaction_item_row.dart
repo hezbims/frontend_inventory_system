@@ -1,18 +1,17 @@
 import 'package:common/constant/enums/status_pengajuan.dart';
 import 'package:common/domain/feature/transaction/model/response/transaction_previews.dart';
 import 'package:common/presentation/styling/color/my_colors.dart';
-import 'package:common/routing/my_route_state.dart';
-import 'package:common/routing/my_route_state_provider.dart';
 import 'package:dependencies/intl.dart';
-import 'package:dependencies/provider.dart';
 import 'package:flutter/material.dart';
 
 class TransactionItemRow extends StatelessWidget {
   final TransactionPreview item;
   final int sequence;
+  final void Function() onClickEdit;
   const TransactionItemRow({
     required this.sequence,
     required this.item,
+    required this.onClickEdit,
     super.key,
   });
 
@@ -73,10 +72,7 @@ class TransactionItemRow extends StatelessWidget {
             width: 113,
             child: Center(
               child: FilledButton(
-                onPressed: (){
-                  context.read<MyRouteStateProvider>()
-                    .setRouteState(RouteInputPengajuanState(idPengajuan: item.id));
-                },
+                onPressed: onClickEdit,
                 style: FilledButton.styleFrom(
                   backgroundColor: MyColors.primary4,
                   padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 4),
@@ -96,12 +92,12 @@ class TransactionItemRow extends StatelessWidget {
   Widget _buildInOrOutLabel(){
     final String label;
     final Color color;
-    if (item.userName == null){
-      label = "Out";
-      color = const Color(0xFFFFBFA8);
-    } else {
+    if (item.isFromSupplier){
       label = "In";
       color = const Color(0xFFBFECFF);
+    } else {
+      label = "Out";
+      color = const Color(0xFFFFBFA8);
     }
 
     return Container(

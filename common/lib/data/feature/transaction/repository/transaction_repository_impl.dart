@@ -24,7 +24,7 @@ class TransactionRepositoryImpl implements ITransactionRepository {
       queryParams["last_id"] = request.lastId.toString();
     }
     if (request.lastUpdate != null) {
-      queryParams["last_update"] = request.lastUpdate.toString();
+      queryParams["last_date"] = request.lastUpdate.toString();
     }
     if (request.searchKeyword.length  > 2){
       queryParams["search_keyword"] = request.searchKeyword.toString();

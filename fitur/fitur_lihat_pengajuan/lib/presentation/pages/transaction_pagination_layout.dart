@@ -1,9 +1,13 @@
 import 'package:common/domain/feature/transaction/model/request/get_transactions_request.dart';
 import 'package:common/presentation/api_loader/default_error_widget.dart';
 import 'package:common/presentation/pagination/page_event.dart';
+import 'package:common/presentation/provider/refresh_notifier.dart';
 import 'package:common/presentation/styling/color/my_colors.dart';
 import 'package:common/presentation/tab_navbar/main_tab_nav_bar.dart';
+import 'package:common/routing/my_route_state.dart';
+import 'package:common/routing/my_route_state_provider.dart';
 import 'package:dependencies/infinite_scroll_pagination.dart';
+import 'package:dependencies/provider.dart';
 import 'package:fitur_lihat_pengajuan/presentation/component/transaction_item_row.dart';
 import 'package:fitur_lihat_pengajuan/presentation/component/transaction_table_header.dart';
 import 'package:fitur_lihat_pengajuan/presentation/model/transaction_page_item.dart';
@@ -23,7 +27,8 @@ class TransactionPaginationLayout extends StatefulWidget {
 
 class _TransactionPaginationLayoutState extends State<TransactionPaginationLayout> {
   final GlobalKey globalKey = GlobalKey();
-  
+
+  late final RefreshNotifier refreshNotifier;
   final pagingController = PagingController<GetTransactionsRequest, TransactionPageItem>(
       firstPageKey: GetTransactionsRequest());
 
@@ -32,7 +37,15 @@ class _TransactionPaginationLayoutState extends State<TransactionPaginationLayou
   void initState() {
     pagingController.addPageRequestListener(widget.provider.fetchTransactionPage);
     widget.provider.addListener(observePagingEventCommand);
+
+    refreshNotifier = context.read<RefreshNotifier>();
+    refreshNotifier.addListener(observeRefreshNotifier);
+
     super.initState();
+  }
+
+  void observeRefreshNotifier(){
+    widget.provider.tryRefresh();
   }
   
   void observePagingEventCommand(){
@@ -68,6 +81,7 @@ class _TransactionPaginationLayoutState extends State<TransactionPaginationLayou
   @override
   void dispose() {
     widget.provider.removeListener(observePagingEventCommand);
+    refreshNotifier.removeListener(observeRefreshNotifier);
     pagingController.dispose();
     super.dispose();
   }
@@ -87,7 +101,11 @@ class _TransactionPaginationLayoutState extends State<TransactionPaginationLayou
             ),
             DataItem() => TransactionItemRow(
               sequence: index,
-              item: item.data
+              item: item.data,
+              onClickEdit: (){
+                context.read<MyRouteStateProvider>()
+                  .setRouteState(RouteInputPengajuanState(idPengajuan: item.data.id));
+              },
             ),
           },
         firstPageProgressIndicatorBuilder: (context) =>
@@ -126,7 +144,8 @@ class _TransactionPaginationLayoutState extends State<TransactionPaginationLayou
           children: [
             FilledButton(
               onPressed: (){
-
+                context.read<MyRouteStateProvider>()
+                  .setRouteState(RouteInputPengajuanState(idPengajuan: null));
               },
               style: FilledButton.styleFrom(
                 backgroundColor: MyColors.primary3,

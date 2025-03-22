@@ -12,8 +12,8 @@ class GetTransactionsRequest {
   int? get idPengaju => _idPengaju;
 
   void setNextPageKey({
-    required int lastUpdate,
-    required int lastId,
+    required int? lastUpdate,
+    required int? lastId,
   }){
     _lastUpdate = lastUpdate;
     _lastId = lastId;

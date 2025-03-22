@@ -19,6 +19,7 @@ class TransactionPreview {
   final String transactionCode;
   final StatusPengajuan status;
   final int lastUpdate;
+  final bool isFromSupplier;
 
   TransactionPreview({
     required this.id,
@@ -27,5 +28,6 @@ class TransactionPreview {
     required this.transactionCode,
     required this.status,
     required this.lastUpdate,
+    required this.isFromSupplier,
   });
 }

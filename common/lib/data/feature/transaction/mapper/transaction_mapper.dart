@@ -31,7 +31,8 @@ abstract class TransactionMapper {
       userName: json['user']['name'],
       transactionCode: json['transaction_code'],
       status: StatusPengajuan.from(json['status']),
-      lastUpdate: json['updated_at']
+      lastUpdate: json['updated_at'],
+      isFromSupplier: json['stakeholder']['is_supplier']
     );
   }
 }

@@ -36,6 +36,7 @@ class LihatPengajuanProvider extends DisposableChangeNotifier {
         return;
       }
       _currentServerPengajuanDataVersion = transactionsVersion;
+      tryNotifyListener();
     });
   }
 
@@ -87,6 +88,7 @@ class LihatPengajuanProvider extends DisposableChangeNotifier {
 
   void tryRefresh(){
     _debouncer.run(process: () async {
+      _request.setNextPageKey(lastUpdate: null, lastId: null);
       _isFirstPage = true;
       _pageEvent = PageRefreshRequest();
       tryNotifyListener();
