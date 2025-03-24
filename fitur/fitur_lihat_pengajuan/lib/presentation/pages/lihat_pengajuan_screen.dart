@@ -1,4 +1,5 @@
-import 'package:common/domain/extension/media_query_data_extension.dart';
+import 'dart:math';
+
 import 'package:dependencies/get_it.dart';
 import 'package:dependencies/provider.dart';
 import 'package:fitur_lihat_pengajuan/presentation/component/refresh_transaction_dialog.dart';
@@ -38,9 +39,8 @@ class _LihatPengajuanScreenState extends State<LihatPengajuanScreen> {
                 final provider = context.read<LihatPengajuanProvider>();
                 return SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
-                  padding: MediaQuery.of(context).desktopPadding,
                   child: SizedBox(
-                    width: 1000,
+                    width: max(MediaQuery.of(context).size.width, 1048),
                     child: TransactionPaginationLayout(provider: provider))
                 );
               }

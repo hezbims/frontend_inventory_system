@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:common/domain/feature/transaction/model/request/get_transactions_request.dart';
 import 'package:common/presentation/api_loader/default_error_widget.dart';
 import 'package:common/presentation/pagination/page_event.dart';
@@ -89,6 +91,9 @@ class _TransactionPaginationLayoutState extends State<TransactionPaginationLayou
   @override
   Widget build(BuildContext context) {
     return PagedListView<GetTransactionsRequest, TransactionPageItem>(
+      padding: EdgeInsets.symmetric(
+        horizontal: max(24, (MediaQuery.of(context).size.width - 1000) / 2)
+      ),
       pagingController: pagingController,
       builderDelegate: PagedChildBuilderDelegate(
         itemBuilder: (context, item, index) =>
