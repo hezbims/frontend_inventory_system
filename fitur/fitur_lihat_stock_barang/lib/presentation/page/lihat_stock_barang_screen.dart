@@ -1,5 +1,6 @@
 
-import 'package:common/domain/extension/media_query_data_extension.dart';
+import 'dart:math';
+
 import 'package:common/domain/model/page_result.dart';
 import 'package:common/domain/model/response_wrapper.dart';
 import 'package:common/presentation/api_loader/response_builder.dart';
@@ -47,104 +48,112 @@ class LihatStockBarangScreen extends StatelessWidget {
               title: const Text("company name"),
               forceMaterialTransparency: true,
             ),
-            body: ScrollOrFillColumnWrapper(
-              padding: MediaQuery.of(context).desktopPadding,
-              isFillMaxSize: stockBarangProvider.listBarangResponse is! ResponseSucceed,
-              children: [
-                const SizedBox(height: 48,),
-
-                const MainTabNavBar(),
-
-                const SizedBox(height: 64,),
-
-                Row(
+            body: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: SizedBox(
+                width: max(1048, MediaQuery.of(context).size.width),
+                child: ScrollOrFillColumnWrapper(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: max(24, (MediaQuery.of(context).size.width - 1000) / 2),
+                  ),
+                  isFillMaxSize: stockBarangProvider.listBarangResponse is! ResponseSucceed,
                   children: [
-                    FilledButton(
-                      onPressed: (){
-                        routeStateProvider.setRouteState(RouteInputFormDataBarangState(
-                          idBarang: null
-                        ));
-                      },
-                      style: FilledButton.styleFrom(
-                        backgroundColor: MyColors.primary3,
-                        padding: const EdgeInsets.all(20),
-                      ),
-                      child: const Text("Add New Product"),
-                    ),
+                    const SizedBox(height: 48,),
 
-                    const SizedBox(width: 48,),
+                    const MainTabNavBar(),
 
-                    SizedBox(
-                      width: 480,
-                      child: TextField(
-                        decoration: const InputDecoration(
-                          label: Text("Search Product"),
-                          suffixIcon: Icon(Icons.search),
-                        ),
-                        key: searchKey,
-                        onChanged: stockBarangProvider.changeSearchQuery,
-                      ),
-                    ),
+                    const SizedBox(height: 64,),
 
-                    const SizedBox(width: 8,),
-
-                    IconButton(
-                      onPressed: (){
-
-                      },
-                      icon: const Icon(Icons.filter_list)
-                    ),
-
-                    const SizedBox(width: 8,),
-
-                    IconButton(
-                      onPressed: (){
-
-                      },
-                      icon: const Icon(Icons.print)
-                    ),
-
-                    Expanded(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          PageNumberUiController(
-                            currentPage: stockBarangProvider.filterState.pageNumber,
-                            hasNextPage: stockBarangProvider.hasNextPage,
-                            hasPrevPage: stockBarangProvider.hasPrevPage,
-                            onClickForward: stockBarangProvider.onClickForwardPage,
-                            onClickBackward: stockBarangProvider.onClickBackwardPage,
-                            onClickFirst: stockBarangProvider.onClickToFirstPage,
-                            onClickLatest: stockBarangProvider.onClickToLatestPage,
+                    Row(
+                      children: [
+                        FilledButton(
+                          onPressed: (){
+                            routeStateProvider.setRouteState(RouteInputFormDataBarangState(
+                              idBarang: null
+                            ));
+                          },
+                          style: FilledButton.styleFrom(
+                            backgroundColor: MyColors.primary3,
+                            padding: const EdgeInsets.all(20),
                           ),
-                        ],
-                      ),
+                          child: const Text("Add New Product"),
+                        ),
+
+                        const SizedBox(width: 48,),
+
+                        SizedBox(
+                          width: 480,
+                          child: TextField(
+                            decoration: const InputDecoration(
+                              label: Text("Search Product"),
+                              suffixIcon: Icon(Icons.search),
+                            ),
+                            key: searchKey,
+                            onChanged: stockBarangProvider.changeSearchQuery,
+                          ),
+                        ),
+
+                        const SizedBox(width: 8,),
+
+                        IconButton(
+                          onPressed: (){
+
+                          },
+                          icon: const Icon(Icons.filter_list)
+                        ),
+
+                        const SizedBox(width: 8,),
+
+                        IconButton(
+                          onPressed: (){
+
+                          },
+                          icon: const Icon(Icons.print)
+                        ),
+
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              PageNumberUiController(
+                                currentPage: stockBarangProvider.filterState.pageNumber,
+                                hasNextPage: stockBarangProvider.hasNextPage,
+                                hasPrevPage: stockBarangProvider.hasPrevPage,
+                                onClickForward: stockBarangProvider.onClickForwardPage,
+                                onClickBackward: stockBarangProvider.onClickBackwardPage,
+                                onClickFirst: stockBarangProvider.onClickToFirstPage,
+                                onClickLatest: stockBarangProvider.onClickToLatestPage,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
+
+                    const SizedBox(height: 16,),
+
+                    ResponseBuilder<PageResult<PreviewBarang>, Object>(
+                      apiResponse: stockBarangProvider.listBarangResponse,
+                      onRefresh: stockBarangProvider.refreshListBarang,
+                      builder: (BuildContext context, PageResult<PreviewBarang> pageData){
+                        return ListStockBarangTable(
+                            pageNumber: stockBarangProvider.filterState.pageNumber,
+                            onClickEdit: (idBarang){
+                              routeStateProvider.setRouteState(RouteInputFormDataBarangState(idBarang: idBarang));
+                            },
+                            listBarang: pageData.listData,
+                        );
+                      },
+                      loadingBuilder: (BuildContext context, Widget defaultLoadingBuilder) {
+                        return Expanded(child: Center(child: defaultLoadingBuilder));
+                      },
+                      errorBuilder: (BuildContext context, Widget defaultErrorBuilder){
+                        return Expanded(child: Center(child: defaultErrorBuilder));
+                      },
+                    )
+                  ]
                 ),
-
-                const SizedBox(height: 16,),
-
-                ResponseBuilder<PageResult<PreviewBarang>, Object>(
-                  apiResponse: stockBarangProvider.listBarangResponse,
-                  onRefresh: stockBarangProvider.refreshListBarang,
-                  builder: (BuildContext context, PageResult<PreviewBarang> pageData){
-                    return ListStockBarangTable(
-                        pageNumber: stockBarangProvider.filterState.pageNumber,
-                        onClickEdit: (idBarang){
-                          routeStateProvider.setRouteState(RouteInputFormDataBarangState(idBarang: idBarang));
-                        },
-                        listBarang: pageData.listData,
-                    );
-                  },
-                  loadingBuilder: (BuildContext context, Widget defaultLoadingBuilder) {
-                    return Expanded(child: Center(child: defaultLoadingBuilder));
-                  },
-                  errorBuilder: (BuildContext context, Widget defaultErrorBuilder){
-                    return Expanded(child: Center(child: defaultErrorBuilder));
-                  },
-                )
-              ]
+              ),
             ),
           );
         }
