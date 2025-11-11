@@ -9,3 +9,4 @@ packages:
 scripts:
   fast_test:
     run: melos exec "py test_script/fast_test.py"
+sdkPath: .fvm/flutter_sdk

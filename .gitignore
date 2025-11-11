@@ -50,3 +50,6 @@ env_file
 # Pubspec overrides
 **/pubspec_overrides.yaml
 **/pubspec.lock
+
+# FVM Version Cache
+.fvm/
