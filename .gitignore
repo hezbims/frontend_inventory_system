@@ -57,3 +57,4 @@ env_file
 **/generated_plugin_registrant.*
 **/generated_plugins.*
 **/GeneratedPluginRegistrant.*
+**/.plugin_symlinks/
