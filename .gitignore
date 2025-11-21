@@ -58,3 +58,4 @@ env_file
 **/generated_plugins.*
 **/GeneratedPluginRegistrant.*
 **/.plugin_symlinks/
+**/devtools_options.yaml
