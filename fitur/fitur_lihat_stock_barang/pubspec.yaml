@@ -14,6 +14,8 @@ dependencies:
     path: ../../dependencies
   common:
     path: ../../common
+  fitur_buat_laporan:
+    path: ../fitur_buat_laporan
 
 dev_dependencies:
   flutter_test:

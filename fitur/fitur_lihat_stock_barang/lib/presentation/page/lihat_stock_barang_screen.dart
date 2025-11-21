@@ -12,6 +12,7 @@ import 'package:common/routing/my_route_state.dart';
 import 'package:common/routing/my_route_state_provider.dart';
 import 'package:dependencies/get_it.dart';
 import 'package:dependencies/provider.dart';
+import 'package:fitur_buat_laporan/presentation/page/download_monthly_report_dialog.dart';
 import 'package:fitur_lihat_stock_barang/domain/model/preview_barang.dart';
 import 'package:fitur_lihat_stock_barang/presentation/component/list_stock_barang_table.dart';
 import 'package:common/presentation/layouting/scroll_or_fill_column_wrapper.dart';
@@ -106,7 +107,13 @@ class LihatStockBarangScreen extends StatelessWidget {
 
                         IconButton(
                           onPressed: (){
-
+                            showDialog(
+                              context: context,
+                              builder: (context) =>
+                                const Dialog(
+                                  child: DownloadMonthlyReportDialog(),
+                                )
+                            );
                           },
                           icon: const Icon(Icons.print)
                         ),
