@@ -1,8 +1,8 @@
 import 'dart:convert';
 
+import 'package:common/presentation/toast/my_toast.dart';
 import 'package:common/response/api_response.dart';
 import 'package:csv/csv.dart';
-import 'package:dependencies/fluttertoast.dart';
 import 'package:fitur_buat_laporan/domain/model/data_laporan.dart';
 import 'package:fitur_buat_laporan/domain/model/generate_pdf_parameter_dto.dart';
 import 'package:fitur_buat_laporan/domain/model/month.dart';
@@ -72,9 +72,8 @@ class PilihBulanTahunProvider extends ChangeNotifier {
           );
         }
         if (downloadCSVProgress is ApiResponseFailed) {
-          Fluttertoast.showToast(
+          MyToast.showToast(
             msg: (downloadCSVProgress as ApiResponseFailed).error.toString(),
-            timeInSecForIosWeb: 3,
           );
         }
         else if (downloadCSVProgress is ApiResponseSuccess<List<DataLaporan>>) {
@@ -146,7 +145,7 @@ class PilihBulanTahunProvider extends ChangeNotifier {
             html.document.body!.children.remove(anchor);
             html.Url.revokeObjectUrl(url);
           } catch (e) {
-            Fluttertoast.showToast(msg: e.toString(), timeInSecForIosWeb: 5);
+            MyToast.showToast(msg: e.toString(), toastLength: MyToastLength.LONG);
           }
         }
 
