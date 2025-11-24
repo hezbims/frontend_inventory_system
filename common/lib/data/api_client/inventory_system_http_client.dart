@@ -13,7 +13,7 @@ class InventorySystemHttpClient {
   Future<Response> doRequest({
     required final HttpMethod method,
     required final String endpoint,
-    final Map<String, String>? headers,
+    final Map<String, Object>? headers,
     final Map<String, Object>? body,
   }) async {
     final Map<String, String> currentHeaders = {
@@ -25,10 +25,13 @@ class InventorySystemHttpClient {
     }
 
     headers?.forEach((key, value){
-      currentHeaders[key] = value;
+      currentHeaders[key] = value.toString();
     });
 
-    final url = Uri.parse("${CommonUrl.baseApiUrl}/$endpoint");
+    final  cleanEndpoint = endpoint.startsWith("/") ?
+      endpoint.replaceFirst("/", "") : endpoint;
+
+    final url = Uri.parse("${CommonUrl.baseApiUrl}/$cleanEndpoint");
     final jsonString = jsonEncode(body);
     return switch(method){
       HttpMethod.post => _httpClient.post(url, headers: currentHeaders, body: jsonString),
