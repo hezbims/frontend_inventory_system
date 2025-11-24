@@ -63,7 +63,7 @@ class _InputBarangByCsvBodyState extends State<InputBarangByCsvBody> {
                           mime: const ["text/csv"],
                           onHover: widget.provider.onHover,
                           onLeave: widget.provider.onLeaveHover,
-                          onDrop: (file) => widget.provider.handleDropFile(file),
+                          onDropFile: (file) => widget.provider.handleDropFile(file),
                           onDropInvalid: widget.provider.onDropInvalid
                       ),
                     )

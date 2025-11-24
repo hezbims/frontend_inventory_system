@@ -37,10 +37,10 @@ class InputBarangByCsvProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void handleDropFile(File file) async {
+  void handleDropFile(DropzoneFileInterface file) async {
     if (kIsWeb){
       final reader = FileReader();
-      reader.readAsArrayBuffer(file);
+      reader.readAsArrayBuffer(file.getNative() as Blob);
       await reader.onLoad.first;
       _choosenFile = PlatformFile(
         name: file.name,
