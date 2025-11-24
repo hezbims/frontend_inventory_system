@@ -139,7 +139,7 @@ class LihatStockBarangScreen extends StatelessWidget {
 
                     const SizedBox(height: 16,),
 
-                    ResponseBuilder<PageResult<PreviewBarang>, Object>(
+                    ResponseBuilder<PageResult<PreviewBarang>, Object?>(
                       apiResponse: stockBarangProvider.listBarangResponse,
                       onRefresh: stockBarangProvider.refreshListBarang,
                       builder: (BuildContext context, PageResult<PreviewBarang> pageData){

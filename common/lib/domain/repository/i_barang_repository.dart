@@ -10,7 +10,7 @@ abstract class IBarangRepository {
     required String keyword,
     required int idKategori,
   });
-  Future<ResponseWrapper<PageResult<Barang>, Object>> getStockBarangPaginatedV2({
+  Future<ResponseWrapper<PageResult<Barang>, Object?>> getStockBarangPaginatedV2({
     required int? pageNumber,
     required String? keyword,
     required int? idKategori,

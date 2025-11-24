@@ -9,10 +9,10 @@ class ResponseSucceed<T , E> implements ResponseWrapper<T , E>{
 }
 
 class ResponseFailed<T , E> implements ResponseWrapper<T , E>{
-  E? error;
+  E error;
   int? errorCode;
   String? message;
-  ResponseFailed({this.error, this.errorCode, this.message});
+  ResponseFailed({required this.error, this.errorCode, this.message});
 }
 
 class ResponseLoading<T , E> implements ResponseWrapper<T , E>{

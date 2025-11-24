@@ -3,7 +3,7 @@ import 'package:common/domain/feature/transaction/model/response/transaction_pre
 import 'package:common/domain/model/response_wrapper.dart';
 
 abstract class ITransactionRepository {
-  Future<ResponseWrapper<TransactionPreviews, Object>> getTransactionPreviews({
+  Future<ResponseWrapper<TransactionPreviews, Object?>> getTransactionPreviews({
     required final GetTransactionsRequest request
   });
 }

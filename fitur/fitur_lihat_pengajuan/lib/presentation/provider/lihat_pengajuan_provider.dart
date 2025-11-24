@@ -45,7 +45,7 @@ class LihatPengajuanProvider extends DisposableChangeNotifier {
       final transactionResponse = await _transactionRepo
           .getTransactionPreviews(request: request);
       switch(transactionResponse){
-        case ResponseSucceed<TransactionPreviews, Object>():
+        case ResponseSucceed<TransactionPreviews, Object?>():
           _currentClientPengajuanDataVersion = transactionResponse.data.version;
           final List<TransactionPageItem> pageItems = [];
           final isLast = !transactionResponse.data.hasNextPage;
@@ -71,11 +71,11 @@ class LihatPengajuanProvider extends DisposableChangeNotifier {
 
           tryNotifyListener();
           break;
-        case ResponseFailed<TransactionPreviews, Object>():
+        case ResponseFailed<TransactionPreviews, Object?>():
           _pageEvent = PageError(transactionResponse.message);
           tryNotifyListener();
           break;
-        case ResponseLoading<TransactionPreviews, Object>():
+        case ResponseLoading<TransactionPreviews, Object?>():
           throw Exception("Tidak mungkin");
       }
     });

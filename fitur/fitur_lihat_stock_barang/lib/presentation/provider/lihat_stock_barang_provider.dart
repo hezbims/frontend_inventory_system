@@ -32,8 +32,8 @@ class LihatStockBarangProvider extends ChangeNotifier {
 
   FilterState _filterState = FilterState.init();
   FilterState get filterState => _filterState;
-  ResponseWrapper<PageResult<PreviewBarang>, Object> _listBarangResponse = ResponseLoading();
-  ResponseWrapper<PageResult<PreviewBarang>, Object> get listBarangResponse => _listBarangResponse;
+  ResponseWrapper<PageResult<PreviewBarang>, Object?> _listBarangResponse = ResponseLoading();
+  ResponseWrapper<PageResult<PreviewBarang>, Object?> get listBarangResponse => _listBarangResponse;
 
   bool get hasNextPage {
     final currentResponse = _listBarangResponse;

@@ -11,7 +11,7 @@ class GetPreviewStockBarang {
     required IBarangRepository repository
   }) : _repository = repository;
 
-  Future<ResponseWrapper<PageResult<PreviewBarang>, Object>> execute(FilterState filterState) async {
+  Future<ResponseWrapper<PageResult<PreviewBarang>, Object?>> execute(FilterState filterState) async {
     final response = await _repository.getStockBarangPaginatedV2(
       pageNumber: filterState.pageNumber,
       keyword: filterState.searchKeyword,

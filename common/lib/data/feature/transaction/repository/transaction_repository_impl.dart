@@ -16,7 +16,7 @@ class TransactionRepositoryImpl implements ITransactionRepository {
   }) : _httpClient = httpClient;
 
   @override
-  Future<ResponseWrapper<TransactionPreviews, Object>> getTransactionPreviews({
+  Future<ResponseWrapper<TransactionPreviews, Object?>> getTransactionPreviews({
       required final GetTransactionsRequest request
   }) async {
     final Map<String, String?> queryParams = HashMap();

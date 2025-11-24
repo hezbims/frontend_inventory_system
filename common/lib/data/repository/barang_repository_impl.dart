@@ -67,7 +67,7 @@ class BarangRepositoryImpl implements IBarangRepository {
   @override
   Future<ResponseWrapper<
       PageResult<Barang>,
-      Object
+      Object?
   >> getStockBarangPaginatedV2({
     required int? pageNumber, 
     required String? keyword, 

@@ -46,7 +46,7 @@ abstract class ApiRequestProcessor {
 
   }
 
-  static Future<ResponseWrapper<ModelType, ErrorType>> processV2<ModelType , ErrorType>({
+  static Future<ResponseWrapper<ModelType, ErrorType?>> processV2<ModelType , ErrorType>({
     required final Future<Response> apiRequest,
     required final ModelType Function(Response) getModelFromBody,
     final ErrorType? Function(Response)? getErrorMessageFromBody,
@@ -64,10 +64,10 @@ abstract class ApiRequestProcessor {
         );
       }
     } on ClientException catch(e) {
-      return ResponseFailed(message: 'Failed to connect to server : ${e.message}');
+      return ResponseFailed(message: 'Failed to connect to server : ${e.message}', error: null);
     } catch (e) {
       debugPrint("api request unknown fail : $e");
-      return ResponseFailed(message: "$repositoryName : $e",);
+      return ResponseFailed(message: "$repositoryName : $e", error: null);
     }
   }
 }
