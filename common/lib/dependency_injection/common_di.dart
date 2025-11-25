@@ -46,4 +46,6 @@ void commonDi(){
   GetIt.I.registerFactory<IDownloadService>(() => DownloadService());
 
   GetIt.I.registerSingleton<IEnvironmentProvider>(EnvironmentProvider());
+  
+  GetIt.I.registerSingleton<ITimeService>(TimeService());
 }
