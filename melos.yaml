@@ -2,6 +2,7 @@ name: inventory_system_fan
 
 packages:
   - "."
+  - "common_test"
   - "common"
   - "dependencies"
   - "fitur/*"
