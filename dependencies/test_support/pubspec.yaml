@@ -1,0 +1,14 @@
+name: dependencies_test_support
+description: Centralized dependency version management for testing
+version: 1.0.0
+# repository: https://github.com/my_org/my_repo
+
+environment:
+  sdk: ^3.4.3
+
+# Add regular dependencies here.
+dependencies:
+  mocktail: ^1.0.0
+
+dev_dependencies:
+  lints: ^3.0.0
