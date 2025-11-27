@@ -1,11 +1,9 @@
-// ignore: avoid_web_libraries_in_flutter
-import 'dart:html';
-
 import 'package:common/domain/repository/i_barang_repository.dart';
 import 'package:common/response/api_response.dart';
 import 'package:dependencies/file_picker.dart';
 import 'package:dependencies/flutter_dropzone.dart';
 import 'package:dependencies/fluttertoast.dart';
+import 'package:dependencies/universal_html.dart';
 import 'package:flutter/foundation.dart';
 
 class InputBarangByCsvProvider extends ChangeNotifier {
