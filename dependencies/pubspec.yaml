@@ -14,7 +14,7 @@ dependencies:
   intl: ^0.18.1
   dropdown_search: ^5.0.6
   fluttertoast: ^8.2.2
-  file_picker: ^6.1.1
+  file_picker: ^10.3.7
   google_fonts: ^5.1.0
   dotted_border: ^2.1.0
   font_awesome_flutter: ^10.6.0
