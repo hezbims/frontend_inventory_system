@@ -4,15 +4,15 @@ import 'package:common/data/repository/barang_repository_impl.dart';
 import 'package:common/data/repository/kategori_repository_impl.dart';
 import 'package:common/data/repository/pengaju_repository_impl.dart';
 import 'package:common/data/repository/token_manager.dart';
-import 'package:common/data/service/download_service.dart';
 import 'package:common/data/service/environment_provider.dart';
+import 'package:common/data/service/time_service.dart';
 import 'package:common/domain/feature/transaction/repository/i_transaction_repository.dart';
 import 'package:common/domain/repository/i_barang_repository.dart';
 import 'package:common/domain/repository/i_kategori_repository.dart';
 import 'package:common/domain/repository/i_pengaju_repository.dart';
 import 'package:common/domain/repository/i_token_manager.dart';
-import 'package:common/domain/service/i_download_service.dart';
 import 'package:common/domain/service/i_environment_provider.dart';
+import 'package:common/domain/service/i_time_service.dart';
 import 'package:common/presentation/dialog/kategori_dialog/kategori_dialog_provider.dart';
 import 'package:common/presentation/page/pilih_kategori/pilih_kategori_provider.dart';
 import 'package:dependencies/get_it.dart';
@@ -43,9 +43,7 @@ void commonDi(){
     () => PilihKategoriProvider(repository: GetIt.I.get())
   );
 
-  GetIt.I.registerFactory<IDownloadService>(() => DownloadService());
-
   GetIt.I.registerSingleton<IEnvironmentProvider>(EnvironmentProvider());
-  
+
   GetIt.I.registerSingleton<ITimeService>(TimeService());
 }

@@ -1,0 +1,26 @@
+name: reporting_test_support
+description: Reporting module test utilities
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: '>=3.0.5 <4.0.0'
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_test:
+    sdk: flutter
+  common:
+    path: ../../../common
+  common_test_support:
+    path: ../../../common/test_support
+  dependencies_test_support:
+    path: ../../../dependencies/test_support
+  fitur_buat_laporan:
+    path: ..
+
+dev_dependencies:
+  lints: ^3.0.0
+  test: ^1.24.0

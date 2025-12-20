@@ -1,3 +1,4 @@
+import 'package:common/domain/model/common_domain_error.dart';
 import 'package:dependencies/fluttertoast.dart';
 import 'package:flutter/material.dart';
 
@@ -19,6 +20,15 @@ abstract class MyToast {
           MyToastLength.LONG => 5,
         },
       );
+
+  static void handleCommonDomainError(CommonDomainError error){
+    final message = switch(error){
+      NotReachedError() => "Network error occured. Try again later.",
+      UnknownAppError() => "Unknown error occured.",
+    };
+
+    showToast(msg: message);
+  }
 }
 
 enum MyToastLength {

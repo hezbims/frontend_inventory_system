@@ -1,5 +1,5 @@
 name: fitur_buat_laporan
-description: A new Flutter package project.
+description: Generate report using CSV and PDF.
 version: 0.0.1
 publish_to: none
 
@@ -23,6 +23,12 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
+  common_test_support:
+    path: ../../common/test_support
+  dependencies_test_support:
+    path: ../../dependencies/test_support
+  reporting_test_support:
+    path: test_support
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

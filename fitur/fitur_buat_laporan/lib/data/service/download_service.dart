@@ -2,7 +2,7 @@ import 'dart:io';
 // ignore: depend_on_referenced_packages
 import 'package:universal_html/html.dart' as html;
 
-import 'package:common/domain/service/i_download_service.dart';
+import '../../domain/service/i_download_service.dart';
 import 'package:dependencies/file_picker.dart';
 import 'package:flutter/foundation.dart';
 

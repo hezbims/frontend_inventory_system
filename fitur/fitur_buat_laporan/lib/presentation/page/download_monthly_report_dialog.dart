@@ -1,16 +1,32 @@
 import 'package:common/constant/themes/custom_sizing.dart';
 import 'package:common/presentation/textfield/custom_dropdown_menu.dart';
 import 'package:common/presentation/textfield/custom_textfield.dart';
+import 'package:dependencies/get_it.dart';
 import 'package:dependencies/provider.dart';
 import 'package:fitur_buat_laporan/data/repository/get_data_laporan_repository_impl.dart';
 import 'package:fitur_buat_laporan/domain/model/month.dart';
+import 'package:fitur_buat_laporan/domain/repository/i_reporting_repository.dart';
 import 'package:fitur_buat_laporan/presentation/provider/pilih_bulan_tahun_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class DownloadMonthlyReportDialog extends StatelessWidget {
+import '../../domain/service/i_download_service.dart';
+import '../../domain/service/i_monthly_report_pdf_generator.dart';
 
-  const DownloadMonthlyReportDialog({super.key});
+class DownloadMonthlyReportDialog extends StatelessWidget {
+  final IDownloadService _downloadService;
+  final IReportingRepository _reportingRepository;
+  final IMonthlyReportPdfGenerator _monthlyReportPdfGenerator;
+
+  DownloadMonthlyReportDialog({
+    super.key,
+    IDownloadService? downloadService,
+    IReportingRepository? reportingRepository,
+    IMonthlyReportPdfGenerator? monthlyReportPdfGenerator,
+  }) :
+    _downloadService = downloadService ?? GetIt.I.get(),
+    _reportingRepository = reportingRepository ?? GetIt.I.get(),
+    _monthlyReportPdfGenerator = monthlyReportPdfGenerator ?? GetIt.I.get();
 
   /// `CustomSizing.maxPhonePotraitWidth` - 72
   final double _componentWidth = CustomSizing.maxPhonePotraitWidth - 72;
@@ -23,13 +39,13 @@ class DownloadMonthlyReportDialog extends StatelessWidget {
       width: CustomSizing.maxPhoneLandscapeWidth,
       child: ChangeNotifierProvider(
         create: (context) => PilihBulanTahunProvider(
-            repository: GetDataLaporanRepositoryImpl()
+            downloadService: _downloadService,
+            reportingRepository: _reportingRepository,
+            monthlyReportPdfGenerator: _monthlyReportPdfGenerator,
+            repository: GetDataLaporanRepositoryImpl(),
         ),
         child: Consumer<PilihBulanTahunProvider>(
             builder: (context , provider , child) {
-
-              if (provider.goNext){
-              }
               return Padding(
                 padding: const EdgeInsets.all(24),
                 child: Column(
@@ -121,7 +137,7 @@ class DownloadMonthlyReportDialog extends StatelessWidget {
                               style: FilledButton.styleFrom(
                                 backgroundColor: const Color(0xFFAE0000),
                               ),
-                              onPressed: (){},
+                              onPressed: provider.downloadPdf,
                               child: const Row(
                                 children: [
                                   Icon(Icons.picture_as_pdf_outlined),

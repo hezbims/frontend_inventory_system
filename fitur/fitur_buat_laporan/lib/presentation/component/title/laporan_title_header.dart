@@ -2,8 +2,8 @@ import 'package:fitur_buat_laporan/presentation/style/text_style.dart';
 import 'package:pdf/widgets.dart';
 
 class LaporanTitleHeader extends StatelessWidget {
-  final String period;
-  LaporanTitleHeader({required this.period});
+  final String mainHeaderText;
+  LaporanTitleHeader({required this.mainHeaderText});
 
   @override
   Widget build(Context context) {
@@ -12,9 +12,7 @@ class LaporanTitleHeader extends StatelessWidget {
       children: [
         Expanded(
           child: Text(
-              "MACHINE SPARE PART STOCK TAKING LIST\n"
-              "BUSINESS UNIT : FAN\n"
-              "PERIOD : $period",
+            mainHeaderText,
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 7

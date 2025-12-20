@@ -1,6 +1,7 @@
 import 'package:common/data/api_client/inventory_system_http_client.dart';
 import 'package:common/domain/model/common_domain_error.dart';
 import 'package:common/domain/model/response_wrapper.dart';
+import 'package:dependencies/get_it.dart';
 import 'package:dependencies/http.dart';
 import 'package:fitur_buat_laporan/domain/repository/i_reporting_repository.dart';
 
@@ -12,9 +13,9 @@ class ReportingRepositoryImpl implements IReportingRepository {
   final _mapper = GetDataLaporanMapper();
   final InventorySystemHttpClient _httpClient;
 
-  ReportingRepositoryImpl(
-    InventorySystemHttpClient httpClient
-  ) : _httpClient = httpClient;
+  ReportingRepositoryImpl([
+    InventorySystemHttpClient? httpClient
+  ]) : _httpClient = httpClient ?? GetIt.I.get();
 
   @override
   Future<ResponseWrapper<List<DataLaporan>, CommonDomainError>> getMonthlyReport(
@@ -22,11 +23,7 @@ class ReportingRepositoryImpl implements IReportingRepository {
     try {
       final response = await _httpClient.doRequest(
         method: HttpMethod.get,
-        endpoint: "kategori/laporan",
-        headers: {
-          'month': month,
-          'year': year,
-        }
+        endpoint: "kategori/laporan?month=$month&year=$year",
       );
 
       return ResponseSucceed(data: _mapper
