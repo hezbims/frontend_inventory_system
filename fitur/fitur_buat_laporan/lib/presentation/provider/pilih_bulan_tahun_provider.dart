@@ -72,18 +72,23 @@ class PilihBulanTahunProvider extends ChangeNotifier {
   }
 
   void _downloadPdf() async {
-    if (!_validateYear()) {
+    if (_downloadPdfDataProgress is ResponseLoading) {
       return;
     }
 
-    final currentMonth = _choosenMonth;
-    final currentYear = year!;
-    if (_downloadPdfDataProgress is ResponseLoading) {
+    final String? newYearError = _validateYear();
+    yearError = newYearError;
+    if (newYearError != null) {
+      _downloadPdfDataProgress = null;
+      notifyListeners();
       return;
     }
 
     _downloadPdfDataProgress = ResponseLoading();
     notifyListeners();
+
+    final currentMonth = _choosenMonth;
+    final currentYear = year!;
 
     final result = await _reportingRepository.getMonthlyReport(
         year: currentYear, month: currentMonth.intValue);
@@ -102,16 +107,13 @@ class PilihBulanTahunProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// return `false` if year is invalid and also assign `yearError` to `'Year is invalid'`
-  bool _validateYear(){
+  String? _validateYear(){
     final currentYear = year;
     if (currentYear == null || currentYear <= 0) {
-      yearError = "Year is invalid";
-      notifyListeners();
-      return false;
+      return "Year is invalid";
     }
 
-    return true;
+    return null;
   }
 
   ApiResponse? downloadCSVProgress;
@@ -127,18 +129,21 @@ class PilihBulanTahunProvider extends ChangeNotifier {
       return;
     }
 
-    downloadCSVProgress = ApiResponseLoading();
-    notifyListeners();
-
-    if (!_validateYear()){
+    final String? newYearError = _validateYear();
+    yearError = newYearError;
+    if (newYearError != null){
+      downloadCSVProgress = null;
+      notifyListeners();
       return;
     }
 
-    else {
-      downloadCSVProgress = await _repository.getDataLaporan(
-          GeneratePdfParameterDto(month: month, year: year!)
-      );
-    }
+    downloadCSVProgress = ApiResponseLoading();
+    notifyListeners();
+
+    downloadCSVProgress = await _repository.getDataLaporan(
+        GeneratePdfParameterDto(month: month, year: year!)
+    );
+
     if (downloadCSVProgress is ApiResponseFailed) {
       MyToast.showToast(
         msg: (downloadCSVProgress as ApiResponseFailed).error.toString(),

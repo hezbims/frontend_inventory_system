@@ -135,6 +135,7 @@ void main() {
       await robot.downloadCsv();
 
       expect(find.text("Year is invalid"), findsOneWidget);
+      robot.expectDownloadCsvButtonEnabled();
     });
   });
 
@@ -154,6 +155,7 @@ void main() {
       await robot.downloadPdf();
 
       verify(() => mockDownloadService.downloadFile(any(), "2010_02_monthly_report.pdf")).called(1);
+      robot.expectDownloadCsvButtonEnabled();
     });
 
 
@@ -165,6 +167,7 @@ void main() {
       await robot.downloadPdf();
 
       expect(find.text("Year is invalid"), findsOneWidget);
+      robot.expectDownloadPdfButtonEnabled();
     });
   });
 }

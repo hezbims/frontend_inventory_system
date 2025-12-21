@@ -52,5 +52,22 @@ class DownloadMonthlyReportDialogRobot {
     await tester.pump();
   }
 
+  FilledButton get _downloadCsvButton =>
+      tester.widget<FilledButton>(find.widgetWithText(FilledButton, "CSV"));
+  FilledButton get _downloadPdfButton =>
+      tester.widget<FilledButton>(find.widgetWithText(FilledButton, "PDF"));
+
+  void expectDownloadPdfButtonEnabled() =>
+      expect(_downloadPdfButton, isNotNull);
+
+  void expectDownloadCsvButtonEnabled() =>
+      expect(_downloadCsvButton, isNotNull);
+
+  void expectDownloadPdfButtonDisabled() =>
+      expect(_downloadPdfButton, isNull);
+
+  void expectDownloadCSVButtonDisabled() =>
+      expect(_downloadCsvButton, isNull);
+
 
 }
