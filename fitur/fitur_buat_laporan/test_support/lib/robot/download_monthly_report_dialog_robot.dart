@@ -10,11 +10,11 @@ class DownloadMonthlyReportDialogRobot {
   final WidgetTester tester;
   DownloadMonthlyReportDialogRobot(this.tester);
 
-
+  Finder get _yearFormFieldFinder => find.widgetWithText(CustomTextfield, "Year");
+  Finder get _monthDropdownFinder => find.widgetWithText(CustomDropdownMenu<Month>, "Month");
 
   Future<void> changeYear(final String year) async {
-    final yearFieldContainer = find.widgetWithText(CustomTextfield, "Year");
-    final yearTextfield = find.descendant(of: yearFieldContainer, matching: find.byType(TextField));
+    final yearTextfield = find.descendant(of: _yearFormFieldFinder, matching: find.byType(TextField));
 
     await tester.enterText(yearTextfield, year);
   }
@@ -22,8 +22,7 @@ class DownloadMonthlyReportDialogRobot {
 
 
   Future<void> changeMonth(final Month month) async {
-    final monthFieldContainer = find.widgetWithText(CustomDropdownMenu<Month>, "Month");
-    final monthDropdown = find.descendant(of: monthFieldContainer, matching: find.byType(DropdownButtonFormField<Month>));
+    final monthDropdown = find.descendant(of: _monthDropdownFinder, matching: find.byType(DropdownButtonFormField<Month>));
 
 
     await tester.tap(monthDropdown);
@@ -94,5 +93,22 @@ class DownloadMonthlyReportDialogRobot {
 
 
 
+  void expectYear(int year) {
+    expect(
+      find.descendant(
+        of: _yearFormFieldFinder,
+        matching: find.text(year.toString())),
+      findsOneWidget
+    );
+  }
 
+
+  void expectMonth(Month month){
+    expect(
+      find.descendant(
+        of: _monthDropdownFinder,
+        matching: find.textCaseInsensitive(month.name, includeRichText: false)),
+      findsOneWidget
+    );
+  }
 }

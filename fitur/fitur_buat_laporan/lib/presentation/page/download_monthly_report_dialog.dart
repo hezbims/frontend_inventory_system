@@ -1,5 +1,6 @@
 import 'package:common/constant/themes/custom_sizing.dart';
 import 'package:common/domain/model/response_wrapper.dart';
+import 'package:common/domain/service/i_time_service.dart';
 import 'package:common/presentation/textfield/custom_dropdown_menu.dart';
 import 'package:common/presentation/textfield/custom_textfield.dart';
 import 'package:dependencies/get_it.dart';
@@ -17,16 +18,19 @@ class DownloadMonthlyReportDialog extends StatelessWidget {
   final IDownloadService _downloadService;
   final IReportingRepository _reportingRepository;
   final IMonthlyReportPdfGenerator _monthlyReportPdfGenerator;
+  final ITimeService _timeService;
 
   DownloadMonthlyReportDialog({
     super.key,
     IDownloadService? downloadService,
     IReportingRepository? reportingRepository,
     IMonthlyReportPdfGenerator? monthlyReportPdfGenerator,
+    ITimeService? timeService,
   }) :
     _downloadService = downloadService ?? GetIt.I.get(),
     _reportingRepository = reportingRepository ?? GetIt.I.get(),
-    _monthlyReportPdfGenerator = monthlyReportPdfGenerator ?? GetIt.I.get();
+    _monthlyReportPdfGenerator = monthlyReportPdfGenerator ?? GetIt.I.get(),
+    _timeService = timeService ?? GetIt.I.get();
 
   /// `CustomSizing.maxPhonePotraitWidth` - 72
   final double _componentWidth = CustomSizing.maxPhonePotraitWidth - 72;
@@ -39,10 +43,11 @@ class DownloadMonthlyReportDialog extends StatelessWidget {
       width: CustomSizing.maxPhoneLandscapeWidth,
       child: ChangeNotifierProvider(
         create: (context) => PilihBulanTahunProvider(
-            downloadService: _downloadService,
-            reportingRepository: _reportingRepository,
-            monthlyReportPdfGenerator: _monthlyReportPdfGenerator,
-            repository: GetDataLaporanRepositoryImpl(),
+          downloadService: _downloadService,
+          reportingRepository: _reportingRepository,
+          monthlyReportPdfGenerator: _monthlyReportPdfGenerator,
+          repository: GetDataLaporanRepositoryImpl(),
+          timeService: _timeService,
         ),
         child: Consumer<PilihBulanTahunProvider>(
             builder: (context , provider , child) {

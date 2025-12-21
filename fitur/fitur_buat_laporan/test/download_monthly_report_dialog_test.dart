@@ -5,6 +5,8 @@ import 'dart:typed_data';
 import 'package:common/domain/model/common_domain_error.dart';
 import 'package:common/domain/model/response_wrapper.dart';
 import 'package:common/domain/repository/i_token_manager.dart';
+import 'package:common/domain/service/i_time_service.dart';
+import 'package:common_test_support/mock/mock_time_service.dart';
 import 'package:common_test_support/mock/mock_token_manager.dart';
 import 'package:csv/csv.dart';
 import 'package:dependencies/get_it.dart';
@@ -24,8 +26,7 @@ import 'package:reporting_test_support/mock/mock_reporting_repository.dart';
 import 'package:reporting_test_support/robot/download_monthly_report_dialog_robot.dart';
 
 void main() {
-  const currentYear = 2023;
-  const currentMonth = 8; // Agustus
+  final mockTimeService = MockTimeService();
   final mockTokenManager = MockTokenManager();
   final mockDownloadService = MockDownloadService();
   final mockReportingRepository = MockReportingRepository();
@@ -39,7 +40,10 @@ void main() {
     GetIt.I.registerSingleton<ITokenManager>(mockTokenManager);
     GetIt.I.registerSingleton<IDownloadService>(mockDownloadService);
     GetIt.I.registerSingleton<IMonthlyReportPdfGenerator>(mockMonthlyReportPdfGenerator);
+    GetIt.I.registerSingleton<ITimeService>(mockTimeService);
 
+    when(() => mockTimeService.now).thenAnswer((_) => DateTime(2023, Month.august.intValue, 1));
+    
     when(() => mockDownloadService.downloadFile(captureAny(), any())).thenAnswer((invocation) async {
       contentDownloaded = invocation.positionalArguments[0] as Uint8List;
     });
@@ -127,12 +131,18 @@ void main() {
 
   tearDown(() {
     // debugDumpRenderTree();
-    contentDownloaded = null;
     debugDumpApp();
+    contentDownloaded = null;
   });
 
+  tearDownAll(() => GetIt.I.reset());
+
   testWidgets('Screen should be initiated with current year and month', (tester) async {
-    throw UnimplementedError();
+    final robot = DownloadMonthlyReportDialogRobot(tester);
+    await setupDownloadMonthlyReportDialog(tester);
+
+    robot.expectYear(2023);
+    robot.expectMonth(Month.august);
   });
 
   group("User Download CSV", (){

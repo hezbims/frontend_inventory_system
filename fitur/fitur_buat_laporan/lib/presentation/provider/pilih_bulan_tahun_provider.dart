@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:common/domain/model/common_domain_error.dart';
 import 'package:common/domain/model/response_wrapper.dart';
+import 'package:common/domain/service/i_time_service.dart';
 import 'package:common/presentation/toast/my_toast.dart';
 import 'package:csv/csv.dart';
 import 'package:fitur_buat_laporan/domain/model/data_laporan.dart';
@@ -26,11 +27,20 @@ class PilihBulanTahunProvider extends ChangeNotifier {
     required IDownloadService downloadService,
     required IReportingRepository reportingRepository,
     required IMonthlyReportPdfGenerator monthlyReportPdfGenerator,
+    required ITimeService timeService,
   }) : _downloadService = downloadService,
         _reportingRepository = reportingRepository,
-        _monthlyReportPdfGenerator = monthlyReportPdfGenerator;
+        _monthlyReportPdfGenerator = monthlyReportPdfGenerator,
+        _choosenMonth = Month.values[timeService.now.month - 1],
+        yearController = TextEditingController(text: timeService.now.year.toString());
 
-  Month _choosenMonth = Month.values[DateTime.now().month - 1];
+  @override
+  void dispose() {
+    yearController.dispose();
+    super.dispose();
+  }
+
+  Month _choosenMonth;
   Month get choosenMonth => _choosenMonth;
   void onChangeChoosenMonth(Month? newValue){
     if (newValue != null) {
@@ -39,9 +49,7 @@ class PilihBulanTahunProvider extends ChangeNotifier {
   }
   int get month => _choosenMonth.intValue;
 
-  final yearController = TextEditingController(
-    text: DateTime.now().year.toString()
-  );
+  final TextEditingController yearController;
   int? get year => int.tryParse(yearController.text);
   String? yearError;
 

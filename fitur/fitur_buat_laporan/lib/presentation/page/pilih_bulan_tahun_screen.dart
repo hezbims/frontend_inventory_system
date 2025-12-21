@@ -30,7 +30,8 @@ class PilihBulanTahunScreen extends StatelessWidget {
           downloadService: GetIt.I.get(),
           reportingRepository: GetIt.I.get(),
           monthlyReportPdfGenerator: GetIt.I.get(),
-          repository: GetDataLaporanRepositoryImpl()
+          repository: GetDataLaporanRepositoryImpl(),
+          timeService: GetIt.I.get(),
         ),
         child: Consumer<PilihBulanTahunProvider>(
           builder: (context , provider , child) {
