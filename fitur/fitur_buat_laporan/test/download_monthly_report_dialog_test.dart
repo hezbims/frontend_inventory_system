@@ -128,7 +128,13 @@ void main() {
     });
 
     testWidgets("Error should be displayed when inputted year is invalid", (tester) async {
-      throw UnimplementedError();
+      final robot = DownloadMonthlyReportDialogRobot(tester);
+      await setupDownloadMonthlyReportDialog(tester);
+
+      await robot.changeYear("-2019");
+      await robot.downloadCsv();
+
+      expect(find.text("Year is invalid"), findsOneWidget);
     });
   });
 

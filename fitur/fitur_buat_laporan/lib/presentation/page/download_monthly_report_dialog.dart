@@ -7,7 +7,6 @@ import 'package:fitur_buat_laporan/data/repository/get_data_laporan_repository_i
 import 'package:fitur_buat_laporan/domain/model/month.dart';
 import 'package:fitur_buat_laporan/domain/repository/i_reporting_repository.dart';
 import 'package:fitur_buat_laporan/presentation/provider/pilih_bulan_tahun_provider.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../domain/service/i_download_service.dart';
@@ -108,25 +107,24 @@ class DownloadMonthlyReportDialog extends StatelessWidget {
                     Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        if (kIsWeb)
-                          Flexible(
-                            child: ConstrainedBox(
-                              constraints: BoxConstraints(maxWidth: _componentWidth),
-                              child: FilledButton(
-                                style: FilledButton.styleFrom(
-                                  backgroundColor: const Color(0xFF0C7E00),
-                                ),
-                                onPressed: provider.downloadCSV,
-                                child: const Row(
-                                  children: [
-                                    Icon(Icons.table_chart_outlined),
-                                    SizedBox(width: 8,),
-                                    Text("CSV")
-                                  ],
-                                )
+                        Flexible(
+                          child: ConstrainedBox(
+                            constraints: BoxConstraints(maxWidth: _componentWidth),
+                            child: FilledButton(
+                              style: FilledButton.styleFrom(
+                                backgroundColor: const Color(0xFF0C7E00),
                               ),
+                              onPressed: provider.downloadCSV,
+                              child: const Row(
+                                children: [
+                                  Icon(Icons.table_chart_outlined),
+                                  SizedBox(width: 8,),
+                                  Text("CSV")
+                                ],
+                              )
                             ),
                           ),
+                        ),
 
                         SizedBox(width: _componentHorizontalSpacing,),
 

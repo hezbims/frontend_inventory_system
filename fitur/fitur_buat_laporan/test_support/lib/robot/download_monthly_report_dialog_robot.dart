@@ -47,5 +47,10 @@ class DownloadMonthlyReportDialogRobot {
     await tester.pump();
   }
 
+  Future<void> downloadCsv() async {
+    await tester.tap(find.text("CSV"));
+    await tester.pump();
+  }
+
 
 }

@@ -11,7 +11,6 @@ import 'package:fitur_buat_laporan/domain/model/month.dart';
 import 'package:fitur_buat_laporan/domain/model/transaksi_barang_summary.dart';
 import 'package:fitur_buat_laporan/domain/repository/i_get_data_laporan_repository.dart';
 import 'package:fitur_buat_laporan/domain/repository/i_reporting_repository.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 import 'package:collection/collection.dart';
@@ -74,7 +73,6 @@ class PilihBulanTahunProvider extends ChangeNotifier {
 
   void _downloadPdf() async {
     if (!_validateYear()) {
-      yearError = "Year is invalid";
       return;
     }
 
@@ -125,89 +123,88 @@ class PilihBulanTahunProvider extends ChangeNotifier {
   }
 
   void _downloadCSV() async {
-    if (kIsWeb) {
-      if (downloadCSVProgress is! ApiResponseLoading) {
-        downloadCSVProgress = ApiResponseLoading();
-        notifyListeners();
+    if (downloadCSVProgress is ApiResponseLoading) {
+      return;
+    }
 
-        if (year == null || year! <= 0){
-          downloadCSVProgress = ApiResponseFailed(
-            error: 'Tahun yang diinputkan tidak valid'
-          );
-        }
-        else {
-          downloadCSVProgress = await _repository.getDataLaporan(
-              GeneratePdfParameterDto(month: month, year: year!)
-          );
-        }
-        if (downloadCSVProgress is ApiResponseFailed) {
-          MyToast.showToast(
-            msg: (downloadCSVProgress as ApiResponseFailed).error.toString(),
-          );
-        }
-        else if (downloadCSVProgress is ApiResponseSuccess<List<DataLaporan>>) {
-          final data =
-            (downloadCSVProgress as ApiResponseSuccess<List<DataLaporan>>).data!;
+    downloadCSVProgress = ApiResponseLoading();
+    notifyListeners();
 
-          List<TransaksiBarangSummary> listBarang = [
-            for (int i = 0 ; i < data.length ; i++)
-              ...data[i].barang
-          ];
+    if (!_validateYear()){
+      return;
+    }
+
+    else {
+      downloadCSVProgress = await _repository.getDataLaporan(
+          GeneratePdfParameterDto(month: month, year: year!)
+      );
+    }
+    if (downloadCSVProgress is ApiResponseFailed) {
+      MyToast.showToast(
+        msg: (downloadCSVProgress as ApiResponseFailed).error.toString(),
+      );
+    }
+    else if (downloadCSVProgress is ApiResponseSuccess<List<DataLaporan>>) {
+      final data =
+      (downloadCSVProgress as ApiResponseSuccess<List<DataLaporan>>).data!;
+
+      List<TransaksiBarangSummary> listBarang = [
+        for (int i = 0 ; i < data.length ; i++)
+          ...data[i].barang
+      ];
 
 
-          List<List<Object>> csvList = [
-            [
-              'NO',
-              'ITEM NO',
-              'ITEM DESCRIPTION',
-              'LOCATION',
-              'UOM',
-              'STD STOCK',
-              'LAST MONTH STOCK',
-              'STOCK_IN',
-              'STOCK_OUT',
-              'STOCK_ACTUAL',
-              'UNIT_PRICE',
-              'AMOUNT',
-            ]
-          ];
+      List<List<Object>> csvList = [
+        [
+          'NO',
+          'ITEM NO',
+          'ITEM DESCRIPTION',
+          'LOCATION',
+          'UOM',
+          'STD STOCK',
+          'LAST MONTH STOCK',
+          'STOCK_IN',
+          'STOCK_OUT',
+          'STOCK_ACTUAL',
+          'UNIT_PRICE',
+          'AMOUNT',
+        ]
+      ];
 
-          csvList.addAll(
-              listBarang.mapIndexed(
-                      (index , dataBarang) {
-                    return [
-                      index + 1,
-                      dataBarang.kodeBarang,
-                      dataBarang.namaBarang,
-                      dataBarang.lokasiRak,
-                      dataBarang.uom,
-                      dataBarang.minStock,
-                      dataBarang.lastMonthStock,
-                      dataBarang.totalMasuk,
-                      dataBarang.totalKeluar,
-                      dataBarang.currentStock,
-                      dataBarang.unitPrice,
-                      dataBarang.amount,
-                    ];
-                  }
-              ).toList()
-          );
+      csvList.addAll(
+          listBarang.mapIndexed(
+                  (index , dataBarang) {
+                return [
+                  index + 1,
+                  dataBarang.kodeBarang,
+                  dataBarang.namaBarang,
+                  dataBarang.lokasiRak,
+                  dataBarang.uom,
+                  dataBarang.minStock,
+                  dataBarang.lastMonthStock,
+                  dataBarang.totalMasuk,
+                  dataBarang.totalKeluar,
+                  dataBarang.currentStock,
+                  dataBarang.unitPrice,
+                  dataBarang.amount,
+                ];
+              }
+          ).toList()
+      );
 
-          final csv = const ListToCsvConverter().convert(csvList);
+      final csv = const ListToCsvConverter().convert(csvList);
 
-          try {
-            final bytes = utf8.encode(csv);
-            _downloadService.downloadFile(
-                bytes,
-                "monthly_report_${choosenMonth.name}_${yearController.text}.csv");
+      try {
+        final bytes = utf8.encode(csv);
+        _downloadService.downloadFile(
+            bytes,
+            "monthly_report_${choosenMonth.name}_${yearController.text}.csv");
 
-          } catch (e) {
-            MyToast.showToast(msg: e.toString(), toastLength: MyToastLength.LONG);
-          }
-        }
-
-        notifyListeners();
+      } catch (e) {
+        MyToast.showToast(msg: e.toString(), toastLength: MyToastLength.LONG);
       }
     }
+
+    notifyListeners();
   }
 }
