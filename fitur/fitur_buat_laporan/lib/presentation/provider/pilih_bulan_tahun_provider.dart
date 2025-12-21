@@ -94,7 +94,10 @@ class PilihBulanTahunProvider extends ChangeNotifier {
           data: result.data,
           mainHeaderText: "MONTHLY REPORT ${currentMonth.name.toUpperCase()} $currentYear");
 
-      await _downloadService.downloadFile(pdf, "${currentYear}_${currentMonth.intValue.toString().padLeft(2, '0')}_monthly_report.pdf");
+      await _downloadService.downloadFile(
+        pdf,
+        _getMonthlyReportFileNames(month: currentMonth, year: currentYear, fileType: _FileType.pdf)
+      );
     } else if (result is ResponseFailed<List<DataLaporan>, CommonDomainError>){
       MyToast.handleCommonDomainError(result.error);
     }
@@ -134,6 +137,8 @@ class PilihBulanTahunProvider extends ChangeNotifier {
       notifyListeners();
       return;
     }
+    final currentYear = year!;
+    final currentMonth = _choosenMonth;
 
     _downloadCSVProgress = ResponseLoading();
     notifyListeners();
@@ -198,7 +203,7 @@ class PilihBulanTahunProvider extends ChangeNotifier {
           final bytes = utf8.encode(csv);
           _downloadService.downloadFile(
               bytes,
-              "monthly_report_${choosenMonth.name}_${yearController.text}.csv");
+              _getMonthlyReportFileNames(month: currentMonth, year: currentYear, fileType: _FileType.csv));
 
         } catch (e) {
           MyToast.showToast(msg: e.toString(), toastLength: MyToastLength.LONG);
@@ -209,4 +214,18 @@ class PilihBulanTahunProvider extends ChangeNotifier {
 
     notifyListeners();
   }
+  
+  String _getMonthlyReportFileNames({
+    required Month month,
+    required int year,
+    required _FileType fileType,
+  }){
+    return "${year}_${month.intValue.toString().padLeft(2, '0')}_monthly_report.${fileType.name}";
+  }
+  
+  
+}
+
+enum _FileType {
+  csv, pdf
 }

@@ -1,10 +1,12 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:common/domain/model/common_domain_error.dart';
 import 'package:common/domain/model/response_wrapper.dart';
 import 'package:common/domain/repository/i_token_manager.dart';
 import 'package:common_test_support/mock/mock_token_manager.dart';
+import 'package:csv/csv.dart';
 import 'package:dependencies/get_it.dart';
 import 'package:dependencies_test_support/mocktail.dart';
 import 'package:fitur_buat_laporan/domain/model/data_laporan.dart';
@@ -28,6 +30,7 @@ void main() {
   final mockDownloadService = MockDownloadService();
   final mockReportingRepository = MockReportingRepository();
   final mockMonthlyReportPdfGenerator = MockMonthlyReportPdfGenerator();
+  Uint8List? contentDownloaded;
 
   setUpAll((){
     registerFallbackValue(Uint8List(0));
@@ -37,7 +40,9 @@ void main() {
     GetIt.I.registerSingleton<IDownloadService>(mockDownloadService);
     GetIt.I.registerSingleton<IMonthlyReportPdfGenerator>(mockMonthlyReportPdfGenerator);
 
-    when(() => mockDownloadService.downloadFile(any(), any())).thenAnswer((_) async {});
+    when(() => mockDownloadService.downloadFile(captureAny(), any())).thenAnswer((invocation) async {
+      contentDownloaded = invocation.positionalArguments[0] as Uint8List;
+    });
 
     when(() => mockMonthlyReportPdfGenerator.generatePdf(
         data: any(named: 'data'),
@@ -58,19 +63,19 @@ void main() {
               namaKategori: "kat-1",
               barang: [
                 TransaksiBarangSummary(
-                    kodeBarang: "R324-1",
-                    nomorRak: 5,
-                    nomorLaci: 4,
-                    nomorKolom: 3,
-                    namaBarang: 'barang-1',
-                    uom: 'piece',
-                    minStock: 2,
-                    lastMonthStock: 3,
-                    currentStock: 4,
-                    totalMasuk: 5,
-                    totalKeluar: 6,
-                    unitPrice: 25000000,
-                    amount: 1
+                    kodeBarang: "R66",
+                    nomorRak: 7,
+                    nomorLaci: 1,
+                    nomorKolom: 4,
+                    namaBarang: 'yang-pertama-1',
+                    uom: 'sh',
+                    minStock: 1,
+                    lastMonthStock: 1,
+                    currentStock: 1,
+                    totalMasuk: 1,
+                    totalKeluar: 1,
+                    unitPrice: 10000,
+                    amount: 5
                 )
               ]
           ),
@@ -93,19 +98,19 @@ void main() {
                     amount: 1
                 ),
                 TransaksiBarangSummary(
-                    kodeBarang: "R324-1",
-                    nomorRak: 5,
-                    nomorLaci: 4,
-                    nomorKolom: 3,
-                    namaBarang: 'barang-1',
-                    uom: 'piece',
-                    minStock: 2,
-                    lastMonthStock: 3,
-                    currentStock: 4,
-                    totalMasuk: 5,
-                    totalKeluar: 6,
-                    unitPrice: 25000000,
-                    amount: 1
+                    kodeBarang: "R324-3",
+                    nomorRak: 1,
+                    nomorLaci: 2,
+                    nomorKolom: 5,
+                    namaBarang: 'item-2',
+                    uom: 'liter',
+                    minStock: 4,
+                    lastMonthStock: 2,
+                    currentStock: 3,
+                    totalMasuk: 4,
+                    totalKeluar: 3,
+                    unitPrice: 2000000,
+                    amount: 2
                 ),
               ]
           ),
@@ -122,6 +127,7 @@ void main() {
 
   tearDown(() {
     // debugDumpRenderTree();
+    contentDownloaded = null;
     debugDumpApp();
   });
 
@@ -132,7 +138,86 @@ void main() {
   group("User Download CSV", (){
     testWidgets('CSV file should have correct name and correct content, '
         'when user trying to download with valid year and month', (tester) async {
-      throw UnimplementedError();
+      final robot = DownloadMonthlyReportDialogRobot(tester);
+      await setupDownloadMonthlyReportDialog(tester);
+
+      // Act
+      await robot.changeMonth(Month.october);
+      await robot.changeYear("2005");
+      await robot.downloadCsv();
+
+      // Assert
+      List<List<dynamic>> expectedContentRows = [
+        [
+          'NO',
+          'ITEM NO',
+          'ITEM DESCRIPTION',
+          'LOCATION',
+          'UOM',
+          'STD STOCK',
+          'LAST MONTH STOCK',
+          'STOCK_IN',
+          'STOCK_OUT',
+          'STOCK_ACTUAL',
+          'UNIT_PRICE',
+          'AMOUNT',
+        ],
+        [
+          1,
+          "R66",
+          "yang-pertama-1",
+          "R7-1-4",
+          "sh",
+          1,
+          1,
+          1,
+          1,
+          1,
+          10000,
+          5,
+        ],
+        [
+          2,
+          "R324-1",
+          'barang-1',
+          'R5-4-3',
+          'piece',
+          2,
+          3,
+          5,
+          6,
+          4,
+          25000000,
+          1
+        ],
+        [
+          3,
+          "R324-3",
+          "barang-2",
+          "R1-2-5",
+          'liter',
+          4,
+          4,
+          3,
+          3,
+          2000000,
+          2,
+        ]
+      ];
+
+
+      final csvString = utf8.decode(contentDownloaded!);
+      final List<List<dynamic>> actualCsvRows = const CsvToListConverter().convert(csvString);
+
+      verify(() => mockDownloadService.downloadFile(any(), "2005_10_monthly_report.csv")).called(1);
+      expect(actualCsvRows.length, equals(expectedContentRows.length));
+      for (int i = 0 ; i < 3 ; i++){
+        expect(actualCsvRows[i].length, equals(expectedContentRows[i].length));
+
+        for (int j = 0 ; j < actualCsvRows[i].length ; j++) {
+          expect(actualCsvRows[i][j], equals(expectedContentRows[i][j]));
+        }
+      }
     });
 
     testWidgets("Error should be displayed when inputted year is invalid", (tester) async {
