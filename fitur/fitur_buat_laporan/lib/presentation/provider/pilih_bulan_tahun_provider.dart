@@ -3,10 +3,8 @@ import 'dart:convert';
 import 'package:common/domain/model/common_domain_error.dart';
 import 'package:common/domain/model/response_wrapper.dart';
 import 'package:common/presentation/toast/my_toast.dart';
-import 'package:common/response/api_response.dart';
 import 'package:csv/csv.dart';
 import 'package:fitur_buat_laporan/domain/model/data_laporan.dart';
-import 'package:fitur_buat_laporan/domain/model/generate_pdf_parameter_dto.dart';
 import 'package:fitur_buat_laporan/domain/model/month.dart';
 import 'package:fitur_buat_laporan/domain/model/transaksi_barang_summary.dart';
 import 'package:fitur_buat_laporan/domain/repository/i_get_data_laporan_repository.dart';
@@ -19,7 +17,6 @@ import '../../domain/service/i_download_service.dart';
 import '../../domain/service/i_monthly_report_pdf_generator.dart';
 
 class PilihBulanTahunProvider extends ChangeNotifier {
-  final IGetDataLaporanRepository _repository;
   final IReportingRepository _reportingRepository;
   final IDownloadService _downloadService;
   final IMonthlyReportPdfGenerator _monthlyReportPdfGenerator;
@@ -29,8 +26,7 @@ class PilihBulanTahunProvider extends ChangeNotifier {
     required IDownloadService downloadService,
     required IReportingRepository reportingRepository,
     required IMonthlyReportPdfGenerator monthlyReportPdfGenerator,
-  }) : _repository = repository,
-        _downloadService = downloadService,
+  }) : _downloadService = downloadService,
         _reportingRepository = reportingRepository,
         _monthlyReportPdfGenerator = monthlyReportPdfGenerator;
 
@@ -116,98 +112,99 @@ class PilihBulanTahunProvider extends ChangeNotifier {
     return null;
   }
 
-  ApiResponse? downloadCSVProgress;
+  ResponseWrapper<List<DataLaporan>, CommonDomainError>? _downloadCSVProgress;
+  ResponseWrapper<List<DataLaporan>, CommonDomainError>? get downloadCSVProgress =>
+      _downloadCSVProgress;
   void Function()? get downloadCSV {
-    if (downloadCSVProgress is ApiResponseLoading){
+    if (downloadCSVProgress is ResponseLoading){
       return null;
     }
     return _downloadCSV;
   }
 
   void _downloadCSV() async {
-    if (downloadCSVProgress is ApiResponseLoading) {
+    if (downloadCSVProgress is ResponseLoading) {
       return;
     }
 
     final String? newYearError = _validateYear();
     yearError = newYearError;
     if (newYearError != null){
-      downloadCSVProgress = null;
+      _downloadCSVProgress = null;
       notifyListeners();
       return;
     }
 
-    downloadCSVProgress = ApiResponseLoading();
+    _downloadCSVProgress = ResponseLoading();
     notifyListeners();
 
-    downloadCSVProgress = await _repository.getDataLaporan(
-        GeneratePdfParameterDto(month: month, year: year!)
+    final currentDownloadCsvProgress = await _reportingRepository.getMonthlyReport(
+        month: month, year: year!
     );
+    _downloadCSVProgress = currentDownloadCsvProgress;
+    switch(currentDownloadCsvProgress){
+      case ResponseFailed<List<DataLaporan>, CommonDomainError>():
+        MyToast.handleCommonDomainError(currentDownloadCsvProgress.error);
+      case ResponseSucceed<List<DataLaporan>, CommonDomainError>():
+        final data = currentDownloadCsvProgress.data;
 
-    if (downloadCSVProgress is ApiResponseFailed) {
-      MyToast.showToast(
-        msg: (downloadCSVProgress as ApiResponseFailed).error.toString(),
-      );
-    }
-    else if (downloadCSVProgress is ApiResponseSuccess<List<DataLaporan>>) {
-      final data =
-      (downloadCSVProgress as ApiResponseSuccess<List<DataLaporan>>).data!;
-
-      List<TransaksiBarangSummary> listBarang = [
-        for (int i = 0 ; i < data.length ; i++)
-          ...data[i].barang
-      ];
+        List<TransaksiBarangSummary> listBarang = [
+          for (int i = 0 ; i < data.length ; i++)
+            ...data[i].barang
+        ];
 
 
-      List<List<Object>> csvList = [
-        [
-          'NO',
-          'ITEM NO',
-          'ITEM DESCRIPTION',
-          'LOCATION',
-          'UOM',
-          'STD STOCK',
-          'LAST MONTH STOCK',
-          'STOCK_IN',
-          'STOCK_OUT',
-          'STOCK_ACTUAL',
-          'UNIT_PRICE',
-          'AMOUNT',
-        ]
-      ];
+        List<List<Object>> csvList = [
+          [
+            'NO',
+            'ITEM NO',
+            'ITEM DESCRIPTION',
+            'LOCATION',
+            'UOM',
+            'STD STOCK',
+            'LAST MONTH STOCK',
+            'STOCK_IN',
+            'STOCK_OUT',
+            'STOCK_ACTUAL',
+            'UNIT_PRICE',
+            'AMOUNT',
+          ]
+        ];
 
-      csvList.addAll(
-          listBarang.mapIndexed(
-                  (index , dataBarang) {
-                return [
-                  index + 1,
-                  dataBarang.kodeBarang,
-                  dataBarang.namaBarang,
-                  dataBarang.lokasiRak,
-                  dataBarang.uom,
-                  dataBarang.minStock,
-                  dataBarang.lastMonthStock,
-                  dataBarang.totalMasuk,
-                  dataBarang.totalKeluar,
-                  dataBarang.currentStock,
-                  dataBarang.unitPrice,
-                  dataBarang.amount,
-                ];
-              }
-          ).toList()
-      );
+        csvList.addAll(
+            listBarang.mapIndexed(
+                    (index , dataBarang) {
+                  return [
+                    index + 1,
+                    dataBarang.kodeBarang,
+                    dataBarang.namaBarang,
+                    dataBarang.lokasiRak,
+                    dataBarang.uom,
+                    dataBarang.minStock,
+                    dataBarang.lastMonthStock,
+                    dataBarang.totalMasuk,
+                    dataBarang.totalKeluar,
+                    dataBarang.currentStock,
+                    dataBarang.unitPrice,
+                    dataBarang.amount,
+                  ];
+                }
+            ).toList()
+        );
 
-      final csv = const ListToCsvConverter().convert(csvList);
+        final csv = const ListToCsvConverter().convert(csvList);
 
-      try {
-        final bytes = utf8.encode(csv);
-        _downloadService.downloadFile(
-            bytes,
-            "monthly_report_${choosenMonth.name}_${yearController.text}.csv");
+        try {
+          final bytes = utf8.encode(csv);
+          _downloadService.downloadFile(
+              bytes,
+              "monthly_report_${choosenMonth.name}_${yearController.text}.csv");
 
-      } catch (e) {
-        MyToast.showToast(msg: e.toString(), toastLength: MyToastLength.LONG);
-      }
+        } catch (e) {
+          MyToast.showToast(msg: e.toString(), toastLength: MyToastLength.LONG);
+        }
+      default:
+        throw Exception("Impossible");
     }
 
     notifyListeners();

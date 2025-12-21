@@ -1,6 +1,7 @@
 import 'package:common/presentation/textfield/custom_dropdown_menu.dart';
 import 'package:common/presentation/textfield/custom_textfield.dart';
 import 'package:common_test_support/extension/finder_extension.dart';
+import 'package:common_test_support/extension/widget_tester_extension.dart';
 import 'package:fitur_buat_laporan/domain/model/month.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -29,8 +30,17 @@ class DownloadMonthlyReportDialogRobot {
     await tester.pumpAndSettle();
 
 
-    final dropdownItemFinder = find.textCaseInsensitive(month.name).last;
-    await tester.ensureVisible(dropdownItemFinder);
+    final monthListContainer = find.byType(Scrollable).last;
+    final dropdownItemFinder = find.descendant(
+      of: monthListContainer,
+      matching: find.textCaseInsensitive(month.name, includeRichText: false),
+    );
+    // harus scroll up and down karena dropdown itemnya sifatnya lazy loading
+    await tester.scrollUpAndDownUntilVisible(
+      tester: tester,
+      scrollable: monthListContainer,
+      target: dropdownItemFinder,
+    );
     // INI WAJIB BANGET DI PUMP SETELAH ensureVisible, AKU BERHARI-HARI BETULIN INI
     await tester.pump();
 
@@ -52,22 +62,37 @@ class DownloadMonthlyReportDialogRobot {
     await tester.pump();
   }
 
+  Finder get _downloadCsvButtonFinder => find.widgetWithIcon(FilledButton, Icons.table_chart_outlined);
+  Finder get _downloadPdfButtonFinder => find.widgetWithIcon(FilledButton, Icons.picture_as_pdf_outlined);
+
   FilledButton get _downloadCsvButton =>
-      tester.widget<FilledButton>(find.widgetWithText(FilledButton, "CSV"));
+      tester.widget<FilledButton>(_downloadCsvButtonFinder);
   FilledButton get _downloadPdfButton =>
-      tester.widget<FilledButton>(find.widgetWithText(FilledButton, "PDF"));
+      tester.widget<FilledButton>(_downloadPdfButtonFinder);
 
   void expectDownloadPdfButtonEnabled() =>
-      expect(_downloadPdfButton, isNotNull);
+      expect(_downloadPdfButton.onPressed, isNotNull);
 
   void expectDownloadCsvButtonEnabled() =>
-      expect(_downloadCsvButton, isNotNull);
+      expect(_downloadCsvButton.onPressed, isNotNull);
 
   void expectDownloadPdfButtonDisabled() =>
-      expect(_downloadPdfButton, isNull);
+      expect(_downloadPdfButton.onPressed, isNull);
 
   void expectDownloadCSVButtonDisabled() =>
-      expect(_downloadCsvButton, isNull);
+      expect(_downloadCsvButton.onPressed, isNull);
+
+  void expectDownloadPdfButtonHasDownloadingIndicator() =>
+    expect(find.descendant(
+        of: _downloadPdfButtonFinder,
+        matching: find.byType(CircularProgressIndicator)), findsOneWidget);
+
+  void expectDownloadCsvButtonHasDownloadingIndicator() =>
+      expect(find.descendant(
+          of: _downloadCsvButtonFinder,
+          matching: find.byType(CircularProgressIndicator)), findsOneWidget);
+
+
 
 
 }

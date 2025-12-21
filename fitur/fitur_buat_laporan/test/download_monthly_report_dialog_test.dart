@@ -1,5 +1,7 @@
+import 'dart:async';
 import 'dart:typed_data';
 
+import 'package:common/domain/model/common_domain_error.dart';
 import 'package:common/domain/model/response_wrapper.dart';
 import 'package:common/domain/repository/i_token_manager.dart';
 import 'package:common_test_support/mock/mock_token_manager.dart';
@@ -42,6 +44,10 @@ void main() {
         mainHeaderText: any(named: 'mainHeaderText'))).thenAnswer((_) async =>
         Uint8List(0)
     );
+
+
+    // never complete to simulate loading process
+    final neverEndingReportingData = Completer<ResponseWrapper<List<DataLaporan>, CommonDomainError>>();
 
     when(() => mockReportingRepository
         .getMonthlyReport(
@@ -104,6 +110,8 @@ void main() {
               ]
           ),
         ]));
+    when(() => mockReportingRepository
+        .getMonthlyReport(year: 1999, month: 1)).thenAnswer((_) => neverEndingReportingData.future);
   });
 
   Future<void> setupDownloadMonthlyReportDialog(WidgetTester tester) async {
@@ -137,6 +145,20 @@ void main() {
       expect(find.text("Year is invalid"), findsOneWidget);
       robot.expectDownloadCsvButtonEnabled();
     });
+
+    testWidgets("When CSV downloading is in progress, "
+        "the download CSV button must be disabled and has downloading indicator", (tester) async {
+      final robot = DownloadMonthlyReportDialogRobot(tester);
+      await setupDownloadMonthlyReportDialog(tester);
+
+      // select specific month and year to trigger never ending fetch
+      await robot.changeMonth(Month.january);
+      await robot.changeYear("1999");
+      await robot.downloadCsv();
+
+      robot.expectDownloadCSVButtonDisabled();
+      robot.expectDownloadCsvButtonHasDownloadingIndicator();
+    });
   });
 
   group("User Download PDF", (){
@@ -168,6 +190,21 @@ void main() {
 
       expect(find.text("Year is invalid"), findsOneWidget);
       robot.expectDownloadPdfButtonEnabled();
+    });
+
+
+    testWidgets("When PDF downloading is in progress, "
+        "the download PDF button must be disabled and has downloading indicator", (tester) async {
+      final robot = DownloadMonthlyReportDialogRobot(tester);
+      await setupDownloadMonthlyReportDialog(tester);
+
+      // select specific month and year to trigger never ending fetch
+      await robot.changeMonth(Month.january);
+      await robot.changeYear("1999");
+      await robot.downloadPdf();
+
+      robot.expectDownloadPdfButtonDisabled();
+      robot.expectDownloadPdfButtonHasDownloadingIndicator();
     });
   });
 }

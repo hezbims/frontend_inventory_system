@@ -1,4 +1,5 @@
 import 'package:common/constant/themes/custom_sizing.dart';
+import 'package:common/domain/model/response_wrapper.dart';
 import 'package:common/presentation/textfield/custom_dropdown_menu.dart';
 import 'package:common/presentation/textfield/custom_textfield.dart';
 import 'package:dependencies/get_it.dart';
@@ -115,11 +116,18 @@ class DownloadMonthlyReportDialog extends StatelessWidget {
                                 backgroundColor: const Color(0xFF0C7E00),
                               ),
                               onPressed: provider.downloadCSV,
-                              child: const Row(
+                              child: Row(
                                 children: [
-                                  Icon(Icons.table_chart_outlined),
-                                  SizedBox(width: 8,),
-                                  Text("CSV")
+                                  const Icon(Icons.table_chart_outlined),
+                                  const SizedBox(width: 8,),
+                                  if (provider.downloadCSVProgress is ResponseLoading)
+                                    const SizedBox(
+                                        width: 12,
+                                        height: 12,
+                                        child: CircularProgressIndicator(strokeWidth: 0.5,)
+                                    )
+                                  else
+                                    const Text("CSV")
                                 ],
                               )
                             ),
@@ -136,11 +144,18 @@ class DownloadMonthlyReportDialog extends StatelessWidget {
                                 backgroundColor: const Color(0xFFAE0000),
                               ),
                               onPressed: provider.downloadPdf,
-                              child: const Row(
+                              child: Row(
                                 children: [
-                                  Icon(Icons.picture_as_pdf_outlined),
-                                  SizedBox(width: 8,),
-                                  Text("PDF")
+                                  const Icon(Icons.picture_as_pdf_outlined),
+                                  const SizedBox(width: 8,),
+                                  if (provider.downloadPdfDataProgress is ResponseLoading)
+                                    const SizedBox(
+                                      width: 12,
+                                      height: 12,
+                                      child: CircularProgressIndicator(strokeWidth: 0.5,)
+                                    )
+                                  else
+                                    const Text("PDF"),
                                 ],
                               ),
                             ),
