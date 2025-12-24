@@ -4,7 +4,7 @@ import 'package:common/presentation/textfield/style/border/custom_focused_border
 import 'package:flutter/material.dart';
 
 class CustomInputDecorationTheme extends InputDecorationTheme {
-  CustomInputDecorationTheme() : super(
+  CustomInputDecorationTheme({super.key}) : super(
     focusedBorder: CustomFocusedBorder(),
     enabledBorder: CustomEnabledBorder(),
     errorBorder: CustomErrorBorder(),

@@ -19,7 +19,7 @@ class PilihTipeField extends StatelessWidget {
           'Tipe'
         ),
         DropdownButtonFormField<String>(
-          value: provider.tipePengaju,
+          initialValue: provider.tipePengaju,
           items: provider.listTipePengaju.map(
             (tipePengaju) =>
               DropdownMenuItem(

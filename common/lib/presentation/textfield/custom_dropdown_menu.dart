@@ -37,7 +37,7 @@ class CustomDropdownMenu<T> extends StatelessWidget {
             errorText: errorText
           ),
           onChanged: onValueChange,
-          value: value,
+          initialValue: value,
         ),
       ],
     );
