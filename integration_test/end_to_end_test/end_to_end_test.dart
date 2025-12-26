@@ -35,7 +35,7 @@ void main() {
     setupMainDependencyInjection();
     await prepareDatabase();
 
-    await tester.pumpWidget(const MyApp());
+    await tester.pumpWidget(MyApp());
     final loginPage = LoginPage(tester: tester);
 
     await loginPage.submitPasswordAndUsername(username: 'admin' , password: '123');

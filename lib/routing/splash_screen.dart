@@ -8,6 +8,7 @@ import 'package:dependencies/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:inventory_system/routing/splash_screen_provider.dart';
 
+/// Display loading while fetching User data
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 

@@ -23,7 +23,7 @@ class _LihatPengajuanScreenState extends State<LihatPengajuanScreen> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => GetIt.I.get<LihatPengajuanProvider>(),
+          create: (context) => LihatPengajuanProvider(),
         ),
 
         ChangeNotifierProvider(

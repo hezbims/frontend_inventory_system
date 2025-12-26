@@ -8,8 +8,8 @@ class MyRouteStateProvider extends ChangeNotifier {
   UserFetchResponse _currentUser = UserFetchLoading();
   UserFetchResponse get currentUser => _currentUser;
 
-  MyRouteState _currentState = RouteLihatStockBarangState();
-  MyRouteState get currentState => _currentState;
+  MyRouteState _currentRouteState = RouteLihatStockBarangState();
+  MyRouteState get currentState => _currentRouteState;
 
   void setStateUnauthenticated({
     required MyRouteState? nextRouteState
@@ -19,20 +19,17 @@ class MyRouteStateProvider extends ChangeNotifier {
     }
     _currentUser = UserFetchFailed();
     if (nextRouteState != null){
-      _currentState = nextRouteState;
+      _currentRouteState = nextRouteState;
     }
     notifyListeners();
   }
-  void onLogin(User user){
-    if (!GetIt.I.isRegistered<User>()) {
-      GetIt.I.registerSingleton(user);
-    }
+  void onLogin(User user) async {
     _currentUser = UserFetchSuccess(user: user);
     notifyListeners();
   }
 
   void setRouteState(MyRouteState newRouteState , {bool notifyListener = true}){
-    _currentState = newRouteState;
+    _currentRouteState = newRouteState;
     if (notifyListener) {
       notifyListeners();
     }

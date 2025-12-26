@@ -3,6 +3,7 @@ import 'package:common/domain/model/user.dart';
 import 'package:common/data/api_request_proccessor/api_request_proccessor.dart';
 import 'package:common/domain/repository/i_token_manager.dart';
 import 'package:common/response/api_response.dart';
+import 'package:dependencies/get_it.dart';
 import 'package:fitur_auth_guard/data/api_client/login_api_client.dart';
 import 'package:fitur_auth_guard/domain/model/post_login_dto.dart';
 import 'package:fitur_auth_guard/domain/repository/i_login_repository.dart';
@@ -25,6 +26,10 @@ class LoginRepositoryImpl implements ILoginRepository {
     );
 
     if (response is ApiResponseSuccess<User>){
+      if (GetIt.I.isRegistered<User>()) GetIt.I.unregister<User>();
+
+      GetIt.I.registerSingleton(response.data!);
+
       await _tokenManager.setToken(response.data!.token);
     }
     return response;

@@ -8,6 +8,7 @@ import 'package:common/domain/model/pengaju.dart';
 import 'package:common/domain/model/response_wrapper.dart';
 import 'package:common/presentation/pagination/page_event.dart';
 import 'package:common/utils/disposable_change_notifier.dart';
+import 'package:dependencies/get_it.dart';
 import 'package:fitur_lihat_pengajuan/domain/repository/i_notification_repository.dart';
 import 'package:fitur_lihat_pengajuan/presentation/model/transaction_page_item.dart';
 
@@ -27,10 +28,10 @@ class LihatPengajuanProvider extends DisposableChangeNotifier {
   final _debouncer = MyLatestQueueDebouncerHelper();
 
   LihatPengajuanProvider({
-    required ITransactionRepository transactionRepo,
-    required INotificationRepository notifRepo,
-  }) :  _notifRepo = notifRepo,
-        _transactionRepo = transactionRepo {
+    ITransactionRepository? transactionRepo,
+    INotificationRepository? notifRepo,
+  }) :  _notifRepo = notifRepo ?? GetIt.I.get(),
+        _transactionRepo = transactionRepo ?? GetIt.I.get() {
     _notifSubscription = _notifRepo.getSseTransaction().listen((transactionsVersion){
       if (_currentServerPengajuanDataVersion == transactionsVersion){
         return;

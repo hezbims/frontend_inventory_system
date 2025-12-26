@@ -10,11 +10,16 @@ import 'package:inventory_system/theme/custom_theme_data.dart';
 void main() async {
   await dotenv.load(fileName: "env_file");
   setupMainDependencyInjection();
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+  final MyRouteStateProvider routeStateProvider;
+
+  MyApp({
+    super.key,
+    final MyRouteStateProvider? routeStateProvider,
+  }) : routeStateProvider = routeStateProvider ?? MyRouteStateProvider();
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -28,7 +33,7 @@ class _MyAppState extends State<MyApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => MyRouteStateProvider()
+          create: (context) => widget.routeStateProvider,
         ),
         ChangeNotifierProvider(
           create: (context) => RefreshNotifier()

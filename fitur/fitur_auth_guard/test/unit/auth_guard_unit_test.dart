@@ -20,7 +20,7 @@ void main(){
       fiturAuthGuardDi();
       tester.pumpWidget(
         MaterialApp(
-          home: const LoginScreen(),
+          home: LoginScreen(),
         ),
       );
 

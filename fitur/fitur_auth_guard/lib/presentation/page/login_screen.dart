@@ -9,20 +9,24 @@ import 'package:common/response/api_response.dart';
 import 'package:common/routing/my_route_state_provider.dart';
 import 'package:dependencies/get_it.dart';
 import 'package:dependencies/provider.dart';
+import 'package:fitur_auth_guard/domain/repository/i_login_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:fitur_auth_guard/presentation/provider/login_provider.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({
+  final ILoginRepository _repository;
+
+  LoginScreen({
     super.key,
-  });
+    ILoginRepository? repository,
+  }) : _repository = repository ?? GetIt.I.get();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
         child: ChangeNotifierProvider(
-          create: (context) => GetIt.I.get<LoginProvider>(),
+          create: (context) => LoginProvider(repository: _repository),
           child: Consumer<LoginProvider>(
             builder: (context , provider , child) {
               final loginResponse = provider.loginResponse;

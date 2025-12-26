@@ -15,6 +15,10 @@ dependencies:
     path: ../../dependencies
   common:
     path: ../../common
+  common_test_support:
+    path: ../../common/test_support
+  auth_test_support:
+    path: test_support
   # path: ^1.8.0
 
 dev_dependencies:
