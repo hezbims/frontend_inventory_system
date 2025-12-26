@@ -12,7 +12,6 @@ import 'package:common/response/api_response.dart';
 import 'package:common/routing/my_route_state.dart';
 import 'package:common/routing/my_route_state_provider.dart';
 import 'package:common_test_support/mock/mock_token_manager.dart';
-import 'package:common_test_support/mock/mock_transaction_repository.dart';
 import 'package:dependencies/get_it.dart';
 import 'package:fitur_auth_guard/domain/model/post_login_dto.dart';
 import 'package:fitur_auth_guard/domain/repository/i_login_repository.dart';
@@ -22,8 +21,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:dependencies_test_support/mocktail.dart';
 import 'package:inventory_system/main.dart';
+import 'package:transaction_test_support/mock/mock_notification_repository.dart';
+import 'package:transaction_test_support/mock/mock_transaction_repository.dart';
 
-import '../common/mock/mock_notification_repository.dart';
 import '../common/mock/mock_user_repository.dart';
 import '../fallback_value/register_my_app_fallback_values.dart';
 
