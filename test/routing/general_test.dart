@@ -1,13 +1,12 @@
 import 'dart:io';
 
 import 'package:auth_test_support/mock/mock_auth_repository.dart';
+import 'package:auth_test_support/robot/login_screen_robot.dart';
 import 'package:common/domain/feature/transaction/repository/i_transaction_repository.dart';
 import 'package:common/domain/model/response_wrapper.dart';
 import 'package:common/domain/model/user.dart';
 import 'package:common/domain/repository/i_token_manager.dart';
 import 'package:common/domain/repository/i_user_repository.dart';
-import 'package:common/presentation/textfield/custom_textfield.dart';
-import 'package:common/presentation/textfield/password_textfield.dart';
 import 'package:common/response/api_response.dart';
 import 'package:common/routing/my_route_state.dart';
 import 'package:common/routing/my_route_state_provider.dart';
@@ -38,6 +37,7 @@ void main(){
 
     registerMyAppFallbackValues();
 
+    final loginScreenRobot = LoginScreenRobot(tester);
     final mockAuthRepository = MockAuthRepository();
     final mockTokenManager = MockTokenManager();
     final mockUserRepository = MockUserRepository();
@@ -84,16 +84,8 @@ void main(){
     await tester.pumpAndSettle();
     expect(find.byType(LihatPengajuanScreen), findsNothing);
 
-    final usernameTextField = find.descendant(
-        of: find.widgetWithText(CustomTextfield, 'Username'),
-        matching: find.byType(TextField));
-    final passwordTextField = find.descendant(
-        of: find.widgetWithText(PasswordTextfield, 'Password'),
-        matching: find.byType(TextField));
-
-    await tester.enterText(usernameTextField, 'my_admin');
-    await tester.enterText(passwordTextField, 'strong_Password_123');
-    await tester.tap(find.text('Submit'));
+    await loginScreenRobot.loginWith(
+        username: 'my_admin', password: 'strong_Password_123');
 
     await tester.pumpAndSettle();
 
