@@ -7,9 +7,12 @@ import 'package:inventory_system/dependency_injection/setup_main_dependency_inje
 import 'package:inventory_system/routing/my_router_delegate.dart';
 import 'package:inventory_system/theme/custom_theme_data.dart';
 
-void main() async {
-  await dotenv.load(fileName: "env_file");
-  setupMainDependencyInjection();
+Future<void> main({
+  bool loadEnv = true,
+  bool useMainDependencyInjection = true,
+}) async {
+  if (loadEnv) await dotenv.load(fileName: "env_file");
+  if (useMainDependencyInjection) setupMainDependencyInjection();
   runApp(MyApp());
 }
 
