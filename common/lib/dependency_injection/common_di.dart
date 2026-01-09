@@ -16,6 +16,7 @@ import 'package:common/domain/service/i_time_service.dart';
 import 'package:common/presentation/dialog/kategori_dialog/kategori_dialog_provider.dart';
 import 'package:common/presentation/page/pilih_kategori/pilih_kategori_provider.dart';
 import 'package:dependencies/get_it.dart';
+import 'package:dependencies/http.dart';
 
 void commonDi(){
   GetIt.I.registerSingleton(InventorySystemHttpClient());
@@ -46,4 +47,6 @@ void commonDi(){
   GetIt.I.registerSingleton<IEnvironmentProvider>(EnvironmentProvider());
 
   GetIt.I.registerSingleton<ITimeService>(TimeService());
+
+  GetIt.I.registerSingleton(Client());
 }
