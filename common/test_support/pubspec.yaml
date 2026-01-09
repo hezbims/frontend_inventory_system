@@ -17,6 +17,8 @@ dependencies:
     path: ..
   flutter_test:
     sdk: flutter
+  dependencies:
+    path: ../../dependencies
 
 dev_dependencies:
   lints: ^3.0.0
