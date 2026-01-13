@@ -1,0 +1,1114 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Inventory System API Specification",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/barang": {
+      "get": {
+        "tags": [
+          "Barang"
+        ],
+        "parameters": [
+          {
+            "name": "SearchKeyword",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "IdKategori",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BarangDtoPaginatedResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BarangDtoPaginatedResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BarangDtoPaginatedResult"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      }
+    },
+    "/api/barang/all": {
+      "get": {
+        "tags": [
+          "Barang"
+        ],
+        "parameters": [
+          {
+            "name": "id_kategori",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "keyword",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      }
+    },
+    "/api/pengajuan/delete/{idPengajuan}": {
+      "delete": {
+        "tags": [
+          "DeletePengajuan"
+        ],
+        "parameters": [
+          {
+            "name": "idPengajuan",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      }
+    },
+    "/api/kategori/all": {
+      "get": {
+        "tags": [
+          "GetAllKategori"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      }
+    },
+    "/api/get-current-user": {
+      "get": {
+        "tags": [
+          "GetCurrentUser"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCurrentUserSucceedResponse"
+                },
+                "example": {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW4iLCJleHAiOjE3NjgyNzE0MDEsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTE1NCIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCJ9.H46pIQejekT9s-GuXsEauIqGjK2zu2vitYyWAhLRu8Y","user":{"id":1,"username":"admin","is_admin":true}}
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCurrentUserSucceedResponse"
+                },
+                "example": {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW4iLCJleHAiOjE3NjgyNzE0MDEsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTE1NCIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCJ9.H46pIQejekT9s-GuXsEauIqGjK2zu2vitYyWAhLRu8Y","user":{"id":1,"username":"admin","is_admin":true}}
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCurrentUserSucceedResponse"
+                },
+                "example": {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW4iLCJleHAiOjE3NjgyNzE0MDEsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTE1NCIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCJ9.H46pIQejekT9s-GuXsEauIqGjK2zu2vitYyWAhLRu8Y","user":{"id":1,"username":"admin","is_admin":true}}
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      }
+    },
+    "/api/barang/detail/{barangId}": {
+      "get": {
+        "tags": [
+          "GetDetailBarang"
+        ],
+        "parameters": [
+          {
+            "name": "barangId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      }
+    },
+    "/api/pengajuan/get/{idPengajuan}": {
+      "get": {
+        "tags": [
+          "GetDetailPengajuan"
+        ],
+        "parameters": [
+          {
+            "name": "idPengajuan",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      }
+    },
+    "/api/kategori/laporan": {
+      "get": {
+        "tags": [
+          "GetLaporan"
+        ],
+        "parameters": [
+          {
+            "name": "month",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "year",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      }
+    },
+    "/api/pengaju/get": {
+      "get": {
+        "tags": [
+          "GetPengaju"
+        ],
+        "parameters": [
+          {
+            "name": "is_pemasok",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      }
+    },
+    "/api/pengajuan/get": {
+      "get": {
+        "tags": [
+          "GetPengajuanPaginated"
+        ],
+        "parameters": [
+          {
+            "name": "id_pengaju",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "keyword",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      }
+    },
+    "/api/barang/csv-template-download": {
+      "get": {
+        "tags": [
+          "GetTemplateBarangCsv"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      }
+    },
+    "/api/login": {
+      "post": {
+        "tags": [
+          "Login"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Login Sukses",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginSucceedResponse"
+                },
+                "example": {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW4iLCJleHAiOjE3NjgyNzE0MDEsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTE1NCIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCJ9.H46pIQejekT9s-GuXsEauIqGjK2zu2vitYyWAhLRu8Y","user":{"id":1,"username":"admin","is_admin":true},"message":"Sukses"}
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginSucceedResponse"
+                },
+                "example": {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW4iLCJleHAiOjE3NjgyNzE0MDEsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTE1NCIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCJ9.H46pIQejekT9s-GuXsEauIqGjK2zu2vitYyWAhLRu8Y","user":{"id":1,"username":"admin","is_admin":true},"message":"Sukses"}
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginSucceedResponse"
+                },
+                "example": {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW4iLCJleHAiOjE3NjgyNzE0MDEsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTE1NCIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCJ9.H46pIQejekT9s-GuXsEauIqGjK2zu2vitYyWAhLRu8Y","user":{"id":1,"username":"admin","is_admin":true},"message":"Sukses"}
+              }
+            }
+          },
+          "400": {
+            "description": "Login gagal",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginFailedResponse"
+                },
+                "example": {"message":"Username atau password salah"}
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginFailedResponse"
+                },
+                "example": {"message":"Username atau password salah"}
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginFailedResponse"
+                },
+                "example": {"message":"Username atau password salah"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/pengajuan": {
+      "get": {
+        "tags": [
+          "Pengajuan"
+        ],
+        "parameters": [
+          {
+            "name": "SearchKeyword",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "LastId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "LastDate",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "IdPengaju",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      }
+    },
+    "/api/pengajuan/event": {
+      "get": {
+        "tags": [
+          "Pengajuan"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      }
+    },
+    "/ws/pengajuan/event": {
+      "get": {
+        "tags": [
+          "PengajuanEventWebsocket"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      }
+    },
+    "/api/barang/submit-csv": {
+      "post": {
+        "tags": [
+          "PostBarangByCsv"
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "csv",
+                  "overwrite_by_kode_barang"
+                ],
+                "type": "object",
+                "properties": {
+                  "csv": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "overwrite_by_kode_barang": {
+                    "type": "boolean"
+                  }
+                }
+              },
+              "encoding": {
+                "csv": {
+                  "style": "form"
+                },
+                "overwrite_by_kode_barang": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      }
+    },
+    "/api/barang/add": {
+      "post": {
+        "tags": [
+          "PostFormBarang"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostBarangDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostBarangDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostBarangDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      }
+    },
+    "/api/kategori/add": {
+      "post": {
+        "tags": [
+          "PostNewKategori"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostKategoriDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostKategoriDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostKategoriDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      }
+    },
+    "/api/pengaju/add": {
+      "post": {
+        "tags": [
+          "PostPengaju"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostNewPengajuDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostNewPengajuDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostNewPengajuDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      }
+    },
+    "/api/pengajuan/add": {
+      "post": {
+        "tags": [
+          "PostPengajuan"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubmitPengajuanBody"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubmitPengajuanBody"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubmitPengajuanBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      }
+    },
+    "/api/register": {
+      "post": {
+        "tags": [
+          "RegisterNewUser"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterRequestBody"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterRequestBody"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterRequestBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BarangAjuanBody": {
+        "type": "object",
+        "properties": {
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "keterangan": {
+            "type": "string",
+            "nullable": true
+          },
+          "id_barang": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "BarangDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "kode_barang": {
+            "type": "string"
+          },
+          "nama": {
+            "type": "string"
+          },
+          "kategori": {
+            "$ref": "#/components/schemas/KategoriDto"
+          },
+          "min_stock": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nomor_rak": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nomor_laci": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nomor_kolom": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "stock_sekarang": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "last_month_stock": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "unit_price": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "uom": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "BarangDtoLinkInfo": {
+        "type": "object",
+        "properties": {
+          "next": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "current_page": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "next_page": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "prev_page": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "total_page": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "BarangDtoPaginatedResult": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BarangDto"
+            }
+          },
+          "links": {
+            "$ref": "#/components/schemas/BarangDtoLinkInfo"
+          }
+        },
+        "additionalProperties": false
+      },
+      "GetCurrentUserSucceedResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string"
+          },
+          "user": {
+            "$ref": "#/components/schemas/GetUserDto"
+          }
+        },
+        "additionalProperties": false
+      },
+      "GetUserDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "username": {
+            "type": "string"
+          },
+          "is_admin": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "KategoriDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nama": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "LoginFailedResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "LoginRequest": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "LoginSucceedResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string"
+          },
+          "user": {
+            "$ref": "#/components/schemas/GetUserDto"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PostBarangDto": {
+        "required": [
+          "kategori_id",
+          "kode_barang",
+          "last_month_stock",
+          "min_stock",
+          "nama",
+          "nomor_kolom",
+          "nomor_laci",
+          "nomor_rak",
+          "stock_sekarang",
+          "unit_price",
+          "uom"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "nama": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "kode_barang": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "nomor_rak": {
+            "maximum": 6,
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          },
+          "nomor_laci": {
+            "maximum": 30,
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          },
+          "nomor_kolom": {
+            "maximum": 9,
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          },
+          "stock_sekarang": {
+            "maximum": 2147483647,
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          },
+          "last_month_stock": {
+            "maximum": 2147483647,
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          },
+          "min_stock": {
+            "maximum": 2147483647,
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          },
+          "unit_price": {
+            "maximum": 2147483647,
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          },
+          "uom": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "kategori_id": {
+            "maximum": 2147483647,
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PostKategoriDto": {
+        "required": [
+          "nama"
+        ],
+        "type": "object",
+        "properties": {
+          "nama": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PostNewPengajuDto": {
+        "required": [
+          "is_pemasok",
+          "nama"
+        ],
+        "type": "object",
+        "properties": {
+          "is_pemasok": {
+            "type": "boolean"
+          },
+          "nama": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "RegisterRequestBody": {
+        "required": [
+          "is_admin"
+        ],
+        "type": "object",
+        "properties": {
+          "username": {
+            "maxLength": 16,
+            "minLength": 3,
+            "type": "string"
+          },
+          "password": {
+            "maxLength": 16,
+            "minLength": 3,
+            "type": "string"
+          },
+          "is_admin": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SubmitPengajuanBody": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "id_pengaju": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "list_barang_ajuan": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BarangAjuanBody"
+            },
+            "nullable": true
+          },
+          "status_pengajuan": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "description": "Masukkan token",
+        "scheme": "Bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

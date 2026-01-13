@@ -1,4 +1,5 @@
 import 'package:common/data/repository/user_repository_impl.dart';
+import 'package:common/domain/repository/i_user_repository.dart';
 import 'package:dependencies/get_it.dart';
 import 'package:fitur_auth_guard/data/api_client/login_api_client.dart';
 import 'package:fitur_auth_guard/data/repository/login_repository_impl.dart';
@@ -18,6 +19,8 @@ void fiturAuthGuardDi(){
   GetIt.I.registerFactory(() =>
       AuthGuardProvider(repository: UserRepositoryImpl())
   );
+
+  GetIt.I.registerFactory<IUserRepository>(() => UserRepositoryImpl());
 
   GetIt.I.registerFactory(() => LoginProvider(repository: GetIt.I.get()),);
 }
