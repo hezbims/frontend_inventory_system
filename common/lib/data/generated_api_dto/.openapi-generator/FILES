@@ -1,0 +1,17 @@
+api.dart
+api_helper.dart
+model/barang_ajuan_body.dart
+model/barang_dto.dart
+model/barang_dto_link_info.dart
+model/barang_dto_paginated_result.dart
+model/get_current_user_succeed_response.dart
+model/get_user_dto.dart
+model/kategori_dto.dart
+model/login_failed_response.dart
+model/login_request.dart
+model/login_succeed_response.dart
+model/post_barang_dto.dart
+model/post_kategori_dto.dart
+model/post_new_pengaju_dto.dart
+model/register_request_body.dart
+model/submit_pengajuan_body.dart
