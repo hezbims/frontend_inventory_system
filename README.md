@@ -3,13 +3,20 @@ Inventory Management System created using Flutter Web. The backend code can be s
 
 ## Backend Integration 
 - Add `env_file` in root project. The example is on `env_file.example`.
-- install the OpenAPI Spec model generator :
-  ```
+- Copy the `swagger.json` from backend endpoint (`http://localhost:5154/swagger/v1/swagger.json`), to folder `api_spec`.
+- Install Node `v22.11.0`
+- Install the OpenAPI Spec model generator :
+  ```sh
   sudo npm i -g  @openapitools/openapi-generator-cli@2.25.2
   ```
+- Run this command to  re-generate the API Models from OpenAPI Spec :
+  ```sh
+  npm run gen
+  ``` 
+  the model will be generated in folder `common/lib/data/generated_api_dto`
 
 ## Running App
-1. Install <b>[fvm](https://fvm.app/)</b> first.
+1. Install <b>[fvm](https://fvm.app/)</b> `v4.0.5`.
 2. Run this two command to fetch the dependencies from pubspec :
    ```sh
    fvm dart pub global activate melos --version 4.0.5

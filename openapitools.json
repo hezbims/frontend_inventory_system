@@ -1,7 +1,22 @@
 {
-  "$schema": "./node_modules/@openapitools/openapi-generator-cli/config.schema.json",
   "spaces": 2,
   "generator-cli": {
-    "version": "7.18.0"
+    "version": "7.18.0",
+    "generators": {
+      "dart-api-models": {
+        "generatorName": "dart",
+        "inputSpec": "api_spec/swagger.json",
+        "output": "#{cwd}/common/lib/data/generated_api_dto",
+        "templateDir": "openapi_generator/templates",
+        "config": "openapi_generator/config/config.yaml",
+        "globalProperty": {
+          "models": "",
+          "apiDocs": "false",
+          "modelDocs": "false",
+          "modelTests": "false",
+          "supportingFiles": "api.dart:api_helper.dart"
+        }
+      }
+    }
   }
 }

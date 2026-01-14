@@ -1,0 +1,7 @@
+{
+  "scripts": {
+    "gen:clean": "rm -rf common/lib/data/generated_api_dto",
+    "gen:dart": "openapi-generator-cli generate",
+    "gen": "npm run gen:clean && npm run gen:dart"
+  }
+}
