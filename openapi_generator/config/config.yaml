@@ -1,0 +1,18 @@
+
+files:
+  AUTHORS.md: {}
+
+  model.mustache:
+    templateType: Model
+    folder: ./model
+    destinationFilename: .dart
+
+  apilib.mustache:
+    templateType: SupportingFiles
+    folder: .
+    destinationFilename: api.dart
+
+  api_helper.mustache:
+    templateType: SupportingFiles
+    folder: .
+    destinationFilename: api_helper.dart
