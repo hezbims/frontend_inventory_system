@@ -15,6 +15,8 @@ import 'package:common/domain/service/i_environment_provider.dart';
 import 'package:common/domain/service/i_time_service.dart';
 import 'package:common/presentation/dialog/kategori_dialog/kategori_dialog_provider.dart';
 import 'package:common/presentation/page/pilih_kategori/pilih_kategori_provider.dart';
+import 'package:common/presentation/toast/i_my_toast.dart';
+import 'package:common/presentation/toast/my_toast.dart';
 import 'package:dependencies/get_it.dart';
 import 'package:dependencies/http.dart';
 
@@ -49,4 +51,6 @@ void commonDi(){
   GetIt.I.registerSingleton<ITimeService>(TimeService());
 
   GetIt.I.registerSingleton(Client());
+
+  GetIt.I.registerSingleton<IMyToast>(MyToast());
 }
