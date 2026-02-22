@@ -4,6 +4,7 @@ import 'package:common/domain/model/user.dart';
 import 'package:common/presentation/api_loader/default_error_widget.dart';
 import 'package:common/response/api_response.dart';
 import 'package:common/routing/my_route_state_provider.dart';
+import 'package:dependencies/get_it.dart';
 import 'package:dependencies/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:inventory_system/routing/splash_screen_provider.dart';
@@ -44,10 +45,10 @@ class SplashScreen extends StatelessWidget {
 
                     }
                   } else {
+                    final user = (data as ApiResponseSuccess<User>).data!;
+                    GetIt.I.registerSingleton(user);
                     WidgetsBinding.instance.addPostFrameCallback((_) {
-                      routeStateProvider.onLogin(
-                          (data as ApiResponseSuccess<User>).data!
-                      );
+                      routeStateProvider.setAuthenticatedUser(user);
                     });
                   }
                 }

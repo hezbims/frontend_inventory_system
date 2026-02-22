@@ -23,7 +23,7 @@ class MyRouteStateProvider extends ChangeNotifier {
     }
     notifyListeners();
   }
-  void onLogin(User user) async {
+  void setAuthenticatedUser(User user) async {
     _currentUser = UserFetchSuccess(user: user);
     notifyListeners();
   }
