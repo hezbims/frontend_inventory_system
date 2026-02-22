@@ -28,7 +28,7 @@ class SettingAkunScreen extends StatelessWidget {
             WidgetsBinding.instance.addPostFrameCallback(
               (timeStamp) {
                 routeStateProvider.setStateUnauthenticated(
-                  nextRouteState: RouteLihatStockBarangState()
+                  afterLoginSucceedRouteState: RouteLihatStockBarangState()
                 );
               }
             );

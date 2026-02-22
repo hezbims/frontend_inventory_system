@@ -39,7 +39,7 @@ class SplashScreen extends StatelessWidget {
                       assert(data.statusCode == HttpStatus.unauthorized);
                       WidgetsBinding.instance.addPostFrameCallback((_) {
                         routeStateProvider.setStateUnauthenticated(
-                          nextRouteState: null
+                          afterLoginSucceedRouteState: null
                         );
                       });
 

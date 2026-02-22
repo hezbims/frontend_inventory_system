@@ -1,7 +1,6 @@
 import 'package:common/domain/model/user.dart';
 import 'package:common/routing/my_route_state.dart';
 import 'package:common/routing/user_fetch_state.dart';
-import 'package:dependencies/get_it.dart';
 import 'package:flutter/material.dart';
 
 class MyRouteStateProvider extends ChangeNotifier {
@@ -11,16 +10,19 @@ class MyRouteStateProvider extends ChangeNotifier {
   MyRouteState _currentRouteState = RouteLihatStockBarangState();
   MyRouteState get currentState => _currentRouteState;
 
+  /// This method will set [_currentUser] as unatuthenticated, so the user will be moved to login page.
+  /// Beware that [_currentUser] is unrelated to the currentUser in repository.
+  ///
+  /// Whenever login succeed, user will be moved based on [afterLoginSucceedRouteState].
+  ///
+  /// If you don't provide [afterLoginRouteState], you will be moved to default home in
+  /// Product Stock List Screen
   void setStateUnauthenticated({
-    required MyRouteState? nextRouteState
+    MyRouteState? afterLoginSucceedRouteState
   }){
-    if (GetIt.I.isRegistered<User>()) {
-      GetIt.I.unregister<User>();
-    }
     _currentUser = UserFetchFailed();
-    if (nextRouteState != null){
-      _currentRouteState = nextRouteState;
-    }
+    _currentRouteState = afterLoginSucceedRouteState ?? RouteLihatStockBarangState();
+
     notifyListeners();
   }
   void setAuthenticatedUser(User user) async {
